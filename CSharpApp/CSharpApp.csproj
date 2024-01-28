@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A492C349-C39A-48A7-9BF0-F64AAFBE17F7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>StockApp</RootNamespace>
+    <RootNamespace>CSharpApp</RootNamespace>
     <AssemblyName>CSharpApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -66,6 +66,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingParameter.cs" />
     <Compile Include="Tool.cs" />
+    <Compile Include="F_TransformFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_TransformFile.Designer.cs">
+      <DependentUpon>F_TransformFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserCtrl_Coordinate_MirrorXY.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserCtrl_Coordinate_MirrorXY.Designer.cs">
+      <DependentUpon>UserCtrl_Coordinate_MirrorXY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserCtrl_Coordinate_Transform.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserCtrl_Coordinate_Transform.Designer.cs">
+      <DependentUpon>UserCtrl_Coordinate_Transform.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="F_LogIn.resx">
       <DependentUpon>F_LogIn.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,7 +98,14 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="F_TransformFile.resx">
+      <DependentUpon>F_TransformFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserCtrl_Coordinate_Transform.resx">
+      <DependentUpon>UserCtrl_Coordinate_Transform.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

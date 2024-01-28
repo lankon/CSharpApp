@@ -7,8 +7,8 @@ using System.IO;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.Windows.Forms;
-
-
+using System.Reflection;
+using System.Diagnostics;
 
 namespace CSharpApp
 {
@@ -164,7 +164,15 @@ namespace CSharpApp
 
         #endregion
 
+        public String GetCurrentFunc()
+        {
+            StackTrace stackTrace = new StackTrace();
+            StackFrame frame = stackTrace.GetFrame(1); // 使用 1 表示获取调用者的信息
+            MethodBase method = frame.GetMethod();
 
+            // 返回调用者的方法名称
+            return method.Name;
+        }
 
 
     }
