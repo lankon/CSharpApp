@@ -71,7 +71,7 @@ namespace CSharpApp
             this.groupBox1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.groupBox1.Location = new System.Drawing.Point(42, 114);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(617, 256);
+            this.groupBox1.Size = new System.Drawing.Size(617, 259);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Name Modify";
@@ -82,7 +82,7 @@ namespace CSharpApp
             this.TabCtrl_Function.Location = new System.Drawing.Point(6, 77);
             this.TabCtrl_Function.Name = "TabCtrl_Function";
             this.TabCtrl_Function.SelectedIndex = 0;
-            this.TabCtrl_Function.Size = new System.Drawing.Size(318, 130);
+            this.TabCtrl_Function.Size = new System.Drawing.Size(318, 131);
             this.TabCtrl_Function.TabIndex = 17;
             // 
             // TabPg_Final
@@ -93,7 +93,7 @@ namespace CSharpApp
             this.TabPg_Final.Controls.Add(this.label3);
             this.TabPg_Final.Location = new System.Drawing.Point(4, 29);
             this.TabPg_Final.Name = "TabPg_Final";
-            this.TabPg_Final.Size = new System.Drawing.Size(310, 97);
+            this.TabPg_Final.Size = new System.Drawing.Size(310, 98);
             this.TabPg_Final.TabIndex = 0;
             this.TabPg_Final.Text = "Final";
             this.TabPg_Final.UseVisualStyleBackColor = true;

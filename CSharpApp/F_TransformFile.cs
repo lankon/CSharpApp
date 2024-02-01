@@ -16,7 +16,12 @@ namespace CSharpApp
     public partial class F_TransformFile : Form
     {
         Tool tool = new Tool();
-        
+
+        F_Insert_Text_to_File_Name fInsert_Text_to_File_Name = new F_Insert_Text_to_File_Name();
+        UserCtrl_Coordinate_Transform F_Coordinate_Transform = new UserCtrl_Coordinate_Transform();
+        UserCtrl_Coordinate_MirrorXY F_Coordinate_MirrorXY = new UserCtrl_Coordinate_MirrorXY();
+        string sNewName;
+
         public F_TransformFile()
         {
             InitializeComponent();
@@ -144,7 +149,6 @@ namespace CSharpApp
                 tool.SaveHistoryToFile("指定的資料夾不存在");
             }
         }
-
         public string Preview_Coordinate_Transform(string FileName, int ShiftX, int ShiftY)
         {
             string newFileName = "error";
@@ -169,52 +173,45 @@ namespace CSharpApp
                 tool.SaveHistoryToFile("未找到匹配座標,錯誤檔案名稱:" + newFileName);
             }
 
+            return newFileName;            
+        }
+
+        public string Preview_Coordinate_MirrorXY(string FileName, bool IsMirrorX, bool IsMirrorY)
+        {
+            string newFileName = "error";
+
+            // 使用正則表達式提取數字
+            Match xMatch = Regex.Match(FileName, @"X(-?\d+(\.\d+)?)");
+            Match yMatch = Regex.Match(FileName, @"Y(-?\d+(\.\d+)?)");
+
+            if (xMatch.Success && yMatch.Success)
+            {
+                string xValue = xMatch.Groups[1].Value;
+                string yValue = yMatch.Groups[1].Value;
+
+                xValue = (Int32.Parse(xValue) * -1).ToString();
+                yValue = (Int32.Parse(yValue) * -1).ToString();
+
+                if (IsMirrorX && !IsMirrorY)
+                {
+                    newFileName = Regex.Replace(FileName, @"X(-?\d+(\.\d+)?)", "X" + xValue);
+                }
+                else if (!IsMirrorX && IsMirrorY)
+                {
+                    newFileName = Regex.Replace(FileName, @"Y(-?\d+(\.\d+)?)", "Y" + yValue);
+                }
+                else
+                {
+                    newFileName = Regex.Replace(FileName, @"X(-?\d+(\.\d+)?)", "X" + xValue);
+                    newFileName = Regex.Replace(newFileName, @"Y(-?\d+(\.\d+)?)", "Y" + yValue);
+                }
+            }
+            else
+            {
+                tool.SaveHistoryToFile("未找到匹配座標");
+            }
+
             return newFileName;
-
-            //// 檢查資料夾是否存在
-            //if (Directory.Exists(folderPath))
-            //{
-            //    // 取得資料夾內的所有檔案
-            //    string[] files = Directory.GetFiles(folderPath);
-
-            //    foreach (string filePath in files)
-            //    {
-            //        // 建立新的檔案名稱
-            //        string newFileName = "";
-            //        string FileName = Path.GetFileName(filePath);
-
-            //        // 使用正則表達式提取數字
-            //        Match xMatch = Regex.Match(FileName, @"X(-?\d+(\.\d+)?)");
-            //        Match yMatch = Regex.Match(FileName, @"Y(-?\d+(\.\d+)?)");
-
-            //        if (xMatch.Success && yMatch.Success)
-            //        {
-            //            string xValue = xMatch.Groups[1].Value;
-            //            string yValue = yMatch.Groups[1].Value;
-
-            //            xValue = (Int32.Parse(xValue) + ShiftX).ToString();
-            //            yValue = (Int32.Parse(yValue) + ShiftY).ToString();
-
-            //            newFileName = Regex.Replace(FileName, @"X(-?\d+(\.\d+)?)", "X" + xValue);
-            //            newFileName = Regex.Replace(newFileName, @"Y(-?\d+(\.\d+)?)", "Y" + yValue);
-            //        }
-            //        else
-            //        {
-            //            tool.SaveHistoryToFile("未找到匹配座標,錯誤檔案名稱:" + newFileName);
-            //            return;
-            //        }
-
-            //        // 建立新的檔案完整路徑
-            //        string newFilePath = Path.Combine(folderPath, newFileName);
-
-            //        // 修改檔案名稱
-            //        File.Move(filePath, newFilePath);
-            //    }
-            //}
-            //else
-            //{
-            //    tool.SaveHistoryToFile("指定的資料夾不存在");
-            //}
         }
 
         public void Coordinate_MirrorXY(string folderPath1, bool IsMirrorX, bool IsMirrorY)
@@ -279,6 +276,12 @@ namespace CSharpApp
             }
         }
 
+        /*public string Preview_Insert_Text_to_File_Name(string FileName,)
+        {
+            string newFileName = "error";
+
+            return newFileName;
+        }*/
 
 
         public void FixFile(String Path)
@@ -396,11 +399,12 @@ namespace CSharpApp
                 {
                     SetUserCtrl_Coordinate_Transform(TabPage_Array, "Coordinate_Transform", PageCount, F_Coordinate_Transform);
                 }
+                else if(SelectItemName.ToString() == "Insert Text to File Name")
+                {
+                    SetF_Insert_Text_to_File_Name(TabPage_Array, "Insert_Text_to_File_Name", PageCount, fInsert_Text_to_File_Name);
+                }
             }
-        }
-
-
-        UserCtrl_Coordinate_MirrorXY F_Coordinate_MirrorXY = new UserCtrl_Coordinate_MirrorXY();
+        }      
         private void SetUserCtrl_Coordinate_MirrorXY(TabPage[] tabpage, string tabpage_name, int count, UserCtrl_Coordinate_MirrorXY user_control)
         {
             tabpage[count] = new TabPage(tabpage_name);
@@ -412,9 +416,7 @@ namespace CSharpApp
             // 将 UserControl 添加到 TabPage
             tabpage[count].Controls.Add(user_control);
             TabCtrl_Function.TabPages.Add(tabpage[count]);
-        }
-
-        UserCtrl_Coordinate_Transform F_Coordinate_Transform = new UserCtrl_Coordinate_Transform();
+        }       
         private void SetUserCtrl_Coordinate_Transform(TabPage[] tabpage, string tabpage_name, int count, UserCtrl_Coordinate_Transform user_control)
         {
             tabpage[count] = new TabPage(tabpage_name);
@@ -426,14 +428,30 @@ namespace CSharpApp
             // 将 UserControl 添加到 TabPage
             tabpage[count].Controls.Add(user_control);
             TabCtrl_Function.TabPages.Add(tabpage[count]);
+        }       
+        private void SetF_Insert_Text_to_File_Name(TabPage[] tabpage, string tabpage_name, int count, F_Insert_Text_to_File_Name user_control)
+        {
+            tabpage[count] = new TabPage(tabpage_name);
+
+            // 可以设置 UserControl 的大小和其他属性
+            user_control.Dock = DockStyle.Fill;
+            user_control.Visible = true;
+            user_control.TopLevel = false;
+            user_control.Top = 0;
+            user_control.Left = 0;
+
+            // 将 UserControl 添加到 TabPage
+            tabpage[count].Controls.Add(user_control);
+            TabCtrl_Function.TabPages.Add(tabpage[count]);
         }
+
 
         private void LstBx_Function_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        string sNewName;
+        
         private void Btn_Preview_Click(object sender, EventArgs e)
         {
             if(TxtBx_FilePath.Text == "")
@@ -463,15 +481,18 @@ namespace CSharpApp
                 {
                     case "Coordinate_MirrorXY":
 
-                        
-
-                        Coordinate_MirrorXY(TxtBx_FilePath.Text, false, true);
+                        sNewName = Preview_Coordinate_MirrorXY(sNewName, true, true);
                         break;
 
                     case "Coordinate_Transform":
                         int X = F_Coordinate_Transform.GetShiftX();
                         int Y = F_Coordinate_Transform.GetShiftY();
                         sNewName = Preview_Coordinate_Transform(sNewName, X, Y);
+                        break;
+
+                    case "Insert_Text_to_File_Name":
+
+                        
                         break;
                 }
             }

@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="F_Insert_Text_to_File_Name.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_Insert_Text_to_File_Name.Designer.cs">
+      <DependentUpon>F_Insert_Text_to_File_Name.cs</DependentUpon>
+    </Compile>
     <Compile Include="F_LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
     <Compile Include="UserCtrl_Coordinate_Transform.Designer.cs">
       <DependentUpon>UserCtrl_Coordinate_Transform.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="F_Insert_Text_to_File_Name.resx">
+      <DependentUpon>F_Insert_Text_to_File_Name.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_LogIn.resx">
       <DependentUpon>F_LogIn.cs</DependentUpon>
     </EmbeddedResource>
