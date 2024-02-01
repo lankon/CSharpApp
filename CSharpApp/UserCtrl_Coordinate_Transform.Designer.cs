@@ -39,7 +39,8 @@ namespace CSharpApp
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(14, 14);
+            this.label1.Location = new System.Drawing.Point(14, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 20);
             this.label1.TabIndex = 0;
@@ -50,6 +51,7 @@ namespace CSharpApp
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label2.Location = new System.Drawing.Point(14, 47);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 20);
             this.label2.TabIndex = 1;
@@ -58,28 +60,32 @@ namespace CSharpApp
             // 
             // TxtBx_ShiftX
             // 
-            this.TxtBx_ShiftX.Location = new System.Drawing.Point(87, 12);
+            this.TxtBx_ShiftX.Location = new System.Drawing.Point(81, 5);
+            this.TxtBx_ShiftX.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.TxtBx_ShiftX.Name = "TxtBx_ShiftX";
-            this.TxtBx_ShiftX.Size = new System.Drawing.Size(116, 22);
+            this.TxtBx_ShiftX.Size = new System.Drawing.Size(191, 29);
             this.TxtBx_ShiftX.TabIndex = 2;
             // 
             // TxtBx_ShiftY
             // 
-            this.TxtBx_ShiftY.Location = new System.Drawing.Point(87, 45);
+            this.TxtBx_ShiftY.Location = new System.Drawing.Point(81, 44);
+            this.TxtBx_ShiftY.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.TxtBx_ShiftY.Name = "TxtBx_ShiftY";
-            this.TxtBx_ShiftY.Size = new System.Drawing.Size(116, 22);
+            this.TxtBx_ShiftY.Size = new System.Drawing.Size(191, 29);
             this.TxtBx_ShiftY.TabIndex = 3;
             // 
             // UserCtrl_Coordinate_Transform
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.TxtBx_ShiftY);
             this.Controls.Add(this.TxtBx_ShiftX);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "UserCtrl_Coordinate_Transform";
-            this.Size = new System.Drawing.Size(274, 105);
+            this.Size = new System.Drawing.Size(310, 98);
             this.Load += new System.EventHandler(this.UserCtrl_Coordinate_Transform_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

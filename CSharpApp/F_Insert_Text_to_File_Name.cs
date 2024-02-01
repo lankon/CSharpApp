@@ -17,25 +17,40 @@ namespace CSharpApp
             InitializeComponent();
         }
 
-        public bool GetCkBx_BeginningText()
+
+        public void SetF_Insert_Text_to_File_Name(TabControl TbCtrl, TabPage[] tabpage, string tabpage_name, int count, F_Insert_Text_to_File_Name user_control)
         {
-            bool IsUse = CkBx_BeginningText.Checked;
-            return IsUse;
-        }
+            tabpage[count] = new TabPage(tabpage_name);
 
-        public bool GetCkBx_InsertTextBeforKeyword()
+            // 可以设置 UserControl 的大小和其他属性
+            user_control.Dock = DockStyle.Fill;
+            user_control.Visible = true;
+            user_control.TopLevel = false;
+            user_control.Top = 0;
+            user_control.Left = 0;
+
+            // 将 UserControl 添加到 TabPage
+            tabpage[count].Controls.Add(user_control);
+            TbCtrl.TabPages.Add(tabpage[count]);
+        }
+        public string Preview_Insert_Text_to_File_Name(string FileName)
         {
-            bool IsUse = CkBx_InsertTextBeforKeyword.Checked;
-            return IsUse;
+            if(CkBx_BeginningText.Checked == true)
+            {
+                FileName = TxtBx_BeginningInsertText.Text + FileName;
+            }
+
+            if(CkBx_InsertTextBeforKeyword.Checked == true)
+            {
+                string Keyword = TxtBx_BeforKeywordKeyword.Text;
+                string Addword = TxtBx_BeforKeywordInsertText.Text;
+                string Final = Addword + Keyword;
+
+                FileName = FileName.Replace(Keyword, Final);
+            }
+
+            return FileName;
         }
-
-        public string GetTxtBx_BeginningInsertText()
-        {
-            string Txt = TxtBx_BeginningInsertText.Text;
-            return Txt;
-        }
-
-
         
 
     }

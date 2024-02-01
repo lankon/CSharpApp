@@ -102,6 +102,7 @@ namespace CSharpApp
             // 
             this.TxtBx_NewName.Location = new System.Drawing.Point(132, 59);
             this.TxtBx_NewName.Name = "TxtBx_NewName";
+            this.TxtBx_NewName.ReadOnly = true;
             this.TxtBx_NewName.Size = new System.Drawing.Size(152, 29);
             this.TxtBx_NewName.TabIndex = 16;
             // 
@@ -109,6 +110,7 @@ namespace CSharpApp
             // 
             this.TxtBx_OldName.Location = new System.Drawing.Point(132, 17);
             this.TxtBx_OldName.Name = "TxtBx_OldName";
+            this.TxtBx_OldName.ReadOnly = true;
             this.TxtBx_OldName.Size = new System.Drawing.Size(152, 29);
             this.TxtBx_OldName.TabIndex = 15;
             // 
