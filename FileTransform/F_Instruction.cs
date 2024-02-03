@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CSharpApp
+namespace FileTransform
 {
-    public partial class UserCtrl_Coordinate_MirrorXY : UserControl
+    public partial class F_Instruction : Form
     {
-        public UserCtrl_Coordinate_MirrorXY()
+        public F_Instruction()
         {
             InitializeComponent();
         }

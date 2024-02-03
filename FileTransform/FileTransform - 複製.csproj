@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A492C349-C39A-48A7-9BF0-F64AAFBE17F7}</ProjectGuid>
+    <ProjectGuid>{CF185706-E36B-4D1F-96A2-703806224242}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CSharpApp</RootNamespace>
-    <AssemblyName>CSharpApp</AssemblyName>
+    <RootNamespace>FileTransform</RootNamespace>
+    <AssemblyName>FileTransform</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -53,30 +53,40 @@
     <Compile Include="..\Common Function\ApplicationSetting.cs">
       <Link>ApplicationSetting.cs</Link>
     </Compile>
-    <Compile Include="..\Common Function\Tool.cs">
-      <Link>Tool.cs</Link>
-    </Compile>
     <Compile Include="eFormItem.cs" />
-    <Compile Include="F_LogIn.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_LogIn.Designer.cs">
-      <DependentUpon>F_LogIn.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_Mapping.cs">
+    <Compile Include="F_Coordinate_MirrorXY.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_Mapping.Designer.cs">
-      <DependentUpon>F_Mapping.cs</DependentUpon>
+    <Compile Include="F_Coordinate_MirrorXY.Designer.cs">
+      <DependentUpon>F_Coordinate_MirrorXY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_Coordinate_Transform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_Coordinate_Transform.Designer.cs">
+      <DependentUpon>F_Coordinate_Transform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_Insert_Text_to_File_Name.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_Insert_Text_to_File_Name.Designer.cs">
+      <DependentUpon>F_Insert_Text_to_File_Name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_TransformFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_TransformFile.Designer.cs" >
+	  <DependentUpon>F_TransformFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="F_LogIn.resx">
-      <DependentUpon>F_LogIn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F_Mapping.resx">
-      <DependentUpon>F_Mapping.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Tool.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -85,7 +95,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

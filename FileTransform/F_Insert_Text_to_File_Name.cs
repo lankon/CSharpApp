@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CSharpApp
+namespace FileTransform
 {
     public partial class F_Insert_Text_to_File_Name : Form
     {

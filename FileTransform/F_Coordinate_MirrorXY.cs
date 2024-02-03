@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using CommonFunction;
 
-namespace CSharpApp
+namespace FileTransform
 {
     public partial class F_Coordinate_MirrorXY : Form
     {
@@ -19,6 +20,7 @@ namespace CSharpApp
         }
 
         Tool tool = new Tool();
+      
         public string Preview_Coordinate_MirrorXY(string FileName)
         {
             string newFileName = "error";

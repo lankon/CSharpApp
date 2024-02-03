@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Configuration;
 using System.Runtime.InteropServices;
-
+using CommonFunction;
 
 
 using System.Security.Cryptography;

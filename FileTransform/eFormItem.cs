@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpApp
+namespace FileTransform
 {
     enum FormItem
     {
-        TxtBx_FilePath,
+
     }
 }

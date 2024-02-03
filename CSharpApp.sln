@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpApp", "CSharpApp\CSharpApp.csproj", "{A492C349-C39A-48A7-9BF0-F64AAFBE17F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTransform", "FileTransform\FileTransform.csproj", "{CF185706-E36B-4D1F-96A2-703806224242}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A492C349-C39A-48A7-9BF0-F64AAFBE17F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A492C349-C39A-48A7-9BF0-F64AAFBE17F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A492C349-C39A-48A7-9BF0-F64AAFBE17F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF185706-E36B-4D1F-96A2-703806224242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF185706-E36B-4D1F-96A2-703806224242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF185706-E36B-4D1F-96A2-703806224242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF185706-E36B-4D1F-96A2-703806224242}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

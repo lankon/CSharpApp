@@ -10,8 +10,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using CommonFunction;
 
-namespace CSharpApp
+namespace FileTransform
 {
     public partial class F_TransformFile : Form
     {
@@ -21,14 +22,15 @@ namespace CSharpApp
         F_Coordinate_Transform fCoordinated_Transdorm = new F_Coordinate_Transform();
         
         string sNewName;
+        int index;
         TabPage[] TabPage_Array = new TabPage[10];
 
         public F_TransformFile()
         {
             InitializeComponent();
 
-            ApplicationData.ReadAllRecipe<FormItem>();
-            ApplicationData.UpdataRecipeToForm<FormItem>(this);
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
 
             this.groupBox1.Paint += groupBox_Paint;
             //this.GpBx_Function.Paint += groupBox_Paint;
@@ -139,155 +141,6 @@ namespace CSharpApp
         }
         #endregion
 
-        #region Preview Function
-        public string Preview_Coordinate_Transform(string FileName, int ShiftX, int ShiftY)
-        {
-            string newFileName = "error";
-
-            // 使用正則表達式提取數字
-            Match xMatch = Regex.Match(FileName, @"X(-?\d+(\.\d+)?)");
-            Match yMatch = Regex.Match(FileName, @"Y(-?\d+(\.\d+)?)");
-
-            if (xMatch.Success && yMatch.Success)
-            {
-                string xValue = xMatch.Groups[1].Value;
-                string yValue = yMatch.Groups[1].Value;
-
-                xValue = (Int32.Parse(xValue) + ShiftX).ToString();
-                yValue = (Int32.Parse(yValue) + ShiftY).ToString();
-
-                newFileName = Regex.Replace(FileName, @"X(-?\d+(\.\d+)?)", "X" + xValue);
-                newFileName = Regex.Replace(newFileName, @"Y(-?\d+(\.\d+)?)", "Y" + yValue);
-            }
-            else
-            {
-                tool.SaveHistoryToFile("未找到匹配座標,錯誤檔案名稱:" + newFileName);
-            }
-
-            return newFileName;
-        }        
-        #endregion
-
-        #region Modify Function
-        public void Coordinate_Transform(string folderPath, int ShiftX, int ShiftY)
-        {
-            // 檢查資料夾是否存在
-            if (Directory.Exists(folderPath))
-            {
-                // 取得資料夾內的所有檔案
-                string[] files = Directory.GetFiles(folderPath);
-
-                foreach (string filePath in files)
-                {
-                    // 建立新的檔案名稱
-                    string newFileName = "";
-                    string FileName = Path.GetFileName(filePath);
-
-                    // 使用正則表達式提取數字
-                    Match xMatch = Regex.Match(FileName, @"X(-?\d+(\.\d+)?)");
-                    Match yMatch = Regex.Match(FileName, @"Y(-?\d+(\.\d+)?)");
-
-                    if (xMatch.Success && yMatch.Success)
-                    {
-                        string xValue = xMatch.Groups[1].Value;
-                        string yValue = yMatch.Groups[1].Value;
-
-                        xValue = (Int32.Parse(xValue) + ShiftX).ToString();
-                        yValue = (Int32.Parse(yValue) + ShiftY).ToString();
-
-                        newFileName = Regex.Replace(FileName, @"X(-?\d+(\.\d+)?)", "X" + xValue);
-                        newFileName = Regex.Replace(newFileName, @"Y(-?\d+(\.\d+)?)", "Y" + yValue);
-                    }
-                    else
-                    {
-                        tool.SaveHistoryToFile("未找到匹配座標,錯誤檔案名稱:" + newFileName);
-                        return;
-                    }
-
-                    // 建立新的檔案完整路徑
-                    string newFilePath = Path.Combine(folderPath, newFileName);
-
-                    // 修改檔案名稱
-                    File.Move(filePath, newFilePath);
-                }
-            }
-            else
-            {
-                tool.SaveHistoryToFile("指定的資料夾不存在");
-            }
-        }
-        public void Coordinate_MirrorXY(string folderPath1, bool IsMirrorX, bool IsMirrorY)
-        {
-            // 指定資料夾的路徑
-            string folderPath = @"C:\Users\lankon\Desktop\abc";
-
-            // 檢查資料夾是否存在
-            if (Directory.Exists(folderPath))
-            {
-                // 取得資料夾內的所有檔案
-                string[] files = Directory.GetFiles(folderPath);
-
-                foreach (string filePath in files)
-                {
-                    // 建立新的檔案名稱
-                    string newFileName = "";
-                    string FileName = Path.GetFileName(filePath);
-
-                    // 使用正則表達式提取數字
-                    Match xMatch = Regex.Match(FileName, @"X(-?\d+(\.\d+)?)");
-                    Match yMatch = Regex.Match(FileName, @"Y(-?\d+(\.\d+)?)");
-
-                    if (xMatch.Success && yMatch.Success)
-                    {
-                        string xValue = xMatch.Groups[1].Value;
-                        string yValue = yMatch.Groups[1].Value;
-
-                        xValue = (Int32.Parse(xValue) * -1).ToString();
-                        yValue = (Int32.Parse(yValue) * -1).ToString();
-
-                        if (IsMirrorX && !IsMirrorY)
-                        {
-                            newFileName = Regex.Replace(FileName, @"X(-?\d+(\.\d+)?)", "X" + xValue);
-                        }
-                        else if (!IsMirrorX && IsMirrorY)
-                        {
-                            newFileName = Regex.Replace(FileName, @"Y(-?\d+(\.\d+)?)", "Y" + yValue);
-                        }
-                        else
-                        {
-                            newFileName = Regex.Replace(FileName, @"X(-?\d+(\.\d+)?)", "X" + xValue);
-                            newFileName = Regex.Replace(newFileName, @"Y(-?\d+(\.\d+)?)", "Y" + yValue);
-                        }
-                    }
-                    else
-                    {
-                        tool.SaveHistoryToFile("未找到匹配座標");
-                        return;
-                    }
-
-                    // 建立新的檔案完整路徑
-                    string newFilePath = Path.Combine(folderPath, newFileName);
-
-                    // 修改檔案名稱
-                    File.Move(filePath, newFilePath);
-                }
-            }
-            else
-            {
-                tool.SaveHistoryToFile("指定的資料夾不存在");
-            }
-        }
-        #endregion
-
-
-
-        
-        
-
-
-
-        
-
 
         public void FixFile(String Path)
         {
@@ -318,7 +171,7 @@ namespace CSharpApp
 
         private void Btn_Start_Click(object sender, EventArgs e)
         {
-            ApplicationData.SaveAllRecipe(this);
+            ApplicationSetting.SaveAllRecipe(this);
             
             //OpenFileDialog openFileDialog = new OpenFileDialog();
             //string selectedFileName = "";
@@ -360,8 +213,6 @@ namespace CSharpApp
                 TxtBx_OldName.Text = Path.GetFileName(selectedFileName);
             }            
         }
-
-        int index;
 
         private void LstBx_Function_Click(object sender, EventArgs e)
         {
@@ -450,9 +301,7 @@ namespace CSharpApp
                         break;
 
                     case "Coordinate_Transform":
-                        int X = fCoordinated_Transdorm.GetShiftX();
-                        int Y = fCoordinated_Transdorm.GetShiftY();
-                        sNewName = Preview_Coordinate_Transform(sNewName, X, Y);
+                        sNewName = fCoordinated_Transdorm.Preview_Coordinate_Transform(sNewName);
                         break;
 
                     case "Insert_Text_to_File_Name":
@@ -463,5 +312,76 @@ namespace CSharpApp
 
             TxtBx_NewName.Text = sNewName;                                  
         }
+
+        private void Btn_Modify_Click(object sender, EventArgs e)
+        {
+            string folderPath = Path.GetDirectoryName(TxtBx_FilePath.Text);
+            string newfolderPath = folderPath + "\\NewFile";
+            int PageCount = TabCtrl_Function.TabPages.Count;
+
+            if (folderPath == "")
+            {
+                tool.SaveHistoryToFile("未選擇檔案");
+                MessageBox.Show("Please Select File");
+                return;
+            }
+            else if (PageCount == 1)
+            {
+                tool.SaveHistoryToFile("未選擇方法");
+                MessageBox.Show("Please Select Function");
+                return;
+            }
+            else if (!Directory.Exists(folderPath))
+            {
+                tool.SaveHistoryToFile("轉檔路徑不存在");
+                MessageBox.Show("File Path No Exist");
+                return;
+            }
+
+            tool.CreateFolder(newfolderPath);
+            TxtBx_SavePath.Text = newfolderPath;
+            // 取得資料夾內的所有檔案
+            string[] files = Directory.GetFiles(folderPath);
+
+            foreach (string filePath in files)
+            {
+                string FileName = Path.GetFileName(filePath);
+
+                for (int i = 1; i < PageCount; i++)
+                {
+                    string methodName = TabPage_Array[i].Text;
+
+                    if (i == 1)
+                    {
+                        sNewName = FileName;
+                    }
+
+                    switch (methodName)
+                    {
+                        case "Coordinate_MirrorXY":
+                            sNewName = fCoordinate_MirrorXY.Preview_Coordinate_MirrorXY(sNewName);
+                            break;
+
+                        case "Coordinate_Transform":
+                            sNewName = fCoordinated_Transdorm.Preview_Coordinate_Transform(sNewName);
+                            break;
+
+                        case "Insert_Text_to_File_Name":
+                            sNewName = fInsert_Text_to_File_Name.Preview_Insert_Text_to_File_Name(sNewName);
+                            break;
+                    }
+                }
+
+                // 建立新的檔案完整路徑
+                string newFilePath = Path.Combine(newfolderPath, sNewName);
+
+                // 修改檔案名稱
+                File.Copy(filePath, newFilePath, true);
+                //File.Move(filePath, newFilePath);
+            }
+        }
+
+
+
     }
 }
