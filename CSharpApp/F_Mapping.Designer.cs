@@ -128,7 +128,7 @@ namespace CSharpApp
             this.TxtBx_Step.Name = "TxtBx_Step";
             this.TxtBx_Step.Size = new System.Drawing.Size(111, 29);
             this.TxtBx_Step.TabIndex = 6;
-            this.TxtBx_Step.Text = "0.01";
+            this.TxtBx_Step.Text = "0.1";
             // 
             // label3
             // 
@@ -151,7 +151,7 @@ namespace CSharpApp
             this.TxtBx_End.Name = "TxtBx_End";
             this.TxtBx_End.Size = new System.Drawing.Size(111, 29);
             this.TxtBx_End.TabIndex = 4;
-            this.TxtBx_End.Text = "1.85";
+            this.TxtBx_End.Text = "7";
             // 
             // label1
             // 
@@ -185,7 +185,7 @@ namespace CSharpApp
             this.TxtBx_Start.Name = "TxtBx_Start";
             this.TxtBx_Start.Size = new System.Drawing.Size(111, 29);
             this.TxtBx_Start.TabIndex = 3;
-            this.TxtBx_Start.Text = "1.75";
+            this.TxtBx_Start.Text = "5";
             // 
             // Cmbx_TestItem
             // 
@@ -241,7 +241,7 @@ namespace CSharpApp
             this.Pnl_Colorbar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Pnl_Colorbar.Location = new System.Drawing.Point(26, 86);
             this.Pnl_Colorbar.Name = "Pnl_Colorbar";
-            this.Pnl_Colorbar.Size = new System.Drawing.Size(191, 500);
+            this.Pnl_Colorbar.Size = new System.Drawing.Size(212, 500);
             this.Pnl_Colorbar.TabIndex = 6;
             // 
             // F_Mapping

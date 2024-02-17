@@ -23,8 +23,15 @@ namespace CSharpApp
             public int ShiftX;
             public int ShiftY;
             public int CellCount;
+            public int[] ValueRegionCount;
+
             public float GridSize;
+
+            public double[] ValueRegion;
+
             public List<Dictionary<string, string>> CellInfo;
+
+            public List<Color> ColorList;
         }
 
         private Dictionary<string, int> data;
@@ -76,7 +83,7 @@ namespace CSharpApp
         //    }
         //}
 
-        public void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList)
+        public void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList, double[] ValueRegion)
         {
             //int chartWidth = 300;  
             //int chartHeight = 30 * data.Count; 
@@ -108,8 +115,8 @@ namespace CSharpApp
                     
 
                     //float barWidth = (float)(kvp.Value * (Pnl.Width - startX - 30)/Max); // 条形宽度，根据数据值设置
-                    float barWidth = (float)(kvp * (Pnl.Width - startX - 30) / Max); // 条形宽度，根据数据值设置
-                    float barHeight = 20; // 条形高度
+                    float barWidth = (float)(kvp * (Pnl.Width - startX - 50) / Max); // 条形宽度，根据数据值设置
+                    float barHeight = 22; // 条形高度
 
                     // 绘制条形
                     CellColor = ColorList[i];
@@ -121,7 +128,10 @@ namespace CSharpApp
 
                     // 绘制文本
                     //g.DrawString($"{kvp.Key}", Font, Brushes.White, startX, startY-15);
-                    //g.DrawString($"{kvp.Key}", Font, Brushes.White, 0, startY-7);
+                    g.DrawString($"{kvp}", Font, Brushes.White, startX + barWidth + 5, startY+5);
+                    
+                    if(i <= ValueRegionCount.Count()-2)
+                        g.DrawString($"{ValueRegion[i]}", Font, Brushes.White, 0, startY+15);
 
                     // 更新下一个条形的起始纵坐标
                     //startY = startY + barHeight+20;
@@ -155,14 +165,17 @@ namespace CSharpApp
                         // 使用逗號分隔解析欄位
                         string[] fields = line.Split(',');
 
-                        if (fields[0].Trim() == "PosX")
+                        
+                        if(StartReadFile == false)
                         {
                             for (int i = 0; i < fields.Count(); i++)
                             {
                                 headers[i] = fields[i].Trim();
+                                if (fields[i].Trim() == "PosX")
+                                {
+                                    StartReadFile = true;
+                                }
                             }
-
-                            StartReadFile = true;
                         }
 
                         if (StartReadFile == true)
@@ -302,7 +315,7 @@ namespace CSharpApp
 
             for (int i = 0; i < iStep+2; i++)
             {
-                Color currentColor = ColorFromHue((i * 360 / iStep) % 360);
+                Color currentColor = ColorFromHue((i * 360 / (iStep+2) % 360));
 
                 ColorList.Add(currentColor);
             }
@@ -350,7 +363,7 @@ namespace CSharpApp
                         else if (ValueRegion[ColorList.Count() - 2] < dVale)
                         {
                             CellColor = ColorList[ColorList.Count()-1];
-                            ValueRegionCount[ColorList.Count() - 2]++;
+                            ValueRegionCount[ColorList.Count() - 1]++;
                             break;
                         }
                         else if (ValueRegion[j] <= dVale && dVale <= ValueRegion[j + 1] &&
@@ -464,10 +477,7 @@ namespace CSharpApp
                 return;
             }
                            
-            List<Color> ColorList = new List<Color>();
             Dictionary<string, object> myDictionary = null;
-            double[] ValueRegion = null;
-            int[] ValueRegionCount = null;
             double Start = tool.StringToDouble(TxtBx_Start.Text);
             double End = tool.StringToDouble(TxtBx_End.Text);
             double Step = tool.StringToDouble(TxtBx_Step.Text);
@@ -484,16 +494,17 @@ namespace CSharpApp
             mapInformation.ShiftY = (int)myDictionary["ShiftY"];
             mapInformation.CellCount = (int)myDictionary["CellCount"];
             mapInformation.GridSize = (float)myDictionary["GridSize"];
+            
+            mapInformation.ColorList = SetCellColor(Start, End, Step);
 
-            ColorList = SetCellColor(Start, End, Step);
-           
-            ValueRegion = SetValueRegion(Start, Step, ColorList);
+            mapInformation.ValueRegion =  SetValueRegion(Start, Step, mapInformation.ColorList);
 
-            ValueRegionCount = DrawMapping(Pnl_Mapping, mapInformation.GridSize, mapInformation.CellInfo, 
-                                            mapInformation.ShiftX, mapInformation.ShiftY,
-                                            TestItem, ColorList, ValueRegion);
+            mapInformation.ValueRegionCount = DrawMapping(Pnl_Mapping, mapInformation.GridSize, mapInformation.CellInfo,
+                                                          mapInformation.ShiftX, mapInformation.ShiftY,
+                                                          TestItem, mapInformation.ColorList, mapInformation.ValueRegion);
 
-            DrawColorbar(Pnl_Colorbar, ValueRegionCount, ColorList);
+            DrawColorbar(Pnl_Colorbar, mapInformation.ValueRegionCount,
+                         mapInformation.ColorList, mapInformation.ValueRegion);
 
             tool.SaveHistoryToFile("繪圖完成");
         }
@@ -508,6 +519,12 @@ namespace CSharpApp
         private void button2_Click(object sender, EventArgs e)
         {
             //DrawColorbar(Pnl_Colorbar);
+            Pnl_Colorbar.Paint += new PaintEventHandler(Pnl_Paint);
+        }
+
+        private void Pnl_Paint(object sender, PaintEventArgs e)
+        {
+            DrawColorbar(Pnl_Colorbar,mapInformation.ValueRegionCount, mapInformation.ColorList, mapInformation.ValueRegion);
         }
 
         private void Btn_LoadFile_Click(object sender, EventArgs e)
@@ -528,6 +545,13 @@ namespace CSharpApp
             TxtBx_FilePath.Text = selectedFileName;
 
             mapInformation.CellInfo = ReadCellInfo(selectedFileName);
+
+            if (mapInformation.CellInfo.Count == 0)
+            {
+                MessageBox.Show("Read File Error");
+                tool.SaveHistoryToFile("讀取檔案失敗");
+                return;
+            }
 
             InsertTestItemToCmbx(Cmbx_TestItem, mapInformation.CellInfo[0]);
         }

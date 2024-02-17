@@ -415,7 +415,7 @@ namespace CSharpApp
 
         private void LstBx_Function_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void Btn_Preview_Click(object sender, EventArgs e)

@@ -50,6 +50,11 @@ namespace FileTransform
             e.Graphics.DrawLine(Pens.Black, gBox.Width - 2, vSize.Height / 2, gBox.Width - 2, gBox.Height - 2);
         }
 
+        public void Show_F_TransformFile()
+        {
+            this.ShowDialog();
+        }
+
         public List<Dictionary<string, string>> ReadCsvFile(String Path)
         {
             // 使用 Dictionary 來儲存資料
@@ -381,7 +386,10 @@ namespace FileTransform
             }
         }
 
-
-
+        private void PBx_Instruction_Click(object sender, EventArgs e)
+        {
+            F_Instruction FF = new F_Instruction();
+            FF.LoadImagesToForm(@"C:\Users\lankon\Desktop\新增資料夾\Picture\File Transform\Instruction_File Name Modify\");
+        }
     }
 }

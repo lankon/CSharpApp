@@ -32,6 +32,9 @@ namespace FileTransform
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_TransformFile));
             this.Btn_Start = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.PBx_Instruction = new System.Windows.Forms.PictureBox();
+            this.TxtBx_SavePath = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.TabCtrl_Function = new System.Windows.Forms.TabControl();
             this.TabPg_Final = new System.Windows.Forms.TabPage();
             this.TxtBx_NewName = new System.Windows.Forms.TextBox();
@@ -44,10 +47,8 @@ namespace FileTransform
             this.LstBx_Function = new System.Windows.Forms.ListBox();
             this.Btn_LoadFile = new System.Windows.Forms.Button();
             this.TxtBx_FilePath = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TxtBx_SavePath = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PBx_Instruction)).BeginInit();
             this.TabCtrl_Function.SuspendLayout();
             this.TabPg_Final.SuspendLayout();
             this.GpBx_Function.SuspendLayout();
@@ -66,7 +67,7 @@ namespace FileTransform
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.PBx_Instruction);
             this.groupBox1.Controls.Add(this.TxtBx_SavePath);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.TabCtrl_Function);
@@ -82,6 +83,36 @@ namespace FileTransform
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Name Modify";
+            // 
+            // PBx_Instruction
+            // 
+            this.PBx_Instruction.Image = ((System.Drawing.Image)(resources.GetObject("PBx_Instruction.Image")));
+            this.PBx_Instruction.Location = new System.Drawing.Point(593, 22);
+            this.PBx_Instruction.Name = "PBx_Instruction";
+            this.PBx_Instruction.Size = new System.Drawing.Size(25, 25);
+            this.PBx_Instruction.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PBx_Instruction.TabIndex = 22;
+            this.PBx_Instruction.TabStop = false;
+            this.PBx_Instruction.Tag = "";
+            this.PBx_Instruction.Click += new System.EventHandler(this.PBx_Instruction_Click);
+            // 
+            // TxtBx_SavePath
+            // 
+            this.TxtBx_SavePath.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_SavePath.Location = new System.Drawing.Point(117, 92);
+            this.TxtBx_SavePath.Name = "TxtBx_SavePath";
+            this.TxtBx_SavePath.ReadOnly = true;
+            this.TxtBx_SavePath.Size = new System.Drawing.Size(501, 29);
+            this.TxtBx_SavePath.TabIndex = 19;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 95);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 20);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Save Path";
             // 
             // TabCtrl_Function
             // 
@@ -191,7 +222,7 @@ namespace FileTransform
             this.LstBx_Function.Location = new System.Drawing.Point(6, 28);
             this.LstBx_Function.Name = "LstBx_Function";
             this.LstBx_Function.ScrollAlwaysVisible = true;
-            this.LstBx_Function.Size = new System.Drawing.Size(274, 102);
+            this.LstBx_Function.Size = new System.Drawing.Size(264, 102);
             this.LstBx_Function.TabIndex = 1;
             this.LstBx_Function.Click += new System.EventHandler(this.LstBx_Function_Click);
             this.LstBx_Function.SelectedIndexChanged += new System.EventHandler(this.LstBx_Function_SelectedIndexChanged);
@@ -216,39 +247,12 @@ namespace FileTransform
             this.TxtBx_FilePath.Size = new System.Drawing.Size(501, 29);
             this.TxtBx_FilePath.TabIndex = 8;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 95);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 20);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Save Path";
-            // 
-            // TxtBx_SavePath
-            // 
-            this.TxtBx_SavePath.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_SavePath.Location = new System.Drawing.Point(117, 92);
-            this.TxtBx_SavePath.Name = "TxtBx_SavePath";
-            this.TxtBx_SavePath.ReadOnly = true;
-            this.TxtBx_SavePath.Size = new System.Drawing.Size(501, 29);
-            this.TxtBx_SavePath.TabIndex = 19;
-            // 
-            // button1
-            // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(593, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(25, 25);
-            this.button1.TabIndex = 20;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // F_TransformFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.ClientSize = new System.Drawing.Size(692, 450);
+            this.ClientSize = new System.Drawing.Size(672, 450);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Btn_Start);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -257,6 +261,7 @@ namespace FileTransform
             this.Text = "TransformFile";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PBx_Instruction)).EndInit();
             this.TabCtrl_Function.ResumeLayout(false);
             this.TabPg_Final.ResumeLayout(false);
             this.TabPg_Final.PerformLayout();
@@ -282,6 +287,6 @@ namespace FileTransform
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TxtBx_SavePath;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox PBx_Instruction;
     }
 }
