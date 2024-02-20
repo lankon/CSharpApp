@@ -1,5 +1,5 @@
 ﻿
-namespace CSharpApp
+namespace Mapping
 {
     partial class F_Mapping
     {
@@ -29,8 +29,10 @@ namespace CSharpApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Pnl_Mapping = new System.Windows.Forms.Panel();
+            this.PicBx_Mapping = new System.Windows.Forms.PictureBox();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -48,24 +50,40 @@ namespace CSharpApp
             this.TxtBx_FilePath = new System.Windows.Forms.TextBox();
             this.Btn_LoadFile = new System.Windows.Forms.Button();
             this.Pnl_Colorbar = new System.Windows.Forms.Panel();
+            this.PicBx_Colorbar = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Pnl_Mapping.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBx_Mapping)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.Pnl_Colorbar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PicBx_Colorbar)).BeginInit();
             this.SuspendLayout();
             // 
             // Pnl_Mapping
             // 
             this.Pnl_Mapping.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Pnl_Mapping.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Pnl_Mapping.Location = new System.Drawing.Point(244, 86);
+            this.Pnl_Mapping.Controls.Add(this.PicBx_Mapping);
+            this.Pnl_Mapping.Location = new System.Drawing.Point(242, 48);
             this.Pnl_Mapping.Name = "Pnl_Mapping";
             this.Pnl_Mapping.Size = new System.Drawing.Size(500, 500);
             this.Pnl_Mapping.TabIndex = 1;
             // 
+            // PicBx_Mapping
+            // 
+            this.PicBx_Mapping.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PicBx_Mapping.Location = new System.Drawing.Point(0, 0);
+            this.PicBx_Mapping.Name = "PicBx_Mapping";
+            this.PicBx_Mapping.Size = new System.Drawing.Size(498, 498);
+            this.PicBx_Mapping.TabIndex = 0;
+            this.PicBx_Mapping.TabStop = false;
+            // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.button2.Location = new System.Drawing.Point(906, 525);
+            this.button2.Location = new System.Drawing.Point(873, 486);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 61);
             this.button2.TabIndex = 2;
@@ -78,7 +96,7 @@ namespace CSharpApp
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.Btn_DrawMap);
-            this.panel1.Location = new System.Drawing.Point(772, 86);
+            this.panel1.Location = new System.Drawing.Point(758, 48);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(251, 229);
             this.panel1.TabIndex = 4;
@@ -97,7 +115,7 @@ namespace CSharpApp
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_Start, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.Cmbx_TestItem, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 70);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 67);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00062F));
@@ -211,7 +229,7 @@ namespace CSharpApp
             // 
             this.panel2.Controls.Add(this.TxtBx_FilePath);
             this.panel2.Controls.Add(this.Btn_LoadFile);
-            this.panel2.Location = new System.Drawing.Point(26, 12);
+            this.panel2.Location = new System.Drawing.Point(12, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(997, 40);
             this.panel2.TabIndex = 5;
@@ -239,17 +257,27 @@ namespace CSharpApp
             // 
             this.Pnl_Colorbar.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Pnl_Colorbar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Pnl_Colorbar.Location = new System.Drawing.Point(26, 86);
+            this.Pnl_Colorbar.Controls.Add(this.PicBx_Colorbar);
+            this.Pnl_Colorbar.Location = new System.Drawing.Point(15, 48);
             this.Pnl_Colorbar.Name = "Pnl_Colorbar";
             this.Pnl_Colorbar.Size = new System.Drawing.Size(212, 500);
             this.Pnl_Colorbar.TabIndex = 6;
+            // 
+            // PicBx_Colorbar
+            // 
+            this.PicBx_Colorbar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PicBx_Colorbar.Location = new System.Drawing.Point(0, 0);
+            this.PicBx_Colorbar.Name = "PicBx_Colorbar";
+            this.PicBx_Colorbar.Size = new System.Drawing.Size(210, 498);
+            this.PicBx_Colorbar.TabIndex = 0;
+            this.PicBx_Colorbar.TabStop = false;
             // 
             // F_Mapping
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.ClientSize = new System.Drawing.Size(1054, 601);
+            this.ClientSize = new System.Drawing.Size(1022, 554);
             this.Controls.Add(this.Pnl_Colorbar);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -260,11 +288,15 @@ namespace CSharpApp
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "F_Mapping";
             this.Load += new System.EventHandler(this.F_Mapping_Load);
+            this.Pnl_Mapping.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PicBx_Mapping)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.Pnl_Colorbar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PicBx_Colorbar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -290,5 +322,8 @@ namespace CSharpApp
         private System.Windows.Forms.Button Btn_LoadFile;
         private System.Windows.Forms.TextBox TxtBx_FilePath;
         private System.Windows.Forms.Panel Pnl_Colorbar;
+        private System.Windows.Forms.PictureBox PicBx_Colorbar;
+        private System.Windows.Forms.PictureBox PicBx_Mapping;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

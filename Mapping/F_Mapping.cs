@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using CommonFunction;
+using System.Runtime.InteropServices;
 
-namespace CSharpApp
+namespace Mapping
 {
     public partial class F_Mapping : Form
     {
+        
         Tool tool = new Tool();
         MapInformation mapInformation = new MapInformation();
-
         private struct MapInformation
         {
             public int MapSize;
@@ -34,87 +35,41 @@ namespace CSharpApp
             public List<Color> ColorList;
         }
 
-        private Dictionary<string, int> data;
-
         public F_Mapping()
         {
-            InitializeComponent();
-
-            //初始化数据
-           data = new Dictionary<string, int>
-           {
-                {"1.75", 30},
-                {"1.76", 50},
-                {"1.77", 20},
-                {"1.89", 200},
-                {"1.90", 750},
-                {"1.91", 208},
-                {"2.00", 1000}
-           };
+            InitializeComponent();            
+        
         }
 
-        //protected override void OnPaint(PaintEventArgs e)
-        //{
-        //    base.OnPaint(e);
-
-        //    // 获取绘图对象
-        //    Graphics g = e.Graphics;
-
-        //    // 设置绘图区域
-        //    int chartWidth = 300;  // 图表宽度
-        //    int chartHeight = 30 * data.Count; // 图表高度
-        //    int startX = 50; // 图表起始横坐标
-        //    int startY = 50; // 图表起始纵坐标
-
-        //    // 绘制横向条形图
-        //    foreach (var kvp in data)
-        //    {
-        //        int barWidth = kvp.Value * 5; // 条形宽度，根据数据值设置
-        //        int barHeight = 20; // 条形高度
-
-        //        // 绘制条形
-        //        g.FillRectangle(Brushes.Blue, startX, startY, barWidth, barHeight);
-
-        //        // 绘制文本
-        //        g.DrawString($"{kvp.Key}: {kvp.Value}", Font, Brushes.Black, startX + barWidth + 5, startY);
-
-        //        // 更新下一个条形的起始纵坐标
-        //        startY += 30;
-        //    }
-        //}
-
-        public void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList, double[] ValueRegion)
+        public void SetF_Mapping(Panel pnl, F_Mapping form)
         {
-            //int chartWidth = 300;  
-            //int chartHeight = 30 * data.Count; 
+            form.Dock = DockStyle.Fill;
+            form.Visible = true;
+            form.TopLevel = false;
+            form.Top = 0;
+            form.Left = 0;
+
+            pnl.Controls.Add(form);
+        }
+        
+        
+        private void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList, double[] ValueRegion)
+        {
             float startX = 25; // 图表起始横坐标
             float startY = 20; // 图表起始纵坐标
 
             using (Graphics g = Pnl.CreateGraphics())
             {
-                //double Max = 0;
                 double Max = ValueRegionCount.Max();
 
                 RectangleF drawRect1 = new RectangleF(0, 0, Pnl.Width, Pnl.Height);
                 g.FillRectangle(Brushes.Black, drawRect1);
 
-                //foreach (var kvp in data)
-                //{
-                //    if(kvp.Value > Max)
-                //    {
-                //        Max = kvp.Value;
-                //    }
-                //}
-
                 int i = 0;
                 Color CellColor;
 
                 foreach (int kvp in ValueRegionCount)
-                //foreach (var kvp in data)
-                {
-                    
-
-                    //float barWidth = (float)(kvp.Value * (Pnl.Width - startX - 30)/Max); // 条形宽度，根据数据值设置
+                {                                        
                     float barWidth = (float)(kvp * (Pnl.Width - startX - 50) / Max); // 条形宽度，根据数据值设置
                     float barHeight = 22; // 条形高度
 
@@ -123,26 +78,21 @@ namespace CSharpApp
                     SolidBrush solidBrush = new SolidBrush(CellColor);
                     RectangleF drawRect = new RectangleF(startX, startY, barWidth, barHeight);
                     g.FillRectangle(solidBrush, drawRect);
-
-                    //g.FillRectangle(Brushes.Blue, startX, startY, barWidth, barHeight);
-
+                   
                     // 绘制文本
-                    //g.DrawString($"{kvp.Key}", Font, Brushes.White, startX, startY-15);
                     g.DrawString($"{kvp}", Font, Brushes.White, startX + barWidth + 5, startY+5);
                     
                     if(i <= ValueRegionCount.Count()-2)
                         g.DrawString($"{ValueRegion[i]}", Font, Brushes.White, 0, startY+15);
 
                     // 更新下一个条形的起始纵坐标
-                    //startY = startY + barHeight+20;
                     startY = startY + barHeight;
 
                     i++;
                 }
             }            
         }
-
-        public List<Dictionary<string, string>> ReadCsvFile(String Path)
+        private List<Dictionary<string, string>> ReadCsvFile(String Path)
         {
             // 使用 Dictionary 來儲存資料
             List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
@@ -202,7 +152,7 @@ namespace CSharpApp
                 return data;
             }
         }
-        public void InsertTestItemToCmbx(ComboBox Cmbx, Dictionary<string, string> dictTestItem)
+        private void InsertTestItemToCmbx(ComboBox Cmbx, Dictionary<string, string> dictTestItem)
         {
             foreach (var kvp in dictTestItem)
             {
@@ -214,7 +164,7 @@ namespace CSharpApp
 
             Cmbx_TestItem.SelectedIndex = 0;
         }
-        public Dictionary<string, object> FindMapInfo(int MapSize, List<Dictionary<string, string>> data)
+        private Dictionary<string, object> FindMapInfo(int MapSize, List<Dictionary<string, string>> data)
         {
             Dictionary<string, object> myDictionary = new Dictionary<string, object>();
 
@@ -278,14 +228,14 @@ namespace CSharpApp
             #endregion
 
             return myDictionary;
-        }             
-        public List<Dictionary<string, string>> ReadCellInfo(string Path)
+        }
+        private List<Dictionary<string, string>> ReadCellInfo(string Path)
         {
             List<Dictionary<string, string>> CellInfo = null;
             CellInfo = ReadCsvFile(Path);
             return CellInfo;
         }
-        public int HueToRGB(int hue)
+        private int HueToRGB(int hue)
         {
             // 辅助方法：将色相转换为 RGB 分量
             hue = (hue % 360 + 360) % 360; // 转换到 [0, 359] 范围
@@ -301,13 +251,13 @@ namespace CSharpApp
                 return min + (int)((max - min) * (240 - hue) / 60);
             else
                 return min;
-        }       
-        public Color ColorFromHue(int hue)
+        }
+        private Color ColorFromHue(int hue)
         {
             // 根据色相创建 RGB 颜色
             return Color.FromArgb(255, HueToRGB(hue + 120), HueToRGB(hue), HueToRGB(hue - 120));
-        }     
-        public List<Color> SetCellColor(double Start, double End, double Step)
+        }
+        private List<Color> SetCellColor(double Start, double End, double Step)
         {
             int iStep = (int)((End - Start) / Step);
 
@@ -322,7 +272,7 @@ namespace CSharpApp
 
             return ColorList;
         }
-        public double[] SetValueRegion(double Start, double Step, List<Color> ColorList)
+        private double[] SetValueRegion(double Start, double Step, List<Color> ColorList)
         {
             double[] ValueRegion = new double[ColorList.Count() + 1];
             for (int i = 0; i < ValueRegion.Count(); i++)
@@ -332,7 +282,7 @@ namespace CSharpApp
 
             return ValueRegion;
         }
-        public int[] DrawMapping(Panel Pnl, float GridSize, List<Dictionary<string,string>> CellInfo,int ShiftX, int ShiftY,
+        private int[] DrawMapping(Panel Pnl, float GridSize, List<Dictionary<string,string>> CellInfo,int ShiftX, int ShiftY,
                                 String TestItem, List<Color> ColorList, double[] ValueRegion)
         {         
             int[] ValueRegionCount = new int[ColorList.Count()];
@@ -403,8 +353,8 @@ namespace CSharpApp
             }
 
             return ValueRegionCount;
-        }       
-        public void DrawCell(Panel Pnl, float gridSize, int PosX, int PosY, Color CellColor)
+        }
+        private void DrawCell(Panel Pnl, float gridSize, int PosX, int PosY, Color CellColor)
         {
             using (Graphics g = Pnl.CreateGraphics())
             {
@@ -417,11 +367,11 @@ namespace CSharpApp
                 g.FillRectangle(solidBrush, drawRect);
             }
         }
-        public void SetDrawSize(Panel Pnl, int MapSize)
+        private void SetDrawSize(Panel Pnl, int MapSize)
         {
             Pnl.ClientSize = new Size(MapSize, MapSize);
-        }      
-        public void ClearMapping(Panel Pnl)
+        }
+        private void ClearMapping(Panel Pnl)
         {
             using (Graphics g = Pnl.CreateGraphics())
             {
@@ -429,7 +379,7 @@ namespace CSharpApp
                 g.FillRectangle(Brushes.Black, drawRect1);
             }
         }
-        public void DrawGrid(Panel Pnl, float gridSize)
+        private void DrawGrid(Panel Pnl, float gridSize)
         {
             int gridCountX, gridCountY; // 網格數量
            
@@ -475,8 +425,11 @@ namespace CSharpApp
                 MessageBox.Show("Please Enter Draw Condition");
                 tool.SaveHistoryToFile("未輸入晶圓繪圖條件");
                 return;
-            }
-                           
+            }            
+
+            PicBx_Colorbar.Visible = false;
+            PicBx_Mapping.Visible = false;
+
             Dictionary<string, object> myDictionary = null;
             double Start = tool.StringToDouble(TxtBx_Start.Text);
             double End = tool.StringToDouble(TxtBx_End.Text);
@@ -484,6 +437,13 @@ namespace CSharpApp
             String TestItem = Cmbx_TestItem.Text;
 
             mapInformation.MapSize = 500;
+
+            if(Start > End)
+            {
+                MessageBox.Show("Start Large Than End");
+                tool.SaveHistoryToFile("起始值比結束值大");
+                return;
+            }
 
             SetDrawSize(Pnl_Mapping, mapInformation.MapSize);
 
@@ -505,6 +465,14 @@ namespace CSharpApp
 
             DrawColorbar(Pnl_Colorbar, mapInformation.ValueRegionCount,
                          mapInformation.ColorList, mapInformation.ValueRegion);
+            
+            tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Pnl_Colorbar.png");
+            tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Pnl_Colorbar.png");
+            tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Pnl_Mapping.png");
+            tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Pnl_Mapping.png");
+
+            PicBx_Colorbar.Visible = true;
+            PicBx_Mapping.Visible = true;
 
             tool.SaveHistoryToFile("繪圖完成");
         }
@@ -519,13 +487,10 @@ namespace CSharpApp
         private void button2_Click(object sender, EventArgs e)
         {
             //DrawColorbar(Pnl_Colorbar);
-            Pnl_Colorbar.Paint += new PaintEventHandler(Pnl_Paint);
-        }
-
-        private void Pnl_Paint(object sender, PaintEventArgs e)
-        {
-            DrawColorbar(Pnl_Colorbar,mapInformation.ValueRegionCount, mapInformation.ColorList, mapInformation.ValueRegion);
-        }
+            string startupPath = Application.StartupPath;
+            //button2.Text = startupPath;
+            TxtBx_FilePath.Text = startupPath;
+        }    
 
         private void Btn_LoadFile_Click(object sender, EventArgs e)
         {
@@ -553,7 +518,39 @@ namespace CSharpApp
                 return;
             }
 
+            Cmbx_TestItem.Items.Clear();
+
             InsertTestItemToCmbx(Cmbx_TestItem, mapInformation.CellInfo[0]);
+        }
+
+        private void Btn_CloseApp_Click(object sender, EventArgs e)
+        {
+            // 顯示確認對話框
+            DialogResult dialogResult = MessageBox.Show("Close Application ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // 根據用戶的選擇返回布爾值
+            if (dialogResult == DialogResult.Yes)
+            {
+                ApplicationSetting.SaveAllRecipe(this);
+                
+                Application.Exit();
+                tool.SaveHistoryToFile("關閉應用程式");
+            }
+            else
+            {
+                
+            }
+        }
+
+        private void Btn_Setting_Click(object sender, EventArgs e)
+        {
+            F_Setting f_Setting = new F_Setting();
+
+            this.Hide();
+
+            f_Setting.Show();
+
+            f_Setting.Closed += (s, args) => this.Show();
         }
     }
 }

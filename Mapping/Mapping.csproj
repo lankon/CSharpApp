@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A492C349-C39A-48A7-9BF0-F64AAFBE17F7}</ProjectGuid>
+    <ProjectGuid>{F65F551C-276E-45AF-A6E4-BB8F099DC434}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CSharpApp</RootNamespace>
-    <AssemblyName>CSharpApp</AssemblyName>
+    <RootNamespace>Mapping</RootNamespace>
+    <AssemblyName>Mapping</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -56,17 +56,35 @@
     <Compile Include="..\Common Function\Tool.cs">
       <Link>Tool.cs</Link>
     </Compile>
-    <Compile Include="eFormItem.cs" />
-    <Compile Include="F_LogIn.cs">
+    <Compile Include="eAppSetting.cs" />
+    <Compile Include="F_MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_LogIn.Designer.cs">
-      <DependentUpon>F_LogIn.cs</DependentUpon>
+    <Compile Include="F_MainForm.Designer.cs">
+      <DependentUpon>F_MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_Setting.Designer.cs">
+      <DependentUpon>F_Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_Mapping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_Mapping.Designer.cs">
+      <DependentUpon>F_Mapping.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="F_LogIn.resx">
-      <DependentUpon>F_LogIn.cs</DependentUpon>
+    <EmbeddedResource Include="F_MainForm.resx">
+      <DependentUpon>F_MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_Setting.resx">
+      <DependentUpon>F_Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_Mapping.resx">
+      <DependentUpon>F_Mapping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -76,7 +94,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -25,6 +25,16 @@ namespace CommonFunction
                     // 添加新的設定值
                     config1.AppSettings.Settings.Add(control.Name, control.Text);
                 }
+                else if(control is ComboBox)
+                {
+                    // 移除舊的設定值（如果存在）
+                    config1.AppSettings.Settings.Remove(control.Name);
+
+                    // 添加新的設定值
+                    
+                    //string sIndex = control.
+                    //config1.AppSettings.Settings.Add(control.Name, sIndex);
+                }
 
                 // 如果這個控件包含其他控件，遞歸遍歷它們
                 if (control.HasChildren)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CSharpApp
+namespace Mapping
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace CSharpApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new F_LogIn());
+            Application.Run(new F_MainForm());
         }
     }
 }

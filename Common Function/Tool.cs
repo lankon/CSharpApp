@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace CommonFunction
 {
@@ -176,6 +177,42 @@ namespace CommonFunction
                 SaveHistoryToFile("資料夾已存在");
             }
         }
+
+        #region 截圖相關功能
+        public void CaptureImage(Control ctrl, string filename)
+        {
+            // 創建一個與 Panel 大小相同的 Bitmap
+            Bitmap bitmap = new Bitmap(ctrl.Width, ctrl.Height);
+
+            // 使用 Bitmap 的 Graphics 對象
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                // 定義 Panel 在螢幕上的位置
+                Point panelLocationOnScreen = ctrl.PointToScreen(Point.Empty);
+
+                // 將 Panel 當前的螢幕畫面複製到 Bitmap 上
+                g.CopyFromScreen(panelLocationOnScreen, Point.Empty, ctrl.Size);
+            }
+
+            // 儲存 Bitmap 到檔案
+            bitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+
+            // 釋放 Bitmap 資源
+            bitmap.Dispose();
+        }
+        public void LoadImageToPicBx(PictureBox pic_bx, string filename)
+        {
+            using (Image img = Image.FromFile(filename)) // 從文件加載圖片
+            {
+                pic_bx.Image?.Dispose(); // 如果PictureBox已經有圖片，先釋放掉
+                pic_bx.Image = new Bitmap(img); // 將加載的圖片設置到PictureBox中
+            } // 使用using語句確保加載的圖片資源在不再需要時釋放
+        }
+        #endregion
+
+
+
+
 
 
     }
