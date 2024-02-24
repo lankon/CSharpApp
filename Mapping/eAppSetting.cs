@@ -10,5 +10,6 @@ namespace Mapping
     {
         Cmbx_Y_Direc,
         Cmbx_X_Direc,
+        TxtBx_End,
     }
 }

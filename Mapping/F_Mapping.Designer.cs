@@ -34,7 +34,6 @@ namespace Mapping
             this.Pnl_Mapping = new System.Windows.Forms.Panel();
             this.PicBx_Mapping = new System.Windows.Forms.PictureBox();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
@@ -66,7 +65,7 @@ namespace Mapping
             this.Pnl_Mapping.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Pnl_Mapping.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Pnl_Mapping.Controls.Add(this.PicBx_Mapping);
-            this.Pnl_Mapping.Location = new System.Drawing.Point(242, 48);
+            this.Pnl_Mapping.Location = new System.Drawing.Point(244, 48);
             this.Pnl_Mapping.Name = "Pnl_Mapping";
             this.Pnl_Mapping.Size = new System.Drawing.Size(500, 500);
             this.Pnl_Mapping.TabIndex = 1;
@@ -79,17 +78,6 @@ namespace Mapping
             this.PicBx_Mapping.Size = new System.Drawing.Size(498, 498);
             this.PicBx_Mapping.TabIndex = 0;
             this.PicBx_Mapping.TabStop = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.button2.Location = new System.Drawing.Point(873, 486);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(101, 61);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // panel1
             // 
@@ -260,7 +248,7 @@ namespace Mapping
             this.Pnl_Colorbar.Controls.Add(this.PicBx_Colorbar);
             this.Pnl_Colorbar.Location = new System.Drawing.Point(15, 48);
             this.Pnl_Colorbar.Name = "Pnl_Colorbar";
-            this.Pnl_Colorbar.Size = new System.Drawing.Size(212, 500);
+            this.Pnl_Colorbar.Size = new System.Drawing.Size(228, 500);
             this.Pnl_Colorbar.TabIndex = 6;
             // 
             // PicBx_Colorbar
@@ -268,7 +256,7 @@ namespace Mapping
             this.PicBx_Colorbar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PicBx_Colorbar.Location = new System.Drawing.Point(0, 0);
             this.PicBx_Colorbar.Name = "PicBx_Colorbar";
-            this.PicBx_Colorbar.Size = new System.Drawing.Size(210, 498);
+            this.PicBx_Colorbar.Size = new System.Drawing.Size(226, 498);
             this.PicBx_Colorbar.TabIndex = 0;
             this.PicBx_Colorbar.TabStop = false;
             // 
@@ -281,7 +269,6 @@ namespace Mapping
             this.Controls.Add(this.Pnl_Colorbar);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.Pnl_Mapping);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_Mapping";
@@ -306,7 +293,6 @@ namespace Mapping
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel Pnl_Mapping;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Btn_DrawMap;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

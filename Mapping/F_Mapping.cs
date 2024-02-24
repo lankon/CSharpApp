@@ -37,8 +37,10 @@ namespace Mapping
 
         public F_Mapping()
         {
-            InitializeComponent();            
-        
+            InitializeComponent();
+
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
         }
 
         public void SetF_Mapping(Panel pnl, F_Mapping form)
@@ -56,7 +58,7 @@ namespace Mapping
         private void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList, double[] ValueRegion)
         {
             float startX = 25; // 图表起始横坐标
-            float startY = 20; // 图表起始纵坐标
+            float startY = 10; // 图表起始纵坐标
 
             using (Graphics g = Pnl.CreateGraphics())
             {
@@ -164,7 +166,7 @@ namespace Mapping
 
             Cmbx_TestItem.SelectedIndex = 0;
         }
-        private Dictionary<string, object> FindMapInfo(int MapSize, List<Dictionary<string, string>> data)
+        private Dictionary<string, object> FindMapInfo(int MapSize, List<Dictionary<string, string>> data, int[] xy_direc)
         {
             Dictionary<string, object> myDictionary = new Dictionary<string, object>();
 
@@ -175,8 +177,12 @@ namespace Mapping
             for(int i = 1; i < data.Count; i++)
             {
                 data[i].TryGetValue("PosX", out String value);                
-                ArrayX[i-1] = Int32.Parse(value);
                 data[i].TryGetValue("PosY", out String value1);
+
+                if (value == "" || value1 == "")
+                    break;
+
+                ArrayX[i - 1] = Int32.Parse(value);
                 ArrayY[i-1] = Int32.Parse(value1);
             }
 
@@ -203,7 +209,7 @@ namespace Mapping
             #endregion
 
             #region 決定Map GridSize大小
-            float[] GridSizeArray = { 10f, 5f, 4f, 2f, 1f, 0.8f };
+            float[] GridSizeArray = { 50f, 25f, 10f, 5f, 4f, 2f, 1f, 0.8f };
             float GridSize = 0f;
 
             for (int i = 0; i < GridSizeArray.Count(); i++)
@@ -220,8 +226,11 @@ namespace Mapping
 
             #region 找中心點位移量
             int middleIndex = ArrayX.Length / 2;
-            int ShiftX = (int)(MapSize / GridSize / 2) - ArrayX[middleIndex];
-            int ShiftY = (int)(MapSize / GridSize / 2) - ArrayY[middleIndex];
+            int ShiftX = (int)(MapSize / GridSize / 2) - (MaxXPos + MinXPos) / 2 * xy_direc[0];
+            int ShiftY = (int)(MapSize / GridSize / 2) - (MaxYPos + MinYPos) / 2 * xy_direc[1];
+
+            ShiftX = ShiftX * xy_direc[0];
+            ShiftY = ShiftY * xy_direc[1];
 
             myDictionary.Add("ShiftX", ShiftX);
             myDictionary.Add("ShiftY", ShiftY);
@@ -283,7 +292,7 @@ namespace Mapping
             return ValueRegion;
         }
         private int[] DrawMapping(Panel Pnl, float GridSize, List<Dictionary<string,string>> CellInfo,int ShiftX, int ShiftY,
-                                String TestItem, List<Color> ColorList, double[] ValueRegion)
+                                String TestItem, List<Color> ColorList, double[] ValueRegion, int[] xy_direc)
         {         
             int[] ValueRegionCount = new int[ColorList.Count()];
 
@@ -340,8 +349,8 @@ namespace Mapping
                 if (Int32.TryParse(sPosX, out int dPosX) &&
                     Int32.TryParse(sPosY, out int dPosY))
                 {
-                    dPosX = dPosX + ShiftX;
-                    dPosY = dPosY + ShiftY;
+                    dPosX = (dPosX + ShiftX) * xy_direc[0];
+                    dPosY = (dPosY + ShiftY) * xy_direc[1];
 
                     DrawCell(Pnl, GridSize, dPosX, dPosY, CellColor);
                 }
@@ -435,7 +444,20 @@ namespace Mapping
             double End = tool.StringToDouble(TxtBx_End.Text);
             double Step = tool.StringToDouble(TxtBx_Step.Text);
             String TestItem = Cmbx_TestItem.Text;
+            int[] XY_Direc = new int[2];
 
+
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 1)
+                XY_Direc[0] = -1;
+            else
+                XY_Direc[0] = 1;
+
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc) == 1)
+                XY_Direc[1] = -1;
+            else
+                XY_Direc[1] = 1;
+
+            
             mapInformation.MapSize = 500;
 
             if(Start > End)
@@ -449,7 +471,7 @@ namespace Mapping
 
             ClearMapping(Pnl_Mapping);
 
-            myDictionary = FindMapInfo(mapInformation.MapSize, mapInformation.CellInfo);
+            myDictionary = FindMapInfo(mapInformation.MapSize, mapInformation.CellInfo, XY_Direc);
             mapInformation.ShiftX = (int)myDictionary["ShiftX"];
             mapInformation.ShiftY = (int)myDictionary["ShiftY"];
             mapInformation.CellCount = (int)myDictionary["CellCount"];
@@ -461,20 +483,25 @@ namespace Mapping
 
             mapInformation.ValueRegionCount = DrawMapping(Pnl_Mapping, mapInformation.GridSize, mapInformation.CellInfo,
                                                           mapInformation.ShiftX, mapInformation.ShiftY,
-                                                          TestItem, mapInformation.ColorList, mapInformation.ValueRegion);
+                                                          TestItem, mapInformation.ColorList, mapInformation.ValueRegion, XY_Direc);
 
             DrawColorbar(Pnl_Colorbar, mapInformation.ValueRegionCount,
                          mapInformation.ColorList, mapInformation.ValueRegion);
-            
-            tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Pnl_Colorbar.png");
-            tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Pnl_Colorbar.png");
-            tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Pnl_Mapping.png");
-            tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Pnl_Mapping.png");
+
+
+            tool.CreateFolder(Application.StartupPath + @"\Temp");
+            tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
+            tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
+            tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+            tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
 
             PicBx_Colorbar.Visible = true;
             PicBx_Mapping.Visible = true;
 
             tool.SaveHistoryToFile("繪圖完成");
+
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
         }
 
         
@@ -484,13 +511,6 @@ namespace Mapping
             
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //DrawColorbar(Pnl_Colorbar);
-            string startupPath = Application.StartupPath;
-            //button2.Text = startupPath;
-            TxtBx_FilePath.Text = startupPath;
-        }    
 
         private void Btn_LoadFile_Click(object sender, EventArgs e)
         {

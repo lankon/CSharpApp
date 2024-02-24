@@ -27,14 +27,13 @@ namespace CommonFunction
                 }
                 else if(control is ComboBox)
                 {
-                    ComboBox comboBox = (ComboBox)control;
-                    
                     // 移除舊的設定值（如果存在）
-                    config1.AppSettings.Settings.Remove(comboBox.Name);
+                    config1.AppSettings.Settings.Remove(control.Name);
 
-                    // 添加新的設定值                   
-                    string sIndex = comboBox.SelectedIndex.ToString();
-                    config1.AppSettings.Settings.Add(control.Name, sIndex);
+                    // 添加新的設定值
+                    
+                    //string sIndex = control.
+                    //config1.AppSettings.Settings.Add(control.Name, sIndex);
                 }
 
                 // 如果這個控件包含其他控件，遞歸遍歷它們
@@ -56,28 +55,6 @@ namespace CommonFunction
                         if(eName == control.Name)
                         {
                             control.Text = ApplicationInfo[(int)value];
-                        }
-                    }
-                }
-                else if(control is ComboBox)
-                {
-                    ComboBox comboBox = (ComboBox)control;
-
-                    foreach (var value in Enum.GetValues(typeof(T)))
-                    {
-                        string eName = Enum.GetName(typeof(T), value);
-                        if (eName == comboBox.Name)
-                        {
-                            int Index;
-                            
-                            if(int.TryParse(ApplicationInfo[(int)value], out Index))
-                            {
-                                comboBox.SelectedIndex = Index;
-                            }
-                            else
-                            {
-                                comboBox.SelectedIndex = -1;
-                            }
                         }
                     }
                 }
@@ -114,19 +91,6 @@ namespace CommonFunction
         public static string Get_String_Recipe(int element)
         {
             return ApplicationInfo[element];
-        }
-        public static int Get_Int_Recipe(int element)
-        {
-            int Flag = -1;
-
-            if(int.TryParse(ApplicationInfo[element], out Flag))
-            {
-                return Flag;
-            }
-            else
-            {
-                return -1;
-            }
         }
         public static void SaveAllRecipe(Form form)
         {

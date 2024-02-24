@@ -32,16 +32,18 @@ namespace Mapping
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_MainForm));
             this.Pnl_Function = new System.Windows.Forms.Panel();
+            this.Btn_Home = new System.Windows.Forms.Button();
             this.Btn_Setting = new System.Windows.Forms.Button();
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Btn_Home = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Pnl_Function.SuspendLayout();
             this.SuspendLayout();
             // 
             // Pnl_Function
             // 
+            this.Pnl_Function.Controls.Add(this.button1);
             this.Pnl_Function.Controls.Add(this.Btn_Home);
             this.Pnl_Function.Controls.Add(this.Btn_Setting);
             this.Pnl_Function.Controls.Add(this.Btn_CloseApp);
@@ -49,6 +51,18 @@ namespace Mapping
             this.Pnl_Function.Name = "Pnl_Function";
             this.Pnl_Function.Size = new System.Drawing.Size(1021, 68);
             this.Pnl_Function.TabIndex = 27;
+            this.Pnl_Function.Paint += new System.Windows.Forms.PaintEventHandler(this.Pnl_Function_Paint);
+            // 
+            // Btn_Home
+            // 
+            this.Btn_Home.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Home.BackgroundImage")));
+            this.Btn_Home.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Home.Location = new System.Drawing.Point(3, 5);
+            this.Btn_Home.Name = "Btn_Home";
+            this.Btn_Home.Size = new System.Drawing.Size(60, 60);
+            this.Btn_Home.TabIndex = 29;
+            this.Btn_Home.UseVisualStyleBackColor = true;
+            this.Btn_Home.Click += new System.EventHandler(this.Btn_Home_Click);
             // 
             // Btn_Setting
             // 
@@ -79,15 +93,15 @@ namespace Mapping
             this.Pnl_Group.Size = new System.Drawing.Size(1022, 554);
             this.Pnl_Group.TabIndex = 28;
             // 
-            // Btn_Home
+            // button1
             // 
-            this.Btn_Home.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Home.BackgroundImage")));
-            this.Btn_Home.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_Home.Location = new System.Drawing.Point(3, 5);
-            this.Btn_Home.Name = "Btn_Home";
-            this.Btn_Home.Size = new System.Drawing.Size(60, 60);
-            this.Btn_Home.TabIndex = 29;
-            this.Btn_Home.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(559, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(97, 56);
+            this.button1.TabIndex = 30;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // F_MainForm
             // 
@@ -101,6 +115,7 @@ namespace Mapping
             this.Name = "F_MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "F_MainForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.F_MainForm_FormClosed);
             this.Pnl_Function.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -114,5 +129,6 @@ namespace Mapping
         private System.Windows.Forms.Panel Pnl_Group;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Btn_Home;
+        private System.Windows.Forms.Button button1;
     }
 }

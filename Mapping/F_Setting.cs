@@ -17,35 +17,58 @@ namespace Mapping
         {
             InitializeComponent();
 
-            this.DoubleBuffered = true;
-
-            // 其他設置，以改善繪圖性能
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-
             ApplicationSetting.ReadAllRecipe<FormItem>();
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
-
-            this.Pnl_Function.Paint += Panel_Paint;
         }
 
-        private void Panel_Paint(object sender, PaintEventArgs e)
+        public void SetF_Setting(Panel pnl, F_Setting form)
         {
-            Panel pnl = (Panel)sender;
+            form.Dock = DockStyle.Fill;
+            form.Visible = true;
+            form.TopLevel = false;
+            form.Top = 0;
+            form.Left = 0;
 
-            e.Graphics.Clear(pnl.BackColor);
-            e.Graphics.DrawString(pnl.Text, pnl.Font, Brushes.Black, 10, 1);
-            var vSize = e.Graphics.MeasureString(pnl.Text, pnl.Font);
-            //e.Graphics.DrawLine(Pens.Black, 1, vSize.Height / 2, 8, vSize.Height / 2);
-            //e.Graphics.DrawLine(Pens.Black, vSize.Width + 8, vSize.Height / 2, pnl.Width - 2, vSize.Height / 2);
-            //e.Graphics.DrawLine(Pens.Black, 1, vSize.Height / 2, 1, pnl.Height - 2);
-            e.Graphics.DrawLine(Pens.Black, 1, pnl.Height - 2, pnl.Width - 2, pnl.Height - 2);
-            //e.Graphics.DrawLine(Pens.Black, pnl.Width - 2, vSize.Height / 2, pnl.Width - 2, pnl.Height - 2);
+            pnl.Controls.Add(form);
+
+            form.Hide();
         }
 
-        private void Btn_Back_Click(object sender, EventArgs e)
+        public int[] Get_XY_Direc()
         {
-            this.Close();
+            int[] xy_direc = new int[2];
+
+            xy_direc[0] = 1;
+            xy_direc[1] = 1;
+
+            if (Cmbx_X_Direc.SelectedIndex == 2)
+                xy_direc[0] = -1;
+
+            if (Cmbx_Y_Direc.SelectedIndex == 2)
+                xy_direc[1] = -1;
+
+            return xy_direc;
+        }
+
+        private void F_Setting_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ApplicationSetting.SaveAllRecipe(this);
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+
+            this.Dispose(); // 显式调用 Dispose 以释放资源
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+
+
+        private void F_Setting_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!this.Visible)
+            {
+                ApplicationSetting.SaveAllRecipe(this);
+                ApplicationSetting.ReadAllRecipe<FormItem>();
+            }
         }
     }
 }

@@ -49,9 +49,8 @@ namespace CommonFunction
             StreamWriter sw;
             DateTime currentTime = DateTime.Now;
             string Time = currentTime.ToString("yyyy-MM-dd HH:mm:ss");
-            string Date = currentTime.ToString("yyyMMdd");
             
-            sw = CreateFile("History\\Log_"+ Date, ".txt", true);
+            sw = CreateFile("Log", ".txt", true);
             WriteFile(sw, "["+Time+"] " + Msg);
             CloseFile(sw);
         }
@@ -181,7 +180,7 @@ namespace CommonFunction
 
         #region 截圖相關功能
         public void CaptureImage(Control ctrl, string filename)
-        {            
+        {
             // 創建一個與 Panel 大小相同的 Bitmap
             Bitmap bitmap = new Bitmap(ctrl.Width, ctrl.Height);
 
