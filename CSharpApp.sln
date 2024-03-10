@@ -10,10 +10,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonFunction", "CommonFunction", "{1AE1D90D-5836-44C9-B12A-B4C5E757EFC1}"
 	ProjectSection(SolutionItems) = preProject
 		Common Function\ApplicationSetting.cs = Common Function\ApplicationSetting.cs
+		Common Function\Communication_Rs485.cs = Common Function\Communication_Rs485.cs
+		Common Function\Licence.cs = Common Function\Licence.cs
 		Common Function\Tool.cs = Common Function\Tool.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapping", "Mapping\Mapping.csproj", "{F65F551C-276E-45AF-A6E4-BB8F099DC434}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstrumentTest", "InstrumentTest\InstrumentTest.csproj", "{A60B737D-73FB-410E-8597-460B3108D634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,10 @@ Global
 		{F65F551C-276E-45AF-A6E4-BB8F099DC434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F65F551C-276E-45AF-A6E4-BB8F099DC434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F65F551C-276E-45AF-A6E4-BB8F099DC434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A60B737D-73FB-410E-8597-460B3108D634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60B737D-73FB-410E-8597-460B3108D634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60B737D-73FB-410E-8597-460B3108D634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60B737D-73FB-410E-8597-460B3108D634}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F65F551C-276E-45AF-A6E4-BB8F099DC434}</ProjectGuid>
+    <ProjectGuid>{A60B737D-73FB-410E-8597-460B3108D634}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Mapping</RootNamespace>
-    <AssemblyName>Mapping</AssemblyName>
+    <RootNamespace>InstrumentTest</RootNamespace>
+    <AssemblyName>InstrumentTest</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,15 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.CodeDom, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.CodeDom.8.0.0\lib\net462\System.CodeDom.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,18 +53,19 @@
     <Compile Include="..\Common Function\ApplicationSetting.cs">
       <Link>ApplicationSetting.cs</Link>
     </Compile>
-    <Compile Include="..\Common Function\Licence.cs">
-      <Link>Licence.cs</Link>
+    <Compile Include="..\Common Function\Communication_Rs485.cs">
+      <Link>Communication_Rs485.cs</Link>
     </Compile>
     <Compile Include="..\Common Function\Tool.cs">
       <Link>Tool.cs</Link>
     </Compile>
-    <Compile Include="eAppSetting.cs" />
-    <Compile Include="F_BinTable.cs">
+    <Compile Include="DeltaLoadCell_Func.cs" />
+    <Compile Include="eFormAppSet.cs" />
+    <Compile Include="F_LoadCell.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_BinTable.Designer.cs">
-      <DependentUpon>F_BinTable.cs</DependentUpon>
+    <Compile Include="F_LoadCell.Designer.cs">
+      <DependentUpon>F_LoadCell.cs</DependentUpon>
     </Compile>
     <Compile Include="F_MainForm.cs">
       <SubType>Form</SubType>
@@ -76,31 +73,17 @@
     <Compile Include="F_MainForm.Designer.cs">
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_Setting.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_Setting.Designer.cs">
-      <DependentUpon>F_Setting.cs</DependentUpon>
-    </Compile>
-    <Compile Include="F_Mapping.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_Mapping.Designer.cs">
-      <DependentUpon>F_Mapping.cs</DependentUpon>
-    </Compile>
+    <Compile Include="PISODIO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="F_BinTable.resx">
-      <DependentUpon>F_BinTable.cs</DependentUpon>
+    <Compile Include="Task_DeltaLoadCell.cs" />
+    <Compile Include="Task_Idle.cs" />
+    <EmbeddedResource Include="F_LoadCell.resx">
+      <DependentUpon>F_LoadCell.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_MainForm.resx">
       <DependentUpon>F_MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F_Setting.resx">
-      <DependentUpon>F_Setting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="F_Mapping.resx">
-      <DependentUpon>F_Mapping.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

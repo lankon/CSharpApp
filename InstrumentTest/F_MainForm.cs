@@ -10,15 +10,15 @@ using System.Windows.Forms;
 using System.Management;
 using CommonFunction;
 
-namespace Mapping
+
+namespace InstrumentTest
 {
     public partial class F_MainForm : Form
     {
         Tool tool = new Tool();
-        F_Setting f_Setting = new F_Setting();
-        F_Mapping f_Mapping = new F_Mapping();
-        F_BinTable f_BinTable = new F_BinTable();
-
+        Context context = null;
+        F_LoadCell f_LoadCell = new F_LoadCell();
+        
         public F_MainForm()
         {
             InitializeComponent();
@@ -28,40 +28,64 @@ namespace Mapping
 
         #region 初始化應用程式
         private void InitialApplication()
-        {            
-            f_Mapping.SetF_Mapping(Pnl_Group, f_Mapping);
-            f_Setting.SetF_Setting(Pnl_Group, f_Setting);
-            f_BinTable.SetF_BinTable(Pnl_Group, f_BinTable);
+        {
+            f_LoadCell.SetF_LoadCell(Pnl_Group, f_LoadCell);
 
             SetHint();
+
+            // 使用Task创建并启动线程
+            Task task = Task.Run(() =>MainTask());
         }
 
         private void SetHint()
         {
             toolTip1.SetToolTip(Btn_CloseApp, "Close");
-            toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_Home, "Home");
-            toolTip1.SetToolTip(Btn_BinTable, "Bin Table");
+        }
+
+        private void MainTask()
+        {
+            while (true)
+            {              
+                if(context != null)
+                    context.Request();
+            }
         }
         #endregion
 
-        private void HideFormOnPanel(Panel pnl)
+        private void HideElementOnPanel(Panel pnl)
         {
             foreach (Control control in pnl.Controls)
             {
                 if (control is Form && control.Visible == true)
                 {
                     ((Form)control).Hide();
-                    break; 
+                    //break; 
+                }
+                else if(control is Button && control.Visible == true)
+                {
+                    ((Button)control).Visible = false;
+                }
+                else if (control is Label && control.Visible == true)
+                {
+                    ((Label)control).Visible = false;
                 }
             }
         }
 
-        private void Btn_Setting_Click(object sender, EventArgs e)
+        private void ShowElementOnPanel(Panel pnl)
         {
-            HideFormOnPanel(Pnl_Group);
-
-            f_Setting.Show();
+            foreach (Control control in pnl.Controls)
+            {
+                if (control is Button && control.Visible == false)
+                {
+                    ((Button)control).Visible = true;
+                }
+                else if (control is Label && control.Visible == false)
+                {
+                    ((Label)control).Visible = true;
+                }
+            }
         }
 
         private void Btn_CloseApp_Click(object sender, EventArgs e)
@@ -85,11 +109,9 @@ namespace Mapping
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
-            HideFormOnPanel(Pnl_Group);
+            HideElementOnPanel(Pnl_Group);
 
-            //f_Setting.Hide();
-
-            f_Mapping.Show();
+            ShowElementOnPanel(Pnl_Group);
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -116,11 +138,18 @@ namespace Mapping
             //e.Graphics.DrawLine(Pens.Black, pnl.Width - 2, vSize.Height / 2, pnl.Width - 2, pnl.Height - 2);
         }
 
-        private void Btn_BinTable_Click(object sender, EventArgs e)
+        private void Btn_DeltaLoadCell_Click(object sender, EventArgs e)
         {
-            HideFormOnPanel(Pnl_Group);
+            HideElementOnPanel(Pnl_Group);
 
-            f_BinTable.Show();
+            f_LoadCell.Show();
+        }
+
+        private void Btn_PISODIO_Click(object sender, EventArgs e)
+        {
+            PISODIO pISODIO = new PISODIO();
+
+            pISODIO.Initialize();
         }
     }
 }

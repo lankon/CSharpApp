@@ -65,7 +65,7 @@ namespace Mapping
             this.Pnl_Mapping.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Pnl_Mapping.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Pnl_Mapping.Controls.Add(this.PicBx_Mapping);
-            this.Pnl_Mapping.Location = new System.Drawing.Point(244, 48);
+            this.Pnl_Mapping.Location = new System.Drawing.Point(245, 48);
             this.Pnl_Mapping.Name = "Pnl_Mapping";
             this.Pnl_Mapping.Size = new System.Drawing.Size(500, 500);
             this.Pnl_Mapping.TabIndex = 1;
@@ -246,7 +246,7 @@ namespace Mapping
             this.Pnl_Colorbar.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Pnl_Colorbar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Pnl_Colorbar.Controls.Add(this.PicBx_Colorbar);
-            this.Pnl_Colorbar.Location = new System.Drawing.Point(15, 48);
+            this.Pnl_Colorbar.Location = new System.Drawing.Point(16, 48);
             this.Pnl_Colorbar.Name = "Pnl_Colorbar";
             this.Pnl_Colorbar.Size = new System.Drawing.Size(228, 500);
             this.Pnl_Colorbar.TabIndex = 6;

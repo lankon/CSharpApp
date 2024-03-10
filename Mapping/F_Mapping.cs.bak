@@ -156,19 +156,10 @@ namespace Mapping
         }
         private void InsertTestItemToCmbx(ComboBox Cmbx, Dictionary<string, string> dictTestItem)
         {
-            int i = 0;
-
             foreach (var kvp in dictTestItem)
             {
                 string key = kvp.Key;
                 string value = kvp.Value;
-
-                i++;
-                if (i > 50)
-                {
-                    tool.SaveHistoryToFile("TestItemt超過50項");
-                    break;
-                }
 
                 Cmbx.Items.Add(value.Trim());
             }
@@ -523,14 +514,6 @@ namespace Mapping
 
         private void Btn_LoadFile_Click(object sender, EventArgs e)
         {
-            Licence licence = new Licence();
-            if (!licence.CheckLicence())
-            {
-                MessageBox.Show("Licence Error");
-                Application.Exit();
-                return;
-            }
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             string selectedFileName = "";
 
