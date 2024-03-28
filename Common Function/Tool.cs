@@ -164,6 +164,21 @@ namespace CommonFunction
         }
         #endregion
 
+        public int StringToInt(string str)
+        {
+            int result;
+
+            if (Int32.TryParse(str, out result))
+            {
+                return result;
+            }
+            else
+            {
+                SaveHistoryToFile("型別轉換錯誤");
+                return -999;
+            }
+        }
+
         #endregion
 
         public void CreateFolder(string folderPath)

@@ -17,7 +17,7 @@ namespace InstrumentTest
     {
         bool IsLoadCellOpen = false;
         bool TempStop = false;
-        DeltaLoadCell_Func[] DeltaLoadCell = new DeltaLoadCell_Func[4];
+        ILoadCell[] LoadCell = new ILoadCell[4];
         Tool tool = new Tool();
 
         public F_LoadCell()
@@ -55,12 +55,22 @@ namespace InstrumentTest
             TxtBx_Com1_Station3.Enabled = true_false;
         }
 
+        private ILoadCell CreateLoadCell(string Type)
+        {
+            switch (Type)
+            {
+                case "Delta":
+                    return new LoadCell_Delta();
+            }
+
+            return null;
+        }
+
         private void SetParameter(int CtrlBox)
         {
-            DeltaLoadCell[CtrlBox].DeviceNum = tool.StringToInt(Cmbx_Com1_DeviceNum.Text);
-            DeltaLoadCell[CtrlBox].Set_Station(TxtBx_Com1_Station1.Text, TxtBx_Com1_Station2.Text,
+            LoadCell[CtrlBox].Set_Parameter(tool.StringToInt(Cmbx_Com1_DeviceNum.Text), tool.StringToDouble(TxtBx_Target.Text));
+            LoadCell[CtrlBox].Set_Station(TxtBx_Com1_Station1.Text, TxtBx_Com1_Station2.Text,
                                                TxtBx_Com1_Station3.Text, "123");
-            DeltaLoadCell[CtrlBox].TrigGramReference = tool.StringToDouble(TxtBx_Target.Text);
         }
 
         private bool CheckOpenCondition()
@@ -94,7 +104,7 @@ namespace InstrumentTest
             if (!CheckOpenCondition())
                 return;
 
-            for (int i = 1; i <= 4; i++)
+            for (int i = 1; i <= 1; i++)
             {
                 var cmbx_name = $"Cmbx_Com{i}_Comport";
                 var temp_cmbx = this.GetType().GetField(cmbx_name, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -108,9 +118,9 @@ namespace InstrumentTest
 
                 if (cmbx != null)
                 {
-                    DeltaLoadCell[i - 1] = new DeltaLoadCell_Func();
+                    LoadCell[i - 1] = CreateLoadCell(Cmbx_Type.Text);
 
-                    if (!cmbx.Text.Contains("COM") || DeltaLoadCell[i - 1].Open(cmbx.Text, 500000, 0, 8, 1))
+                    if (!cmbx.Text.Contains("COM") || LoadCell[i - 1].Open(cmbx.Text, 500000, 0, 8, 1))
                     {
                         IsLoadCellOpen = true;
                         SetParameter(i - 1);
@@ -142,17 +152,17 @@ namespace InstrumentTest
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    DeltaLoadCell[i].Ask_AllGramStatus();
+                    LoadCell[i].Ask_AllGramStatus();
                     Thread.Sleep(2);
-                    DeltaLoadCell[i].Ans_AllGramStatus();
+                    LoadCell[i].Ans_AllGramStatus();
 
                     double[] Gram = new double[4];
                     ushort[] status = new ushort[4];
 
-                    Gram = DeltaLoadCell[i].Get_AllGram();
-                    status = DeltaLoadCell[i].Get_AllStatus();
+                    Gram = LoadCell[i].Get_AllGram();
+                    status = LoadCell[i].Get_AllStatus();
 
-                    for (int k = 0; k < DeltaLoadCell[i].DeviceNum; k++)
+                    for (int k = 0; k < tool.StringToInt(Cmbx_Com1_DeviceNum.Text); k++)
                     {
                         #region 克重顯示
                         var txt_bx_name = $"TxtBx_Com{i + 1}_Gram{k + 1}";
@@ -196,10 +206,10 @@ namespace InstrumentTest
         {
             for (int i = 0; i < 4; i++)
             {
-                if (DeltaLoadCell[i] == null)
+                if (LoadCell[i] == null)
                     continue;
 
-                if (DeltaLoadCell[i].Close())
+                if (LoadCell[i].Close())
                     IsLoadCellOpen = false;
                 else
                 {
@@ -218,7 +228,7 @@ namespace InstrumentTest
         {
             TempStop = true;
             //待優化
-            DeltaLoadCell[0].Set_ZeroCalibration();
+            LoadCell[0].Set_ZeroCalibration();
             TempStop = false;
         }
     }

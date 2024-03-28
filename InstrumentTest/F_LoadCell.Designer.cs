@@ -47,6 +47,9 @@ namespace InstrumentTest
             this.Cmbx_Com1_Comport = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.TxtBx_Com1_Station1 = new System.Windows.Forms.TextBox();
+            this.TxtBx_Com1_Station2 = new System.Windows.Forms.TextBox();
+            this.TxtBx_Com1_Station3 = new System.Windows.Forms.TextBox();
             this.Pnl_Com1_Touch3 = new System.Windows.Forms.Panel();
             this.TxtBx_Com1_Gram3 = new System.Windows.Forms.TextBox();
             this.TxtBx_Com1_Gram2 = new System.Windows.Forms.TextBox();
@@ -61,9 +64,6 @@ namespace InstrumentTest
             this.TxtBx_Com1_Gram1 = new System.Windows.Forms.TextBox();
             this.Pnl_Com1_Touch1 = new System.Windows.Forms.Panel();
             this.Pnl_Com1_Touch2 = new System.Windows.Forms.Panel();
-            this.TxtBx_Com1_Station3 = new System.Windows.Forms.TextBox();
-            this.TxtBx_Com1_Station2 = new System.Windows.Forms.TextBox();
-            this.TxtBx_Com1_Station1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -294,6 +294,36 @@ namespace InstrumentTest
             this.tableLayoutPanel1.Size = new System.Drawing.Size(723, 182);
             this.tableLayoutPanel1.TabIndex = 11;
             // 
+            // TxtBx_Com1_Station1
+            // 
+            this.TxtBx_Com1_Station1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_Com1_Station1.Location = new System.Drawing.Point(150, 146);
+            this.TxtBx_Com1_Station1.Name = "TxtBx_Com1_Station1";
+            this.TxtBx_Com1_Station1.Size = new System.Drawing.Size(134, 29);
+            this.TxtBx_Com1_Station1.TabIndex = 23;
+            this.TxtBx_Com1_Station1.Text = "0";
+            this.TxtBx_Com1_Station1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TxtBx_Com1_Station2
+            // 
+            this.TxtBx_Com1_Station2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_Com1_Station2.Location = new System.Drawing.Point(293, 146);
+            this.TxtBx_Com1_Station2.Name = "TxtBx_Com1_Station2";
+            this.TxtBx_Com1_Station2.Size = new System.Drawing.Size(134, 29);
+            this.TxtBx_Com1_Station2.TabIndex = 22;
+            this.TxtBx_Com1_Station2.Text = "0";
+            this.TxtBx_Com1_Station2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TxtBx_Com1_Station3
+            // 
+            this.TxtBx_Com1_Station3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_Com1_Station3.Location = new System.Drawing.Point(436, 146);
+            this.TxtBx_Com1_Station3.Name = "TxtBx_Com1_Station3";
+            this.TxtBx_Com1_Station3.Size = new System.Drawing.Size(134, 29);
+            this.TxtBx_Com1_Station3.TabIndex = 21;
+            this.TxtBx_Com1_Station3.Text = "0";
+            this.TxtBx_Com1_Station3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Pnl_Com1_Touch3
             // 
             this.Pnl_Com1_Touch3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -439,36 +469,6 @@ namespace InstrumentTest
             this.Pnl_Com1_Touch2.Name = "Pnl_Com1_Touch2";
             this.Pnl_Com1_Touch2.Size = new System.Drawing.Size(134, 26);
             this.Pnl_Com1_Touch2.TabIndex = 18;
-            // 
-            // TxtBx_Com1_Station3
-            // 
-            this.TxtBx_Com1_Station3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_Com1_Station3.Location = new System.Drawing.Point(436, 146);
-            this.TxtBx_Com1_Station3.Name = "TxtBx_Com1_Station3";
-            this.TxtBx_Com1_Station3.Size = new System.Drawing.Size(134, 29);
-            this.TxtBx_Com1_Station3.TabIndex = 21;
-            this.TxtBx_Com1_Station3.Text = "0";
-            this.TxtBx_Com1_Station3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TxtBx_Com1_Station2
-            // 
-            this.TxtBx_Com1_Station2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_Com1_Station2.Location = new System.Drawing.Point(293, 146);
-            this.TxtBx_Com1_Station2.Name = "TxtBx_Com1_Station2";
-            this.TxtBx_Com1_Station2.Size = new System.Drawing.Size(134, 29);
-            this.TxtBx_Com1_Station2.TabIndex = 22;
-            this.TxtBx_Com1_Station2.Text = "0";
-            this.TxtBx_Com1_Station2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TxtBx_Com1_Station1
-            // 
-            this.TxtBx_Com1_Station1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_Com1_Station1.Location = new System.Drawing.Point(150, 146);
-            this.TxtBx_Com1_Station1.Name = "TxtBx_Com1_Station1";
-            this.TxtBx_Com1_Station1.Size = new System.Drawing.Size(134, 29);
-            this.TxtBx_Com1_Station1.TabIndex = 23;
-            this.TxtBx_Com1_Station1.Text = "0";
-            this.TxtBx_Com1_Station1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // F_LoadCell
             // 

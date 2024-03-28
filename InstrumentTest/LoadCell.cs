@@ -9,12 +9,25 @@ using System.Threading;
 
 namespace InstrumentTest
 {
-    class DeltaLoadCell_Func
+    #region Function
+    public interface ILoadCell
+    {
+        bool Open(string port_name, int baud_rate, int parity, int data_bit, int stop_bit);
+        bool Close();
+        void Ask_AllGramStatus();
+        void Ans_AllGramStatus();
+        double[] Get_AllGram();
+        ushort[] Get_AllStatus();
+        void Set_ZeroCalibration();
+        void Set_Station(string s_station1, string s_station2, string s_station3, string s_station4);
+        void Set_Parameter(int device_num, double gram_ref);
+    }
+    public class LoadCell_Delta : ILoadCell
     {
         Rs485 rs485 = new Rs485();
         Tool tool = new Tool();
-        public int DeviceNum = 2;
-        public double TrigGramReference = 2.5; //目標克重
+        private int DeviceNum = 2;
+        private double TrigGramReference = 2.5; //目標克重
         private double[] Gram;
         private ushort[] TrigStatus;
         private byte[] Station = new byte[4];
@@ -140,7 +153,11 @@ namespace InstrumentTest
             Station[3] = (byte)station4;
         }
 
-
+        public void Set_Parameter(int device_num, double gram_ref)
+        {
+            DeviceNum = device_num;
+            TrigGramReference = gram_ref;
+        }
 
         #region Function
         byte GetBufCRC(byte[] ptr, byte len)
@@ -226,4 +243,65 @@ namespace InstrumentTest
 
 
     }
+    #endregion
+
+    #region Task
+    public class Task_LoadCell
+    {
+        enum WORK
+        {
+            INITIAL,
+            
+            CONNECT,
+            CLOSE,
+            IDLE,
+            ASK_GRAM,
+            ANS_GRAM,
+
+            ERROR,
+        }
+
+        Tool tool = new Tool();
+        private bool Terminate = true;
+        private WORK state = WORK.INITIAL;
+
+        public bool IsIdle()
+        {
+            if (state != WORK.IDLE)
+                return false;
+            else
+                return true;
+        }
+        
+        public Task_LoadCell()
+        {           
+            Task task = Task.Run(() => MainTask());
+        }
+
+        private void Transition(WORK target)
+        {
+            state = target;
+            tool.SaveHistoryToFile(state.ToString());
+        }
+
+        private void MainTask()
+        {
+            while(Terminate)
+            {
+                switch(state)
+                {
+                    case WORK.INITIAL:
+                        Transition(WORK.CONNECT);
+                        break;
+
+                    case WORK.CONNECT:
+
+                        break;
+                }
+            }
+        }
+    }
+    #endregion
+
+
 }

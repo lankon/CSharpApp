@@ -16,7 +16,6 @@ namespace InstrumentTest
     public partial class F_MainForm : Form
     {
         Tool tool = new Tool();
-        Context context = null;
         F_LoadCell f_LoadCell = new F_LoadCell();
         
         public F_MainForm()
@@ -34,7 +33,7 @@ namespace InstrumentTest
             SetHint();
 
             // 使用Task创建并启动线程
-            Task task = Task.Run(() =>MainTask());
+            //Task task = Task.Run(() =>MainTask());
         }
 
         private void SetHint()
@@ -43,14 +42,7 @@ namespace InstrumentTest
             toolTip1.SetToolTip(Btn_Home, "Home");
         }
 
-        private void MainTask()
-        {
-            while (true)
-            {              
-                if(context != null)
-                    context.Request();
-            }
-        }
+        
         #endregion
 
         private void HideElementOnPanel(Panel pnl)

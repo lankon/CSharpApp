@@ -16,7 +16,7 @@ namespace CSharpApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new F_Test());
+            Application.Run(new F_LogIn());
         }
     }
 }
