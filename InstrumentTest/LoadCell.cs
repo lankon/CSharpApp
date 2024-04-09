@@ -280,8 +280,12 @@ namespace InstrumentTest
 
         private void Transition(WORK target)
         {
-            state = target;
-            tool.SaveHistoryToFile(state.ToString());
+            if(target != state) //狀態有變化時紀錄
+            {
+                tool.SaveHistoryToFile(state.ToString());
+            }
+            
+            state = target;         
         }
 
         private void MainTask()

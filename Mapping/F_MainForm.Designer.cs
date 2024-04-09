@@ -32,12 +32,12 @@ namespace Mapping
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_MainForm));
             this.Pnl_Function = new System.Windows.Forms.Panel();
+            this.Btn_BinTable = new System.Windows.Forms.Button();
             this.Btn_Home = new System.Windows.Forms.Button();
             this.Btn_Setting = new System.Windows.Forms.Button();
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Btn_BinTable = new System.Windows.Forms.Button();
             this.Pnl_Function.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +52,18 @@ namespace Mapping
             this.Pnl_Function.Size = new System.Drawing.Size(1021, 68);
             this.Pnl_Function.TabIndex = 27;
             this.Pnl_Function.Paint += new System.Windows.Forms.PaintEventHandler(this.Pnl_Function_Paint);
+            // 
+            // Btn_BinTable
+            // 
+            this.Btn_BinTable.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_BinTable.BackgroundImage")));
+            this.Btn_BinTable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_BinTable.Location = new System.Drawing.Point(826, 5);
+            this.Btn_BinTable.Name = "Btn_BinTable";
+            this.Btn_BinTable.Size = new System.Drawing.Size(60, 60);
+            this.Btn_BinTable.TabIndex = 30;
+            this.Btn_BinTable.UseVisualStyleBackColor = true;
+            this.Btn_BinTable.Visible = false;
+            this.Btn_BinTable.Click += new System.EventHandler(this.Btn_BinTable_Click);
             // 
             // Btn_Home
             // 
@@ -92,17 +104,6 @@ namespace Mapping
             this.Pnl_Group.Name = "Pnl_Group";
             this.Pnl_Group.Size = new System.Drawing.Size(1022, 554);
             this.Pnl_Group.TabIndex = 28;
-            // 
-            // Btn_BinTable
-            // 
-            this.Btn_BinTable.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_BinTable.BackgroundImage")));
-            this.Btn_BinTable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_BinTable.Location = new System.Drawing.Point(826, 5);
-            this.Btn_BinTable.Name = "Btn_BinTable";
-            this.Btn_BinTable.Size = new System.Drawing.Size(60, 60);
-            this.Btn_BinTable.TabIndex = 30;
-            this.Btn_BinTable.UseVisualStyleBackColor = true;
-            this.Btn_BinTable.Click += new System.EventHandler(this.Btn_BinTable_Click);
             // 
             // F_MainForm
             // 
