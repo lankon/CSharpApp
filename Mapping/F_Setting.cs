@@ -13,6 +13,11 @@ namespace Mapping
 {
     public partial class F_Setting : Form
     {
+        #region parameter define
+        bool bCustomerShow = false; //用於判別是否秀出Customer名稱
+        #endregion
+
+
         public F_Setting()
         {
             InitializeComponent();
@@ -69,6 +74,36 @@ namespace Mapping
                 ApplicationSetting.SaveAllRecipe(this);
                 ApplicationSetting.ReadAllRecipe<FormItem>();
             }
+        }
+
+        private void label6_DoubleClick(object sender, EventArgs e)
+        {
+
+            int index = Cmbx_Customer.SelectedIndex;
+
+            Cmbx_Customer.Items.Clear();
+
+            string[] customer_item = new string[2];
+
+            if (bCustomerShow == false)
+            {
+                customer_item[0] = "Defult";
+                customer_item[1] = "AMIDA";
+                bCustomerShow = true;
+            }
+            else
+            {
+                customer_item[0] = "Default";
+                customer_item[1] = "Customer1";
+                bCustomerShow = false;
+            }
+            
+            for (int i = 0; i < customer_item.Length; i++)
+            {
+                Cmbx_Customer.Items.Add(customer_item[i]);
+            }
+
+            Cmbx_Customer.SelectedIndex = index;
         }
     }
 }

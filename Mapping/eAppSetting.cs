@@ -11,5 +11,8 @@ namespace Mapping
         Cmbx_Y_Direc,
         Cmbx_X_Direc,
         TxtBx_End,
+        TxtBx_X_KeyWord,
+        TxtBx_Y_KeyWord,
+        Cmbx_Customer,
     }
 }

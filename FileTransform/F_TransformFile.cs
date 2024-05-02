@@ -55,64 +55,6 @@ namespace FileTransform
             this.ShowDialog();
         }
 
-        public List<Dictionary<string, string>> ReadCsvFile(String Path)
-        {
-            // 使用 Dictionary 來儲存資料
-            List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
-            bool StartReadFile = false;
-            try
-            {
-                // 使用 StreamReader 來讀取檔案
-                using (StreamReader sr = new StreamReader(Path))
-                {
-                    if (sr == null) return data;
-
-                    string[] headers = new string[200];// = sr.ReadLine().Split(',');
-
-                    // 逐行讀取 CSV 檔案
-                    while (!sr.EndOfStream)
-                    {
-                        // 讀取一行
-                        string line = sr.ReadLine();
-
-                        // 使用逗號分隔解析欄位
-                        string[] fields = line.Split(',');
-
-                        if (fields[0].Trim() == "PosX")
-                        {
-                            for (int i = 0; i < fields.Count(); i++)
-                            {
-                                headers[i] = fields[i].Trim();
-                            }
-
-                            StartReadFile = true;
-                        }
-
-                        if (StartReadFile == true)
-                        {
-                            // 使用 Dictionary 來儲存每一行的資料
-                            Dictionary<string, string> row = new Dictionary<string, string>();
-
-                            // 將資料與欄位名稱對應起來
-                            for (int i = 0; i < fields.Length; i++)
-                            {
-                                row[headers[i]] = fields[i];
-                            }
-
-                            // 將此行的資料加入到 List 中
-                            data.Add(row);
-                        }
-                    }
-
-                    return data;
-                }
-            }
-            catch
-            {
-                return data;
-            }
-        }
-
         #region 新增Form至TabPage
         private void SetF_Coordinate_Transform(TabPage[] tabpage, string tabpage_name, int count, F_Coordinate_Transform user_control)
         {
@@ -174,30 +116,133 @@ namespace FileTransform
             File.WriteAllLines(Path, lines);
         }
 
+        public string[,] ReadCsvFile(String path)
+        {
+            string[,] data = new string[100, 1000000];
+            int j = 0;
+
+            try
+            {
+                // 使用 StreamReader 來讀取檔案
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    if (sr == null) return data;
+
+                    // 逐行讀取 CSV 檔案
+                    while (!sr.EndOfStream)
+                    {
+                        // 讀取一行
+                        string line = sr.ReadLine();
+
+                        // 使用逗號分隔解析欄位
+                        string[] fields = line.Split(',');
+
+                        // 將資料與欄位名稱對應起來
+                        for (int i = 0; i < fields.Length; i++)
+                        {
+                            data[i, j] = fields[i].Trim();
+                        }
+
+                        j++;
+                    }
+
+                    return data;
+                }
+            }
+            catch
+            {
+                return data;
+            }
+        }
+
+        private bool SaveCsvFile(string[,] data, string path)
+        {
+            int rowCount = data.GetLength(1);
+            int colCount = data.GetLength(0);
+
+            using (StreamWriter file = new StreamWriter(path))
+            {
+                for (int i = 0; i < rowCount; i++)
+                {
+                    if (data[0, i] == null) break;
+                    
+                    // 為當前行創建一個列表來存儲每一列的值
+                    List<string> row = new List<string>();
+                    for (int j = 0; j < colCount; j++)
+                    {
+                        if(j > 3 && data[j,i] == null) break;
+                        
+                        // 添加當前元素到行列表，並在需要時處理可能的逗號（這裡假設數據是乾淨的，無需進一步處理）
+                        row.Add(data[j, i]);
+                    }
+                    // 將列表轉換為用逗號分隔的字符串，並寫入檔案
+                    file.WriteLine(string.Join(",", row));
+                }
+
+                return true;
+            }
+        }
         private void Btn_Start_Click(object sender, EventArgs e)
         {
-            ApplicationSetting.SaveAllRecipe(this);
-            
-            //OpenFileDialog openFileDialog = new OpenFileDialog();
-            //string selectedFileName = "";
+            string[,] data = new string[100, 1000000];
+            string[,] data1 = new string[100, 1000000];
 
-            //// 設置文件選擇對話框的屬性
-            //openFileDialog.Title = "Select TestData";
-            //openFileDialog.Filter = "TestData|*.csv|All|*.*";
+            //string folderPath = Path.GetDirectoryName(TxtBx_ReportFileName.Text);
 
-            //// 如果用戶選擇了文件，顯示文件名
-            //if (openFileDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    selectedFileName = openFileDialog.FileName;
-            //}
+            data = ReadCsvFile(TxtBx_ReportFileName.Text);
 
-            //FixFile(selectedFileName);
-            ////ReadCsvFile(selectedFileName);
-            ////TxtBx_FilePath.Text = selectedFileName;
-            ///
-            //FixFileName(string folderPath1, -461, int ShiftY);
-            //Mirror_XY("123", false, true);
-            //FixFileName("123", -461, 644);
+            if (data == null)
+            {
+                MessageBox.Show("Read File Error");
+                return;
+            }
+
+
+            int shift_row = 0;
+
+            for (int j = 0; j < 1000000; j++)
+            {
+                if (j < 7)
+                {
+                    shift_row++;
+                    continue;
+                }
+
+                for (int i = 0; i < 100; i++)
+                {
+                    if(j == 12 || j == 13)
+                    {
+                        data1[i, j - shift_row] = "a";
+                        break;
+                    }
+
+                    if(j>13)
+                    {
+                        if (i == 0)
+                        {
+                            data1[i, j - shift_row] = data[3, j];
+                        }
+                        else if (i == 1 || i == 2 || i == 3)
+                        {
+                            data1[i, j - shift_row] = data[i - 1, j];
+                        }
+                        else
+                        {
+                            data1[i, j - shift_row] = data[i, j];
+                        }
+                    }
+                    else
+                    {
+                        data1[i, j - shift_row] = data[i, j];
+                    }
+                }
+            }
+
+            string folderPath = TxtBx_ReportFileName.Text.Replace(".csv", "_new.csv");
+
+            SaveCsvFile(data1, folderPath);
+
+            MessageBox.Show("Finish");
         }
 
         private void Btn_LoadFile_Click(object sender, EventArgs e)
@@ -390,6 +435,24 @@ namespace FileTransform
         {
             F_Instruction FF = new F_Instruction();
             FF.LoadImagesToForm(@"C:\Users\lankon\Desktop\新增資料夾\Picture\File Transform\Instruction_File Name Modify\");
+        }
+
+        private void Btn_Browse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string selectedFileName = "";
+
+            // 設置文件選擇對話框的屬性
+            openFileDialog.Title = "Select TestData";
+            openFileDialog.Filter = "TestData|*.dat|TestData|*.csv|All|*.*";
+
+            // 如果用戶選擇了文件，顯示文件名
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                selectedFileName = openFileDialog.FileName;
+
+                TxtBx_ReportFileName.Text = selectedFileName;                
+            }
         }
     }
 }

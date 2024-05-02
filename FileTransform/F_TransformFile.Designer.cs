@@ -47,6 +47,8 @@ namespace FileTransform
             this.LstBx_Function = new System.Windows.Forms.ListBox();
             this.Btn_LoadFile = new System.Windows.Forms.Button();
             this.TxtBx_FilePath = new System.Windows.Forms.TextBox();
+            this.TxtBx_ReportFileName = new System.Windows.Forms.TextBox();
+            this.Btn_Browse = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBx_Instruction)).BeginInit();
             this.TabCtrl_Function.SuspendLayout();
@@ -56,7 +58,7 @@ namespace FileTransform
             // 
             // Btn_Start
             // 
-            this.Btn_Start.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_Start.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_Start.Location = new System.Drawing.Point(528, 390);
             this.Btn_Start.Name = "Btn_Start";
             this.Btn_Start.Size = new System.Drawing.Size(102, 38);
@@ -247,12 +249,32 @@ namespace FileTransform
             this.TxtBx_FilePath.Size = new System.Drawing.Size(501, 29);
             this.TxtBx_FilePath.TabIndex = 8;
             // 
+            // TxtBx_ReportFileName
+            // 
+            this.TxtBx_ReportFileName.Location = new System.Drawing.Point(129, 402);
+            this.TxtBx_ReportFileName.Name = "TxtBx_ReportFileName";
+            this.TxtBx_ReportFileName.Size = new System.Drawing.Size(352, 22);
+            this.TxtBx_ReportFileName.TabIndex = 5;
+            // 
+            // Btn_Browse
+            // 
+            this.Btn_Browse.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_Browse.Location = new System.Drawing.Point(12, 393);
+            this.Btn_Browse.Name = "Btn_Browse";
+            this.Btn_Browse.Size = new System.Drawing.Size(108, 33);
+            this.Btn_Browse.TabIndex = 6;
+            this.Btn_Browse.Text = "Browse";
+            this.Btn_Browse.UseVisualStyleBackColor = true;
+            this.Btn_Browse.Click += new System.EventHandler(this.Btn_Browse_Click);
+            // 
             // F_TransformFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(672, 450);
+            this.Controls.Add(this.Btn_Browse);
+            this.Controls.Add(this.TxtBx_ReportFileName);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Btn_Start);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -267,6 +289,7 @@ namespace FileTransform
             this.TabPg_Final.PerformLayout();
             this.GpBx_Function.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -288,5 +311,7 @@ namespace FileTransform
         private System.Windows.Forms.TextBox TxtBx_SavePath;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox PBx_Instruction;
+        private System.Windows.Forms.TextBox TxtBx_ReportFileName;
+        private System.Windows.Forms.Button Btn_Browse;
     }
 }

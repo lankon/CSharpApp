@@ -264,6 +264,17 @@ namespace InstrumentTest
         Tool tool = new Tool();
         private bool Terminate = true;
         private WORK state = WORK.INITIAL;
+        ILoadCell[] LoadCell = new ILoadCell[4];
+
+        private ILoadCell CreateLoadCell(string Type)
+        {
+            switch (Type)
+            {
+                case "Delta":
+                    return new LoadCell_Delta();
+            }
+            return null;
+        }
 
         public bool IsIdle()
         {
@@ -299,6 +310,13 @@ namespace InstrumentTest
                         break;
 
                     case WORK.CONNECT:
+                        for(int i=0; i<1; i++)
+                        {
+                            LoadCell[i] = CreateLoadCell("Delta");
+
+                            LoadCell[i].Open("COM1", 500000, 0, 8, 1);
+                        }
+                            
 
                         break;
                 }

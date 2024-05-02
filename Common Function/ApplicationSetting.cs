@@ -88,9 +88,7 @@ namespace CommonFunction
                     TraverseControlsUpdate<T>(control, config1);
                 }
             }
-        }
-
-        
+        }      
         public static void SetRecipe(int element, string data)
         {
             ApplicationInfo[element] = data;

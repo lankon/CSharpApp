@@ -15,7 +15,7 @@ namespace Mapping
 {
     public partial class F_Mapping : Form
     {
-        
+        #region parameter define 
         Tool tool = new Tool();
         MapInformation mapInformation = new MapInformation();
         private struct MapInformation
@@ -34,15 +34,9 @@ namespace Mapping
 
             public List<Color> ColorList;
         }
+        #endregion
 
-        public F_Mapping()
-        {
-            InitializeComponent();
-
-            ApplicationSetting.ReadAllRecipe<FormItem>();
-            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
-        }
-
+        #region public function
         public void SetF_Mapping(Panel pnl, F_Mapping form)
         {
             form.Dock = DockStyle.Fill;
@@ -53,8 +47,9 @@ namespace Mapping
 
             pnl.Controls.Add(form);
         }
-        
-        
+        #endregion
+
+        #region private function
         private void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList, double[] ValueRegion)
         {
             float startX = 25; // 图表起始横坐标
@@ -71,7 +66,7 @@ namespace Mapping
                 Color CellColor;
 
                 foreach (int kvp in ValueRegionCount)
-                {                                        
+                {
                     float barWidth = (float)(kvp * (Pnl.Width - startX - 50) / Max); // 条形宽度，根据数据值设置
                     float barHeight = 22; // 条形高度
 
@@ -80,25 +75,27 @@ namespace Mapping
                     SolidBrush solidBrush = new SolidBrush(CellColor);
                     RectangleF drawRect = new RectangleF(startX, startY, barWidth, barHeight);
                     g.FillRectangle(solidBrush, drawRect);
-                   
+
                     // 绘制文本
-                    g.DrawString($"{kvp}", Font, Brushes.White, startX + barWidth + 5, startY+5);
-                    
-                    if(i <= ValueRegionCount.Count()-2)
-                        g.DrawString($"{ValueRegion[i]}", Font, Brushes.White, 0, startY+15);
+                    g.DrawString($"{kvp}", Font, Brushes.White, startX + barWidth + 5, startY + 5);
+
+                    if (i <= ValueRegionCount.Count() - 2)
+                        g.DrawString($"{ValueRegion[i]}", Font, Brushes.White, 0, startY + 15);
 
                     // 更新下一个条形的起始纵坐标
                     startY = startY + barHeight;
 
                     i++;
                 }
-            }            
+            }
         }
         private List<Dictionary<string, string>> ReadCsvFile(String Path)
         {
             // 使用 Dictionary 來儲存資料
             List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
             bool StartReadFile = false;
+            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
+
             try
             {
                 // 使用 StreamReader 來讀取檔案
@@ -117,13 +114,13 @@ namespace Mapping
                         // 使用逗號分隔解析欄位
                         string[] fields = line.Split(',');
 
-                        
-                        if(StartReadFile == false)
+
+                        if (StartReadFile == false)
                         {
                             for (int i = 0; i < fields.Count(); i++)
                             {
                                 headers[i] = fields[i].Trim();
-                                if (fields[i].Trim() == "PosX")
+                                if (fields[i].Trim() == s_PosX)
                                 {
                                     StartReadFile = true;
                                 }
@@ -180,25 +177,27 @@ namespace Mapping
             Dictionary<string, object> myDictionary = new Dictionary<string, object>();
 
             #region 排序陣列
-            int[] ArrayX = new int[data.Count-1];
-            int[] ArrayY = new int[data.Count-1];
+            int[] ArrayX = new int[data.Count - 1];
+            int[] ArrayY = new int[data.Count - 1];
+            string sPosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
+            string sPosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
 
-            for(int i = 1; i < data.Count; i++)
+            for (int i = 1; i < data.Count; i++)
             {
-                data[i].TryGetValue("PosX", out String value);                
-                data[i].TryGetValue("PosY", out String value1);
+                data[i].TryGetValue(sPosX, out String value);
+                data[i].TryGetValue(sPosY, out String value1);
 
                 if (value == "" || value1 == "")
                     break;
 
                 ArrayX[i - 1] = Int32.Parse(value);
-                ArrayY[i-1] = Int32.Parse(value1);
+                ArrayY[i - 1] = Int32.Parse(value1);
             }
 
             Array.Sort(ArrayX);
             Array.Sort(ArrayY);
             #endregion
-           
+
             #region 尋找長邊大小
             int MinXPos = ArrayX.Min();
             int MaxXPos = ArrayX.Max();
@@ -281,9 +280,9 @@ namespace Mapping
 
             List<Color> ColorList = new List<Color>();
 
-            for (int i = 0; i < iStep+2; i++)
+            for (int i = 0; i < iStep + 2; i++)
             {
-                Color currentColor = ColorFromHue((i * 360 / (iStep+2) % 360));
+                Color currentColor = ColorFromHue((i * 360 / (iStep + 2) % 360));
 
                 ColorList.Add(currentColor);
             }
@@ -300,25 +299,28 @@ namespace Mapping
 
             return ValueRegion;
         }
-        private int[] DrawMapping(Panel Pnl, float GridSize, List<Dictionary<string,string>> CellInfo,int ShiftX, int ShiftY,
+        private int[] DrawMapping(Panel Pnl, float GridSize, List<Dictionary<string, string>> CellInfo, int ShiftX, int ShiftY,
                                 String TestItem, List<Color> ColorList, double[] ValueRegion, int[] xy_direc)
-        {         
+        {
             int[] ValueRegionCount = new int[ColorList.Count()];
+            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
+            string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
 
-            for(int i=0; i<ValueRegionCount.Count(); i++)
+
+            for (int i = 0; i < ValueRegionCount.Count(); i++)
             {
                 ValueRegionCount[i] = 0;
             }
-            
+
             for (int i = 1; i < mapInformation.CellInfo.Count(); i++)
             {
                 Color CellColor = Color.Black;
 
-                CellInfo[i].TryGetValue("PosX", out String sPosX);
-                CellInfo[i].TryGetValue("PosY", out String sPosY);
+                CellInfo[i].TryGetValue(s_PosX, out String sPosX);
+                CellInfo[i].TryGetValue(s_PosY, out String sPosY);
                 CellInfo[i].TryGetValue(TestItem, out String sValue);
 
-                for (int j = 0; j < ColorList.Count()-2; j++)
+                for (int j = 0; j < ColorList.Count() - 2; j++)
                 {
                     if (Double.TryParse(sValue, out double dVale))
                     {
@@ -330,23 +332,23 @@ namespace Mapping
                         }
                         else if (ValueRegion[ColorList.Count() - 2] < dVale)
                         {
-                            CellColor = ColorList[ColorList.Count()-1];
+                            CellColor = ColorList[ColorList.Count() - 1];
                             ValueRegionCount[ColorList.Count() - 1]++;
                             break;
                         }
                         else if (ValueRegion[j] <= dVale && dVale <= ValueRegion[j + 1] &&
                                  ColorList.Count() - 3 == j)
                         {
-                            CellColor = ColorList[j+1];
+                            CellColor = ColorList[j + 1];
                             ValueRegionCount[j + 1]++;
                             break;
-                        }                        
+                        }
                         else if (ValueRegion[j] <= dVale && dVale < ValueRegion[j + 1])
                         {
-                            CellColor = ColorList[j+1];
-                            ValueRegionCount[j + 1]++;                           
+                            CellColor = ColorList[j + 1];
+                            ValueRegionCount[j + 1]++;
                             break;
-                        }    
+                        }
                     }
                     else
                     {
@@ -377,9 +379,9 @@ namespace Mapping
             using (Graphics g = Pnl.CreateGraphics())
             {
                 SolidBrush solidBrush = new SolidBrush(CellColor);
-                
-                float X = gridSize + PosX*gridSize;
-                float Y = Pnl.Height - 2*gridSize - PosY*gridSize;
+
+                float X = gridSize + PosX * gridSize;
+                float Y = Pnl.Height - 2 * gridSize - PosY * gridSize;
 
                 RectangleF drawRect = new RectangleF(X, Y, gridSize, gridSize);
                 g.FillRectangle(solidBrush, drawRect);
@@ -400,7 +402,7 @@ namespace Mapping
         private void DrawGrid(Panel Pnl, float gridSize)
         {
             int gridCountX, gridCountY; // 網格數量
-           
+
             // 計算網格數量
             gridCountX = (int)(Pnl.Width / gridSize);
             gridCountY = (int)(Pnl.Height / gridSize);
@@ -419,16 +421,48 @@ namespace Mapping
                 }
 
                 // 繪製水平網格線
-                for (int j = 1; j <= gridCountY-1; j++)
+                for (int j = 1; j <= gridCountY - 1; j++)
                 {
                     float y = j * gridSize;
-                    g.DrawLine(pen, 0 + gridSize, y, Pnl.ClientSize.Width-gridSize, y);
+                    g.DrawLine(pen, 0 + gridSize, y, Pnl.ClientSize.Width - gridSize, y);
                 }
 
                 // 釋放畫筆資源
                 pen.Dispose();
             }
         }
+        private bool CheckLoadFileCondition()
+        {
+            bool flag = true;
+
+            if (ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord) == "")
+            {
+                flag = false;
+                MessageBox.Show("Please Enter X Coordinate Key Word");
+                tool.SaveHistoryToFile("X座標關鍵字未輸入");
+            }
+
+            if (ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord) == "")
+            {
+                flag = false;
+                MessageBox.Show("Please Enter Y Coordinate Key Word");
+                tool.SaveHistoryToFile("Y座標關鍵字未輸入");
+            }
+
+            return flag;
+        }
+        #endregion
+
+
+
+        public F_Mapping()
+        {
+            InitializeComponent();
+
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+        }
+
         private void Btn_DrawMap_Click(object sender, EventArgs e)
         {
             if (mapInformation.CellInfo == null)
@@ -438,12 +472,12 @@ namespace Mapping
                 return;
             }
 
-            if(TxtBx_Start.Text == "" || TxtBx_End.Text == "" || TxtBx_Step.Text == "")
+            if (TxtBx_Start.Text == "" || TxtBx_End.Text == "" || TxtBx_Step.Text == "")
             {
                 MessageBox.Show("Please Enter Draw Condition");
                 tool.SaveHistoryToFile("未輸入晶圓繪圖條件");
                 return;
-            }            
+            }
 
             PicBx_Colorbar.Visible = false;
             PicBx_Mapping.Visible = false;
@@ -455,7 +489,6 @@ namespace Mapping
             String TestItem = Cmbx_TestItem.Text;
             int[] XY_Direc = new int[2];
 
-
             if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 1)
                 XY_Direc[0] = -1;
             else
@@ -466,10 +499,10 @@ namespace Mapping
             else
                 XY_Direc[1] = 1;
 
-            
+
             mapInformation.MapSize = 500;
 
-            if(Start > End)
+            if (Start > End)
             {
                 MessageBox.Show("Start Large Than End");
                 tool.SaveHistoryToFile("起始值比結束值大");
@@ -485,10 +518,10 @@ namespace Mapping
             mapInformation.ShiftY = (int)myDictionary["ShiftY"];
             mapInformation.CellCount = (int)myDictionary["CellCount"];
             mapInformation.GridSize = (float)myDictionary["GridSize"];
-            
+
             mapInformation.ColorList = SetCellColor(Start, End, Step);
 
-            mapInformation.ValueRegion =  SetValueRegion(Start, Step, mapInformation.ColorList);
+            mapInformation.ValueRegion = SetValueRegion(Start, Step, mapInformation.ColorList);
 
             mapInformation.ValueRegionCount = DrawMapping(Pnl_Mapping, mapInformation.GridSize, mapInformation.CellInfo,
                                                           mapInformation.ShiftX, mapInformation.ShiftY,
@@ -513,13 +546,10 @@ namespace Mapping
             //GC.WaitForPendingFinalizers();
         }
 
-        
-
         private void F_Mapping_Load(object sender, EventArgs e)
         {
             
         }
-
 
         private void Btn_LoadFile_Click(object sender, EventArgs e)
         {
@@ -530,6 +560,9 @@ namespace Mapping
                 Application.Exit();
                 return;
             }
+
+            if (CheckLoadFileCondition() == false)
+                return;
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
             string selectedFileName = "";

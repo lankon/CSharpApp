@@ -18,16 +18,20 @@ namespace CommonFunction
         #region 寫檔
         public StreamWriter CreateFile(String Name, String Type, bool ContinueWrite)
         {            
-            String Path;
+            String path;
             StreamWriter File;
-            Path = System.IO.Directory.GetCurrentDirectory();
-            Path = Path + "\\" + Name;
-            Path += Type;
+            path = System.IO.Directory.GetCurrentDirectory();
+            path = path + "\\" + Name;
+            path += Type;
+
+            string directoryPath = Path.GetDirectoryName(path);
+
+            CreateFolder(directoryPath);
 
             if (ContinueWrite)
-                File = new StreamWriter(Path, true, Encoding.Default);
+                File = new StreamWriter(path, true, Encoding.Default);
             else
-                File = new StreamWriter(Path);
+                File = new StreamWriter(path);
 
             return File;
         }
@@ -190,7 +194,7 @@ namespace CommonFunction
             }
             else
             {
-                SaveHistoryToFile("資料夾已存在");
+                //SaveHistoryToFile("資料夾已存在");
             }
         }
 
