@@ -190,7 +190,7 @@ namespace CommonFunction
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
-                SaveHistoryToFile("創建資料夾:{folderPath}");
+                SaveHistoryToFile("創建資料夾:" + folderPath);
             }
             else
             {

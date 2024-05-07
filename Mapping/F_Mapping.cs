@@ -47,6 +47,34 @@ namespace Mapping
 
             pnl.Controls.Add(form);
         }
+        public bool SavePicture()
+        {
+            Control ctrl = Pnl_Colorbar;
+
+            // 創建一個與 Panel 大小相同的 Bitmap
+            Bitmap bitmap = new Bitmap(730, 500);
+
+            // 使用 Bitmap 的 Graphics 對象
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                // 定義 Panel 在螢幕上的位置
+                Point panelLocationOnScreen = ctrl.PointToScreen(Point.Empty);
+
+                // 將 Panel 當前的螢幕畫面複製到 Bitmap 上
+                g.CopyFromScreen(panelLocationOnScreen, Point.Empty, bitmap.Size);
+                //g.CopyFromScreen(panelLocationOnScreen, Point.Empty, ctrl.Size);
+            }
+
+            // 儲存 Bitmap 到檔案
+            string path = Application.StartupPath + @"\Picture\" + TxtBx_ShowItem.Text + ".png";
+            bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+
+            // 釋放 Bitmap 資源
+            bitmap.Dispose();
+
+            return true;
+        }
+        
         #endregion
 
         #region private function
@@ -140,6 +168,72 @@ namespace Mapping
 
                             // 將此行的資料加入到 List 中
                             data.Add(row);
+                        }
+                    }
+
+                    return data;
+                }
+            }
+            catch
+            {
+                return data;
+            }
+        }
+        private List<Dictionary<string, string>> ReadCsvFile_AMIDA(String Path)
+        {
+            // 使用 Dictionary 來儲存資料
+            List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
+            bool StartReadFile = false;
+            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
+            int shift_row = 0;
+
+            try
+            {
+                // 使用 StreamReader 來讀取檔案
+                using (StreamReader sr = new StreamReader(Path))
+                {
+                    if (sr == null) return data;
+
+                    string[] headers = new string[200];// = sr.ReadLine().Split(',');
+
+                    // 逐行讀取 CSV 檔案
+                    while (!sr.EndOfStream)
+                    {
+                        // 讀取一行
+                        string line = sr.ReadLine();
+
+                        // 使用逗號分隔解析欄位
+                        string[] fields = line.Split('\t'); //AMIDA特別項
+
+
+                        if (StartReadFile == false)
+                        {
+                            for (int i = 0; i < fields.Count(); i++)
+                            {
+                                headers[i] = fields[i].Trim();
+                                if (fields[i].Trim() == s_PosX)
+                                {
+                                    StartReadFile = true;
+                                }
+                            }
+                        }
+
+                        if (StartReadFile == true)
+                        {
+                            // 使用 Dictionary 來儲存每一行的資料
+                            Dictionary<string, string> row = new Dictionary<string, string>();
+
+                            // 將資料與欄位名稱對應起來
+                            for (int i = 0; i < fields.Length; i++)
+                            {
+                                row[headers[i]] = fields[i];
+                            }
+
+                            // 將此行的資料加入到 List 中
+                            if (shift_row < 1 || shift_row > 3)  //AMIDA特別項
+                                data.Add(row);
+
+                            shift_row++;
                         }
                     }
 
@@ -249,7 +343,16 @@ namespace Mapping
         private List<Dictionary<string, string>> ReadCellInfo(string Path)
         {
             List<Dictionary<string, string>> CellInfo = null;
-            CellInfo = ReadCsvFile(Path);
+            
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Customer) == 1)
+            {
+                CellInfo = ReadCsvFile_AMIDA(Path);
+            }
+            else
+            {
+                CellInfo = ReadCsvFile(Path);
+            }
+
             return CellInfo;
         }
         private int HueToRGB(int hue)
@@ -482,6 +585,8 @@ namespace Mapping
             PicBx_Colorbar.Visible = false;
             PicBx_Mapping.Visible = false;
 
+            TxtBx_ShowItem.Text = Cmbx_TestItem.Text;
+
             Dictionary<string, object> myDictionary = null;
             double Start = tool.StringToDouble(TxtBx_Start.Text);
             double End = tool.StringToDouble(TxtBx_End.Text);
@@ -529,8 +634,7 @@ namespace Mapping
 
             DrawColorbar(Pnl_Colorbar, mapInformation.ValueRegionCount,
                          mapInformation.ColorList, mapInformation.ValueRegion);
-
-
+                     
             tool.CreateFolder(Application.StartupPath + @"\Temp");
             tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
             tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");

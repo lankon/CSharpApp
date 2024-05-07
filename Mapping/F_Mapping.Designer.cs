@@ -32,6 +32,7 @@ namespace Mapping
             this.components = new System.ComponentModel.Container();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Pnl_Mapping = new System.Windows.Forms.Panel();
+            this.TxtBx_ShowItem = new System.Windows.Forms.TextBox();
             this.PicBx_Mapping = new System.Windows.Forms.PictureBox();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -64,11 +65,24 @@ namespace Mapping
             // 
             this.Pnl_Mapping.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Pnl_Mapping.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pnl_Mapping.Controls.Add(this.TxtBx_ShowItem);
             this.Pnl_Mapping.Controls.Add(this.PicBx_Mapping);
             this.Pnl_Mapping.Location = new System.Drawing.Point(245, 48);
             this.Pnl_Mapping.Name = "Pnl_Mapping";
             this.Pnl_Mapping.Size = new System.Drawing.Size(500, 500);
             this.Pnl_Mapping.TabIndex = 1;
+            // 
+            // TxtBx_ShowItem
+            // 
+            this.TxtBx_ShowItem.BackColor = System.Drawing.Color.Cornsilk;
+            this.TxtBx_ShowItem.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_ShowItem.Location = new System.Drawing.Point(390, 3);
+            this.TxtBx_ShowItem.Name = "TxtBx_ShowItem";
+            this.TxtBx_ShowItem.ReadOnly = true;
+            this.TxtBx_ShowItem.Size = new System.Drawing.Size(105, 29);
+            this.TxtBx_ShowItem.TabIndex = 1;
+            this.TxtBx_ShowItem.Text = "TestItem";
+            this.TxtBx_ShowItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // PicBx_Mapping
             // 
@@ -276,6 +290,7 @@ namespace Mapping
             this.Text = "F_Mapping";
             this.Load += new System.EventHandler(this.F_Mapping_Load);
             this.Pnl_Mapping.ResumeLayout(false);
+            this.Pnl_Mapping.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Mapping)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -311,5 +326,6 @@ namespace Mapping
         private System.Windows.Forms.PictureBox PicBx_Colorbar;
         private System.Windows.Forms.PictureBox PicBx_Mapping;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox TxtBx_ShowItem;
     }
 }

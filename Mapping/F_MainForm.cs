@@ -34,6 +34,7 @@ namespace Mapping
             f_BinTable.SetF_BinTable(Pnl_Group, f_BinTable);
 
             SetHint();
+            CreateFolder();
         }
 
         private void SetHint()
@@ -42,6 +43,19 @@ namespace Mapping
             toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_Home, "Home");
             toolTip1.SetToolTip(Btn_BinTable, "Bin Table");
+            toolTip1.SetToolTip(Btn_Save, "Save Picture");
+
+            if (f_Mapping.Visible == true)
+            {
+                toolTip1.SetToolTip(Btn_Save, "Save Picture");
+            }
+        }
+
+        private void CreateFolder()
+        {
+            tool.CreateFolder(Application.StartupPath + @"\Temp");
+            tool.CreateFolder(Application.StartupPath + @"\History");
+            tool.CreateFolder(Application.StartupPath + @"\Picture");
         }
         #endregion
 
@@ -86,10 +100,8 @@ namespace Mapping
         private void Btn_Home_Click(object sender, EventArgs e)
         {
             HideFormOnPanel(Pnl_Group);
-
-            //f_Setting.Hide();
-
             f_Mapping.Show();
+            SetHint();
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -121,6 +133,11 @@ namespace Mapping
             HideFormOnPanel(Pnl_Group);
 
             f_BinTable.Show();
+        }
+
+        private void Btn_Save_Click(object sender, EventArgs e)
+        {
+            f_Mapping.SavePicture();
         }
     }
 }

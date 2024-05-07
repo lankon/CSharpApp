@@ -38,11 +38,13 @@ namespace Mapping
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Btn_Save = new System.Windows.Forms.Button();
             this.Pnl_Function.SuspendLayout();
             this.SuspendLayout();
             // 
             // Pnl_Function
             // 
+            this.Pnl_Function.Controls.Add(this.Btn_Save);
             this.Pnl_Function.Controls.Add(this.Btn_BinTable);
             this.Pnl_Function.Controls.Add(this.Btn_Home);
             this.Pnl_Function.Controls.Add(this.Btn_Setting);
@@ -105,6 +107,17 @@ namespace Mapping
             this.Pnl_Group.Size = new System.Drawing.Size(1022, 554);
             this.Pnl_Group.TabIndex = 28;
             // 
+            // Btn_Save
+            // 
+            this.Btn_Save.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Save.BackgroundImage")));
+            this.Btn_Save.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Save.Location = new System.Drawing.Point(69, 5);
+            this.Btn_Save.Name = "Btn_Save";
+            this.Btn_Save.Size = new System.Drawing.Size(60, 60);
+            this.Btn_Save.TabIndex = 31;
+            this.Btn_Save.UseVisualStyleBackColor = true;
+            this.Btn_Save.Click += new System.EventHandler(this.Btn_Save_Click);
+            // 
             // F_MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -132,5 +145,6 @@ namespace Mapping
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Btn_Home;
         private System.Windows.Forms.Button Btn_BinTable;
+        private System.Windows.Forms.Button Btn_Save;
     }
 }

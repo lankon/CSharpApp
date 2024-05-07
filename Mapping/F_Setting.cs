@@ -66,7 +66,6 @@ namespace Mapping
             GC.WaitForPendingFinalizers();
         }
 
-
         private void F_Setting_VisibleChanged(object sender, EventArgs e)
         {
             if (!this.Visible)
@@ -76,9 +75,8 @@ namespace Mapping
             }
         }
 
-        private void label6_DoubleClick(object sender, EventArgs e)
+        private void Labl_Customer_DoubleClick(object sender, EventArgs e)
         {
-
             int index = Cmbx_Customer.SelectedIndex;
 
             Cmbx_Customer.Items.Clear();
@@ -97,7 +95,7 @@ namespace Mapping
                 customer_item[1] = "Customer1";
                 bCustomerShow = false;
             }
-            
+
             for (int i = 0; i < customer_item.Length; i++)
             {
                 Cmbx_Customer.Items.Add(customer_item[i]);

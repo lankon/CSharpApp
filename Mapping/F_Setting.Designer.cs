@@ -39,7 +39,7 @@ namespace Mapping
             this.TxtBx_Y_KeyWord = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
+            this.Labl_Customer = new System.Windows.Forms.Label();
             this.Cmbx_Customer = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -168,7 +168,7 @@ namespace Mapping
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.43867F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.56133F));
-            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Labl_Customer, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.Cmbx_Customer, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(517, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -181,18 +181,18 @@ namespace Mapping
             this.tableLayoutPanel2.Size = new System.Drawing.Size(484, 150);
             this.tableLayoutPanel2.TabIndex = 8;
             // 
-            // label6
+            // Labl_Customer
             // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.Location = new System.Drawing.Point(6, 3);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(323, 33);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Customer";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label6.DoubleClick += new System.EventHandler(this.label6_DoubleClick);
+            this.Labl_Customer.AutoSize = true;
+            this.Labl_Customer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Labl_Customer.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Labl_Customer.Location = new System.Drawing.Point(6, 3);
+            this.Labl_Customer.Name = "Labl_Customer";
+            this.Labl_Customer.Size = new System.Drawing.Size(323, 33);
+            this.Labl_Customer.TabIndex = 7;
+            this.Labl_Customer.Text = "Customer";
+            this.Labl_Customer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Labl_Customer.DoubleClick += new System.EventHandler(this.Labl_Customer_DoubleClick);
             // 
             // Cmbx_Customer
             // 
@@ -243,7 +243,7 @@ namespace Mapping
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label Labl_Customer;
         private System.Windows.Forms.ComboBox Cmbx_Customer;
     }
 }
