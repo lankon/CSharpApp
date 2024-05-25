@@ -63,7 +63,61 @@ namespace CommonFunction
         #endregion
 
         #region 讀檔
-        
+        public List<Dictionary<string, string>> ReadCsvFile(String Path, bool HaveTitle)
+        {
+            List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
+
+            try
+            {
+                // 使用 StreamReader 來讀取檔案
+                using (StreamReader sr = new StreamReader(Path))
+                {
+                    if (sr == null) return data;
+
+                    string[] headers = new string[200];// = sr.ReadLine().Split(',');
+
+                    for (int i = 0; i < 200; i++)
+                    {
+                        headers[i] = "Item" + i.ToString();
+                    }
+
+                    // 逐行讀取 CSV 檔案
+                    while (!sr.EndOfStream)
+                    {
+                        // 讀取一行
+                        string line = sr.ReadLine();
+
+                        // 使用逗號分隔解析欄位
+                        string[] fields = line.Split(',');
+
+                        // 使用 Dictionary 來儲存每一行的資料
+                        Dictionary<string, string> row = new Dictionary<string, string>();
+
+                        // 將資料與欄位名稱對應起來
+                        for (int i = 0; i < fields.Length; i++)
+                        {
+                            row[headers[i]] = fields[i];
+
+                            if (i > 199)
+                            {
+                                SaveHistoryToFile("Load Csv Item Over 200");
+                                return data;
+                            }
+                        }
+
+                        // 將此行的資料加入到 List 中
+                        data.Add(row);
+
+                    }
+
+                    return data;
+                }
+            }
+            catch
+            {
+                return data;
+            }
+        }
         #endregion
 
         #region 組態檔 寫入/讀取 config
@@ -189,8 +243,15 @@ namespace CommonFunction
         {
             if (!Directory.Exists(folderPath))
             {
-                Directory.CreateDirectory(folderPath);
-                SaveHistoryToFile("創建資料夾:" + folderPath);
+                try
+                {
+                    Directory.CreateDirectory(folderPath);
+                    SaveHistoryToFile("創建資料夾:" + folderPath);
+                }
+                catch(Exception ex)
+                {
+                    SaveHistoryToFile("無效的創建資料夾路徑");
+                }                
             }
             else
             {

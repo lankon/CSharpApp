@@ -15,36 +15,16 @@ namespace InstrumentTest
 {
     public partial class F_MainForm : Form
     {
+        #region parameter define 
         Tool tool = new Tool();
         F_LoadCell f_LoadCell = new F_LoadCell();
-        
-        public F_MainForm()
-        {
-            InitializeComponent();
-
-            InitialApplication();
-        }
-
-        #region 初始化應用程式
-        private void InitialApplication()
-        {
-            f_LoadCell.SetF_LoadCell(Pnl_Group, f_LoadCell);
-
-            SetHint();
-
-            // 使用Task创建并启动线程
-            //Task task = Task.Run(() =>MainTask());
-        }
-
-        private void SetHint()
-        {
-            toolTip1.SetToolTip(Btn_CloseApp, "Close");
-            toolTip1.SetToolTip(Btn_Home, "Home");
-        }
-
-        
+        F_SelectApp f_SelectApp = new F_SelectApp();
         #endregion
 
+        #region public function
+        #endregion
+
+        #region private function
         private void HideElementOnPanel(Panel pnl)
         {
             foreach (Control control in pnl.Controls)
@@ -54,7 +34,7 @@ namespace InstrumentTest
                     ((Form)control).Hide();
                     //break; 
                 }
-                else if(control is Button && control.Visible == true)
+                else if (control is Button && control.Visible == true)
                 {
                     ((Button)control).Visible = false;
                 }
@@ -64,7 +44,6 @@ namespace InstrumentTest
                 }
             }
         }
-
         private void ShowElementOnPanel(Panel pnl)
         {
             foreach (Control control in pnl.Controls)
@@ -79,7 +58,34 @@ namespace InstrumentTest
                 }
             }
         }
+        #endregion
 
+        public F_MainForm()
+        {
+            InitializeComponent();
+
+            InitialApplication();
+        }
+
+        #region 初始化應用程式
+        private void InitialApplication()
+        {
+            f_LoadCell.SetF_LoadCell(Pnl_Group, f_LoadCell);
+            f_SelectApp.SetF_SelectApp(Pnl_Group,f_SelectApp);
+
+            SetHint();
+
+            // 使用Task创建并启动线程
+            //Task task = Task.Run(() =>MainTask());
+        }
+
+        private void SetHint()
+        {
+            toolTip1.SetToolTip(Btn_CloseApp, "Close");
+            toolTip1.SetToolTip(Btn_Home, "Home");
+        }     
+        #endregion
+             
         private void Btn_CloseApp_Click(object sender, EventArgs e)
         {
             // 顯示確認對話框
@@ -103,7 +109,7 @@ namespace InstrumentTest
         {
             HideElementOnPanel(Pnl_Group);
 
-            ShowElementOnPanel(Pnl_Group);
+            f_SelectApp.Show();
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -134,7 +140,7 @@ namespace InstrumentTest
         {
             HideElementOnPanel(Pnl_Group);
 
-            f_LoadCell.Show();
+            
         }
 
         private void Btn_PISODIO_Click(object sender, EventArgs e)

@@ -16,7 +16,7 @@ namespace FileTransform
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new F_TransformFile());
+            Application.Run(new F_MainForm());
         }
     }
 }
