@@ -1,5 +1,5 @@
 ﻿
-namespace InstrumentTest.TemperatureController
+namespace InstrumentTest
 {
     partial class F_TemperatureController
     {
@@ -137,7 +137,7 @@ namespace InstrumentTest.TemperatureController
             this.tableLayoutPanel2.Controls.Add(this.textBox2, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.textBox3, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 4);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(463, 12);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(450, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 5;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));

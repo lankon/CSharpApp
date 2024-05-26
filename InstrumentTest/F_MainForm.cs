@@ -18,10 +18,16 @@ namespace InstrumentTest
         #region parameter define 
         Tool tool = new Tool();
         F_LoadCell f_LoadCell = new F_LoadCell();
-        F_SelectApp f_SelectApp = new F_SelectApp();
+        F_TC_Setting f_TC_Setting = new F_TC_Setting();
+        F_TemperatureController f_TemperatureController = new F_TemperatureController();     
         #endregion
 
         #region public function
+        public  void Show_F_TC_Setting()
+        {
+            HideElementOnPanel(Pnl_Group);
+            f_TC_Setting.Show();
+        }
         #endregion
 
         #region private function
@@ -58,6 +64,22 @@ namespace InstrumentTest
                 }
             }
         }
+        private void SetHint()
+        {
+            toolTip1.SetToolTip(Btn_CloseApp, "Close");
+            toolTip1.SetToolTip(Btn_Home, "Home");
+        }
+        private void InitialApplication()
+        {
+            f_LoadCell.SetF_LoadCell(Pnl_Group, f_LoadCell);
+            f_TC_Setting.SetF_TC_Setting(Pnl_Group, f_TC_Setting);
+            f_TemperatureController.SetF_TemperatureController(Pnl_Group, f_TemperatureController);
+
+            SetHint();
+
+            // 使用Task创建并启动线程
+            //Task task = Task.Run(() =>MainTask());
+        }
         #endregion
 
         public F_MainForm()
@@ -65,27 +87,7 @@ namespace InstrumentTest
             InitializeComponent();
 
             InitialApplication();
-        }
-
-        #region 初始化應用程式
-        private void InitialApplication()
-        {
-            f_LoadCell.SetF_LoadCell(Pnl_Group, f_LoadCell);
-            f_SelectApp.SetF_SelectApp(Pnl_Group,f_SelectApp);
-
-            SetHint();
-
-            // 使用Task创建并启动线程
-            //Task task = Task.Run(() =>MainTask());
-        }
-
-        private void SetHint()
-        {
-            toolTip1.SetToolTip(Btn_CloseApp, "Close");
-            toolTip1.SetToolTip(Btn_Home, "Home");
-        }     
-        #endregion
-             
+        }            
         private void Btn_CloseApp_Click(object sender, EventArgs e)
         {
             // 顯示確認對話框
@@ -109,7 +111,7 @@ namespace InstrumentTest
         {
             HideElementOnPanel(Pnl_Group);
 
-            f_SelectApp.Show();
+            ShowElementOnPanel(Pnl_Group);
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -140,14 +142,18 @@ namespace InstrumentTest
         {
             HideElementOnPanel(Pnl_Group);
 
-            
+            f_LoadCell.Show();
         }
 
-        private void Btn_PISODIO_Click(object sender, EventArgs e)
+        private void Btn_TemperatureControl_Click(object sender, EventArgs e)
         {
-            PISODIO pISODIO = new PISODIO();
+            HideElementOnPanel(Pnl_Group);
 
-            pISODIO.Initialize();
+            f_TemperatureController.Show();
+
+            F_TC_ButtonGroup f_TC_ButtonGroup = new F_TC_ButtonGroup();
+            f_TC_ButtonGroup.SetF_TC_ButtonGroup(Pnl_Group1, f_TC_ButtonGroup);
+            f_TC_ButtonGroup.Show();
         }
     }
 }

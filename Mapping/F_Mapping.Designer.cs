@@ -29,6 +29,7 @@ namespace Mapping
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.Pnl_Mapping = new System.Windows.Forms.Panel();
             this.TxtBx_ShowItem = new System.Windows.Forms.TextBox();
@@ -50,7 +51,7 @@ namespace Mapping
             this.Btn_LoadFile = new System.Windows.Forms.Button();
             this.Pnl_Colorbar = new System.Windows.Forms.Panel();
             this.PicBx_Colorbar = new System.Windows.Forms.PictureBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Pnl_Mapping.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Mapping)).BeginInit();
             this.panel1.SuspendLayout();

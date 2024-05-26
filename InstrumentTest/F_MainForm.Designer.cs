@@ -35,17 +35,19 @@ namespace InstrumentTest
             this.Btn_Home = new System.Windows.Forms.Button();
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.Btn_PISODIO = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.Btn_DeltaLoadCell = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Btn_TemperatureControl = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Pnl_Group1 = new System.Windows.Forms.Panel();
             this.Pnl_Function.SuspendLayout();
             this.Pnl_Group.SuspendLayout();
             this.SuspendLayout();
             // 
             // Pnl_Function
             // 
+            this.Pnl_Function.Controls.Add(this.Pnl_Group1);
             this.Pnl_Function.Controls.Add(this.Btn_Home);
             this.Pnl_Function.Controls.Add(this.Btn_CloseApp);
             this.Pnl_Function.Location = new System.Drawing.Point(13, 3);
@@ -78,36 +80,14 @@ namespace InstrumentTest
             // 
             // Pnl_Group
             // 
-            this.Pnl_Group.Controls.Add(this.label2);
-            this.Pnl_Group.Controls.Add(this.Btn_PISODIO);
+            this.Pnl_Group.Controls.Add(this.label3);
+            this.Pnl_Group.Controls.Add(this.Btn_TemperatureControl);
             this.Pnl_Group.Controls.Add(this.label1);
             this.Pnl_Group.Controls.Add(this.Btn_DeltaLoadCell);
             this.Pnl_Group.Location = new System.Drawing.Point(13, 77);
             this.Pnl_Group.Name = "Pnl_Group";
             this.Pnl_Group.Size = new System.Drawing.Size(1022, 554);
             this.Pnl_Group.TabIndex = 28;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(118, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 28);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "P32C32";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Btn_PISODIO
-            // 
-            this.Btn_PISODIO.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_PISODIO.BackgroundImage")));
-            this.Btn_PISODIO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_PISODIO.Location = new System.Drawing.Point(247, 103);
-            this.Btn_PISODIO.Name = "Btn_PISODIO";
-            this.Btn_PISODIO.Size = new System.Drawing.Size(60, 60);
-            this.Btn_PISODIO.TabIndex = 5;
-            this.Btn_PISODIO.UseVisualStyleBackColor = true;
-            this.Btn_PISODIO.Visible = false;
-            this.Btn_PISODIO.Click += new System.EventHandler(this.Btn_PISODIO_Click);
             // 
             // label1
             // 
@@ -123,13 +103,40 @@ namespace InstrumentTest
             // 
             this.Btn_DeltaLoadCell.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_DeltaLoadCell.BackgroundImage")));
             this.Btn_DeltaLoadCell.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_DeltaLoadCell.Location = new System.Drawing.Point(32, 128);
+            this.Btn_DeltaLoadCell.Location = new System.Drawing.Point(26, 12);
             this.Btn_DeltaLoadCell.Name = "Btn_DeltaLoadCell";
             this.Btn_DeltaLoadCell.Size = new System.Drawing.Size(60, 60);
             this.Btn_DeltaLoadCell.TabIndex = 3;
             this.Btn_DeltaLoadCell.UseVisualStyleBackColor = true;
-            this.Btn_DeltaLoadCell.Visible = false;
             this.Btn_DeltaLoadCell.Click += new System.EventHandler(this.Btn_DeltaLoadCell_Click);
+            // 
+            // Btn_TemperatureControl
+            // 
+            this.Btn_TemperatureControl.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_TemperatureControl.BackgroundImage")));
+            this.Btn_TemperatureControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_TemperatureControl.Location = new System.Drawing.Point(135, 12);
+            this.Btn_TemperatureControl.Name = "Btn_TemperatureControl";
+            this.Btn_TemperatureControl.Size = new System.Drawing.Size(60, 60);
+            this.Btn_TemperatureControl.TabIndex = 7;
+            this.Btn_TemperatureControl.UseVisualStyleBackColor = true;
+            this.Btn_TemperatureControl.Click += new System.EventHandler(this.Btn_TemperatureControl_Click);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.Location = new System.Drawing.Point(121, 75);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(87, 28);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "TC";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Pnl_Group1
+            // 
+            this.Pnl_Group1.Location = new System.Drawing.Point(69, 0);
+            this.Pnl_Group1.Name = "Pnl_Group1";
+            this.Pnl_Group1.Size = new System.Drawing.Size(883, 65);
+            this.Pnl_Group1.TabIndex = 30;
             // 
             // F_MainForm
             // 
@@ -159,7 +166,8 @@ namespace InstrumentTest
         private System.Windows.Forms.Button Btn_Home;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Btn_DeltaLoadCell;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button Btn_PISODIO;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button Btn_TemperatureControl;
+        private System.Windows.Forms.Panel Pnl_Group1;
     }
 }

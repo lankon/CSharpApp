@@ -10,16 +10,10 @@ using System.Windows.Forms;
 
 namespace InstrumentTest
 {
-    public partial class F_SelectApp : Form
+    public partial class F_TC_ButtonGroup : Form
     {
-        #region parameter define 
-        F_LoadCell f_LoadCell = new F_LoadCell();
-
-        #endregion
-
-
         #region public function
-        public void SetF_SelectApp(Panel pnl, F_SelectApp form)
+        public void SetF_TC_ButtonGroup(Panel pnl, F_TC_ButtonGroup form)
         {
             form.Dock = DockStyle.Fill;
             form.Visible = true;
@@ -32,22 +26,12 @@ namespace InstrumentTest
 
             form.Hide();
         }
-
         #endregion
 
-        public F_SelectApp()
+
+        public F_TC_ButtonGroup()
         {
             InitializeComponent();
-        }
-
-        private void Btn_DeltaLoadCell_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Btn_TemperatureController_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
