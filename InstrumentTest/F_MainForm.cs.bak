@@ -16,16 +16,14 @@ namespace InstrumentTest
     public partial class F_MainForm : Form
     {
         #region parameter define 
-        public static Panel MyStaticPanel;
         Tool tool = new Tool();
         F_LoadCell f_LoadCell = new F_LoadCell();
         F_TC_Setting f_TC_Setting = new F_TC_Setting();
-        F_TemperatureController f_TemperatureController = new F_TemperatureController();
-        F_SelectApp f_SelectApp = new F_SelectApp();
+        F_TemperatureController f_TemperatureController = new F_TemperatureController();     
         #endregion
 
         #region public function
-        public void Show_F_TC_Setting()
+        public  void Show_F_TC_Setting()
         {
             HideElementOnPanel(Pnl_Group);
             f_TC_Setting.Show();
@@ -71,25 +69,13 @@ namespace InstrumentTest
             toolTip1.SetToolTip(Btn_CloseApp, "Close");
             toolTip1.SetToolTip(Btn_Home, "Home");
         }
-        private void CreateDynamicElement()
-        {
-            //
-            // Panel 主要顯示頁面
-            //
-            MyStaticPanel = new Panel();
-            MyStaticPanel.Location = new System.Drawing.Point(13, 77);
-            MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
-            MyStaticPanel.BackColor = System.Drawing.Color.AliceBlue;
-            //MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.Controls.Add(MyStaticPanel);
-        }
         private void InitialApplication()
         {
+            f_LoadCell.SetF_LoadCell(Pnl_Group, f_LoadCell);
+            f_TC_Setting.SetF_TC_Setting(Pnl_Group, f_TC_Setting);
+            f_TemperatureController.SetF_TemperatureController(Pnl_Group, f_TemperatureController);
+
             SetHint();
-
-            CreateDynamicElement();
-
-            f_SelectApp.SetF_SelectApp(MyStaticPanel, f_SelectApp);
 
             // 使用Task创建并启动线程
             //Task task = Task.Run(() =>MainTask());
@@ -123,9 +109,9 @@ namespace InstrumentTest
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
-            HideElementOnPanel(MyStaticPanel);
+            HideElementOnPanel(Pnl_Group);
 
-            f_SelectApp.Show();
+            ShowElementOnPanel(Pnl_Group);
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)

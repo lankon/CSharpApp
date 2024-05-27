@@ -61,12 +61,6 @@
       <Link>Tool.cs</Link>
     </Compile>
     <Compile Include="eFormAppSet.cs" />
-    <Compile Include="F_SelectApp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_SelectApp.Designer.cs">
-      <DependentUpon>F_SelectApp.cs</DependentUpon>
-    </Compile>
     <Compile Include="LoadCell\F_LoadCell.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,9 +95,6 @@
     <Compile Include="TemperatureController\F_TemperatureController.Designer.cs">
       <DependentUpon>F_TemperatureController.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="F_SelectApp.resx">
-      <DependentUpon>F_SelectApp.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="LoadCell\F_LoadCell.resx">
       <DependentUpon>F_LoadCell.cs</DependentUpon>
     </EmbeddedResource>
