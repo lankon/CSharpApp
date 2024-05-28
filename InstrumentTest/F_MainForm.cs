@@ -17,19 +17,15 @@ namespace InstrumentTest
     {
         #region parameter define 
         public static Panel MyStaticPanel;
+        public static Panel MyStaticPanel_1;
         Tool tool = new Tool();
         F_LoadCell f_LoadCell = new F_LoadCell();
-        F_TC_Setting f_TC_Setting = new F_TC_Setting();
         F_TemperatureController f_TemperatureController = new F_TemperatureController();
         F_SelectApp f_SelectApp = new F_SelectApp();
         #endregion
 
         #region public function
-        public void Show_F_TC_Setting()
-        {
-            HideElementOnPanel(Pnl_Group);
-            f_TC_Setting.Show();
-        }
+
         #endregion
 
         #region private function
@@ -82,6 +78,17 @@ namespace InstrumentTest
             MyStaticPanel.BackColor = System.Drawing.Color.AliceBlue;
             //MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.Controls.Add(MyStaticPanel);
+
+            //
+            // Panel 顯示上方選項頁面
+            //
+            MyStaticPanel_1 = new Panel();
+            MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
+            MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
+            //MyStaticPanel_1.BackColor = System.Drawing.Color.AliceBlue;
+            MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.Pnl_Function.Controls.Add(F_MainForm.MyStaticPanel_1);
+
         }
         private void InitialApplication()
         {
@@ -124,6 +131,7 @@ namespace InstrumentTest
         private void Btn_Home_Click(object sender, EventArgs e)
         {
             HideElementOnPanel(MyStaticPanel);
+            HideElementOnPanel(MyStaticPanel_1);
 
             f_SelectApp.Show();
         }

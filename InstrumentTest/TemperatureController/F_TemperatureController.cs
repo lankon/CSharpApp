@@ -12,8 +12,19 @@ namespace InstrumentTest
 {
     public partial class F_TemperatureController : Form
     {
+        #region parameter define
+        
+        #endregion
 
-        #region
+        #region private function
+        private void InitialApplication()
+        {
+            
+        }
+
+        #endregion
+
+        #region public function
         public void SetF_TemperatureController(Panel pnl, F_TemperatureController form)
         {
             form.Dock = DockStyle.Fill;
@@ -31,6 +42,8 @@ namespace InstrumentTest
         public F_TemperatureController()
         {
             InitializeComponent();
+
+            InitialApplication();
         }
     }
 }

@@ -7,12 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CommonFunction;
 
 namespace InstrumentTest
 {
     public partial class F_TC_Setting : Form
     {
-
+        #region private function
+        private void InitialApplication()
+        {
+            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
+                        
+            ApplicationSetting.ReadAllRecipe<eFormAppSet>();
+            TPT8000.ReadTempOffsetFile(1, 1);
+            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
+        }
+        #endregion
 
         #region public function
         public void SetF_TC_Setting(Panel pnl, F_TC_Setting form)
@@ -32,6 +42,28 @@ namespace InstrumentTest
         public F_TC_Setting()
         {
             InitializeComponent();
+
+            InitialApplication();
+        }
+
+        private void F_TC_Setting_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!this.Visible)
+            {
+                ApplicationSetting.SaveAllRecipe(this);
+                ApplicationSetting.ReadAllRecipe<eFormAppSet>();
+            }
+        }
+
+        private void F_TC_Setting_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ApplicationSetting.SaveAllRecipe(this);
+            ApplicationSetting.ReadAllRecipe<eFormAppSet>();
+
+            this.Dispose(); // 显式调用 Dispose 以释放资源
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

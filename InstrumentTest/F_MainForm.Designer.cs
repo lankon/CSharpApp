@@ -57,6 +57,7 @@ namespace InstrumentTest
             this.Pnl_Group1.Name = "Pnl_Group1";
             this.Pnl_Group1.Size = new System.Drawing.Size(883, 65);
             this.Pnl_Group1.TabIndex = 30;
+            this.Pnl_Group1.Visible = false;
             // 
             // Btn_Home
             // 

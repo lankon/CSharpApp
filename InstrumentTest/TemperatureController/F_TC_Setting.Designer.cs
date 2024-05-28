@@ -65,7 +65,7 @@ namespace InstrumentTest
             this.Pnl_TPT8000_Offset.Controls.Add(this.button1);
             this.Pnl_TPT8000_Offset.Controls.Add(this.tableLayoutPanel2);
             this.Pnl_TPT8000_Offset.Controls.Add(this.tableLayoutPanel1);
-            this.Pnl_TPT8000_Offset.Location = new System.Drawing.Point(543, 12);
+            this.Pnl_TPT8000_Offset.Location = new System.Drawing.Point(548, 5);
             this.Pnl_TPT8000_Offset.Name = "Pnl_TPT8000_Offset";
             this.Pnl_TPT8000_Offset.Size = new System.Drawing.Size(467, 316);
             this.Pnl_TPT8000_Offset.TabIndex = 1;
@@ -381,6 +381,8 @@ namespace InstrumentTest
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_TC_Setting";
             this.Text = "F_TC_Setting";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.F_TC_Setting_FormClosed);
+            this.VisibleChanged += new System.EventHandler(this.F_TC_Setting_VisibleChanged);
             this.Pnl_TPT8000_Offset.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

@@ -75,7 +75,9 @@ namespace InstrumentTest
             f_TemperatureController.SetF_TemperatureController(F_MainForm.MyStaticPanel, f_TemperatureController);
             f_TemperatureController.Show();
 
-            
+            F_TC_ButtonGroup f_TC_ButtonGroup = new F_TC_ButtonGroup();
+            f_TC_ButtonGroup.SetF_TC_ButtonGroup(F_MainForm.MyStaticPanel_1, f_TC_ButtonGroup);
+            f_TC_ButtonGroup.Show();
         }
     }
 }

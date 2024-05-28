@@ -83,6 +83,7 @@
     <Compile Include="PISODIO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemperatureController\Base\TemperatureController_TPT8000.cs" />
     <Compile Include="TemperatureController\F_TC_ButtonGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,8 +144,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TemperatureController\Base\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
