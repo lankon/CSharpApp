@@ -46,6 +46,7 @@ namespace InstrumentTest
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Btn_Connect = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -238,12 +239,24 @@ namespace InstrumentTest
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.Btn_Connect);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Location = new System.Drawing.Point(12, 456);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(998, 86);
             this.panel1.TabIndex = 4;
+            // 
+            // Btn_Connect
+            // 
+            this.Btn_Connect.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_Connect.Location = new System.Drawing.Point(185, 4);
+            this.Btn_Connect.Name = "Btn_Connect";
+            this.Btn_Connect.Size = new System.Drawing.Size(85, 79);
+            this.Btn_Connect.TabIndex = 6;
+            this.Btn_Connect.Text = "Connect";
+            this.Btn_Connect.UseVisualStyleBackColor = true;
+            this.Btn_Connect.Click += new System.EventHandler(this.Btn_Connect_Click);
             // 
             // button2
             // 
@@ -257,7 +270,7 @@ namespace InstrumentTest
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 79);
@@ -267,6 +280,7 @@ namespace InstrumentTest
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.chart1);
             this.panel2.Location = new System.Drawing.Point(12, 203);
             this.panel2.Name = "panel2";
@@ -332,5 +346,6 @@ namespace InstrumentTest
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button Btn_Connect;
     }
 }

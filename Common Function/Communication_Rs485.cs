@@ -24,6 +24,9 @@ namespace CommonFunction
             if(stop_bit == 1)
                 serialPort.StopBits = StopBits.One; // 設置停止位
 
+            if (serialPort.IsOpen)  //Comport已經開啟了
+                return true;
+
             try
             {
                 serialPort.Open(); // 打開串行端口

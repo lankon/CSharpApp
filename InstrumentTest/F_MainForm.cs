@@ -19,8 +19,6 @@ namespace InstrumentTest
         public static Panel MyStaticPanel;
         public static Panel MyStaticPanel_1;
         Tool tool = new Tool();
-        F_LoadCell f_LoadCell = new F_LoadCell();
-        F_TemperatureController f_TemperatureController = new F_TemperatureController();
         F_SelectApp f_SelectApp = new F_SelectApp();
         #endregion
 
@@ -158,24 +156,6 @@ namespace InstrumentTest
             //e.Graphics.DrawLine(Pens.Black, 1, vSize.Height / 2, 1, pnl.Height - 2);
             e.Graphics.DrawLine(Pens.Black, 1, pnl.Height - 2, pnl.Width - 2, pnl.Height - 2);
             //e.Graphics.DrawLine(Pens.Black, pnl.Width - 2, vSize.Height / 2, pnl.Width - 2, pnl.Height - 2);
-        }
-
-        private void Btn_DeltaLoadCell_Click(object sender, EventArgs e)
-        {
-            HideElementOnPanel(Pnl_Group);
-
-            f_LoadCell.Show();
-        }
-
-        private void Btn_TemperatureControl_Click(object sender, EventArgs e)
-        {
-            HideElementOnPanel(Pnl_Group);
-
-            f_TemperatureController.Show();
-
-            F_TC_ButtonGroup f_TC_ButtonGroup = new F_TC_ButtonGroup();
-            f_TC_ButtonGroup.SetF_TC_ButtonGroup(Pnl_Group1, f_TC_ButtonGroup);
-            f_TC_ButtonGroup.Show();
-        }
+        }              
     }
 }

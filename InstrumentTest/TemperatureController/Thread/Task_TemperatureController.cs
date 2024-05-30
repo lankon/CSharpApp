@@ -1,0 +1,117 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CommonFunction;
+
+namespace InstrumentTest
+{
+    class Task_TemperatureController
+    {
+        #region parameter define 
+        enum WORK
+        {
+            INITIAL,
+
+            CONNECT,
+            CLOSE,
+            IDLE,
+            
+
+            ERROR,
+        }
+
+        Tool tool = new Tool();
+        private bool Terminate = true;
+        private WORK state = WORK.INITIAL;
+        private string ErrorMsg = "";
+        ITemperatureController[] TC = new ITemperatureController[4];
+        #endregion
+
+        #region private function
+        private ITemperatureController Create_TC(string Type)
+        {
+            switch (Type)
+            {
+                case "TPT8000":
+                    return new TemperatureController_TPT8000();
+            }
+            return null;
+        }
+        private void Transition(WORK target)
+        {
+            if (target != state) //狀態有變化時紀錄
+            {
+                tool.SaveHistoryToFile("Task_TemperatureController:"+ target.ToString());
+            }
+
+            state = target;
+        }
+        #endregion
+
+        #region public function
+        public void Connect()
+        {
+            Transition(WORK.CONNECT);
+        }
+        public bool IsIdle()
+        {
+            if (state != WORK.IDLE)
+                return false;
+            else
+                return true;
+        }
+        public string GetError()
+        {
+            return ErrorMsg;
+        }
+        public void ResetError()
+        {
+            ErrorMsg = "";
+        }
+        #endregion
+
+        
+
+        public Task_TemperatureController()
+        {
+            Task task = Task.Run(() => MainTask());
+        }
+
+        
+
+        private void MainTask()
+        {
+            while (Terminate)
+            {
+                switch (state)
+                {                               
+                    case WORK.INITIAL:
+                        //Transition(WORK.CONNECT);
+                        
+                        break;
+
+                    case WORK.IDLE:
+
+                        break;
+
+                    case WORK.CONNECT:
+                        for (int i = 0; i < 1; i++)
+                        {
+                            TC[i] = Create_TC("TPT8000");
+
+                            if(!TC[i].Open("COM1", "19200", "1"))
+                            {
+                                tool.SaveHistoryToFile("TC " + "COM? " + "Connect Fail");
+                                ErrorMsg = "TC " + "COM? " + "Connect Fail";
+                            }
+
+                            Transition(WORK.IDLE);
+                        }
+                        break;
+                }
+            }
+        }
+    }
+}

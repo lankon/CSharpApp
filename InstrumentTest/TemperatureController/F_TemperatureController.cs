@@ -13,7 +13,7 @@ namespace InstrumentTest
     public partial class F_TemperatureController : Form
     {
         #region parameter define
-        
+        Task_TemperatureController Task_TC = new Task_TemperatureController(); 
         #endregion
 
         #region private function
@@ -44,6 +44,11 @@ namespace InstrumentTest
             InitializeComponent();
 
             InitialApplication();
+        }
+
+        private void Btn_Connect_Click(object sender, EventArgs e)
+        {
+            Task_TC.Connect();
         }
     }
 }

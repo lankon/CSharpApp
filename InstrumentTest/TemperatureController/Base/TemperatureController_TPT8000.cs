@@ -10,10 +10,10 @@ using CommonFunction;
 
 namespace InstrumentTest
 {
-    public class TemperatureController_TPT8000
+    public class TemperatureController_TPT8000 : ITemperatureController
     {
         //#region parameter define
-        //private static SerialPort Comport = new SerialPort();
+        private static SerialPort Comport = new SerialPort();
 
         //private int DataReceivedLength = 0;
         //private byte[] DataReceivedBuf = new byte[11];
@@ -32,75 +32,56 @@ namespace InstrumentTest
         //double GetTempOffsetValue4, GetTempOffsetValue5;
         //#endregion
 
-        //#region Public Function       
-        //public bool Open(String com, String baudrate, String parity)
-        //{
-        //    bool res = true;
+        #region Public Function       
+        public bool Open(String com, String baudrate, String parity)
+        {
+            Comport.PortName = com;
+            Comport.BaudRate = int.Parse(baudrate);
+            Comport.DataBits = int.Parse("8");
+            Comport.StopBits = (StopBits)Enum.Parse(typeof(StopBits), "One");
+            Comport.Parity = (Parity)Enum.Parse(typeof(Parity), parity);
+            Comport.ReadTimeout = 2000;
 
-        //    Comport.PortName = com;
-        //    Comport.BaudRate = int.Parse(baudrate);
-        //    Comport.DataBits = int.Parse("8");
-        //    Comport.StopBits = (StopBits)Enum.Parse(typeof(StopBits), "One");
-        //    Comport.Parity = (Parity)Enum.Parse(typeof(Parity), parity);
-        //    Comport.ReadTimeout = 2000;
+            if (Comport.PortName == "None")
+                return false;
 
-        //    if (Comport.PortName == "None")
-        //        return false;
+            if (!Comport.IsOpen)
+            {
+                try
+                {
+                    Comport.Open();
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
-        //    if (!Comport.IsOpen)
-        //    {
-        //        try
-        //        {
-        //            Comport.Open();
-        //            WriteLogData($"PortName = {com}");
-        //            WriteLogData($"BaudRate = {baudrate}");
-        //            WriteLogData($"Parity = {parity}");
-        //            WriteLogData($"---Comport Open Success---");
-        //        }
-        //        catch (UnauthorizedAccessException ex)
-        //        {
-        //            WriteLogData($"---Comport Open Fail---");
-        //            res = false;
-        //        }
-        //        catch (IOException ex)
-        //        {
-        //            WriteLogData($"---Comport Open Fail---");
-        //            res = false;
-        //        }
-        //        catch (ArgumentException ex)
-        //        {
-        //            WriteLogData($"---Comport Open Fail---");
-        //            res = false;
-        //        }
-        //    }
-        //    return res;
-        //}
-        //public bool Close()
-        //{
-        //    bool res = true;
+        public bool Close()
+        {
+            bool res = true;
 
-        //    if (Comport.IsOpen)
-        //    {
-        //        try
-        //        {
-        //            Comport.DiscardOutBuffer();
-        //            Comport.DiscardInBuffer();
-        //            Comport.Close();
+            if (Comport.IsOpen)
+            {
+                try
+                {
+                    Comport.DiscardOutBuffer();
+                    Comport.DiscardInBuffer();
+                    Comport.Close();
 
-        //            WriteLogData($"---Comport Close Success---");
-        //            CloseLogFile();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            WriteLogData($"---Comport Close Fail---");
-        //            res = false;
-        //        }
-        //    }
+                }
+                catch (Exception ex)
+                {
+                    res = false;
+                }
+            }
 
-        //    Comport.Dispose();
+            Comport.Dispose();
 
-        //    return res;
-        //}
+            return res;
+        }
         //public bool SetValue(int value) 
         //{
         //    try
@@ -424,7 +405,7 @@ namespace InstrumentTest
         //    bool res = Ask(ASK_ITEM.PID);
         //    return res;
         //}
-        //#endregion
+        #endregion
         //#region Private Function
         //bool Write(byte[] buffer, int offset, int count)
         //{

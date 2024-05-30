@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace InstrumentTest
+{
+    public interface ITemperatureController
+    {
+        bool Open(String com, String baudrate, String parity);
+        bool Close();
+
+    }
+}

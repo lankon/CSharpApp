@@ -83,6 +83,7 @@
     <Compile Include="PISODIO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemperatureController\Base\ITemperatureController.cs" />
     <Compile Include="TemperatureController\Base\TemperatureController_TPT8000.cs" />
     <Compile Include="TemperatureController\F_TC_ButtonGroup.cs">
       <SubType>Form</SubType>
@@ -102,6 +103,7 @@
     <Compile Include="TemperatureController\F_TemperatureController.Designer.cs">
       <DependentUpon>F_TemperatureController.cs</DependentUpon>
     </Compile>
+    <Compile Include="TemperatureController\Thread\Task_TemperatureController.cs" />
     <EmbeddedResource Include="F_SelectApp.resx">
       <DependentUpon>F_SelectApp.cs</DependentUpon>
     </EmbeddedResource>
