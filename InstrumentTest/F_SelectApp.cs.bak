@@ -10,8 +10,13 @@ using System.Windows.Forms;
 
 namespace InstrumentTest
 {
-    public partial class F_TC_ButtonGroup : Form
+    public partial class F_SelectApp : Form
     {
+        #region parameter define 
+        F_LoadCell f_LoadCell = new F_LoadCell();
+        F_TemperatureController f_TemperatureController = new F_TemperatureController();
+        #endregion
+
         #region private function
         private void HideElementOnPanel(Panel pnl)
         {
@@ -32,11 +37,10 @@ namespace InstrumentTest
                 }
             }
         }
-
         #endregion
 
         #region public function
-        public void SetF_TC_ButtonGroup(Panel pnl, F_TC_ButtonGroup form)
+        public void SetF_SelectApp(Panel pnl, F_SelectApp form)
         {
             form.Dock = DockStyle.Fill;
             form.Visible = true;
@@ -47,23 +51,33 @@ namespace InstrumentTest
 
             pnl.Controls.Add(form);
 
-            form.Hide();
+            form.Show();
         }
         #endregion
 
-
-        public F_TC_ButtonGroup()
+        public F_SelectApp()
         {
             InitializeComponent();
         }
 
-        private void Btn_Setting_Click(object sender, EventArgs e)
+        private void Btn_DeltaLoadCell_Click(object sender, EventArgs e)
         {
             HideElementOnPanel(F_MainForm.MyStaticPanel);
 
-            F_TC_Setting f_TC_Setting = new F_TC_Setting();
-            f_TC_Setting.SetF_TC_Setting(F_MainForm.MyStaticPanel, f_TC_Setting);
-            f_TC_Setting.Show();
+            f_LoadCell.SetF_LoadCell(F_MainForm.MyStaticPanel, f_LoadCell);
+            f_LoadCell.Show();
+        }
+
+        private void Btn_TemperatureControl_Click(object sender, EventArgs e)
+        {
+            HideElementOnPanel(F_MainForm.MyStaticPanel);
+
+            f_TemperatureController.SetF_TemperatureController(F_MainForm.MyStaticPanel, f_TemperatureController);
+            f_TemperatureController.Show();
+
+            F_TC_ButtonGroup f_TC_ButtonGroup = new F_TC_ButtonGroup();
+            f_TC_ButtonGroup.SetF_TC_ButtonGroup(F_MainForm.MyStaticPanel_1, f_TC_ButtonGroup);
+            f_TC_ButtonGroup.Show();
         }
     }
 }

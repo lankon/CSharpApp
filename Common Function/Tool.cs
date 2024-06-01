@@ -251,6 +251,7 @@ namespace CommonFunction
                 catch(Exception ex)
                 {
                     SaveHistoryToFile("無效的創建資料夾路徑");
+                    SaveHistoryToFile($"Tool:CreateFolder Fail{ex}");
                 }                
             }
             else

@@ -13,11 +13,22 @@ namespace InstrumentTest
     public partial class F_SelectApp : Form
     {
         #region parameter define 
+        F_TC_ButtonGroup f_TC_ButtonGroup;
         F_LoadCell f_LoadCell = new F_LoadCell();
         F_TemperatureController f_TemperatureController = new F_TemperatureController();
         #endregion
 
         #region private function
+        private void InitialApplication()
+        {
+            
+        }
+        private void Show_TC_Form()
+        {
+            HideElementOnPanel(F_MainForm.MyStaticPanel);
+
+            f_TemperatureController.Show();
+        }
         private void HideElementOnPanel(Panel pnl)
         {
             foreach (Control control in pnl.Controls)
@@ -58,6 +69,8 @@ namespace InstrumentTest
         public F_SelectApp()
         {
             InitializeComponent();
+
+            InitialApplication();
         }
 
         private void Btn_DeltaLoadCell_Click(object sender, EventArgs e)
@@ -75,9 +88,11 @@ namespace InstrumentTest
             f_TemperatureController.SetF_TemperatureController(F_MainForm.MyStaticPanel, f_TemperatureController);
             f_TemperatureController.Show();
 
-            F_TC_ButtonGroup f_TC_ButtonGroup = new F_TC_ButtonGroup();
+            f_TC_ButtonGroup = new F_TC_ButtonGroup();
             f_TC_ButtonGroup.SetF_TC_ButtonGroup(F_MainForm.MyStaticPanel_1, f_TC_ButtonGroup);
             f_TC_ButtonGroup.Show();
+
+            f_TC_ButtonGroup.Show_TC_Form += Show_TC_Form;
         }
     }
 }

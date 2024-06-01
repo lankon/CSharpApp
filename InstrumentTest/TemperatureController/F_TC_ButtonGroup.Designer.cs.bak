@@ -42,6 +42,7 @@ namespace InstrumentTest
             this.Btn_Setting.Size = new System.Drawing.Size(60, 60);
             this.Btn_Setting.TabIndex = 29;
             this.Btn_Setting.UseVisualStyleBackColor = true;
+            this.Btn_Setting.Click += new System.EventHandler(this.Btn_Setting_Click);
             // 
             // F_TC_ButtonGroup
             // 

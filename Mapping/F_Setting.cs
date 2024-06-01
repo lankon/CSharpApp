@@ -85,7 +85,7 @@ namespace Mapping
 
             if (bCustomerShow == false)
             {
-                customer_item[0] = "Defult";
+                customer_item[0] = "Default";
                 customer_item[1] = "AMIDA";
                 bCustomerShow = true;
             }

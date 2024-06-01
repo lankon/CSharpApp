@@ -16,7 +16,6 @@ namespace InstrumentTest
         Tool tool = new Tool();
         private static SerialPort Comport = new SerialPort();
 
-
         //private int DataReceivedLength = 0;
         //private byte[] DataReceivedBuf = new byte[11];
         //String FivePointValue; 
@@ -55,7 +54,6 @@ namespace InstrumentTest
                 }
                 catch(Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:Open Fail{ex}");
                     return false;
                 }
             }
@@ -77,7 +75,6 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:Close Fail{ex}");
                     res = false;
                 }
             }
@@ -123,7 +120,6 @@ namespace InstrumentTest
             }
             catch (Exception ex)
             {
-                tool.SaveHistoryToFile($"TemperatureController_TPT8000:SetValue Fail{ex}");
                 return false;
             }
         }
@@ -426,7 +422,6 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:Write Fail{ex}");
                 }
             }
             else
@@ -460,7 +455,6 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:Read Fail{ex}");
                     received_buf = null;
                 }
             }
@@ -511,7 +505,6 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:DiscardOutBuffer Fail{ex}");
                 }
             }
         }
@@ -528,7 +521,6 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:DiscarInBuffer Fail{ex}");
                 }
             }
         }
@@ -646,42 +638,16 @@ namespace InstrumentTest
         {
             String Line;
             String FileName = "T" + ControlNum + "C" + ChuckNum;
-            String FilePath = System.IO.Directory.GetCurrentDirectory(); 
-            FilePath = FilePath + "\\TemperatureController\\" + FileName + ".txt";
+            String FilePath = "D:\\CorrectFile\\" + FileName + ".txt";
 
-            StreamReader sw = null;
-            
-            try
-            {   
-                sw = new StreamReader(FilePath);
-            }
-            catch(Exception ex)
-            {
-                tool.SaveHistoryToFile($"TemperatureController_TPT8000:ReadTempOffsetFile Fail{ex}");
-
-                //讀檔失敗填入預設值
-                ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, "-1");
-                for(int j=0; j<5;j++)
-                {
-                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Temp1 + j, "0");
-                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Comp1 + j, "0");
-                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Offset1 + j, "0");
-                }
-
-                return;
-            }
+            //StreamReader sw = new StreamReader(FilePath);
+            StreamReader sw = new StreamReader("C:\\Users\\lankon\\Desktop\\T1C2.txt");
             int i = 0;
             char[] SplitMark = { ',', '\\' };
 
             while ((Line = sw.ReadLine()) != null)
             {
                 String[] SplitStr = Line.Split(SplitMark);
-
-                if (SplitStr[0] == "#Channel")
-                {
-                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, SplitStr[1]);
-                    break;
-                }
 
                 ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Temp1+i, SplitStr[0]);
                 ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Comp1+i, SplitStr[1]);

@@ -29,18 +29,13 @@ namespace InstrumentTest
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.Pnl_TPT8000_Offset = new System.Windows.Forms.Panel();
-            this.Btn_Save = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.TxtBx_BoardCount = new System.Windows.Forms.TextBox();
             this.Cmbx_Board = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Cmbx_CtrlBox = new System.Windows.Forms.ComboBox();
-            this.TxtBx_CtrlBxCount = new System.Windows.Forms.TextBox();
-            this.TxtBx_Board_CH = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TxtBx_Offset5 = new System.Windows.Forms.TextBox();
             this.TxtBx_Comp5 = new System.Windows.Forms.TextBox();
@@ -60,7 +55,6 @@ namespace InstrumentTest
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtBx_Temp1 = new System.Windows.Forms.TextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Pnl_TPT8000_Offset.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -68,74 +62,41 @@ namespace InstrumentTest
             // 
             // Pnl_TPT8000_Offset
             // 
-            this.Pnl_TPT8000_Offset.Controls.Add(this.Btn_Save);
+            this.Pnl_TPT8000_Offset.Controls.Add(this.button1);
             this.Pnl_TPT8000_Offset.Controls.Add(this.tableLayoutPanel2);
             this.Pnl_TPT8000_Offset.Controls.Add(this.tableLayoutPanel1);
             this.Pnl_TPT8000_Offset.Location = new System.Drawing.Point(548, 5);
             this.Pnl_TPT8000_Offset.Name = "Pnl_TPT8000_Offset";
-            this.Pnl_TPT8000_Offset.Size = new System.Drawing.Size(467, 349);
+            this.Pnl_TPT8000_Offset.Size = new System.Drawing.Size(467, 316);
             this.Pnl_TPT8000_Offset.TabIndex = 1;
             // 
-            // Btn_Save
+            // button1
             // 
-            this.Btn_Save.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Btn_Save.Location = new System.Drawing.Point(324, 5);
-            this.Btn_Save.Name = "Btn_Save";
-            this.Btn_Save.Size = new System.Drawing.Size(139, 111);
-            this.Btn_Save.TabIndex = 3;
-            this.Btn_Save.Text = "Save";
-            this.Btn_Save.UseVisualStyleBackColor = true;
-            this.Btn_Save.Click += new System.EventHandler(this.Btn_Save_Click);
+            this.button1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button1.Location = new System.Drawing.Point(276, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(187, 81);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.OutsetDouble;
-            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel2.Controls.Add(this.label6, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.TxtBx_BoardCount, 2, 1);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.Cmbx_Board, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.Cmbx_CtrlBox, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.TxtBx_CtrlBxCount, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.TxtBx_Board_CH, 1, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(314, 111);
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(265, 81);
             this.tableLayoutPanel2.TabIndex = 2;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label6.Location = new System.Drawing.Point(6, 75);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(145, 33);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Board CH";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // TxtBx_BoardCount
-            // 
-            this.TxtBx_BoardCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_BoardCount.Enabled = false;
-            this.TxtBx_BoardCount.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoardCount.Location = new System.Drawing.Point(268, 42);
-            this.TxtBx_BoardCount.Name = "TxtBx_BoardCount";
-            this.TxtBx_BoardCount.ReadOnly = true;
-            this.TxtBx_BoardCount.Size = new System.Drawing.Size(40, 29);
-            this.TxtBx_BoardCount.TabIndex = 5;
-            this.TxtBx_BoardCount.Text = "9";
-            this.TxtBx_BoardCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Cmbx_Board
             // 
@@ -152,11 +113,10 @@ namespace InstrumentTest
             "7",
             "8",
             "9"});
-            this.Cmbx_Board.Location = new System.Drawing.Point(160, 42);
+            this.Cmbx_Board.Location = new System.Drawing.Point(137, 45);
             this.Cmbx_Board.Name = "Cmbx_Board";
-            this.Cmbx_Board.Size = new System.Drawing.Size(99, 28);
+            this.Cmbx_Board.Size = new System.Drawing.Size(122, 28);
             this.Cmbx_Board.TabIndex = 3;
-            this.Cmbx_Board.SelectedIndexChanged += new System.EventHandler(this.Cmbx_Board_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -166,7 +126,7 @@ namespace InstrumentTest
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Location = new System.Drawing.Point(6, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(145, 33);
+            this.label1.Size = new System.Drawing.Size(122, 36);
             this.label1.TabIndex = 0;
             this.label1.Text = "Control Box";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -177,9 +137,9 @@ namespace InstrumentTest
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Location = new System.Drawing.Point(6, 39);
+            this.label2.Location = new System.Drawing.Point(6, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(145, 33);
+            this.label2.Size = new System.Drawing.Size(122, 36);
             this.label2.TabIndex = 1;
             this.label2.Text = "Board";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -195,34 +155,10 @@ namespace InstrumentTest
             "3",
             "4",
             "5"});
-            this.Cmbx_CtrlBox.Location = new System.Drawing.Point(160, 6);
+            this.Cmbx_CtrlBox.Location = new System.Drawing.Point(137, 6);
             this.Cmbx_CtrlBox.Name = "Cmbx_CtrlBox";
-            this.Cmbx_CtrlBox.Size = new System.Drawing.Size(99, 28);
+            this.Cmbx_CtrlBox.Size = new System.Drawing.Size(122, 28);
             this.Cmbx_CtrlBox.TabIndex = 2;
-            this.Cmbx_CtrlBox.SelectedIndexChanged += new System.EventHandler(this.Cmbx_CtrlBox_SelectedIndexChanged);
-            // 
-            // TxtBx_CtrlBxCount
-            // 
-            this.TxtBx_CtrlBxCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_CtrlBxCount.Enabled = false;
-            this.TxtBx_CtrlBxCount.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_CtrlBxCount.Location = new System.Drawing.Point(268, 6);
-            this.TxtBx_CtrlBxCount.Name = "TxtBx_CtrlBxCount";
-            this.TxtBx_CtrlBxCount.ReadOnly = true;
-            this.TxtBx_CtrlBxCount.Size = new System.Drawing.Size(40, 29);
-            this.TxtBx_CtrlBxCount.TabIndex = 4;
-            this.TxtBx_CtrlBxCount.Text = "5";
-            this.TxtBx_CtrlBxCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TxtBx_CtrlBxCount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtBx_CtrlBxCount_KeyDown);
-            // 
-            // TxtBx_Board_CH
-            // 
-            this.TxtBx_Board_CH.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_Board_CH.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Board_CH.Location = new System.Drawing.Point(160, 78);
-            this.TxtBx_Board_CH.Name = "TxtBx_Board_CH";
-            this.TxtBx_Board_CH.Size = new System.Drawing.Size(99, 29);
-            this.TxtBx_Board_CH.TabIndex = 7;
             // 
             // tableLayoutPanel1
             // 
@@ -249,7 +185,7 @@ namespace InstrumentTest
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label5, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_Temp1, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 122);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 90);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
@@ -483,11 +419,6 @@ namespace InstrumentTest
         private System.Windows.Forms.TextBox TxtBx_Offset1;
         private System.Windows.Forms.TextBox TxtBx_Comp1;
         private System.Windows.Forms.TextBox TxtBx_Temp1;
-        private System.Windows.Forms.Button Btn_Save;
-        private System.Windows.Forms.TextBox TxtBx_BoardCount;
-        private System.Windows.Forms.TextBox TxtBx_CtrlBxCount;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox TxtBx_Board_CH;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button button1;
     }
 }

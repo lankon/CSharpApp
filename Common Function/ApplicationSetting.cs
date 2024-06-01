@@ -126,6 +126,19 @@ namespace CommonFunction
                 return -1;
             }
         }
+        public static double Get_Double_Recipe(int element)
+        {
+            double Flag = -1.0;
+
+            if (double.TryParse(ApplicationInfo[element], out Flag))
+            {
+                return Flag;
+            }
+            else
+            {
+                return -1.0;
+            }
+        }
         public static void SaveAllRecipe(Form form)
         {
             // 獲取當前應用程式的配置

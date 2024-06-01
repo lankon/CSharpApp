@@ -29,20 +29,34 @@ namespace InstrumentTest
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_TC_ButtonGroup));
             this.Btn_Setting = new System.Windows.Forms.Button();
+            this.Btn_Back = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // Btn_Setting
             // 
             this.Btn_Setting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Setting.BackgroundImage")));
             this.Btn_Setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_Setting.Location = new System.Drawing.Point(817, 6);
+            this.Btn_Setting.Location = new System.Drawing.Point(817, 5);
             this.Btn_Setting.Name = "Btn_Setting";
             this.Btn_Setting.Size = new System.Drawing.Size(60, 60);
             this.Btn_Setting.TabIndex = 29;
             this.Btn_Setting.UseVisualStyleBackColor = true;
             this.Btn_Setting.Click += new System.EventHandler(this.Btn_Setting_Click);
+            // 
+            // Btn_Back
+            // 
+            this.Btn_Back.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Back.BackgroundImage")));
+            this.Btn_Back.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Back.Location = new System.Drawing.Point(4, 5);
+            this.Btn_Back.Name = "Btn_Back";
+            this.Btn_Back.Size = new System.Drawing.Size(60, 60);
+            this.Btn_Back.TabIndex = 30;
+            this.Btn_Back.UseVisualStyleBackColor = true;
+            this.Btn_Back.Click += new System.EventHandler(this.Btn_Back_Click);
             // 
             // F_TC_ButtonGroup
             // 
@@ -50,6 +64,7 @@ namespace InstrumentTest
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(883, 68);
+            this.Controls.Add(this.Btn_Back);
             this.Controls.Add(this.Btn_Setting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_TC_ButtonGroup";
@@ -61,5 +76,7 @@ namespace InstrumentTest
         #endregion
 
         private System.Windows.Forms.Button Btn_Setting;
+        private System.Windows.Forms.Button Btn_Back;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

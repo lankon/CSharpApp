@@ -10,8 +10,14 @@ using System.Windows.Forms;
 
 namespace InstrumentTest
 {
+    public delegate void Show_TC_FormCallBack ();
+    
     public partial class F_TC_ButtonGroup : Form
     {
+        #region parameter define
+        public Show_TC_FormCallBack Show_TC_Form;
+        #endregion
+
         #region private function
         private void HideElementOnPanel(Panel pnl)
         {
@@ -32,7 +38,15 @@ namespace InstrumentTest
                 }
             }
         }
-
+        private void InitialApplication()
+        {
+            ShowHint();
+        }
+        private void ShowHint()
+        {
+            toolTip1.SetToolTip(Btn_Back, "Back");
+            toolTip1.SetToolTip(Btn_Setting, "Setting");
+        }
         #endregion
 
         #region public function
@@ -55,6 +69,8 @@ namespace InstrumentTest
         public F_TC_ButtonGroup()
         {
             InitializeComponent();
+
+            InitialApplication();
         }
 
         private void Btn_Setting_Click(object sender, EventArgs e)
@@ -64,6 +80,11 @@ namespace InstrumentTest
             F_TC_Setting f_TC_Setting = new F_TC_Setting();
             f_TC_Setting.SetF_TC_Setting(F_MainForm.MyStaticPanel, f_TC_Setting);
             f_TC_Setting.Show();
+        }
+
+        private void Btn_Back_Click(object sender, EventArgs e)
+        {
+            Show_TC_Form();
         }
     }
 }
