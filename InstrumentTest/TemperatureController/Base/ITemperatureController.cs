@@ -15,6 +15,8 @@ namespace InstrumentTest
         bool Close();
         bool SetValue(int value);
         bool Start();
+        bool Stop();
+
 
     }
 }

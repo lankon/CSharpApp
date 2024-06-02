@@ -34,6 +34,8 @@ namespace InstrumentTest
         {
             toolTip1.SetToolTip(Btn_Connect, "Connect");
             toolTip1.SetToolTip(Btn_DisConnect, "DisConnect");
+            toolTip1.SetToolTip(Btn_Start, "Start");
+            toolTip1.SetToolTip(Btn_Stop, "Stop");
         }
         private void Update_PV(double value)
         {
@@ -87,7 +89,7 @@ namespace InstrumentTest
         {
             Task_TC.Connect();
 
-            Thread.Sleep(100);
+            Thread.Sleep(500);
 
             if(Task_TC.GetError() == "")
             {
@@ -104,7 +106,7 @@ namespace InstrumentTest
         {
             Task_TC.DisConnect();
 
-            Thread.Sleep(100);
+            Thread.Sleep(500);
 
             if (Task_TC.GetError() == "")
             {
@@ -120,7 +122,53 @@ namespace InstrumentTest
 
         private void Btn_Start_Click(object sender, EventArgs e)
         {
+            Task_TC.Start();
 
+            Thread.Sleep(500);
+
+            if (Task_TC.GetError() == "")
+            {
+                //Btn_Start.Visible = false;
+                //Btn_Stop.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("TC Start Fail");
+            }
+        }
+
+        private void Btn_Stop_Click(object sender, EventArgs e)
+        {
+            Task_TC.Stop();
+
+            Thread.Sleep(500);
+
+            if (Task_TC.GetError() == "")
+            {
+                //Btn_Start.Visible = true;
+                //Btn_Stop.Visible = false;
+            }
+            else
+            {
+                MessageBox.Show("TC Stop Fail");
+            }
+        }
+
+        private void Btn_StartAll_Click(object sender, EventArgs e)
+        {
+            Task_TC.StartAll();
+
+            Thread.Sleep(500);
+
+            if (Task_TC.GetError() == "")
+            {
+                Btn_StartAll.Visible = false;
+                //Btn_Stop.Visible = false;
+            }
+            else
+            {
+                MessageBox.Show("TC Start All Fail");
+            }
         }
     }
 }

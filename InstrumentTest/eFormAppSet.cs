@@ -21,8 +21,10 @@ namespace InstrumentTest
         // TPT8000 Setting
         //
         Cmbx_CtrlBox,
+        TxtBx_CtrlBxCount,
         Cmbx_Board,
-        TxtBx_Board_CH,
+        TxtBx_BoardCount,
+        TxtBx_Board_CH,      
         TxtBx_Temp1, TxtBx_Temp2, TxtBx_Temp3, TxtBx_Temp4, TxtBx_Temp5,
         TxtBx_Comp1, TxtBx_Comp2, TxtBx_Comp3, TxtBx_Comp4, TxtBx_Comp5,
         TxtBx_Offset1, TxtBx_Offset2, TxtBx_Offset3, TxtBx_Offset4, TxtBx_Offset5,

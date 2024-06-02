@@ -30,9 +30,9 @@ namespace InstrumentTest
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_TemperatureController));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_TemperatureController));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Labl_PV = new System.Windows.Forms.Label();
             this.Labl_SV = new System.Windows.Forms.Label();
@@ -56,6 +56,8 @@ namespace InstrumentTest
             this.panel2 = new System.Windows.Forms.Panel();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Btn_Stop = new System.Windows.Forms.Button();
+            this.Btn_StartAll = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -270,6 +272,8 @@ namespace InstrumentTest
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.Btn_StartAll);
+            this.panel1.Controls.Add(this.Btn_Stop);
             this.panel1.Controls.Add(this.Btn_DisConnect);
             this.panel1.Controls.Add(this.Btn_Connect);
             this.panel1.Controls.Add(this.Btn_Start);
@@ -283,7 +287,7 @@ namespace InstrumentTest
             this.Btn_DisConnect.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_DisConnect.BackgroundImage")));
             this.Btn_DisConnect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Btn_DisConnect.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Btn_DisConnect.Location = new System.Drawing.Point(3, 4);
+            this.Btn_DisConnect.Location = new System.Drawing.Point(4, 4);
             this.Btn_DisConnect.Name = "Btn_DisConnect";
             this.Btn_DisConnect.Size = new System.Drawing.Size(85, 79);
             this.Btn_DisConnect.TabIndex = 7;
@@ -305,6 +309,8 @@ namespace InstrumentTest
             // 
             // Btn_Start
             // 
+            this.Btn_Start.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Start.BackgroundImage")));
+            this.Btn_Start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Btn_Start.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_Start.Location = new System.Drawing.Point(94, 4);
             this.Btn_Start.Name = "Btn_Start";
@@ -335,6 +341,30 @@ namespace InstrumentTest
             this.chart1.Size = new System.Drawing.Size(991, 226);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
+            // 
+            // Btn_Stop
+            // 
+            this.Btn_Stop.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Stop.BackgroundImage")));
+            this.Btn_Stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Stop.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_Stop.Location = new System.Drawing.Point(184, 4);
+            this.Btn_Stop.Name = "Btn_Stop";
+            this.Btn_Stop.Size = new System.Drawing.Size(85, 79);
+            this.Btn_Stop.TabIndex = 8;
+            this.Btn_Stop.UseVisualStyleBackColor = true;
+            this.Btn_Stop.Click += new System.EventHandler(this.Btn_Stop_Click);
+            // 
+            // Btn_StartAll
+            // 
+            this.Btn_StartAll.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_StartAll.BackgroundImage")));
+            this.Btn_StartAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_StartAll.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_StartAll.Location = new System.Drawing.Point(274, 4);
+            this.Btn_StartAll.Name = "Btn_StartAll";
+            this.Btn_StartAll.Size = new System.Drawing.Size(85, 79);
+            this.Btn_StartAll.TabIndex = 9;
+            this.Btn_StartAll.UseVisualStyleBackColor = true;
+            this.Btn_StartAll.Click += new System.EventHandler(this.Btn_StartAll_Click);
             // 
             // F_TemperatureController
             // 
@@ -385,5 +415,7 @@ namespace InstrumentTest
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Btn_DisConnect;
+        private System.Windows.Forms.Button Btn_Stop;
+        private System.Windows.Forms.Button Btn_StartAll;
     }
 }

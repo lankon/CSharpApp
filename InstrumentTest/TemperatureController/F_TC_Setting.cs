@@ -27,7 +27,12 @@ namespace InstrumentTest
             TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
                         
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
-            TPT8000.ReadTempOffsetFile(1, 1);
+
+            int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
+            //int board = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_Board);
+            int ch = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Board_CH);
+            TPT8000.ReadTempOffsetFile(ctrl_box, ch);
+
             ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
 
             InitialApp = true;
@@ -102,7 +107,7 @@ namespace InstrumentTest
             
             TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
 
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex +1 , Cmbx_Board.SelectedIndex + 1);
+            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex , tool.StringToInt(TxtBx_Board_CH.Text));
 
             ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
         }
@@ -116,7 +121,7 @@ namespace InstrumentTest
 
             TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
 
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex + 1, Cmbx_Board.SelectedIndex + 1);
+            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, Cmbx_Board.SelectedIndex);
 
             ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
         }
@@ -128,8 +133,9 @@ namespace InstrumentTest
             
             int CtrlBox = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox) + 1;
             int Board = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_Board) + 1;
+            string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
 
-            String FileName = "T" + CtrlBox.ToString() + "C" + Board.ToString();
+            String FileName = "T" + CtrlBox.ToString() + "C" + ch;
 
             StreamWriter File;
             File = tool.CreateFile($"\\TemperatureController\\{FileName}", ".txt", false);
@@ -143,8 +149,8 @@ namespace InstrumentTest
                 tool.WriteFile(File, $"{temp},{comp},{offset}");
             }
 
-            string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
-            tool.WriteFile(File, $"#Channel,{ch}");
+            //string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
+            //tool.WriteFile(File, $"#Channel,{ch}");
 
             tool.CloseFile(File);            
         }

@@ -268,7 +268,8 @@ namespace InstrumentTest
         {
             int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
             int board = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_Board);
-            ReadTempOffsetFile(ctrl_box, board);
+            string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
+            ReadTempOffsetFile(ctrl_box, tool.StringToInt(ch));
 
             double Compensate = 0, Temperature = 0;
             int Value = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Target);
@@ -304,7 +305,7 @@ namespace InstrumentTest
             var SV_Value = Math.Round(Value + CorrectValue * (Value - Temperature), 1);
 
             bool res = false;
-            String SetTemperature_Order = $"B00,STEMP,1,{SV_Value},1,0\r\n";
+            String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,{ch},{SV_Value},1,0\r\n";
             try
             {
                 Clear();
@@ -325,31 +326,31 @@ namespace InstrumentTest
             }
             return res;
         }
-        //public bool Stop()
-        //{
-        //    //var Value = GControls.Tag[EProbeTCSetting.TCTargetValue].Ivalue;
-        //    bool res = false;
-        //    String SetTemperature_Order = $"B00,STEMP,0,20,1,0\r\n";
-        //    try
-        //    {
-        //        Clear();
-        //        byte[] cmd = Encoding.Default.GetBytes(SetTemperature_Order);
-        //        if (cmd != null)
-        //        {
-        //            Comport.Write(SetTemperature_Order);
-        //            res = true;
-        //        }
-        //        else
-        //        {
-        //            WriteLogData($"Set Temperature Fail");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        WriteLogData($"Set Temperature Success: {ex}");
-        //    }
-        //    return res;
-        //}
+        public bool Stop()
+        {
+            //var Value = GControls.Tag[EProbeTCSetting.TCTargetValue].Ivalue;
+            bool res = false;
+            String SetTemperature_Order = $"B00,STEMP,0,20,1,0\r\n";
+            try
+            {
+                Clear();
+                byte[] cmd = Encoding.Default.GetBytes(SetTemperature_Order);
+                if (cmd != null)
+                {
+                    Comport.Write(SetTemperature_Order);
+                    res = true;
+                }
+                else
+                {
+                    tool.SaveHistoryToFile("TemperatureController_TPT8000:Stop Fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                tool.SaveHistoryToFile($"TemperatureController_TPT8000:Stop Fail{ex}");
+            }
+            return res;
+        }
         //public bool SetPVOffset(int set_temp_value, int high_temp, int low_temp, double high_comp, double low_comp)
         //{
         //    try
@@ -537,13 +538,13 @@ namespace InstrumentTest
             DiscardOutBuffer();
             DiscarInBuffer();
         }
-        //enum ASK_ITEM
-        //{
-        //    PV,
-        //    MV,
-        //    SV,
-        //    PID,
-        //}
+        enum ASK_ITEM
+        {
+            PV,
+            MV,
+            SV,
+            PID,
+        }
         //byte[] GetAskCommand(ASK_ITEM item)
         //{
         //    byte[] cmd = new byte[9];
@@ -633,7 +634,7 @@ namespace InstrumentTest
         //    catch (Exception ex)
         //    {
         //        WriteLogData($"Read Temperature Success: {ex}");
-        //    }            
+        //    }
         //    return res;
         //}
 
@@ -645,7 +646,7 @@ namespace InstrumentTest
         public void ReadTempOffsetFile(int ControlNum, int ChuckNum)
         {
             String Line;
-            String FileName = "T" + ControlNum + "C" + ChuckNum;
+            String FileName = "T" + (ControlNum+1) + "C" + (ChuckNum);
             String FilePath = System.IO.Directory.GetCurrentDirectory(); 
             FilePath = FilePath + "\\TemperatureController\\" + FileName + ".txt";
 
@@ -660,7 +661,7 @@ namespace InstrumentTest
                 tool.SaveHistoryToFile($"TemperatureController_TPT8000:ReadTempOffsetFile Fail{ex}");
 
                 //讀檔失敗填入預設值
-                ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, "-1");
+                //ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, "-1");
                 for(int j=0; j<5;j++)
                 {
                     ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Temp1 + j, "0");
@@ -677,11 +678,11 @@ namespace InstrumentTest
             {
                 String[] SplitStr = Line.Split(SplitMark);
 
-                if (SplitStr[0] == "#Channel")
-                {
-                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, SplitStr[1]);
-                    break;
-                }
+                //if (SplitStr[0] == "#Channel")
+                //{
+                //    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, SplitStr[1]);
+                //    break;
+                //}
 
                 ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Temp1+i, SplitStr[0]);
                 ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Comp1+i, SplitStr[1]);

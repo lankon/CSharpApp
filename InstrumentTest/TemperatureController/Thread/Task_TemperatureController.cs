@@ -64,10 +64,12 @@ namespace InstrumentTest
         #region public function
         public void Connect()
         {
+            ResetError();
             Transition(WORK.CONNECT);
         }
         public void DisConnect()
         {
+            ResetError();
             Transition(WORK.CLOSE);
         }
         public bool IsIdle()
@@ -79,7 +81,18 @@ namespace InstrumentTest
         }
         public void Start()
         {
+            ResetError();
             Transition(WORK.START);
+        }
+        public void StartAll()
+        {
+            ResetError();
+            Transition(WORK.START_ALL);
+        }
+        public void Stop()
+        {
+            ResetError();
+            Transition(WORK.STOP);
         }
         public string GetError()
         {
@@ -95,8 +108,6 @@ namespace InstrumentTest
         {
             Task task = Task.Run(() => MainTask());
         }
-
-        
 
         private void MainTask()
         {
@@ -166,15 +177,15 @@ namespace InstrumentTest
                         break;
 
                     case WORK.START:
-                        if(IsConnect == false)
+                        if (IsConnect == false)
                         {
                             tool.SaveHistoryToFile("TC未連線");
                             ErrorMsg = "TC Start Fail";
                             Transition(WORK.IDLE);
                             break;
                         }
-                        
-                        if(TC[0].Start())
+
+                        if (TC[0].Start())
                         {
                             tool.SaveHistoryToFile("TC Start");
                         }
@@ -186,6 +197,73 @@ namespace InstrumentTest
 
                         Transition(WORK.IDLE);
                         break;
+
+                    case WORK.START_ALL:
+                        if (IsConnect == false)
+                        {
+                            tool.SaveHistoryToFile("TC未連線");
+                            ErrorMsg = "TC Start Fail";
+                            Transition(WORK.IDLE);
+                            break;
+                        }
+
+                        int ctrl_box_count = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_CtrlBxCount);
+                        int board_count = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoardCount);
+
+                        for(int i=0; i< ctrl_box_count; i++)
+                        {
+                            for(int j=0; j< 2; j++)
+                            {
+                                ApplicationSetting.SetRecipe((int)eFormAppSet.Cmbx_CtrlBox, i.ToString());
+         
+                                if(j == 0)
+                                {
+                                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, j.ToString());
+                                }
+                                else
+                                {
+                                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, (j+1).ToString());
+                                }
+                                
+                                if (TC[0].Start())
+                                {
+                                    tool.SaveHistoryToFile("TC Start All");
+                                }
+                                else
+                                {
+                                    tool.SaveHistoryToFile("TC Start Fail");
+                                    ErrorMsg = "TC Start Fail";
+                                    //Transition(WORK.IDLE);
+                                    //break;
+                                }
+                            }
+                        }
+
+                        Transition(WORK.IDLE);
+                        break;
+
+                    case WORK.STOP:
+                        if (IsConnect == false)
+                        {
+                            tool.SaveHistoryToFile("TC未連線");
+                            ErrorMsg = "TC Stop Fail";
+                            Transition(WORK.IDLE);
+                            break;
+                        }
+
+                        if (TC[0].Stop())
+                        {
+                            tool.SaveHistoryToFile("TC Stop");
+                        }
+                        else
+                        {
+                            tool.SaveHistoryToFile("TC Stop Fail");
+                            ErrorMsg = "TC Stop Fail";
+                        }
+
+                        Transition(WORK.IDLE);
+                        break;
+
                 }
             }
         }
