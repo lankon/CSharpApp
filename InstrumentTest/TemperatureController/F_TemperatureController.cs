@@ -124,6 +124,8 @@ namespace InstrumentTest
         {
             Task_TC.Start();
 
+            Labl_SV.Text = TxtBx_Target.Text;
+
             Thread.Sleep(500);
 
             if (Task_TC.GetError() == "")
@@ -157,6 +159,8 @@ namespace InstrumentTest
         private void Btn_StartAll_Click(object sender, EventArgs e)
         {
             Task_TC.StartAll();
+
+            Labl_SV.Text = TxtBx_Target.Text;
 
             Thread.Sleep(500);
 

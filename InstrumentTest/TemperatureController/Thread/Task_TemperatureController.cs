@@ -25,6 +25,8 @@ namespace InstrumentTest
             STOP_ALL,
 
             MONITOR,
+            ASK_PV,
+            ANS_PV,
 
             ERROR,
         }
@@ -33,10 +35,12 @@ namespace InstrumentTest
         public UpdateSetValueCallBack UpdateSetValue { get; set; }
 
         Tool tool = new Tool();
-        private bool Terminate = true;
-        private bool IsConnect = false;
+        private bool Terminate = true;  //Thread是否停止
+        private bool IsConnect = false; //確認連線
+        private int delay_count = 0;
         private WORK state = WORK.INITIAL;
         private string ErrorMsg = "";
+        private string present_temp_value = "-99";
         ITemperatureController[] TC = new ITemperatureController[4];
         #endregion
 
@@ -49,6 +53,17 @@ namespace InstrumentTest
                     return new TemperatureController_TPT8000();
             }
             return null;
+        }
+        private void ResetTimeCount(out int tick)
+        {
+            tick = Environment.TickCount;
+        }
+        private bool CheckTimeOverMilliSec(int tick, int time)
+        {
+            var time_count = Environment.TickCount - tick;
+            bool res = time_count > time;
+
+            return res;
         }
         private void Transition(WORK target)
         {
@@ -121,21 +136,53 @@ namespace InstrumentTest
                         break;
 
                     case WORK.IDLE:
-                        #region 顯示PV SV
-                        //UpdatePresentValue(12.0);
-                        #endregion
+                        if (IsConnect)
+                        {
+                            //Transition(WORK.MONITOR);
+                            state = WORK.MONITOR;
 
-
-
-
+                            #region 顯示PV SV
+                            double value = tool.StringToDouble(present_temp_value);
+                            UpdatePresentValue(value);
+                            #endregion
+                        }
                         break;
 
+                    #region Monitor
+                    case WORK.MONITOR:
+                        //Transition(WORK.ASK_PV);
+                        state = WORK.ASK_PV;
+                        ResetTimeCount(out delay_count);
+                        break;
+
+                    case WORK.ASK_PV:
+                        if(CheckTimeOverMilliSec(delay_count,50))
+                        {
+                            TC[0].AskPV();
+                            ResetTimeCount(out delay_count);
+                            //Transition(WORK.ANS_PV);
+                            state = WORK.ANS_PV;
+                        }
+                        break;
+
+                    case WORK.ANS_PV:
+                        if(CheckTimeOverMilliSec(delay_count, 100))
+                        {
+                            present_temp_value =  TC[0].GetAns();
+                            ResetTimeCount(out delay_count);
+                            //Transition(WORK);
+                            state = WORK.IDLE;
+                        }
+                        break;
+                    #endregion
+
+                    #region 連線/結束連線
                     case WORK.CONNECT:
                         for (int i = 0; i < 1; i++)
                         {
                             TC[i] = Create_TC("TPT8000");
 
-                            if(TC[i].Open("COM1", "19200", "1"))
+                            if(TC[i].Open("COM7", "38400", "None"))
                             {
                                 tool.SaveHistoryToFile("TC Connect");
                                 IsConnect = true;
@@ -175,7 +222,9 @@ namespace InstrumentTest
 
                         Transition(WORK.IDLE);
                         break;
+                    #endregion
 
+                    #region 各別輸出指令控溫
                     case WORK.START:
                         if (IsConnect == false)
                         {
@@ -197,7 +246,9 @@ namespace InstrumentTest
 
                         Transition(WORK.IDLE);
                         break;
+                    #endregion
 
+                    #region 全部一起下指令控溫
                     case WORK.START_ALL:
                         if (IsConnect == false)
                         {
@@ -207,40 +258,28 @@ namespace InstrumentTest
                             break;
                         }
 
-                        int ctrl_box_count = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_CtrlBxCount);
                         int board_count = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoardCount);
 
-                        for(int i=0; i< ctrl_box_count; i++)
+                        for(int i=0; i< board_count; i++)
                         {
-                            for(int j=0; j< 2; j++)
+                            int ctrl = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoxNo1 + i);
+                            string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_BoxCh1 + i);
+                            int temp = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_TargetT1 + i);
+                            
+                            if (TC[0].Start(ctrl,ch,temp))
                             {
-                                ApplicationSetting.SetRecipe((int)eFormAppSet.Cmbx_CtrlBox, i.ToString());
-         
-                                if(j == 0)
-                                {
-                                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, j.ToString());
-                                }
-                                else
-                                {
-                                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, (j+1).ToString());
-                                }
-                                
-                                if (TC[0].Start())
-                                {
-                                    tool.SaveHistoryToFile("TC Start All");
-                                }
-                                else
-                                {
-                                    tool.SaveHistoryToFile("TC Start Fail");
-                                    ErrorMsg = "TC Start Fail";
-                                    //Transition(WORK.IDLE);
-                                    //break;
-                                }
+                                tool.SaveHistoryToFile("TC Start All");
+                            }
+                            else
+                            {
+                                tool.SaveHistoryToFile($"TC T{ctrl}C{ch} Start Fail");
+                                ErrorMsg = "TC Start Fail";
                             }
                         }
 
                         Transition(WORK.IDLE);
                         break;
+                    #endregion
 
                     case WORK.STOP:
                         if (IsConnect == false)

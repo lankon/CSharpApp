@@ -93,18 +93,24 @@
     </Compile>
     <Compile Include="F_Instruction.Designer.cs">
       <DependentUpon>F_Instruction.cs</DependentUpon>
-    </Compile>	
+    </Compile>
     <Compile Include="F_MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F_MainForm.Designer.cs">
-	  <DependentUpon>F_MainForm.cs</DependentUpon>
-    </Compile>	
+      <DependentUpon>F_MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="F_TransformFile.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F_TransformFile.Designer.cs">
       <DependentUpon>F_TransformFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_Trans_ButtonGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F_Trans_ButtonGroup.Designer.cs">
+      <DependentUpon>F_Trans_ButtonGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,12 +122,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F_Instruction.resx">
       <DependentUpon>F_Instruction.cs</DependentUpon>
-    </EmbeddedResource>	
-    <EmbeddedResource Include="F_MainForm.resx"> 
-	  <DependentUpon>F_MainForm.cs</DependentUpon>
-    </EmbeddedResource>	
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_MainForm.resx">
+      <DependentUpon>F_MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_TransformFile.resx">
       <DependentUpon>F_TransformFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F_Trans_ButtonGroup.resx">
+      <DependentUpon>F_Trans_ButtonGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

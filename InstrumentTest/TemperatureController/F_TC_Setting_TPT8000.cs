@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+
 using CommonFunction;
 
 namespace InstrumentTest
 {
-    public partial class F_TC_Setting : Form
+    public partial class F_TC_Setting_TPT8000 : Form
     {
         #region parameter define
         Tool tool = new Tool();
@@ -25,11 +26,10 @@ namespace InstrumentTest
             ShowHint();
 
             TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
-                        
+
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
 
             int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
-            //int board = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_Board);
             int ch = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Board_CH);
             TPT8000.ReadTempOffsetFile(ctrl_box, ch);
 
@@ -44,7 +44,7 @@ namespace InstrumentTest
         #endregion
 
         #region public function
-        public void SetF_TC_Setting(Panel pnl, F_TC_Setting form)
+        public void SetF_TC_Setting_TPT8000(Panel pnl, F_TC_Setting_TPT8000 form)
         {
             form.Dock = DockStyle.Fill;
             form.Visible = false;
@@ -58,14 +58,16 @@ namespace InstrumentTest
             form.Hide();
         }
         #endregion
-        public F_TC_Setting()
+
+
+        public F_TC_Setting_TPT8000()
         {
             InitializeComponent();
 
             InitialApplication();
         }
 
-        private void F_TC_Setting_VisibleChanged(object sender, EventArgs e)
+        private void F_TC_Setting_TPT8000_VisibleChanged(object sender, EventArgs e)
         {
             if (!this.Visible)
             {
@@ -74,7 +76,7 @@ namespace InstrumentTest
             }
         }
 
-        private void F_TC_Setting_FormClosed(object sender, FormClosedEventArgs e)
+        private void F_TC_Setting_TPT8000_FormClosed(object sender, FormClosedEventArgs e)
         {
             ApplicationSetting.SaveAllRecipe(this);
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
@@ -85,62 +87,36 @@ namespace InstrumentTest
             GC.WaitForPendingFinalizers();
         }
 
-        private void TxtBx_CtrlBxCount_KeyDown(object sender, KeyEventArgs e)
+        private void TxtBx_Board_CH_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            // 允許只有 '0' 和 '2'
+            if (e.KeyChar != '0' && e.KeyChar != '2' && !char.IsControl(e.KeyChar))
             {
-                // 阻止 "ding" 声音
-                e.SuppressKeyPress = true;
-
-                // 在按下 Enter 键时触发的操作
-                TxtBx_CtrlBxCount.Text = "123";
-                //label1.Text = "You pressed Enter! Text: " + textBox1.Text;
+                e.Handled = true; // 阻止其他字符的輸入
+                MessageBox.Show("Please Input 0 or 2", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
-
-        private void Cmbx_CtrlBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (InitialApp == false)
-                return;
-
-            ApplicationSetting.SetRecipe((int)eFormAppSet.Cmbx_CtrlBox, Cmbx_CtrlBox.SelectedIndex.ToString());
-            
-            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
-
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex , tool.StringToInt(TxtBx_Board_CH.Text));
-
-            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
-        }
-
-        private void Cmbx_Board_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (InitialApp == false)
-                return;
-
-            ApplicationSetting.SetRecipe((int)eFormAppSet.Cmbx_Board, Cmbx_Board.SelectedIndex.ToString());
-
-            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
-
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, Cmbx_Board.SelectedIndex);
-
-            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
         }
 
         private void Btn_Save_Click(object sender, EventArgs e)
         {
+            tool.SaveHistoryToFile("儲存校正參數開始");
+            
             ApplicationSetting.SaveAllRecipe(this);
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
-            
-            int CtrlBox = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox) + 1;
-            int Board = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_Board) + 1;
+
+            int CtrlBox = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
+
+            if (CtrlBox >= 1)   //TPT8000韌體端沒有編號B01控制箱指令
+                CtrlBox++;
+
             string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
 
             String FileName = "T" + CtrlBox.ToString() + "C" + ch;
 
             StreamWriter File;
             File = tool.CreateFile($"\\TemperatureController\\{FileName}", ".txt", false);
-            
-            for(int i=0; i<5; i++)
+
+            for (int i = 0; i < 5; i++)
             {
                 string temp = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Temp1 + i);
                 string comp = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Comp1 + i);
@@ -152,7 +128,37 @@ namespace InstrumentTest
             //string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
             //tool.WriteFile(File, $"#Channel,{ch}");
 
-            tool.CloseFile(File);            
+            tool.CloseFile(File);
+
+            tool.SaveHistoryToFile("儲存校正參數結束");
+        }
+
+        private void Cmbx_CtrlBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (InitialApp == false)
+                return;
+
+            ApplicationSetting.SetRecipe((int)eFormAppSet.Cmbx_CtrlBox, Cmbx_CtrlBox.SelectedIndex.ToString());
+
+            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
+
+            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, tool.StringToInt(TxtBx_Board_CH.Text));
+
+            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
+        }
+
+        private void TxtBx_Board_CH_TextChanged(object sender, EventArgs e)
+        {
+            if (InitialApp == false)
+                return;
+
+            ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, TxtBx_Board_CH.Text);
+
+            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
+
+            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, tool.StringToInt(TxtBx_Board_CH.Text));
+
+            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
         }
     }
 }

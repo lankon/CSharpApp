@@ -23,23 +23,13 @@ namespace InstrumentTest
         private void InitialApplication()
         {
             ShowHint();
-
-            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
-                        
+            
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
-
-            int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
-            //int board = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_Board);
-            int ch = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Board_CH);
-            TPT8000.ReadTempOffsetFile(ctrl_box, ch);
-
             ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
-
-            InitialApp = true;
         }
         private void ShowHint()
         {
-            toolTip1.SetToolTip(Btn_Save, "Save Offset Value");
+            
         }
         #endregion
 
@@ -58,6 +48,7 @@ namespace InstrumentTest
             form.Hide();
         }
         #endregion
+
         public F_TC_Setting()
         {
             InitializeComponent();
@@ -85,74 +76,6 @@ namespace InstrumentTest
             GC.WaitForPendingFinalizers();
         }
 
-        private void TxtBx_CtrlBxCount_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                // 阻止 "ding" 声音
-                e.SuppressKeyPress = true;
-
-                // 在按下 Enter 键时触发的操作
-                TxtBx_CtrlBxCount.Text = "123";
-                //label1.Text = "You pressed Enter! Text: " + textBox1.Text;
-            }
-        }
-
-        private void Cmbx_CtrlBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (InitialApp == false)
-                return;
-
-            ApplicationSetting.SetRecipe((int)eFormAppSet.Cmbx_CtrlBox, Cmbx_CtrlBox.SelectedIndex.ToString());
-            
-            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
-
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex , tool.StringToInt(TxtBx_Board_CH.Text));
-
-            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
-        }
-
-        private void Cmbx_Board_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (InitialApp == false)
-                return;
-
-            ApplicationSetting.SetRecipe((int)eFormAppSet.Cmbx_Board, Cmbx_Board.SelectedIndex.ToString());
-
-            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
-
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, Cmbx_Board.SelectedIndex);
-
-            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
-        }
-
-        private void Btn_Save_Click(object sender, EventArgs e)
-        {
-            ApplicationSetting.SaveAllRecipe(this);
-            ApplicationSetting.ReadAllRecipe<eFormAppSet>();
-            
-            int CtrlBox = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox) + 1;
-            int Board = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_Board) + 1;
-            string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
-
-            String FileName = "T" + CtrlBox.ToString() + "C" + ch;
-
-            StreamWriter File;
-            File = tool.CreateFile($"\\TemperatureController\\{FileName}", ".txt", false);
-            
-            for(int i=0; i<5; i++)
-            {
-                string temp = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Temp1 + i);
-                string comp = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Comp1 + i);
-                string offset = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Offset1 + i);
-
-                tool.WriteFile(File, $"{temp},{comp},{offset}");
-            }
-
-            //string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
-            //tool.WriteFile(File, $"#Channel,{ch}");
-
-            tool.CloseFile(File);            
-        }
+        
     }
 }

@@ -46,6 +46,8 @@ namespace InstrumentTest
         {
             toolTip1.SetToolTip(Btn_Back, "Back");
             toolTip1.SetToolTip(Btn_Setting, "Setting");
+            toolTip1.SetToolTip(Btn_Setting_TPT8000, "TPT8000 Setting");
+            toolTip1.SetToolTip(Btn_Show_PV, "Show PV");
         }
         #endregion
 
@@ -85,6 +87,24 @@ namespace InstrumentTest
         private void Btn_Back_Click(object sender, EventArgs e)
         {
             Show_TC_Form();
+        }
+
+        private void Btn_Setting_TPT8000_Click(object sender, EventArgs e)
+        {
+            HideElementOnPanel(F_MainForm.MyStaticPanel);
+
+            F_TC_Setting_TPT8000 f_TC_Setting_TPT8000 = new F_TC_Setting_TPT8000();
+            f_TC_Setting_TPT8000.SetF_TC_Setting_TPT8000(F_MainForm.MyStaticPanel, f_TC_Setting_TPT8000);
+            f_TC_Setting_TPT8000.Show();
+        }
+
+        private void Btn_Show_PV_Click(object sender, EventArgs e)
+        {
+            HideElementOnPanel(F_MainForm.MyStaticPanel);
+
+            F_Show_PV_TPT8000 f_Show_PV_TPT8000 = new F_Show_PV_TPT8000();
+            f_Show_PV_TPT8000.SetF_Show_PV_TPT8000(F_MainForm.MyStaticPanel, f_Show_PV_TPT8000);
+            f_Show_PV_TPT8000.Show();
         }
     }
 }

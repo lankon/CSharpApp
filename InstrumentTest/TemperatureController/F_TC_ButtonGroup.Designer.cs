@@ -34,6 +34,8 @@ namespace InstrumentTest
             this.Btn_Setting = new System.Windows.Forms.Button();
             this.Btn_Back = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Btn_Setting_TPT8000 = new System.Windows.Forms.Button();
+            this.Btn_Show_PV = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Btn_Setting
@@ -58,12 +60,36 @@ namespace InstrumentTest
             this.Btn_Back.UseVisualStyleBackColor = true;
             this.Btn_Back.Click += new System.EventHandler(this.Btn_Back_Click);
             // 
+            // Btn_Setting_TPT8000
+            // 
+            this.Btn_Setting_TPT8000.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Setting_TPT8000.BackgroundImage")));
+            this.Btn_Setting_TPT8000.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Setting_TPT8000.Location = new System.Drawing.Point(751, 5);
+            this.Btn_Setting_TPT8000.Name = "Btn_Setting_TPT8000";
+            this.Btn_Setting_TPT8000.Size = new System.Drawing.Size(60, 60);
+            this.Btn_Setting_TPT8000.TabIndex = 31;
+            this.Btn_Setting_TPT8000.UseVisualStyleBackColor = true;
+            this.Btn_Setting_TPT8000.Click += new System.EventHandler(this.Btn_Setting_TPT8000_Click);
+            // 
+            // Btn_Show_PV
+            // 
+            this.Btn_Show_PV.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Show_PV.BackgroundImage")));
+            this.Btn_Show_PV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Show_PV.Location = new System.Drawing.Point(70, 5);
+            this.Btn_Show_PV.Name = "Btn_Show_PV";
+            this.Btn_Show_PV.Size = new System.Drawing.Size(60, 60);
+            this.Btn_Show_PV.TabIndex = 32;
+            this.Btn_Show_PV.UseVisualStyleBackColor = true;
+            this.Btn_Show_PV.Click += new System.EventHandler(this.Btn_Show_PV_Click);
+            // 
             // F_TC_ButtonGroup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(883, 68);
+            this.Controls.Add(this.Btn_Show_PV);
+            this.Controls.Add(this.Btn_Setting_TPT8000);
             this.Controls.Add(this.Btn_Back);
             this.Controls.Add(this.Btn_Setting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -78,5 +104,7 @@ namespace InstrumentTest
         private System.Windows.Forms.Button Btn_Setting;
         private System.Windows.Forms.Button Btn_Back;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button Btn_Setting_TPT8000;
+        private System.Windows.Forms.Button Btn_Show_PV;
     }
 }
