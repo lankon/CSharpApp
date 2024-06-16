@@ -160,16 +160,5 @@ namespace InstrumentTest
 
             ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
         }
-
-        private void TxtBx_BoardCount_TextChanged(object sender, EventArgs e)
-        {
-            //int count = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoardCount);
-            
-            //for(int i=0; i<count; i++)
-            //{
-
-            //}
-        
-        }
     }
 }

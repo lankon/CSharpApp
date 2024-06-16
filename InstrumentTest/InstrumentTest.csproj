@@ -67,6 +67,7 @@
     <Compile Include="F_SelectApp.Designer.cs">
       <DependentUpon>F_SelectApp.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalVariable.cs" />
     <Compile Include="LoadCell\F_LoadCell.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +165,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Digital_IO_Card\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

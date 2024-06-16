@@ -50,6 +50,7 @@ namespace InstrumentTest
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Btn_StopAll = new System.Windows.Forms.Button();
             this.Btn_StartAll = new System.Windows.Forms.Button();
             this.Btn_Stop = new System.Windows.Forms.Button();
             this.Btn_DisConnect = new System.Windows.Forms.Button();
@@ -272,6 +273,7 @@ namespace InstrumentTest
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.Btn_StopAll);
             this.panel1.Controls.Add(this.Btn_StartAll);
             this.panel1.Controls.Add(this.Btn_Stop);
             this.panel1.Controls.Add(this.Btn_DisConnect);
@@ -281,6 +283,19 @@ namespace InstrumentTest
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(998, 86);
             this.panel1.TabIndex = 4;
+            // 
+            // Btn_StopAll
+            // 
+            this.Btn_StopAll.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_StopAll.BackgroundImage")));
+            this.Btn_StopAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_StopAll.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_StopAll.Location = new System.Drawing.Point(274, 4);
+            this.Btn_StopAll.Name = "Btn_StopAll";
+            this.Btn_StopAll.Size = new System.Drawing.Size(85, 79);
+            this.Btn_StopAll.TabIndex = 10;
+            this.Btn_StopAll.UseVisualStyleBackColor = true;
+            this.Btn_StopAll.Visible = false;
+            this.Btn_StopAll.Click += new System.EventHandler(this.Btn_StopAll_Click);
             // 
             // Btn_StartAll
             // 
@@ -417,5 +432,6 @@ namespace InstrumentTest
         private System.Windows.Forms.Button Btn_DisConnect;
         private System.Windows.Forms.Button Btn_Stop;
         private System.Windows.Forms.Button Btn_StartAll;
+        private System.Windows.Forms.Button Btn_StopAll;
     }
 }

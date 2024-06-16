@@ -85,6 +85,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemperatureController\Base\ITemperatureController.cs" />
     <Compile Include="TemperatureController\Base\TemperatureController_TPT8000.cs" />
+    <Compile Include="TemperatureController\F_Show_PV_TPT8000.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TemperatureController\F_Show_PV_TPT8000.Designer.cs">
+      <DependentUpon>F_Show_PV_TPT8000.cs</DependentUpon>
+    </Compile>
     <Compile Include="TemperatureController\F_TC_ButtonGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,12 @@
     </Compile>
     <Compile Include="TemperatureController\F_TC_Setting.Designer.cs">
       <DependentUpon>F_TC_Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TemperatureController\F_TC_Setting_TPT8000.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TemperatureController\F_TC_Setting_TPT8000.Designer.cs">
+      <DependentUpon>F_TC_Setting_TPT8000.cs</DependentUpon>
     </Compile>
     <Compile Include="TemperatureController\F_TemperatureController.cs">
       <SubType>Form</SubType>
@@ -109,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoadCell\F_LoadCell.resx">
       <DependentUpon>F_LoadCell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TemperatureController\F_Show_PV_TPT8000.resx">
+      <DependentUpon>F_Show_PV_TPT8000.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TemperatureController\F_TC_ButtonGroup.resx">
       <DependentUpon>F_TC_ButtonGroup.cs</DependentUpon>
@@ -129,6 +144,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TemperatureController\F_TC_Setting_TPT8000.resx">
+      <DependentUpon>F_TC_Setting_TPT8000.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TemperatureController\F_TemperatureController.resx">
       <DependentUpon>F_TemperatureController.cs</DependentUpon>
     </EmbeddedResource>

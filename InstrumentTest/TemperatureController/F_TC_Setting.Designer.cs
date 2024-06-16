@@ -38,6 +38,8 @@ namespace InstrumentTest
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Cmbx_Comport = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,12 +49,14 @@ namespace InstrumentTest
             this.tableLayoutPanel5.ColumnCount = 2;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel5.Controls.Add(this.label1, 0, 3);
             this.tableLayoutPanel5.Controls.Add(this.Cmbx_Parity, 1, 2);
             this.tableLayoutPanel5.Controls.Add(this.Cmbx_BaudRate, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.Cmbx_TC_Type, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.label8, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.label9, 0, 2);
+            this.tableLayoutPanel5.Controls.Add(this.Cmbx_Comport, 1, 3);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(12, 7);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 4;
@@ -143,6 +147,39 @@ namespace InstrumentTest
             this.label9.Text = "Parity";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Location = new System.Drawing.Point(6, 117);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(198, 36);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Comport";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Cmbx_Comport
+            // 
+            this.Cmbx_Comport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_Comport.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_Comport.FormattingEnabled = true;
+            this.Cmbx_Comport.Items.AddRange(new object[] {
+            "COM1",
+            "COM2",
+            "COM3",
+            "COM4",
+            "COM5",
+            "COM6",
+            "COM7",
+            "COM8",
+            "COM9",
+            "COM10"});
+            this.Cmbx_Comport.Location = new System.Drawing.Point(213, 120);
+            this.Cmbx_Comport.Name = "Cmbx_Comport";
+            this.Cmbx_Comport.Size = new System.Drawing.Size(131, 28);
+            this.Cmbx_Comport.TabIndex = 12;
+            // 
             // F_TC_Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -170,5 +207,7 @@ namespace InstrumentTest
         private System.Windows.Forms.ComboBox Cmbx_BaudRate;
         private System.Windows.Forms.ComboBox Cmbx_TC_Type;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox Cmbx_Comport;
     }
 }

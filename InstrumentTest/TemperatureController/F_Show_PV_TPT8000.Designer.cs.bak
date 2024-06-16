@@ -29,10 +29,7 @@ namespace InstrumentTest
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Panel_ShowFormName = new System.Windows.Forms.Panel();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -61,20 +58,12 @@ namespace InstrumentTest
             this.tableLayoutPanel1.Size = new System.Drawing.Size(970, 312);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // Panel_ShowFormName
-            // 
-            this.Panel_ShowFormName.Location = new System.Drawing.Point(968, 517);
-            this.Panel_ShowFormName.Name = "Panel_ShowFormName";
-            this.Panel_ShowFormName.Size = new System.Drawing.Size(52, 35);
-            this.Panel_ShowFormName.TabIndex = 1;
-            // 
             // F_Show_PV_TPT8000
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
-            this.Controls.Add(this.Panel_ShowFormName);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_Show_PV_TPT8000";
@@ -86,7 +75,5 @@ namespace InstrumentTest
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel Panel_ShowFormName;
-        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -92,6 +92,8 @@ namespace InstrumentTest
             f_TC_ButtonGroup.SetF_TC_ButtonGroup(F_MainForm.MyStaticPanel_1, f_TC_ButtonGroup);
             f_TC_ButtonGroup.Show();
 
+            F_Show_PV_TPT8000 f_Show_PV_TPT8000 = new F_Show_PV_TPT8000();
+
             f_TC_ButtonGroup.Show_TC_Form += Show_TC_Form;
         }
     }

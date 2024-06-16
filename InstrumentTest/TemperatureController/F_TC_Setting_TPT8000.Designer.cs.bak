@@ -483,7 +483,6 @@ namespace InstrumentTest
             this.TxtBx_BoardCount.TabIndex = 8;
             this.TxtBx_BoardCount.Text = "9";
             this.TxtBx_BoardCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TxtBx_BoardCount.TextChanged += new System.EventHandler(this.TxtBx_BoardCount_TextChanged);
             // 
             // Cmbx_Board
             // 

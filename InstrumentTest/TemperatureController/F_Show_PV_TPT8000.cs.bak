@@ -12,45 +12,36 @@ namespace InstrumentTest
 {
     public partial class F_Show_PV_TPT8000 : Form
     {
-        #region parameter define 
-        private Dictionary<string, Label> PV_Labels = new Dictionary<string, Label>();
-        #endregion
-
         #region private function
         private void InitialApplication()
         {
+
             Add_PV_Label();
             Add_Board_Label();
             Add_RTD_Label();
-
-            ShowHint();
-
-            GlobalVariable.Task_TC.GetBoardRTD += Show_PV;
         }
 
         private void Add_PV_Label()
         {
             string Name = "PV";
 
-            for (int i = 0; i < 9; i++)
+            for(int i=0; i<9; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    Label PV_label = new Label();
+                    Label label = new Label();
 
-                    PV_label.AutoSize = true;
-                    PV_label.Dock = System.Windows.Forms.DockStyle.Fill;
-                    PV_label.Font = new System.Drawing.Font("微軟正黑體", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-                    PV_label.Location = new System.Drawing.Point(486, 54);
-                    PV_label.Name = $"{Name}_{i}_{j}";
-                    PV_label.Size = new System.Drawing.Size(87, 48);
-                    PV_label.TabIndex = 0;
-                    PV_label.Text = $"{Name}_{i}_{j}";
-                    PV_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                    label.AutoSize = true;
+                    label.Dock = System.Windows.Forms.DockStyle.Fill;
+                    label.Font = new System.Drawing.Font("微軟正黑體", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+                    label.Location = new System.Drawing.Point(486, 54);
+                    label.Name = $"{Name}_{i}_{j}";
+                    label.Size = new System.Drawing.Size(87, 48);
+                    label.TabIndex = 0;
+                    label.Text = "200.45";
+                    label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
-                    this.tableLayoutPanel1.Controls.Add(PV_label, i + 1, j + 1);
-
-                    PV_Labels[PV_label.Name] = PV_label;
+                    this.tableLayoutPanel1.Controls.Add(label, i + 1, j + 1);
                 }
             }
         }
@@ -69,10 +60,10 @@ namespace InstrumentTest
                 label.Name = $"{Name}_{i}";
                 label.Size = new System.Drawing.Size(87, 48);
                 label.TabIndex = 0;
-                label.Text = $"Board{i + 1}";
+                label.Text = $"Board{i+1}";
                 label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
-                this.tableLayoutPanel1.Controls.Add(label, i + 1, 0);
+                this.tableLayoutPanel1.Controls.Add(label, i + 1, 0);              
             }
         }
         private void Add_RTD_Label()
@@ -90,36 +81,13 @@ namespace InstrumentTest
                 label.Name = $"{Name}_{i}";
                 label.Size = new System.Drawing.Size(87, 48);
                 label.TabIndex = 0;
-                label.Text = $"RTD{i + 1}";
+                label.Text = $"RTD{i+1}";
                 label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
-                this.tableLayoutPanel1.Controls.Add(label, 0, i + 1);
+                this.tableLayoutPanel1.Controls.Add(label, 0, i+1);
             }
         }
-        private void Show_PV(string temp, int board_num)
-        {
-            char[] separator = new char[] { ',' };
-            String[] values = temp.Split(separator);
 
-            for (int i=0; i<5; i++)
-            {
-                if (PV_Labels.ContainsKey($"PV_{board_num}_{i}"))
-                {
-                    if (PV_Labels[$"PV_{board_num }_{i}"].InvokeRequired)
-                    {
-                        PV_Labels[$"PV_{board_num}_{i}"].Invoke(new Action(() => PV_Labels[$"PV_{board_num}_{i}"].Text = values[i]));
-                    }
-                    else
-                    {
-                        PV_Labels[$"PV_{board_num}_{i}"].Text = values[i];
-                    }
-                }                
-            }
-        }
-        private void ShowHint()
-        {
-            toolTip1.SetToolTip(Panel_ShowFormName, "F_Show_PV_TPT8000");
-        }
         #endregion
 
         #region public function
@@ -144,7 +112,5 @@ namespace InstrumentTest
 
             InitialApplication();
         }
-
-        
     }
 }

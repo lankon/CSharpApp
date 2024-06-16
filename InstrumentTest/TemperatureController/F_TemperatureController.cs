@@ -16,7 +16,7 @@ namespace InstrumentTest
     public partial class F_TemperatureController : Form
     {
         #region parameter define
-        Task_TemperatureController Task_TC = new Task_TemperatureController(); 
+        //Task_TemperatureController Task_TC = new Task_TemperatureController();
         #endregion
 
         #region private function
@@ -27,8 +27,8 @@ namespace InstrumentTest
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
             ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
            
-            Task_TC.UpdatePresentValue += Update_PV;
-            Task_TC.UpdateSetValue += Update_SV;
+            GlobalVariable.Task_TC.UpdatePresentValue += Update_PV;
+            GlobalVariable.Task_TC.UpdateSetValue += Update_SV;
         }
         private void ShowHint()
         {
@@ -87,11 +87,11 @@ namespace InstrumentTest
 
         private void Btn_Connect_Click(object sender, EventArgs e)
         {
-            Task_TC.Connect();
+            GlobalVariable.Task_TC.Connect();
 
             Thread.Sleep(500);
 
-            if(Task_TC.GetError() == "")
+            if(GlobalVariable.Task_TC.GetError() == "")
             {
                 Btn_Connect.Visible = false;
                 Btn_DisConnect.Visible = true;
@@ -104,11 +104,11 @@ namespace InstrumentTest
 
         private void Btn_DisConnect_Click(object sender, EventArgs e)
         {
-            Task_TC.DisConnect();
+            GlobalVariable.Task_TC.DisConnect();
 
             Thread.Sleep(500);
 
-            if (Task_TC.GetError() == "")
+            if (GlobalVariable.Task_TC.GetError() == "")
             {
                 Btn_Connect.Visible = true;
                 Btn_DisConnect.Visible = false;
@@ -122,13 +122,13 @@ namespace InstrumentTest
 
         private void Btn_Start_Click(object sender, EventArgs e)
         {
-            Task_TC.Start();
+            GlobalVariable.Task_TC.Start();
 
             Labl_SV.Text = TxtBx_Target.Text;
 
             Thread.Sleep(500);
 
-            if (Task_TC.GetError() == "")
+            if (GlobalVariable.Task_TC.GetError() == "")
             {
                 //Btn_Start.Visible = false;
                 //Btn_Stop.Visible = true;
@@ -141,11 +141,11 @@ namespace InstrumentTest
 
         private void Btn_Stop_Click(object sender, EventArgs e)
         {
-            Task_TC.Stop();
+            GlobalVariable.Task_TC.Stop();
 
             Thread.Sleep(500);
 
-            if (Task_TC.GetError() == "")
+            if (GlobalVariable.Task_TC.GetError() == "")
             {
                 //Btn_Start.Visible = true;
                 //Btn_Stop.Visible = false;
@@ -158,20 +158,37 @@ namespace InstrumentTest
 
         private void Btn_StartAll_Click(object sender, EventArgs e)
         {
-            Task_TC.StartAll();
+            GlobalVariable.Task_TC.StartAll();
 
             Labl_SV.Text = TxtBx_Target.Text;
 
             Thread.Sleep(500);
 
-            if (Task_TC.GetError() == "")
+            if (GlobalVariable.Task_TC.GetError() == "")
             {
                 Btn_StartAll.Visible = false;
-                //Btn_Stop.Visible = false;
+                Btn_StopAll.Visible = true;
             }
             else
             {
                 MessageBox.Show("TC Start All Fail");
+            }
+        }
+
+        private void Btn_StopAll_Click(object sender, EventArgs e)
+        {
+            GlobalVariable.Task_TC.StopAll();
+
+            Thread.Sleep(500);
+
+            if (GlobalVariable.Task_TC.GetError() == "")
+            {
+                Btn_StartAll.Visible = true;
+                Btn_StopAll.Visible = false;
+            }
+            else
+            {
+                MessageBox.Show("TC Stop All Fail");
             }
         }
     }
