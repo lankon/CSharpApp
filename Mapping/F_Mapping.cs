@@ -131,7 +131,7 @@ namespace Mapping
                 {
                     if (sr == null) return data;
 
-                    string[] headers = new string[200];// = sr.ReadLine().Split(',');
+                    string[] headers = new string[2000];// = sr.ReadLine().Split(',');
 
                     // 逐行讀取 CSV 檔案
                     while (!sr.EndOfStream)
@@ -194,7 +194,7 @@ namespace Mapping
                 {
                     if (sr == null) return data;
 
-                    string[] headers = new string[200];// = sr.ReadLine().Split(',');
+                    string[] headers = new string[2000];// = sr.ReadLine().Split(',');
 
                     // 逐行讀取 CSV 檔案
                     while (!sr.EndOfStream)
@@ -255,16 +255,16 @@ namespace Mapping
                 string value = kvp.Value;
 
                 i++;
-                if (i > 50)
+                if (i > 500)
                 {
-                    tool.SaveHistoryToFile("TestItemt超過50項");
+                    tool.SaveHistoryToFile("TestItemt超過500項");
                     break;
                 }
 
                 Cmbx.Items.Add(value.Trim());
             }
 
-            Cmbx_TestItem.SelectedIndex = 0;
+            Cmbx.SelectedIndex = 0;
         }
         private Dictionary<string, object> FindMapInfo(int MapSize, List<Dictionary<string, string>> data, int[] xy_direc)
         {
@@ -555,8 +555,6 @@ namespace Mapping
             return flag;
         }
         #endregion
-
-
 
         public F_Mapping()
         {

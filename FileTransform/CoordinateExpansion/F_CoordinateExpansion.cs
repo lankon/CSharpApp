@@ -50,7 +50,7 @@ namespace FileTransform
                 tool.CreateFolder(directoryPath);
                 sw = new StreamWriter(path);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 tool.SaveHistoryToFile("Expansion_Coordinate:創建檔案失敗");
                 return false;

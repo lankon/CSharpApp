@@ -121,7 +121,7 @@ namespace InstrumentTest
                     //WriteLogData($"Read Temperature Fail");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //WriteLogData($"Read Temperature Success: {ex}");
             }
@@ -151,7 +151,7 @@ namespace InstrumentTest
                     //WriteLogData($"Read Temperature Fail");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //WriteLogData($"Read Temperature Success: {ex}");
             }
@@ -235,7 +235,7 @@ namespace InstrumentTest
                     return "error";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //WriteLogData($"TPT GetAns exception: {ex}");
                 return "error";
@@ -305,7 +305,7 @@ namespace InstrumentTest
                     tool.SaveHistoryToFile("TemperatureController_TPT8000:Start Fail");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //tool.SaveHistoryToFile($"TemperatureController_TPT8000:Start Fail{ex}");
             }
@@ -372,7 +372,7 @@ namespace InstrumentTest
                     tool.SaveHistoryToFile("TemperatureController_TPT8000:Start Fail");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //tool.SaveHistoryToFile($"TemperatureController_TPT8000:Start Fail{ex}");
             }

@@ -8,41 +8,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Management;
+
+
 using CommonFunction;
 
 namespace Mapping
 {
     public partial class F_MainForm : Form
     {
+        #region parameter define
         Tool tool = new Tool();
         F_Setting f_Setting = new F_Setting();
         F_Mapping f_Mapping = new F_Mapping();
-        F_BinTable f_BinTable = new F_BinTable();
+        #endregion
 
-        public F_MainForm()
-        {
-            InitializeComponent();
-
-            InitialApplication();
-        }
-
-        #region 初始化應用程式
+        #region private function
         private void InitialApplication()
-        {            
+        {
             f_Mapping.SetF_Mapping(Pnl_Group, f_Mapping);
             f_Setting.SetF_Setting(Pnl_Group, f_Setting);
-            f_BinTable.SetF_BinTable(Pnl_Group, f_BinTable);
 
             SetHint();
             CreateFolder();
         }
-
         private void SetHint()
         {
             toolTip1.SetToolTip(Btn_CloseApp, "Close");
             toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_Home, "Home");
-            toolTip1.SetToolTip(Btn_BinTable, "Bin Table");
             toolTip1.SetToolTip(Btn_Save, "Save Picture");
 
             if (f_Mapping.Visible == true)
@@ -50,15 +43,6 @@ namespace Mapping
                 toolTip1.SetToolTip(Btn_Save, "Save Picture");
             }
         }
-
-        private void CreateFolder()
-        {
-            tool.CreateFolder(Application.StartupPath + @"\Temp");
-            tool.CreateFolder(Application.StartupPath + @"\History");
-            tool.CreateFolder(Application.StartupPath + @"\Picture");
-        }
-        #endregion
-
         private void HideFormOnPanel(Panel pnl)
         {
             foreach (Control control in pnl.Controls)
@@ -66,9 +50,41 @@ namespace Mapping
                 if (control is Form && control.Visible == true)
                 {
                     ((Form)control).Hide();
-                    break; 
+                    break;
                 }
             }
+        }
+        private void CreateFolder()
+        {
+            tool.CreateFolder(Application.StartupPath + @"\Temp");
+            tool.CreateFolder(Application.StartupPath + @"\History");
+            tool.CreateFolder(Application.StartupPath + @"\Picture");
+        }
+        private void Pnl_Function_Paint(object sender, PaintEventArgs e)
+        {
+            Panel pnl = (Panel)sender;
+
+            e.Graphics.Clear(pnl.BackColor);
+            e.Graphics.DrawString(pnl.Text, pnl.Font, Brushes.Black, 10, 1);
+            var vSize = e.Graphics.MeasureString(pnl.Text, pnl.Font);
+            //e.Graphics.DrawLine(Pens.Black, 1, vSize.Height / 2, 8, vSize.Height / 2);
+            //e.Graphics.DrawLine(Pens.Black, vSize.Width + 8, vSize.Height / 2, pnl.Width - 2, vSize.Height / 2);
+            //e.Graphics.DrawLine(Pens.Black, 1, vSize.Height / 2, 1, pnl.Height - 2);
+            e.Graphics.DrawLine(Pens.Black, 1, pnl.Height - 2, pnl.Width - 2, pnl.Height - 2);
+            //e.Graphics.DrawLine(Pens.Black, pnl.Width - 2, vSize.Height / 2, pnl.Width - 2, pnl.Height - 2);
+        }
+        #endregion
+
+        #region public function
+
+        #endregion
+
+
+        public F_MainForm()
+        {
+            InitializeComponent();
+
+            InitialApplication();
         }
 
         private void Btn_Setting_Click(object sender, EventArgs e)
@@ -114,30 +130,18 @@ namespace Mapping
             GC.WaitForPendingFinalizers();
         }
 
-        private void Pnl_Function_Paint(object sender, PaintEventArgs e)
-        {
-            Panel pnl = (Panel)sender;
-
-            e.Graphics.Clear(pnl.BackColor);
-            e.Graphics.DrawString(pnl.Text, pnl.Font, Brushes.Black, 10, 1);
-            var vSize = e.Graphics.MeasureString(pnl.Text, pnl.Font);
-            //e.Graphics.DrawLine(Pens.Black, 1, vSize.Height / 2, 8, vSize.Height / 2);
-            //e.Graphics.DrawLine(Pens.Black, vSize.Width + 8, vSize.Height / 2, pnl.Width - 2, vSize.Height / 2);
-            //e.Graphics.DrawLine(Pens.Black, 1, vSize.Height / 2, 1, pnl.Height - 2);
-            e.Graphics.DrawLine(Pens.Black, 1, pnl.Height - 2, pnl.Width - 2, pnl.Height - 2);
-            //e.Graphics.DrawLine(Pens.Black, pnl.Width - 2, vSize.Height / 2, pnl.Width - 2, pnl.Height - 2);
-        }
-
-        private void Btn_BinTable_Click(object sender, EventArgs e)
-        {
-            HideFormOnPanel(Pnl_Group);
-
-            f_BinTable.Show();
-        }
-
         private void Btn_Save_Click(object sender, EventArgs e)
         {
             f_Mapping.SavePicture();
+        }
+
+        private void Btn_OneToOne_Click(object sender, EventArgs e)
+        {
+            HideFormOnPanel(Pnl_Group);
+
+            F_OneToOne f_OneToOne = new F_OneToOne();
+            f_OneToOne.SetF_Setting(Pnl_Group, f_OneToOne);
+            f_OneToOne.Show();
         }
     }
 }
