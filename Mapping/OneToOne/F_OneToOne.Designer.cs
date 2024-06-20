@@ -29,19 +29,10 @@ namespace Mapping
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 1.5D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 5D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint3 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(3D, 8D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint4 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(4D, 7D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(5D, 1D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(6D, 9D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint7 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(0D, 0D);
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.panel2 = new System.Windows.Forms.Panel();
             this.TxtBx_FilePath2 = new System.Windows.Forms.TextBox();
             this.Btn_LoadFile2 = new System.Windows.Forms.Button();
@@ -49,22 +40,22 @@ namespace Mapping
             this.Btn_LoadFile1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.Chart_Difference = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.TxtBx_Step = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.TxtBx_End = new System.Windows.Forms.TextBox();
+            this.TxtBx_LowLimit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.TxtBx_Start = new System.Windows.Forms.TextBox();
+            this.TxtBx_UpLimit = new System.Windows.Forms.TextBox();
             this.Cmbx_TestItem = new System.Windows.Forms.ComboBox();
             this.Btn_Compare = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chart_Difference)).BeginInit();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -121,7 +112,7 @@ namespace Mapping
             // panel1
             // 
             this.panel1.Controls.Add(this.chart2);
-            this.panel1.Controls.Add(this.chart1);
+            this.panel1.Controls.Add(this.Chart_Difference);
             this.panel1.Location = new System.Drawing.Point(13, 85);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(743, 457);
@@ -129,58 +120,31 @@ namespace Mapping
             // 
             // chart2
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Location = new System.Drawing.Point(3, 231);
             this.chart2.Name = "chart2";
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chart2.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(737, 223);
             this.chart2.TabIndex = 1;
             this.chart2.Text = "chart2";
-            title1.Name = "Title1";
-            title1.Text = "V1 & V2";
-            this.chart2.Titles.Add(title1);
+            title3.Name = "Title1";
+            title3.Text = "V1 & V2";
+            this.chart2.Titles.Add(title3);
             // 
-            // chart1
+            // Chart_Difference
             // 
-            chartArea2.AxisX.Title = "Point";
-            chartArea2.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea2.AxisY.Title = "Difference";
-            chartArea2.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 90F;
-            chartArea2.Position.Width = 97F;
-            chartArea2.Position.Y = 10F;
-            this.chart1.ChartAreas.Add(chartArea2);
-            this.chart1.Location = new System.Drawing.Point(3, 3);
-            this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.Points.Add(dataPoint1);
-            series2.Points.Add(dataPoint2);
-            series2.Points.Add(dataPoint3);
-            series2.Points.Add(dataPoint4);
-            series2.Points.Add(dataPoint5);
-            series2.Points.Add(dataPoint6);
-            series2.Points.Add(dataPoint7);
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(737, 223);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title2.Name = "Title1";
-            title2.Position.Auto = false;
-            title2.Position.Height = 9.058275F;
-            title2.Position.Width = 85F;
-            title2.Position.X = 9.5F;
-            title2.Position.Y = 3F;
-            title2.Text = "File1-File2";
-            this.chart1.Titles.Add(title2);
+            this.Chart_Difference.Location = new System.Drawing.Point(3, 3);
+            this.Chart_Difference.Name = "Chart_Difference";
+            this.Chart_Difference.Size = new System.Drawing.Size(737, 223);
+            this.Chart_Difference.TabIndex = 0;
+            this.Chart_Difference.Text = "chart1";
+            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title4.Name = "Title1";
+            title4.Text = "File1-File2";
+            this.Chart_Difference.Titles.Add(title4);
             // 
             // panel3
             // 
@@ -201,10 +165,10 @@ namespace Mapping
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_Step, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.TxtBx_End, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.TxtBx_LowLimit, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.TxtBx_Start, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.TxtBx_UpLimit, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.Cmbx_TestItem, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 67);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -251,16 +215,16 @@ namespace Mapping
             this.label3.Text = "Step";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // TxtBx_End
+            // TxtBx_LowLimit
             // 
-            this.TxtBx_End.BackColor = System.Drawing.Color.White;
-            this.TxtBx_End.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_End.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_End.Location = new System.Drawing.Point(125, 78);
-            this.TxtBx_End.Name = "TxtBx_End";
-            this.TxtBx_End.Size = new System.Drawing.Size(111, 29);
-            this.TxtBx_End.TabIndex = 4;
-            this.TxtBx_End.Text = "7";
+            this.TxtBx_LowLimit.BackColor = System.Drawing.Color.White;
+            this.TxtBx_LowLimit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_LowLimit.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_LowLimit.Location = new System.Drawing.Point(125, 78);
+            this.TxtBx_LowLimit.Name = "TxtBx_LowLimit";
+            this.TxtBx_LowLimit.Size = new System.Drawing.Size(111, 29);
+            this.TxtBx_LowLimit.TabIndex = 4;
+            this.TxtBx_LowLimit.Text = "-0.005";
             // 
             // label1
             // 
@@ -286,15 +250,15 @@ namespace Mapping
             this.label2.Text = "Low Limit";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // TxtBx_Start
+            // TxtBx_UpLimit
             // 
-            this.TxtBx_Start.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_Start.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Start.Location = new System.Drawing.Point(125, 42);
-            this.TxtBx_Start.Name = "TxtBx_Start";
-            this.TxtBx_Start.Size = new System.Drawing.Size(111, 29);
-            this.TxtBx_Start.TabIndex = 3;
-            this.TxtBx_Start.Text = "5";
+            this.TxtBx_UpLimit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_UpLimit.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_UpLimit.Location = new System.Drawing.Point(125, 42);
+            this.TxtBx_UpLimit.Name = "TxtBx_UpLimit";
+            this.TxtBx_UpLimit.Size = new System.Drawing.Size(111, 29);
+            this.TxtBx_UpLimit.TabIndex = 3;
+            this.TxtBx_UpLimit.Text = "0.005";
             // 
             // Cmbx_TestItem
             // 
@@ -332,7 +296,7 @@ namespace Mapping
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Chart_Difference)).EndInit();
             this.panel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -353,13 +317,13 @@ namespace Mapping
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TxtBx_Step;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox TxtBx_End;
+        private System.Windows.Forms.TextBox TxtBx_LowLimit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox TxtBx_Start;
+        private System.Windows.Forms.TextBox TxtBx_UpLimit;
         private System.Windows.Forms.ComboBox Cmbx_TestItem;
         private System.Windows.Forms.Button Btn_Compare;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart Chart_Difference;
     }
 }

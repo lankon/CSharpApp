@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
 
 using CommonFunction;
 
@@ -127,9 +128,9 @@ namespace Mapping
             Cmbx.SelectedIndex = 0;
             return Item;
         }
-        private double[] CompareData(string key, List<Dictionary<string, string>> data1, List<Dictionary<string, string>> data2)
+        private List<double> CompareData(string key, List<Dictionary<string, string>> data1, List<Dictionary<string, string>> data2)
         {
-            double[] array_diff = new double[500000];
+            List<double> array_diff = new List<double>();
 
             if (data1.Count != data2.Count)
             {
@@ -146,10 +147,54 @@ namespace Mapping
                 double d_value2 = tool.StringToDouble(value2);
                 double difference = d_value1 - d_value2;
 
-                array_diff[i] = difference;
+                array_diff.Add(difference);
             }
 
             return array_diff;
+        }
+        private void DrawChart(List<double> array_diff, Chart chart, string test_item)
+        {
+            chart.Series.Clear();
+            chart.ChartAreas.Clear();
+            chart.Titles.Clear();
+
+            Title title = new Title();
+            title.Text = test_item+" File1-File2";
+            title.ForeColor = System.Drawing.Color.Black;
+            title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold);
+            chart.Titles.Add(title);
+
+            // 創建一個 ChartArea
+            ChartArea chartArea = new ChartArea();
+            chart.ChartAreas.Add(chartArea);
+
+            // 設定 X 軸的標題及其位置
+            chartArea.AxisX.Title = "Point";
+            chartArea.AxisX.TitleAlignment = StringAlignment.Center; // 中間對齊
+            chartArea.AxisX.TitleForeColor = System.Drawing.Color.Black; // 設定標題顏色
+            chartArea.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Bold); // 設定標題字體
+
+            // 設定 Y 軸的標題及其位置
+            chartArea.AxisY.Title = "Difference";
+            chartArea.AxisY.TitleAlignment = StringAlignment.Center; // 中間對齊
+            chartArea.AxisY.TitleForeColor = System.Drawing.Color.Black; // 設定標題顏色
+            chartArea.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Bold); // 設定標題字體
+
+            // 設定 Y 軸的上下限
+            chartArea.AxisY.Minimum = tool.StringToDouble(TxtBx_LowLimit.Text); // Y 軸最小值
+            chartArea.AxisY.Maximum = tool.StringToDouble(TxtBx_UpLimit.Text); // Y 軸最大值
+
+            // 創建一個 Series，並設定類型為散點圖
+            Series series = new Series();
+            series.ChartType = SeriesChartType.Point;
+            series.Name = "DataPoints";
+
+            for (int i = 0; i < array_diff.Count; i++)
+            {
+                series.Points.AddXY(i, array_diff[i]);
+            }
+
+            chart.Series.Add(series);
         }
         #endregion
 
@@ -171,6 +216,9 @@ namespace Mapping
         public F_OneToOne()
         {
             InitializeComponent();
+
+
+            
         }
 
         private void Btn_LoadFile1_Click(object sender, EventArgs e)
@@ -237,8 +285,12 @@ namespace Mapping
                 MessageBox.Show("Please Load Data");
                 return;
             }
-            
-            CompareData("Ith", File1.CellInfo, File2.CellInfo);
+
+            List<double> array_diff = new List<double>();
+
+            array_diff = CompareData(Cmbx_TestItem.Text, File1.CellInfo, File2.CellInfo);
+
+            DrawChart(array_diff, Chart_Difference, Cmbx_TestItem.Text);
         }
     }
 }
