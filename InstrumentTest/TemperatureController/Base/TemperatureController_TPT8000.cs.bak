@@ -98,7 +98,7 @@ namespace InstrumentTest
         //************************************************************
         //功能：取得TPT8000回傳溫度
         //參數：None
-        //回傳：主RTD溫度
+        //回傳：是否成功
         //************************************************************
         public bool AskPV()
         {
@@ -121,7 +121,37 @@ namespace InstrumentTest
                     //WriteLogData($"Read Temperature Fail");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
+            {
+                //WriteLogData($"Read Temperature Success: {ex}");
+            }
+
+            return res;
+        }
+        //************************************************************
+        //功能：取得TPT8000回傳溫度(小程式使用,勿移植到主程式上)
+        //參數：ctrl_box:控制箱編號 , ch:控制箱Channel
+        //回傳：是否成功
+        //************************************************************
+        public bool AskPV(int ctrl_box, string ch)
+        {
+            bool res = false;
+            String ReadTemperature_Order = $"B{ctrl_box.ToString("00")},GTEMP,{ch}\r\n";
+            try
+            {
+                Clear();
+                byte[] cmd = Encoding.Default.GetBytes(ReadTemperature_Order);
+                if (cmd != null)
+                {
+                    Comport.Write(ReadTemperature_Order);
+                    res = true;
+                }
+                else
+                {
+                    //WriteLogData($"Read Temperature Fail");
+                }
+            }
+            catch (Exception)
             {
                 //WriteLogData($"Read Temperature Success: {ex}");
             }
@@ -205,7 +235,7 @@ namespace InstrumentTest
                     return "error";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //WriteLogData($"TPT GetAns exception: {ex}");
                 return "error";
@@ -275,7 +305,7 @@ namespace InstrumentTest
                     tool.SaveHistoryToFile("TemperatureController_TPT8000:Start Fail");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //tool.SaveHistoryToFile($"TemperatureController_TPT8000:Start Fail{ex}");
             }
@@ -342,7 +372,7 @@ namespace InstrumentTest
                     tool.SaveHistoryToFile("TemperatureController_TPT8000:Start Fail");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //tool.SaveHistoryToFile($"TemperatureController_TPT8000:Start Fail{ex}");
             }
@@ -361,6 +391,38 @@ namespace InstrumentTest
                 ctrl_box++;
 
             string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
+
+            bool res = false;
+            String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}\r\n";
+            try
+            {
+                Clear();
+                byte[] cmd = Encoding.Default.GetBytes(SetTemperature_Order);
+                if (cmd != null)
+                {
+                    Comport.Write(SetTemperature_Order);
+                    res = true;
+                }
+                else
+                {
+                    tool.SaveHistoryToFile("TemperatureController_TPT8000:Stop Fail");
+                }
+            }
+            catch (Exception ex)
+            {
+                tool.SaveHistoryToFile($"TemperatureController_TPT8000:Stop Fail{ex}");
+            }
+            return res;
+        }
+        //************************************************************
+        //功能：停止控溫(小程式使用,勿移植到主程式上)
+        //參數：ctrl_box:控制箱編號 , ch:控制箱Channel
+        //回傳：是否成功
+        //************************************************************
+        public bool Stop(int ctrl_box, string ch)
+        {
+            if (ctrl_box >= 1)   //TPT8000韌體端沒有編號B01控制箱指令
+                ctrl_box++;
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}\r\n";
@@ -444,12 +506,12 @@ namespace InstrumentTest
         }
         //************************************************************
         //功能：五點RTD值
-        //參數：ControlNum->溫控箱編號 ; ChuckNum->溫控箱Channel
-        //回傳：None
+        //參數：None
+        //回傳：五點RTD
         //************************************************************
-        public String GetFivePointValue(String value)
+        public String GetFivePointValue()
         {
-            value = FivePointValue;
+            string value = FivePointValue;
             char[] separator = new char[] { ',' };
             String[] values = value.Split(separator);
             String value1 = "";

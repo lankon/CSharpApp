@@ -191,5 +191,12 @@ namespace InstrumentTest
                 MessageBox.Show("TC Stop All Fail");
             }
         }
+		
+		private void TxtBx_Target_TextChanged(object sender, EventArgs e)
+        {
+            ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Target, TxtBx_Target.Text);
+            ApplicationSetting.SaveAllRecipe(this);
+            ApplicationSetting.ReadAllRecipe<eFormAppSet>();
+        }
     }
 }

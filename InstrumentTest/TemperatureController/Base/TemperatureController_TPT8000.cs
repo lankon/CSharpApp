@@ -42,11 +42,11 @@ namespace InstrumentTest
         //************************************************************
         public bool Open(String com, String baudrate, String parity)
         {
-            Comport.PortName = com;
-            Comport.BaudRate = int.Parse(baudrate);
+            Comport.PortName = "COM7";
+            Comport.BaudRate = int.Parse("38400");
             Comport.DataBits = int.Parse("8");
             Comport.StopBits = (StopBits)Enum.Parse(typeof(StopBits), "One");
-            Comport.Parity = (Parity)Enum.Parse(typeof(Parity), parity);
+            Comport.Parity = (Parity)Enum.Parse(typeof(Parity), "None");
             Comport.ReadTimeout = 2000;
 
             if (Comport.PortName == "None")
@@ -104,6 +104,9 @@ namespace InstrumentTest
         {
             int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
             string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
+
+            if (ctrl_box > 0)
+                ctrl_box++;
           
             bool res = false;
             String ReadTemperature_Order = $"B{ctrl_box.ToString("00")},GTEMP,{ch}\r\n";
@@ -248,13 +251,13 @@ namespace InstrumentTest
         //************************************************************
         public bool Start()
         {
-            int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
-
-            if(ctrl_box >= 1)   //TPT8000韌體端沒有編號1控制箱指令
-                ctrl_box++;
-
+            int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);         
             string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
+            
             ReadTempOffsetFile(ctrl_box, tool.StringToInt(ch));
+
+            if (ctrl_box >= 1)   //TPT8000韌體端沒有編號1控制箱指令
+                ctrl_box++;
 
             double Compensate = 0, Temperature = 0;
             int Value = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Target);
@@ -318,10 +321,12 @@ namespace InstrumentTest
         //************************************************************
         public bool Start(int ctrl_box, string ch, int Value)
         {
-            if (ctrl_box > 0)   //為了配合主程式ReadTempOffsetFile所以減1
-                ctrl_box--;
-            
-            ReadTempOffsetFile(ctrl_box, tool.StringToInt(ch));
+            int temp_ctrl_box = ctrl_box;
+
+            if (temp_ctrl_box > 0)   //為了配合主程式ReadTempOffsetFile所以減1
+                temp_ctrl_box--;
+
+            ReadTempOffsetFile(temp_ctrl_box, tool.StringToInt(ch));
 
             double Compensate = 0, Temperature = 0;
             //int Value = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Target);
