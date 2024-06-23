@@ -433,8 +433,7 @@ namespace FileTransform
 
         private void PBx_Instruction_Click(object sender, EventArgs e)
         {
-            F_Instruction FF = new F_Instruction();
-            FF.LoadImagesToForm(@"C:\Users\lankon\Desktop\新增資料夾\Picture\File Transform\Instruction_File Name Modify\");
+
         }
 
         private void Btn_Browse_Click(object sender, EventArgs e)

@@ -37,12 +37,8 @@ namespace FileTransform
             toolTip1.SetToolTip(Btn_CloseApp, "Close");
             toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_Home, "Home");
-            toolTip1.SetToolTip(Btn_Save, "Save Picture");
 
-            /*if (f_Mapping.Visible == true)
-            {
-                toolTip1.SetToolTip(Btn_Save, "Save Picture");
-            }*/
+           
         }
 
         private void CreateFolder()
@@ -142,9 +138,5 @@ namespace FileTransform
             GC.WaitForPendingFinalizers();
         }
 
-        private void Btn_Save_Click(object sender, EventArgs e)
-        {
-            //f_Mapping.SavePicture();
-        }
     }
 }

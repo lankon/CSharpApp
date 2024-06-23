@@ -32,7 +32,6 @@ namespace FileTransform
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_MainForm));
             this.Pnl_Function = new System.Windows.Forms.Panel();
-            this.Btn_Save = new System.Windows.Forms.Button();
             this.Btn_Home = new System.Windows.Forms.Button();
             this.Btn_Setting = new System.Windows.Forms.Button();
             this.Btn_CloseApp = new System.Windows.Forms.Button();
@@ -43,7 +42,6 @@ namespace FileTransform
             // 
             // Pnl_Function
             // 
-            this.Pnl_Function.Controls.Add(this.Btn_Save);
             this.Pnl_Function.Controls.Add(this.Btn_Home);
             this.Pnl_Function.Controls.Add(this.Btn_Setting);
             this.Pnl_Function.Controls.Add(this.Btn_CloseApp);
@@ -52,18 +50,6 @@ namespace FileTransform
             this.Pnl_Function.Size = new System.Drawing.Size(1021, 68);
             this.Pnl_Function.TabIndex = 27;
             this.Pnl_Function.Paint += new System.Windows.Forms.PaintEventHandler(this.Pnl_Function_Paint);
-            // 
-            // Btn_Save
-            // 
-            this.Btn_Save.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Save.BackgroundImage")));
-            this.Btn_Save.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_Save.Location = new System.Drawing.Point(69, 5);
-            this.Btn_Save.Name = "Btn_Save";
-            this.Btn_Save.Size = new System.Drawing.Size(60, 60);
-            this.Btn_Save.TabIndex = 31;
-            this.Btn_Save.UseVisualStyleBackColor = true;
-            this.Btn_Save.Visible = false;
-            this.Btn_Save.Click += new System.EventHandler(this.Btn_Save_Click);
             // 
             // Btn_Home
             // 
@@ -131,6 +117,5 @@ namespace FileTransform
         private System.Windows.Forms.Panel Pnl_Group;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Btn_Home;
-        private System.Windows.Forms.Button Btn_Save;
     }
 }

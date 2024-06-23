@@ -79,6 +79,7 @@ namespace InstrumentTest
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_Show_PV_TPT8000";
             this.Text = "F_Show_PV_TPT8000";
+            this.VisibleChanged += new System.EventHandler(this.F_Show_PV_TPT8000_VisibleChanged);
             this.ResumeLayout(false);
 
         }

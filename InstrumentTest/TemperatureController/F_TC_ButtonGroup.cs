@@ -105,6 +105,8 @@ namespace InstrumentTest
             F_Show_PV_TPT8000 f_Show_PV_TPT8000 = new F_Show_PV_TPT8000();
             f_Show_PV_TPT8000.SetF_Show_PV_TPT8000(F_MainForm.MyStaticPanel, f_Show_PV_TPT8000);
             f_Show_PV_TPT8000.Show();
+
+            GlobalVariable.Task_TC.MonitorAll(true);
         }
     }
 }

@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace InstrumentTest
 {
+    
+
     public partial class F_Show_PV_TPT8000 : Form
     {
         #region parameter define 
@@ -17,6 +19,15 @@ namespace InstrumentTest
         #endregion
 
         #region private function
+        protected override CreateParams CreateParams    //防止元件更新時畫面閃爍
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
         private void InitialApplication()
         {
             Add_PV_Label();
@@ -145,6 +156,12 @@ namespace InstrumentTest
             InitialApplication();
         }
 
-        
+        private void F_Show_PV_TPT8000_VisibleChanged(object sender, EventArgs e)
+        {
+            if(this.Visible == false)
+            {
+                GlobalVariable.Task_TC.MonitorAll(false);
+            }            
+        }
     }
 }

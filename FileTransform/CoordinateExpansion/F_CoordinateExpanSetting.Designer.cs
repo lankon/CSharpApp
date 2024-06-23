@@ -70,15 +70,14 @@ namespace FileTransform
             this.tableLayoutPanel2.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 7;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28566F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28566F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28566F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28424F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.2853F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28531F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28816F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(484, 273);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(484, 269);
             this.tableLayoutPanel2.TabIndex = 14;
             // 
             // TxtBx_X_Interval
@@ -126,7 +125,7 @@ namespace FileTransform
             // 
             this.TxtBx_Y_Expansion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Y_Expansion.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Y_Expansion.Location = new System.Drawing.Point(338, 158);
+            this.TxtBx_Y_Expansion.Location = new System.Drawing.Point(338, 157);
             this.TxtBx_Y_Expansion.Name = "TxtBx_Y_Expansion";
             this.TxtBx_Y_Expansion.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_Y_Expansion.TabIndex = 15;
@@ -134,10 +133,11 @@ namespace FileTransform
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(6, 155);
+            this.label3.Location = new System.Drawing.Point(6, 154);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(129, 20);
+            this.label3.Size = new System.Drawing.Size(323, 35);
             this.label3.TabIndex = 13;
             this.label3.Text = "Y-Dir Expansion";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -147,7 +147,7 @@ namespace FileTransform
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(6, 117);
+            this.label2.Location = new System.Drawing.Point(6, 116);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(323, 35);
             this.label2.TabIndex = 12;
@@ -158,7 +158,7 @@ namespace FileTransform
             // 
             this.TxtBx_X_Expansion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_X_Expansion.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_X_Expansion.Location = new System.Drawing.Point(338, 120);
+            this.TxtBx_X_Expansion.Location = new System.Drawing.Point(338, 119);
             this.TxtBx_X_Expansion.Name = "TxtBx_X_Expansion";
             this.TxtBx_X_Expansion.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_X_Expansion.TabIndex = 14;
@@ -170,7 +170,7 @@ namespace FileTransform
             this.label5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label5.Location = new System.Drawing.Point(6, 79);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(323, 35);
+            this.label5.Size = new System.Drawing.Size(323, 34);
             this.label5.TabIndex = 18;
             this.label5.Text = "Expansion Type";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -180,9 +180,9 @@ namespace FileTransform
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(6, 231);
+            this.label4.Location = new System.Drawing.Point(6, 230);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(323, 39);
+            this.label4.Size = new System.Drawing.Size(323, 36);
             this.label4.TabIndex = 16;
             this.label4.Text = "Save File Path";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -190,7 +190,7 @@ namespace FileTransform
             // TxtBx_SaveFilePath
             // 
             this.TxtBx_SaveFilePath.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_SaveFilePath.Location = new System.Drawing.Point(338, 234);
+            this.TxtBx_SaveFilePath.Location = new System.Drawing.Point(338, 233);
             this.TxtBx_SaveFilePath.Name = "TxtBx_SaveFilePath";
             this.TxtBx_SaveFilePath.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_SaveFilePath.TabIndex = 17;
@@ -198,10 +198,11 @@ namespace FileTransform
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.Location = new System.Drawing.Point(6, 193);
+            this.label6.Location = new System.Drawing.Point(6, 192);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(140, 20);
+            this.label6.Size = new System.Drawing.Size(323, 35);
             this.label6.TabIndex = 19;
             this.label6.Text = "Radius Expansion";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -209,7 +210,7 @@ namespace FileTransform
             // TxtBx_RadiusExpansion
             // 
             this.TxtBx_RadiusExpansion.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_RadiusExpansion.Location = new System.Drawing.Point(338, 196);
+            this.TxtBx_RadiusExpansion.Location = new System.Drawing.Point(338, 195);
             this.TxtBx_RadiusExpansion.Name = "TxtBx_RadiusExpansion";
             this.TxtBx_RadiusExpansion.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_RadiusExpansion.TabIndex = 20;

@@ -19,7 +19,7 @@ namespace InstrumentTest
 
         //private int DataReceivedLength = 0;
         //private byte[] DataReceivedBuf = new byte[11];
-        String FivePointValue; 
+        String FivePointValue = "Tmp,Temp,Temp,-99,-99,-99,-99,-99"; 
         double Offset_Value;
         int err_Same_Count = 0; 
         String err_SameValue;
@@ -188,7 +188,6 @@ namespace InstrumentTest
                 err_SameValue = receive_msg;
                 if (err_Same_Count > 2000)
                     return "-999";
-
 
                 if (receive_msg.Contains("\r"))
                 {
@@ -532,6 +531,10 @@ namespace InstrumentTest
                     else
                         value1 = value1 + values[i] + ",";
                 }
+            }
+            else
+            {
+                value1 = "-99,-99,-99,-99,-99";
             }
             return value1;
         }

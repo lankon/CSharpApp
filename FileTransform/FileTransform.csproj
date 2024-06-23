@@ -70,29 +70,29 @@
       <DependentUpon>F_CoordinateExpansion.cs</DependentUpon>
     </Compile>
     <Compile Include="eFormItem.cs" />
-    <Compile Include="F_Coordinate_MirrorXY.cs">
+    <Compile Include="FileData_Modify\F_FileDataModify.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_Coordinate_MirrorXY.Designer.cs">
+    <Compile Include="FileData_Modify\F_FileDataModify.Designer.cs">
+      <DependentUpon>F_FileDataModify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileName_Modify\F_Coordinate_MirrorXY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileName_Modify\F_Coordinate_MirrorXY.Designer.cs">
       <DependentUpon>F_Coordinate_MirrorXY.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_Coordinate_Transform.cs">
+    <Compile Include="FileName_Modify\F_Coordinate_Transform.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_Coordinate_Transform.Designer.cs">
+    <Compile Include="FileName_Modify\F_Coordinate_Transform.Designer.cs">
       <DependentUpon>F_Coordinate_Transform.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_Insert_Text_to_File_Name.cs">
+    <Compile Include="FileName_Modify\F_Insert_Text_to_File_Name.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_Insert_Text_to_File_Name.Designer.cs">
+    <Compile Include="FileName_Modify\F_Insert_Text_to_File_Name.Designer.cs">
       <DependentUpon>F_Insert_Text_to_File_Name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="F_Instruction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_Instruction.Designer.cs">
-      <DependentUpon>F_Instruction.cs</DependentUpon>
     </Compile>
     <Compile Include="F_MainForm.cs">
       <SubType>Form</SubType>
@@ -100,16 +100,16 @@
     <Compile Include="F_MainForm.Designer.cs">
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_TransformFile.cs">
+    <Compile Include="FileName_Modify\F_TransformFile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_TransformFile.Designer.cs">
+    <Compile Include="FileName_Modify\F_TransformFile.Designer.cs">
       <DependentUpon>F_TransformFile.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_Trans_ButtonGroup.cs">
+    <Compile Include="CoordinateExpansion\F_Trans_ButtonGroup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_Trans_ButtonGroup.Designer.cs">
+    <Compile Include="CoordinateExpansion\F_Trans_ButtonGroup.Designer.cs">
       <DependentUpon>F_Trans_ButtonGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -120,16 +120,16 @@
     <EmbeddedResource Include="CoordinateExpansion\F_CoordinateExpansion.resx">
       <DependentUpon>F_CoordinateExpansion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F_Instruction.resx">
-      <DependentUpon>F_Instruction.cs</DependentUpon>
+    <EmbeddedResource Include="FileData_Modify\F_FileDataModify.resx">
+      <DependentUpon>F_FileDataModify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_MainForm.resx">
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F_TransformFile.resx">
+    <EmbeddedResource Include="FileName_Modify\F_TransformFile.resx">
       <DependentUpon>F_TransformFile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F_Trans_ButtonGroup.resx">
+    <EmbeddedResource Include="CoordinateExpansion\F_Trans_ButtonGroup.resx">
       <DependentUpon>F_Trans_ButtonGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

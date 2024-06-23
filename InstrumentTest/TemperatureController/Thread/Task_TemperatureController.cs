@@ -43,13 +43,13 @@ namespace InstrumentTest
         Tool tool = new Tool();
         private bool Terminate = true;  //Thread是否停止
         private bool IsConnect = false; //確認連線
-        private bool IsStartAll = false;  //判斷是否啟動所有控制器
+        private bool IsMonitorAll = false;  //判斷是否啟動所有控制器
         private int delay_count = 0;
         private int board_num = 0;
         private WORK state = WORK.INITIAL;
         private string ErrorMsg = "";
         private string present_temp_value = "-99";
-        private string temp_5_rtd = "1.0, 2.0, 3.0, 4.0, 5.0";
+        private string temp_5_rtd = "-99.0,-99.0,-99.0,-99.0,-99.0";
         private string stc_type = "";
         private string sbaudrate = "";
         private string sparity = "";
@@ -116,13 +116,15 @@ namespace InstrumentTest
                 sbaudrate = "38400";
 
             if (iparity == 0)
-                sbaudrate = "Odd";
+                sparity = "Odd";
             else if (iparity == 1)
-                sbaudrate = "Even";
+                sparity = "Even";
             else if (iparity == 2)
-                sbaudrate = "None";
+                sparity = "None";
 
             scomport = $"COM{icomport + 1}";
+
+            
 
             ResetError();
             Transition(WORK.CONNECT);
@@ -167,6 +169,10 @@ namespace InstrumentTest
         {
             ErrorMsg = "";
         }
+        public void MonitorAll(bool flag)
+        {
+            IsMonitorAll = flag;
+        }
         #endregion
 
         public Task_TemperatureController()
@@ -182,17 +188,18 @@ namespace InstrumentTest
                 {                               
                     case WORK.INITIAL:
                         
+
                         break;
 
                     case WORK.IDLE:
                         if (IsConnect)
                         {
-                            if(IsStartAll)
+                            if (IsMonitorAll)
                             {
                                 state = WORK.MONITOR_ALL;
 
                                 GetBoardRTD(temp_5_rtd, board_num);
-                                
+
                                 if (board_num >= ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoardCount))
                                     board_num = 0;
                                 else
@@ -200,9 +207,19 @@ namespace InstrumentTest
                             }
                             else
                             {
-                                state = WORK.MONITOR;
-                                double value = tool.StringToDouble(present_temp_value);
+                                double value = -99;
+
+                                if (present_temp_value == "error")
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    value = tool.StringToDouble(present_temp_value);
+                                }
+                                
                                 UpdatePresentValue(value);
+                                state = WORK.MONITOR;
                             }
                         }
                         break;
@@ -361,7 +378,6 @@ namespace InstrumentTest
                             if (TC[0].Start(ctrl,ch,temp))
                             {
                                 tool.SaveHistoryToFile("TC Start All");
-                                IsStartAll = true;
                             }
                             else
                             {
@@ -418,7 +434,6 @@ namespace InstrumentTest
                             if (TC[0].Stop(ctrl, ch))
                             {
                                 tool.SaveHistoryToFile("TC Stop All");
-                                IsStartAll = false;
                             }
                             else
                             {
