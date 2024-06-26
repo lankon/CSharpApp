@@ -32,13 +32,13 @@ namespace Mapping
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_MainForm));
             this.Pnl_Function = new System.Windows.Forms.Panel();
+            this.Btn_OneToOne = new System.Windows.Forms.Button();
             this.Btn_Save = new System.Windows.Forms.Button();
             this.Btn_Home = new System.Windows.Forms.Button();
             this.Btn_Setting = new System.Windows.Forms.Button();
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Btn_OneToOne = new System.Windows.Forms.Button();
             this.Pnl_Function.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +54,17 @@ namespace Mapping
             this.Pnl_Function.Size = new System.Drawing.Size(1021, 68);
             this.Pnl_Function.TabIndex = 27;
             this.Pnl_Function.Paint += new System.Windows.Forms.PaintEventHandler(this.Pnl_Function_Paint);
+            // 
+            // Btn_OneToOne
+            // 
+            this.Btn_OneToOne.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_OneToOne.BackgroundImage")));
+            this.Btn_OneToOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_OneToOne.Location = new System.Drawing.Point(135, 5);
+            this.Btn_OneToOne.Name = "Btn_OneToOne";
+            this.Btn_OneToOne.Size = new System.Drawing.Size(60, 60);
+            this.Btn_OneToOne.TabIndex = 32;
+            this.Btn_OneToOne.UseVisualStyleBackColor = true;
+            this.Btn_OneToOne.Click += new System.EventHandler(this.Btn_OneToOne_Click);
             // 
             // Btn_Save
             // 
@@ -105,17 +116,6 @@ namespace Mapping
             this.Pnl_Group.Name = "Pnl_Group";
             this.Pnl_Group.Size = new System.Drawing.Size(1022, 554);
             this.Pnl_Group.TabIndex = 28;
-            // 
-            // Btn_OneToOne
-            // 
-            this.Btn_OneToOne.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_OneToOne.BackgroundImage")));
-            this.Btn_OneToOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_OneToOne.Location = new System.Drawing.Point(135, 5);
-            this.Btn_OneToOne.Name = "Btn_OneToOne";
-            this.Btn_OneToOne.Size = new System.Drawing.Size(60, 60);
-            this.Btn_OneToOne.TabIndex = 32;
-            this.Btn_OneToOne.UseVisualStyleBackColor = true;
-            this.Btn_OneToOne.Click += new System.EventHandler(this.Btn_OneToOne_Click);
             // 
             // F_MainForm
             // 

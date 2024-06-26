@@ -29,10 +29,11 @@ namespace Mapping
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.panel2 = new System.Windows.Forms.Panel();
             this.TxtBx_FilePath2 = new System.Windows.Forms.TextBox();
             this.Btn_LoadFile2 = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@ namespace Mapping
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
-            this.TxtBx_Step = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.TxtBx_LowLimit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,6 +52,8 @@ namespace Mapping
             this.TxtBx_UpLimit = new System.Windows.Forms.TextBox();
             this.Cmbx_TestItem = new System.Windows.Forms.ComboBox();
             this.Btn_Compare = new System.Windows.Forms.Button();
+            this.Cmbx_ScaleSetting = new System.Windows.Forms.ComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
@@ -120,19 +122,19 @@ namespace Mapping
             // 
             // chart2
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
+            chartArea4.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea4);
             this.chart2.Location = new System.Drawing.Point(3, 231);
             this.chart2.Name = "chart2";
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Series1";
-            this.chart2.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Name = "Series1";
+            this.chart2.Series.Add(series4);
             this.chart2.Size = new System.Drawing.Size(737, 223);
             this.chart2.TabIndex = 1;
             this.chart2.Text = "chart2";
-            title3.Name = "Title1";
-            title3.Text = "V1 & V2";
-            this.chart2.Titles.Add(title3);
+            title7.Name = "Title1";
+            title7.Text = "V1 & V2";
+            this.chart2.Titles.Add(title7);
             // 
             // Chart_Difference
             // 
@@ -141,10 +143,10 @@ namespace Mapping
             this.Chart_Difference.Size = new System.Drawing.Size(737, 223);
             this.Chart_Difference.TabIndex = 0;
             this.Chart_Difference.Text = "chart1";
-            title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title4.Name = "Title1";
-            title4.Text = "File1-File2";
-            this.Chart_Difference.Titles.Add(title4);
+            title8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title8.Name = "Title1";
+            title8.Text = "File1-File2";
+            this.Chart_Difference.Titles.Add(title8);
             // 
             // panel3
             // 
@@ -153,7 +155,7 @@ namespace Mapping
             this.panel3.Controls.Add(this.Btn_Compare);
             this.panel3.Location = new System.Drawing.Point(759, 85);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(251, 229);
+            this.panel3.Size = new System.Drawing.Size(251, 226);
             this.panel3.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -163,22 +165,21 @@ namespace Mapping
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.TxtBx_Step, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.TxtBx_LowLimit, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.TxtBx_UpLimit, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.Cmbx_TestItem, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 67);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.Cmbx_ScaleSetting, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.TxtBx_LowLimit, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.TxtBx_UpLimit, 1, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 68);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00062F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00062F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00062F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.99813F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(242, 150);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(242, 154);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // label4
@@ -188,31 +189,21 @@ namespace Mapping
             this.label4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label4.Location = new System.Drawing.Point(6, 3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 33);
+            this.label4.Size = new System.Drawing.Size(110, 34);
             this.label4.TabIndex = 7;
             this.label4.Text = "Test Item";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // TxtBx_Step
-            // 
-            this.TxtBx_Step.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_Step.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Step.Location = new System.Drawing.Point(125, 114);
-            this.TxtBx_Step.Name = "TxtBx_Step";
-            this.TxtBx_Step.Size = new System.Drawing.Size(111, 29);
-            this.TxtBx_Step.TabIndex = 6;
-            this.TxtBx_Step.Text = "0.1";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(6, 111);
+            this.label3.Location = new System.Drawing.Point(6, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 36);
+            this.label3.Size = new System.Drawing.Size(110, 34);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Step";
+            this.label3.Text = "Scale Setting";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TxtBx_LowLimit
@@ -220,7 +211,7 @@ namespace Mapping
             this.TxtBx_LowLimit.BackColor = System.Drawing.Color.White;
             this.TxtBx_LowLimit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_LowLimit.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_LowLimit.Location = new System.Drawing.Point(125, 78);
+            this.TxtBx_LowLimit.Location = new System.Drawing.Point(125, 118);
             this.TxtBx_LowLimit.Name = "TxtBx_LowLimit";
             this.TxtBx_LowLimit.Size = new System.Drawing.Size(111, 29);
             this.TxtBx_LowLimit.TabIndex = 4;
@@ -231,9 +222,9 @@ namespace Mapping
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(6, 39);
+            this.label1.Location = new System.Drawing.Point(6, 77);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 33);
+            this.label1.Size = new System.Drawing.Size(110, 35);
             this.label1.TabIndex = 0;
             this.label1.Text = "Up Limit";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -243,9 +234,9 @@ namespace Mapping
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(6, 75);
+            this.label2.Location = new System.Drawing.Point(6, 115);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 33);
+            this.label2.Size = new System.Drawing.Size(110, 36);
             this.label2.TabIndex = 2;
             this.label2.Text = "Low Limit";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -254,7 +245,7 @@ namespace Mapping
             // 
             this.TxtBx_UpLimit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_UpLimit.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_UpLimit.Location = new System.Drawing.Point(125, 42);
+            this.TxtBx_UpLimit.Location = new System.Drawing.Point(125, 80);
             this.TxtBx_UpLimit.Name = "TxtBx_UpLimit";
             this.TxtBx_UpLimit.Size = new System.Drawing.Size(111, 29);
             this.TxtBx_UpLimit.TabIndex = 3;
@@ -279,6 +270,21 @@ namespace Mapping
             this.Btn_Compare.Text = "Compare";
             this.Btn_Compare.UseVisualStyleBackColor = true;
             this.Btn_Compare.Click += new System.EventHandler(this.Btn_Compare_Click);
+            // 
+            // Cmbx_ScaleSetting
+            // 
+            this.Cmbx_ScaleSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_ScaleSetting.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_ScaleSetting.FormattingEnabled = true;
+            this.Cmbx_ScaleSetting.Items.AddRange(new object[] {
+            "Define",
+            "Auto"});
+            this.Cmbx_ScaleSetting.Location = new System.Drawing.Point(125, 43);
+            this.Cmbx_ScaleSetting.Name = "Cmbx_ScaleSetting";
+            this.Cmbx_ScaleSetting.Size = new System.Drawing.Size(111, 28);
+            this.Cmbx_ScaleSetting.TabIndex = 9;
+            this.Cmbx_ScaleSetting.Text = "Auto";
+            this.Cmbx_ScaleSetting.SelectedIndexChanged += new System.EventHandler(this.Cmbx_ScaleSetting_SelectedIndexChanged);
             // 
             // F_OneToOne
             // 
@@ -315,7 +321,6 @@ namespace Mapping
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox TxtBx_Step;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TxtBx_LowLimit;
         private System.Windows.Forms.Label label1;
@@ -325,5 +330,7 @@ namespace Mapping
         private System.Windows.Forms.Button Btn_Compare;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart Chart_Difference;
+        private System.Windows.Forms.ComboBox Cmbx_ScaleSetting;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

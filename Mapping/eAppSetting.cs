@@ -14,5 +14,6 @@ namespace Mapping
         TxtBx_X_KeyWord,
         TxtBx_Y_KeyWord,
         Cmbx_Customer,
+        Cmbx_ScaleSetting,
     }
 }

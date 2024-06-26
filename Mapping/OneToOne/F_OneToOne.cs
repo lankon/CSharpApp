@@ -40,6 +40,17 @@ namespace Mapping
         #endregion
 
         #region private function
+        private void ShowHint()
+        {
+            //toolTip1.SetToolTip(Btn_Connect, "Connect");
+        }
+        private void InitialApplication()
+        {
+            ShowHint();
+
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+        }
         private List<Dictionary<string, string>> ReadCsvFile(String Path)
         {
             // 使用 Dictionary 來儲存資料
@@ -152,14 +163,14 @@ namespace Mapping
 
             return array_diff;
         }
-        private void DrawChart(List<double> array_diff, Chart chart, string test_item)
+        private void DrawChart(List<double> array_diff, Chart chart, string test_item, bool AutoScale)
         {
             chart.Series.Clear();
             chart.ChartAreas.Clear();
             chart.Titles.Clear();
 
             Title title = new Title();
-            title.Text = test_item+" File1-File2";
+            title.Text = test_item + " File1-File2";
             title.ForeColor = System.Drawing.Color.Black;
             title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold);
             chart.Titles.Add(title);
@@ -181,8 +192,11 @@ namespace Mapping
             chartArea.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Bold); // 設定標題字體
 
             // 設定 Y 軸的上下限
-            chartArea.AxisY.Minimum = tool.StringToDouble(TxtBx_LowLimit.Text); // Y 軸最小值
-            chartArea.AxisY.Maximum = tool.StringToDouble(TxtBx_UpLimit.Text); // Y 軸最大值
+            if(!AutoScale)
+            {
+                chartArea.AxisY.Minimum = tool.StringToDouble(TxtBx_LowLimit.Text); // Y 軸最小值
+                chartArea.AxisY.Maximum = tool.StringToDouble(TxtBx_UpLimit.Text); // Y 軸最大值
+            }
 
             // 創建一個 Series，並設定類型為散點圖
             Series series = new Series();
@@ -217,8 +231,7 @@ namespace Mapping
         {
             InitializeComponent();
 
-
-            
+            InitialApplication();
         }
 
         private void Btn_LoadFile1_Click(object sender, EventArgs e)
@@ -290,7 +303,23 @@ namespace Mapping
 
             array_diff = CompareData(Cmbx_TestItem.Text, File1.CellInfo, File2.CellInfo);
 
-            DrawChart(array_diff, Chart_Difference, Cmbx_TestItem.Text);
+            bool IsAutoScale = ApplicationSetting.Get_Bool_Recipe((int)FormItem.Cmbx_ScaleSetting);
+            
+            DrawChart(array_diff, Chart_Difference, Cmbx_TestItem.Text, IsAutoScale);
+        }
+
+        private void Cmbx_ScaleSetting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Cmbx_ScaleSetting.SelectedIndex == 1)
+            {
+                TxtBx_LowLimit.Enabled = false;
+                TxtBx_UpLimit.Enabled = false;
+            }
+            else
+            {
+                TxtBx_LowLimit.Enabled = true;
+                TxtBx_UpLimit.Enabled = true;
+            }
         }
     }
 }
