@@ -139,7 +139,7 @@ namespace Mapping
             Cmbx.SelectedIndex = 0;
             return Item;
         }
-        private List<double> CompareData(string key, List<Dictionary<string, string>> data1, List<Dictionary<string, string>> data2)
+        private List<double> CompareData(string key, List<Dictionary<string, string>> data1, List<Dictionary<string, string>> data2, bool percentage)
         {
             List<double> array_diff = new List<double>();
 
@@ -148,27 +148,35 @@ namespace Mapping
                 tool.SaveHistoryToFile("相互比較的兩個檔案資料個數不同");
                 return array_diff;
             }
-                      
-            for(int i=1; i<data1.Count; i++)
+
+            double difference;
+
+            for (int i=1; i<data1.Count; i++)
             {
                 data1[i].TryGetValue(key, out string value1);
                 data2[i].TryGetValue(key, out string value2);
 
                 double d_value1 = tool.StringToDouble(value1);
                 double d_value2 = tool.StringToDouble(value2);
-                double difference = d_value1 - d_value2;
+
+                if (percentage)
+                    difference = (d_value1 - d_value2) / d_value1 * 100;
+                else
+                    difference = d_value1 - d_value2;
 
                 array_diff.Add(difference);
             }
 
             return array_diff;
         }
-        private void DrawChart(List<double> array_diff, Chart chart, string test_item, bool AutoScale)
+        private void ClearChart(Chart chart)
         {
             chart.Series.Clear();
             chart.ChartAreas.Clear();
             chart.Titles.Clear();
-
+        }
+        private void DrawChart(List<double> array_diff, Chart chart, string test_item, bool AutoScale)
+        {
             Title title = new Title();
             title.Text = test_item + " File1-File2";
             title.ForeColor = System.Drawing.Color.Black;
@@ -184,6 +192,8 @@ namespace Mapping
             chartArea.AxisX.TitleAlignment = StringAlignment.Center; // 中間對齊
             chartArea.AxisX.TitleForeColor = System.Drawing.Color.Black; // 設定標題顏色
             chartArea.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Bold); // 設定標題字體
+
+            chartArea.AxisX.Minimum = 0; // X 軸最小值
 
             // 設定 Y 軸的標題及其位置
             chartArea.AxisY.Title = "Difference";
@@ -201,6 +211,8 @@ namespace Mapping
             // 創建一個 Series，並設定類型為散點圖
             Series series = new Series();
             series.ChartType = SeriesChartType.Point;
+            series.MarkerStyle = MarkerStyle.Circle;
+            series.MarkerSize = 10;
             series.Name = "DataPoints";
 
             for (int i = 0; i < array_diff.Count; i++)
@@ -292,6 +304,7 @@ namespace Mapping
 
         private void Btn_Compare_Click(object sender, EventArgs e)
         {
+            
             if(File1.CellInfo == null || File2.CellInfo == null)
             {
                 tool.SaveHistoryToFile("未載入資料");
@@ -301,10 +314,20 @@ namespace Mapping
 
             List<double> array_diff = new List<double>();
 
-            array_diff = CompareData(Cmbx_TestItem.Text, File1.CellInfo, File2.CellInfo);
+            bool IsPercentage;
+            bool IsAutoScale;
 
-            bool IsAutoScale = ApplicationSetting.Get_Bool_Recipe((int)FormItem.Cmbx_ScaleSetting);
-            
+            if (Cmbx_UsePercentage.SelectedIndex == 0)
+                IsPercentage = false;
+            else
+                IsPercentage = true;
+
+            array_diff = CompareData(Cmbx_TestItem.Text, File1.CellInfo, File2.CellInfo, IsPercentage);
+
+            IsAutoScale = ApplicationSetting.Get_Bool_Recipe((int)FormItem.Cmbx_ScaleSetting);
+
+            ClearChart(Chart_Difference);
+
             DrawChart(array_diff, Chart_Difference, Cmbx_TestItem.Text, IsAutoScale);
         }
 
@@ -320,6 +343,9 @@ namespace Mapping
                 TxtBx_LowLimit.Enabled = true;
                 TxtBx_UpLimit.Enabled = true;
             }
+
+            int item = Cmbx_ScaleSetting.SelectedIndex;
+            ApplicationSetting.SetRecipe((int)FormItem.Cmbx_ScaleSetting, item.ToString());
         }
     }
 }

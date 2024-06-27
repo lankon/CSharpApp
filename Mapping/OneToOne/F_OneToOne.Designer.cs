@@ -30,33 +30,30 @@ namespace Mapping
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.panel2 = new System.Windows.Forms.Panel();
             this.TxtBx_FilePath2 = new System.Windows.Forms.TextBox();
             this.Btn_LoadFile2 = new System.Windows.Forms.Button();
             this.TxtBx_FilePath1 = new System.Windows.Forms.TextBox();
             this.Btn_LoadFile1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Chart_Difference = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
+            this.Cmbx_TestItem = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.Cmbx_ScaleSetting = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.TxtBx_LowLimit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.TxtBx_UpLimit = new System.Windows.Forms.TextBox();
-            this.Cmbx_TestItem = new System.Windows.Forms.ComboBox();
             this.Btn_Compare = new System.Windows.Forms.Button();
-            this.Cmbx_ScaleSetting = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label5 = new System.Windows.Forms.Label();
+            this.Cmbx_UsePercentage = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Difference)).BeginInit();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -113,40 +110,23 @@ namespace Mapping
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.chart2);
             this.panel1.Controls.Add(this.Chart_Difference);
             this.panel1.Location = new System.Drawing.Point(13, 85);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(743, 457);
             this.panel1.TabIndex = 7;
             // 
-            // chart2
-            // 
-            chartArea4.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea4);
-            this.chart2.Location = new System.Drawing.Point(3, 231);
-            this.chart2.Name = "chart2";
-            series4.ChartArea = "ChartArea1";
-            series4.Name = "Series1";
-            this.chart2.Series.Add(series4);
-            this.chart2.Size = new System.Drawing.Size(737, 223);
-            this.chart2.TabIndex = 1;
-            this.chart2.Text = "chart2";
-            title7.Name = "Title1";
-            title7.Text = "V1 & V2";
-            this.chart2.Titles.Add(title7);
-            // 
             // Chart_Difference
             // 
             this.Chart_Difference.Location = new System.Drawing.Point(3, 3);
             this.Chart_Difference.Name = "Chart_Difference";
-            this.Chart_Difference.Size = new System.Drawing.Size(737, 223);
+            this.Chart_Difference.Size = new System.Drawing.Size(737, 451);
             this.Chart_Difference.TabIndex = 0;
             this.Chart_Difference.Text = "chart1";
-            title8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title8.Name = "Title1";
-            title8.Text = "File1-File2";
-            this.Chart_Difference.Titles.Add(title8);
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title1.Name = "Title1";
+            title1.Text = "File1-File2";
+            this.Chart_Difference.Titles.Add(title1);
             // 
             // panel3
             // 
@@ -155,7 +135,7 @@ namespace Mapping
             this.panel3.Controls.Add(this.Btn_Compare);
             this.panel3.Location = new System.Drawing.Point(759, 85);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(251, 226);
+            this.panel3.Size = new System.Drawing.Size(251, 325);
             this.panel3.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -172,14 +152,17 @@ namespace Mapping
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_LowLimit, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_UpLimit, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.Cmbx_UsePercentage, 1, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 68);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(242, 154);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(242, 189);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // label4
@@ -194,6 +177,15 @@ namespace Mapping
             this.label4.Text = "Test Item";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Cmbx_TestItem
+            // 
+            this.Cmbx_TestItem.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_TestItem.FormattingEnabled = true;
+            this.Cmbx_TestItem.Location = new System.Drawing.Point(125, 6);
+            this.Cmbx_TestItem.Name = "Cmbx_TestItem";
+            this.Cmbx_TestItem.Size = new System.Drawing.Size(111, 28);
+            this.Cmbx_TestItem.TabIndex = 8;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -205,6 +197,33 @@ namespace Mapping
             this.label3.TabIndex = 5;
             this.label3.Text = "Scale Setting";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Cmbx_ScaleSetting
+            // 
+            this.Cmbx_ScaleSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_ScaleSetting.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_ScaleSetting.FormattingEnabled = true;
+            this.Cmbx_ScaleSetting.Items.AddRange(new object[] {
+            "Define",
+            "Auto"});
+            this.Cmbx_ScaleSetting.Location = new System.Drawing.Point(125, 43);
+            this.Cmbx_ScaleSetting.Name = "Cmbx_ScaleSetting";
+            this.Cmbx_ScaleSetting.Size = new System.Drawing.Size(111, 28);
+            this.Cmbx_ScaleSetting.TabIndex = 9;
+            this.Cmbx_ScaleSetting.Text = "Auto";
+            this.Cmbx_ScaleSetting.SelectedIndexChanged += new System.EventHandler(this.Cmbx_ScaleSetting_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Location = new System.Drawing.Point(6, 115);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(110, 35);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Low Limit";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TxtBx_LowLimit
             // 
@@ -229,18 +248,6 @@ namespace Mapping
             this.label1.Text = "Up Limit";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(6, 115);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 36);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Low Limit";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // TxtBx_UpLimit
             // 
             this.TxtBx_UpLimit.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -250,15 +257,6 @@ namespace Mapping
             this.TxtBx_UpLimit.Size = new System.Drawing.Size(111, 29);
             this.TxtBx_UpLimit.TabIndex = 3;
             this.TxtBx_UpLimit.Text = "0.005";
-            // 
-            // Cmbx_TestItem
-            // 
-            this.Cmbx_TestItem.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Cmbx_TestItem.FormattingEnabled = true;
-            this.Cmbx_TestItem.Location = new System.Drawing.Point(125, 6);
-            this.Cmbx_TestItem.Name = "Cmbx_TestItem";
-            this.Cmbx_TestItem.Size = new System.Drawing.Size(111, 28);
-            this.Cmbx_TestItem.TabIndex = 8;
             // 
             // Btn_Compare
             // 
@@ -271,20 +269,30 @@ namespace Mapping
             this.Btn_Compare.UseVisualStyleBackColor = true;
             this.Btn_Compare.Click += new System.EventHandler(this.Btn_Compare_Click);
             // 
-            // Cmbx_ScaleSetting
+            // label5
             // 
-            this.Cmbx_ScaleSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Cmbx_ScaleSetting.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Cmbx_ScaleSetting.FormattingEnabled = true;
-            this.Cmbx_ScaleSetting.Items.AddRange(new object[] {
-            "Define",
-            "Auto"});
-            this.Cmbx_ScaleSetting.Location = new System.Drawing.Point(125, 43);
-            this.Cmbx_ScaleSetting.Name = "Cmbx_ScaleSetting";
-            this.Cmbx_ScaleSetting.Size = new System.Drawing.Size(111, 28);
-            this.Cmbx_ScaleSetting.TabIndex = 9;
-            this.Cmbx_ScaleSetting.Text = "Auto";
-            this.Cmbx_ScaleSetting.SelectedIndexChanged += new System.EventHandler(this.Cmbx_ScaleSetting_SelectedIndexChanged);
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label5.Location = new System.Drawing.Point(6, 153);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(110, 33);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Percentage";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Cmbx_UsePercentage
+            // 
+            this.Cmbx_UsePercentage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_UsePercentage.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_UsePercentage.FormattingEnabled = true;
+            this.Cmbx_UsePercentage.Items.AddRange(new object[] {
+            "No",
+            "Yes"});
+            this.Cmbx_UsePercentage.Location = new System.Drawing.Point(125, 156);
+            this.Cmbx_UsePercentage.Name = "Cmbx_UsePercentage";
+            this.Cmbx_UsePercentage.Size = new System.Drawing.Size(111, 28);
+            this.Cmbx_UsePercentage.TabIndex = 11;
             // 
             // F_OneToOne
             // 
@@ -301,7 +309,6 @@ namespace Mapping
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Difference)).EndInit();
             this.panel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -328,9 +335,10 @@ namespace Mapping
         private System.Windows.Forms.TextBox TxtBx_UpLimit;
         private System.Windows.Forms.ComboBox Cmbx_TestItem;
         private System.Windows.Forms.Button Btn_Compare;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart Chart_Difference;
         private System.Windows.Forms.ComboBox Cmbx_ScaleSetting;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox Cmbx_UsePercentage;
     }
 }

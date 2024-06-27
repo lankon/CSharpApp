@@ -37,6 +37,7 @@ namespace Mapping
             toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_Home, "Home");
             toolTip1.SetToolTip(Btn_Save, "Save Picture");
+            toolTip1.SetToolTip(Btn_OneToOne, "One To One");
 
             if (f_Mapping.Visible == true)
             {
