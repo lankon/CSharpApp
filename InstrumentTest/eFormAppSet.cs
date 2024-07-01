@@ -29,7 +29,8 @@ namespace InstrumentTest
         //TxtBx_CtrlBxCount,
         //Cmbx_Board,
         TxtBx_BoardCount,
-        TxtBx_Board_CH,      
+        TxtBx_Board_CH,
+        Cmbx_CalibrationFunc,
 
         // =============== 請勿在中間插入其他變數 =================
         TxtBx_Temp1, TxtBx_Temp2, TxtBx_Temp3, TxtBx_Temp4, TxtBx_Temp5,

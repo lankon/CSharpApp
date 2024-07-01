@@ -48,10 +48,10 @@ namespace Mapping
             this.TxtBx_LowLimit = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.TxtBx_UpLimit = new System.Windows.Forms.TextBox();
-            this.Btn_Compare = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.Cmbx_UsePercentage = new System.Windows.Forms.ComboBox();
+            this.Btn_Compare = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Difference)).BeginInit();
@@ -258,17 +258,6 @@ namespace Mapping
             this.TxtBx_UpLimit.TabIndex = 3;
             this.TxtBx_UpLimit.Text = "0.005";
             // 
-            // Btn_Compare
-            // 
-            this.Btn_Compare.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Btn_Compare.Location = new System.Drawing.Point(3, 0);
-            this.Btn_Compare.Name = "Btn_Compare";
-            this.Btn_Compare.Size = new System.Drawing.Size(242, 61);
-            this.Btn_Compare.TabIndex = 5;
-            this.Btn_Compare.Text = "Compare";
-            this.Btn_Compare.UseVisualStyleBackColor = true;
-            this.Btn_Compare.Click += new System.EventHandler(this.Btn_Compare_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -293,6 +282,17 @@ namespace Mapping
             this.Cmbx_UsePercentage.Name = "Cmbx_UsePercentage";
             this.Cmbx_UsePercentage.Size = new System.Drawing.Size(111, 28);
             this.Cmbx_UsePercentage.TabIndex = 11;
+            // 
+            // Btn_Compare
+            // 
+            this.Btn_Compare.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_Compare.Location = new System.Drawing.Point(3, 0);
+            this.Btn_Compare.Name = "Btn_Compare";
+            this.Btn_Compare.Size = new System.Drawing.Size(242, 61);
+            this.Btn_Compare.TabIndex = 5;
+            this.Btn_Compare.Text = "Compare";
+            this.Btn_Compare.UseVisualStyleBackColor = true;
+            this.Btn_Compare.Click += new System.EventHandler(this.Btn_Compare_Click);
             // 
             // F_OneToOne
             // 

@@ -39,11 +39,13 @@ namespace Mapping
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Btn_GRR = new System.Windows.Forms.Button();
             this.Pnl_Function.SuspendLayout();
             this.SuspendLayout();
             // 
             // Pnl_Function
             // 
+            this.Pnl_Function.Controls.Add(this.Btn_GRR);
             this.Pnl_Function.Controls.Add(this.Btn_OneToOne);
             this.Pnl_Function.Controls.Add(this.Btn_Save);
             this.Pnl_Function.Controls.Add(this.Btn_Home);
@@ -117,6 +119,17 @@ namespace Mapping
             this.Pnl_Group.Size = new System.Drawing.Size(1022, 554);
             this.Pnl_Group.TabIndex = 28;
             // 
+            // Btn_GRR
+            // 
+            this.Btn_GRR.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_GRR.BackgroundImage")));
+            this.Btn_GRR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_GRR.Location = new System.Drawing.Point(201, 5);
+            this.Btn_GRR.Name = "Btn_GRR";
+            this.Btn_GRR.Size = new System.Drawing.Size(60, 60);
+            this.Btn_GRR.TabIndex = 33;
+            this.Btn_GRR.UseVisualStyleBackColor = true;
+            this.Btn_GRR.Click += new System.EventHandler(this.Btn_GRR_Click);
+            // 
             // F_MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -145,5 +158,6 @@ namespace Mapping
         private System.Windows.Forms.Button Btn_Home;
         private System.Windows.Forms.Button Btn_Save;
         private System.Windows.Forms.Button Btn_OneToOne;
+        private System.Windows.Forms.Button Btn_GRR;
     }
 }

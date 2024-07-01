@@ -26,7 +26,7 @@ namespace InstrumentTest
 
         #region TPT8000 Setting
         Cmbx_CtrlBox,
-        TxtBx_CtrlBxCount,
+        //TxtBx_CtrlBxCount,
         //Cmbx_Board,
         TxtBx_BoardCount,
         TxtBx_Board_CH,      

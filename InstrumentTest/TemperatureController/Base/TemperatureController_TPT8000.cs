@@ -193,39 +193,14 @@ namespace InstrumentTest
                 {
                     temp = temp.Substring(12, 5);
 
-                    double Now_Value = Convert.ToDouble(temp) - Offset_Value;
-                    //WriteLogData($"Calculate Offset_Value{Offset_Value}");
-                    double GetTempOffset = 0, TempGradient = 0, CalculateOffset = 0;
-                    if (Now_Value > 180 && Now_Value <= 200)
-                    {
-                        GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset1);
-                        TempGradient = GetTempOffset / (200 - 180);
-                        CalculateOffset = (TempGradient * (Now_Value - 180));
-                    }
-                    else if (Now_Value > 150 && Now_Value <= 180)
-                    {
-                        GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset2);
-                        TempGradient = GetTempOffset / (180 - 150);
-                        CalculateOffset = (TempGradient * (Now_Value - 150));
-                    }
-                    else if (Now_Value >= 120 && Now_Value <= 150)
-                    {
-                        GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset3);
-                        TempGradient = GetTempOffset / (150 - 120);
-                        CalculateOffset = (TempGradient * (Now_Value - 120));
-                    }
-                    else if (Now_Value >= 85 && Now_Value < 120)
-                    {
-                        GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset4);
-                        TempGradient = GetTempOffset / (120 - 85);
-                        CalculateOffset = (TempGradient * (Now_Value - 85));
-                    }
-                    else if (Now_Value < 85)
-                    {
-                        GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset5);
-                        TempGradient = GetTempOffset / (85 - ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp5));
-                        CalculateOffset = (TempGradient * (Now_Value - ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp5)));
-                    }
+                    double Now_Value = Convert.ToDouble(temp);
+                    double CalculateOffset = 0;
+                    
+                    if (ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CalibrationFunc) == 0)
+                        CalculateOffset = LinearityCalibration_Ans(Now_Value);
+                    else if (ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CalibrationFunc) == 1)
+                        CalculateOffset = FivePointCalibration_Ans(temp);
+
                     Now_Value += CalculateOffset;
 
                     temp = Convert.ToString(Now_Value);
@@ -258,38 +233,12 @@ namespace InstrumentTest
             if (ctrl_box >= 1)   //TPT8000韌體端沒有編號1控制箱指令
                 ctrl_box++;
 
-            double Compensate = 0, Temperature = 0;
-            int Value = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Target);
-            
-            if (Value > 180 && Value <= 200)
-            {
-                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp1);
-                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp1);
-            }
-            else if (Value > 151 && Value <= 180)
-            {
-                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp2);
-                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp2);
-            }
-            else if (Value >= 120 && Value <= 150)
-            {
-                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp3);
-                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp3);
-            }
-            else if (Value >= 85 && Value < 120)
-            {
-                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp4);
-                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp4);
-            }
-            else if (Value < 85)
-            {
-                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp5);
-                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp5);
-            }
+            double SV_Value = 25.0f;
 
-            double CorrectValue = Compensate / (200 - Temperature);
-            Offset_Value = Math.Round(CorrectValue * (Value - Temperature), 1);
-            var SV_Value = Math.Round(Value + CorrectValue * (Value - Temperature), 1);
+            if(ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CalibrationFunc) == 0)
+                SV_Value = LinearityCalibration();
+            else if(ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CalibrationFunc) == 1)
+                SV_Value = FivePointCalibration();
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}\r\n";
@@ -730,6 +679,176 @@ namespace InstrumentTest
         #endregion
 
         #region Private Function
+        private double LinearityCalibration()
+        {
+            double TValue = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Target);
+            double TStart = 0, TEnd = 0;
+            double DStart = 0, DEnd = 0;
+            double dT;
+
+            for (int i = 0; i < 10; i++)
+            {
+                if (i == 9) break;
+
+                double Offset_T1 = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp1 + i);
+                double Offset_T2 = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp1 + i + 1);
+                double Offset_C1 = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp1 + i);
+                double Offset_C2 = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp1 + i + 1);
+
+                if (TValue >= Offset_T1 && TValue < Offset_T2 && i < 3)
+                {
+                    TStart = Offset_T1;
+                    TEnd = Offset_T2;
+                    DStart = Offset_C1;
+                    DEnd = Offset_C2;
+                    break;
+                }
+                else if (TValue >= Offset_T1 && TValue <= Offset_T2 && i == 3)
+                {
+                    TStart = Offset_T1;
+                    TEnd = Offset_T2;
+                    DStart = Offset_C1;
+                    DEnd = Offset_C2;
+                    break;
+                }
+                else
+                {
+                    //不補償
+                    TStart = -300;
+                    TEnd = 300;
+                    DStart = 0;
+                    DEnd = 0;
+                }
+            }
+
+            dT = DStart + (((DEnd - DStart) * (TValue - TStart)) / (TEnd - TStart));
+
+            TValue += (int)dT;
+
+            return TValue;
+        }
+        private double LinearityCalibration_Ans(double TValue)
+        {
+            double TStart = 0, TEnd = 0;
+            double DStart = 0, DEnd = 0;
+            double dT;
+
+            for (int i = 0; i < 10; i++)
+            {
+                if (i == 9) break;
+
+                double Offset_T1 = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp1 + i);
+                double Offset_T2 = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp1 + i + 1);
+                double Offset_C1 = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset1 + i);
+                double Offset_C2 = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset1 + i + 1);
+
+                if (TValue >= Offset_T1 && TValue < Offset_T2 && i < 3)
+                {
+                    TStart = Offset_T1;
+                    TEnd = Offset_T2;
+                    DStart = Offset_C1;
+                    DEnd = Offset_C2;
+                    break;
+                }
+                else if (TValue >= Offset_T1 && TValue <= Offset_T2 && i == 3)
+                {
+                    TStart = Offset_T1;
+                    TEnd = Offset_T2;
+                    DStart = Offset_C1;
+                    DEnd = Offset_C2;
+                    break;
+                }
+                else
+                {
+                    //不補償
+                    TStart = -300;
+                    TEnd = 300;
+                    DStart = 0;
+                    DEnd = 0;
+                }
+            }
+
+            dT = DStart + (((DEnd - DStart) * (TValue - TStart)) / (TEnd - TStart));
+
+            TValue += (int)dT;
+
+            return TValue;
+        }
+        private double FivePointCalibration_Ans(string temperature_value)
+        {
+            double Now_Value = Convert.ToDouble(temperature_value) - Offset_Value;
+            //WriteLogData($"Calculate Offset_Value{Offset_Value}");
+            double GetTempOffset = 0, TempGradient = 0, CalculateOffset = 0;
+            if (Now_Value > 180 && Now_Value <= 200)
+            {
+                GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset1);
+                TempGradient = GetTempOffset / (200 - 180);
+                CalculateOffset = (TempGradient * (Now_Value - 180));
+            }
+            else if (Now_Value > 150 && Now_Value <= 180)
+            {
+                GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset2);
+                TempGradient = GetTempOffset / (180 - 150);
+                CalculateOffset = (TempGradient * (Now_Value - 150));
+            }
+            else if (Now_Value >= 120 && Now_Value <= 150)
+            {
+                GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset3);
+                TempGradient = GetTempOffset / (150 - 120);
+                CalculateOffset = (TempGradient * (Now_Value - 120));
+            }
+            else if (Now_Value >= 85 && Now_Value < 120)
+            {
+                GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset4);
+                TempGradient = GetTempOffset / (120 - 85);
+                CalculateOffset = (TempGradient * (Now_Value - 85));
+            }
+            else if (Now_Value < 85)
+            {
+                GetTempOffset = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Offset5);
+                TempGradient = GetTempOffset / (85 - ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp5));
+                CalculateOffset = (TempGradient * (Now_Value - ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp5)));
+            }
+
+            return CalculateOffset;
+        }
+        private double FivePointCalibration()
+        {
+            double Compensate = 0, Temperature = 0;
+            int Value = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Target);
+
+            if (Value > 180 && Value <= 200)
+            {
+                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp1);
+                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp1);
+            }
+            else if (Value > 151 && Value <= 180)
+            {
+                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp2);
+                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp2);
+            }
+            else if (Value >= 120 && Value <= 150)
+            {
+                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp3);
+                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp3);
+            }
+            else if (Value >= 85 && Value < 120)
+            {
+                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp4);
+                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp4);
+            }
+            else if (Value < 85)
+            {
+                Temperature = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Temp5);
+                Compensate = ApplicationSetting.Get_Double_Recipe((int)eFormAppSet.TxtBx_Comp5);
+            }
+
+            double CorrectValue = Compensate / (200 - Temperature);
+            Offset_Value = Math.Round(CorrectValue * (Value - Temperature), 1);
+            double SV_Value = Math.Round(Value + CorrectValue * (Value - Temperature), 1);
+
+            return SV_Value;
+        }
         private bool Write(byte[] buffer, int offset, int count)
         {
             bool res = false;

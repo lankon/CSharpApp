@@ -104,6 +104,8 @@ namespace InstrumentTest
             this.TxtBx_BoxCh9 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.TxtBx_TargetT1 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.Cmbx_CalibrationFunc = new System.Windows.Forms.ComboBox();
             this.Pnl_TPT8000_Offset.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -120,15 +122,15 @@ namespace InstrumentTest
             this.Pnl_TPT8000_Offset.Controls.Add(this.tableLayoutPanel3);
             this.Pnl_TPT8000_Offset.Location = new System.Drawing.Point(12, 5);
             this.Pnl_TPT8000_Offset.Name = "Pnl_TPT8000_Offset";
-            this.Pnl_TPT8000_Offset.Size = new System.Drawing.Size(473, 317);
+            this.Pnl_TPT8000_Offset.Size = new System.Drawing.Size(473, 371);
             this.Pnl_TPT8000_Offset.TabIndex = 3;
             // 
             // Btn_Save
             // 
             this.Btn_Save.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Btn_Save.Location = new System.Drawing.Point(324, 5);
+            this.Btn_Save.Location = new System.Drawing.Point(325, 5);
             this.Btn_Save.Name = "Btn_Save";
-            this.Btn_Save.Size = new System.Drawing.Size(139, 79);
+            this.Btn_Save.Size = new System.Drawing.Size(139, 117);
             this.Btn_Save.TabIndex = 3;
             this.Btn_Save.Text = "Save";
             this.Btn_Save.UseVisualStyleBackColor = true;
@@ -141,18 +143,20 @@ namespace InstrumentTest
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel2.Controls.Add(this.label20, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label13, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.TxtBx_Board_CH, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.Cmbx_CtrlBox, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.TxtBx_CtrlBxCount, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.label14, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.Cmbx_CalibrationFunc, 1, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(314, 79);
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(314, 116);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // label13
@@ -247,7 +251,7 @@ namespace InstrumentTest
             this.tableLayoutPanel3.Controls.Add(this.label17, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label18, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.TxtBx_Temp1, 0, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 90);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 128);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 6;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
@@ -262,11 +266,13 @@ namespace InstrumentTest
             // TxtBx_Offset5
             // 
             this.TxtBx_Offset5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_Offset5.Enabled = false;
             this.TxtBx_Offset5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_Offset5.Location = new System.Drawing.Point(310, 186);
             this.TxtBx_Offset5.Name = "TxtBx_Offset5";
             this.TxtBx_Offset5.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset5.TabIndex = 19;
+            this.TxtBx_Offset5.Text = "0";
             // 
             // TxtBx_Comp5
             // 
@@ -289,11 +295,13 @@ namespace InstrumentTest
             // TxtBx_Offset4
             // 
             this.TxtBx_Offset4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_Offset4.Enabled = false;
             this.TxtBx_Offset4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_Offset4.Location = new System.Drawing.Point(310, 150);
             this.TxtBx_Offset4.Name = "TxtBx_Offset4";
             this.TxtBx_Offset4.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset4.TabIndex = 16;
+            this.TxtBx_Offset4.Text = "0";
             // 
             // TxtBx_Comp4
             // 
@@ -316,11 +324,13 @@ namespace InstrumentTest
             // TxtBx_Offset3
             // 
             this.TxtBx_Offset3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_Offset3.Enabled = false;
             this.TxtBx_Offset3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_Offset3.Location = new System.Drawing.Point(310, 114);
             this.TxtBx_Offset3.Name = "TxtBx_Offset3";
             this.TxtBx_Offset3.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset3.TabIndex = 13;
+            this.TxtBx_Offset3.Text = "0";
             // 
             // TxtBx_Comp3
             // 
@@ -343,11 +353,13 @@ namespace InstrumentTest
             // TxtBx_Offset2
             // 
             this.TxtBx_Offset2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_Offset2.Enabled = false;
             this.TxtBx_Offset2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_Offset2.Location = new System.Drawing.Point(310, 78);
             this.TxtBx_Offset2.Name = "TxtBx_Offset2";
             this.TxtBx_Offset2.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset2.TabIndex = 10;
+            this.TxtBx_Offset2.Text = "0";
             // 
             // TxtBx_Comp2
             // 
@@ -370,11 +382,13 @@ namespace InstrumentTest
             // TxtBx_Offset1
             // 
             this.TxtBx_Offset1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_Offset1.Enabled = false;
             this.TxtBx_Offset1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_Offset1.Location = new System.Drawing.Point(310, 42);
             this.TxtBx_Offset1.Name = "TxtBx_Offset1";
             this.TxtBx_Offset1.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset1.TabIndex = 7;
+            this.TxtBx_Offset1.Text = "0";
             // 
             // TxtBx_Comp1
             // 
@@ -973,6 +987,32 @@ namespace InstrumentTest
             this.TxtBx_TargetT1.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT1.TabIndex = 39;
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label20.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label20.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label20.Location = new System.Drawing.Point(6, 79);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(145, 34);
+            this.label20.TabIndex = 8;
+            this.label20.Text = "Calibration Func.";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Cmbx_CalibrationFunc
+            // 
+            this.Cmbx_CalibrationFunc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_CalibrationFunc.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_CalibrationFunc.FormattingEnabled = true;
+            this.Cmbx_CalibrationFunc.Items.AddRange(new object[] {
+            "Linearity",
+            "Five Point"});
+            this.Cmbx_CalibrationFunc.Location = new System.Drawing.Point(160, 82);
+            this.Cmbx_CalibrationFunc.Name = "Cmbx_CalibrationFunc";
+            this.Cmbx_CalibrationFunc.Size = new System.Drawing.Size(99, 28);
+            this.Cmbx_CalibrationFunc.TabIndex = 9;
+            // 
             // F_TC_Setting_TPT8000
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1075,5 +1115,7 @@ namespace InstrumentTest
         private System.Windows.Forms.TextBox TxtBx_TargetT2;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox TxtBx_TargetT1;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ComboBox Cmbx_CalibrationFunc;
     }
 }

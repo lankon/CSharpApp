@@ -20,13 +20,14 @@ namespace Mapping
         Tool tool = new Tool();
         F_Setting f_Setting = new F_Setting();
         F_Mapping f_Mapping = new F_Mapping();
+        F_OneToOne f_OneToOne = new F_OneToOne();
+        F_GRR f_GRR = new F_GRR();
         #endregion
 
         #region private function
         private void InitialApplication()
         {
             f_Mapping.SetF_Mapping(Pnl_Group, f_Mapping);
-            f_Setting.SetF_Setting(Pnl_Group, f_Setting);
 
             SetHint();
             CreateFolder();
@@ -51,6 +52,17 @@ namespace Mapping
                 if (control is Form && control.Visible == true)
                 {
                     ((Form)control).Hide();
+                    break;
+                }
+            }
+        }
+        private void CloseFormOnPanel(Panel pnl)
+        {
+            foreach (Control control in pnl.Controls)
+            {
+                if (control is Form && control.Visible == true)
+                {
+                    ((Form)control).Close();
                     break;
                 }
             }
@@ -92,6 +104,7 @@ namespace Mapping
         {
             HideFormOnPanel(Pnl_Group);
 
+            f_Setting.SetF_Setting(Pnl_Group, f_Setting);
             f_Setting.Show();
         }
 
@@ -140,9 +153,16 @@ namespace Mapping
         {
             HideFormOnPanel(Pnl_Group);
 
-            F_OneToOne f_OneToOne = new F_OneToOne();
             f_OneToOne.SetF_Setting(Pnl_Group, f_OneToOne);
             f_OneToOne.Show();
+        }
+
+        private void Btn_GRR_Click(object sender, EventArgs e)
+        {
+            HideFormOnPanel(Pnl_Group);
+                      
+            f_GRR.SetF_GRR(Pnl_Group, f_GRR);
+            f_GRR.Show();
         }
     }
 }
