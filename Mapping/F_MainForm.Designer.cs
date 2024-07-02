@@ -32,6 +32,7 @@ namespace Mapping
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_MainForm));
             this.Pnl_Function = new System.Windows.Forms.Panel();
+            this.Btn_GRR = new System.Windows.Forms.Button();
             this.Btn_OneToOne = new System.Windows.Forms.Button();
             this.Btn_Save = new System.Windows.Forms.Button();
             this.Btn_Home = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@ namespace Mapping
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Btn_GRR = new System.Windows.Forms.Button();
             this.Pnl_Function.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +56,18 @@ namespace Mapping
             this.Pnl_Function.Size = new System.Drawing.Size(1021, 68);
             this.Pnl_Function.TabIndex = 27;
             this.Pnl_Function.Paint += new System.Windows.Forms.PaintEventHandler(this.Pnl_Function_Paint);
+            // 
+            // Btn_GRR
+            // 
+            this.Btn_GRR.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_GRR.BackgroundImage")));
+            this.Btn_GRR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_GRR.Location = new System.Drawing.Point(201, 5);
+            this.Btn_GRR.Name = "Btn_GRR";
+            this.Btn_GRR.Size = new System.Drawing.Size(60, 60);
+            this.Btn_GRR.TabIndex = 33;
+            this.Btn_GRR.UseVisualStyleBackColor = true;
+            this.Btn_GRR.Visible = false;
+            this.Btn_GRR.Click += new System.EventHandler(this.Btn_GRR_Click);
             // 
             // Btn_OneToOne
             // 
@@ -118,17 +130,6 @@ namespace Mapping
             this.Pnl_Group.Name = "Pnl_Group";
             this.Pnl_Group.Size = new System.Drawing.Size(1022, 554);
             this.Pnl_Group.TabIndex = 28;
-            // 
-            // Btn_GRR
-            // 
-            this.Btn_GRR.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_GRR.BackgroundImage")));
-            this.Btn_GRR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_GRR.Location = new System.Drawing.Point(201, 5);
-            this.Btn_GRR.Name = "Btn_GRR";
-            this.Btn_GRR.Size = new System.Drawing.Size(60, 60);
-            this.Btn_GRR.TabIndex = 33;
-            this.Btn_GRR.UseVisualStyleBackColor = true;
-            this.Btn_GRR.Click += new System.EventHandler(this.Btn_GRR_Click);
             // 
             // F_MainForm
             // 

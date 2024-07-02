@@ -228,7 +228,7 @@ namespace Mapping
         public void SetF_Setting(Panel pnl, F_OneToOne form)
         {
             form.Dock = DockStyle.Fill;
-            form.Visible = true;
+            form.Visible = false;
             form.TopLevel = false;
             form.Top = 0;
             form.Left = 0;

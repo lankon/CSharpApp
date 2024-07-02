@@ -89,16 +89,16 @@
     <Compile Include="OneToOne\F_OneToOne.Designer.cs">
       <DependentUpon>F_OneToOne.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_Setting.cs">
+    <Compile Include="Mapping\F_Setting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_Setting.Designer.cs">
+    <Compile Include="Mapping\F_Setting.Designer.cs">
       <DependentUpon>F_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_Mapping.cs">
+    <Compile Include="Mapping\F_Mapping.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_Mapping.Designer.cs">
+    <Compile Include="Mapping\F_Mapping.Designer.cs">
       <DependentUpon>F_Mapping.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -115,10 +115,10 @@
     <EmbeddedResource Include="OneToOne\F_OneToOne.resx">
       <DependentUpon>F_OneToOne.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F_Setting.resx">
+    <EmbeddedResource Include="Mapping\F_Setting.resx">
       <DependentUpon>F_Setting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F_Mapping.resx">
+    <EmbeddedResource Include="Mapping\F_Mapping.resx">
       <DependentUpon>F_Mapping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
