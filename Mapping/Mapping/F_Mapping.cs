@@ -34,6 +34,7 @@ namespace Mapping
 
             public List<Color> ColorList;
         }
+        List<Dictionary<string, string>> TestItemCondition = new List<Dictionary<string, string>>();
         #endregion
 
         #region public function
@@ -78,6 +79,117 @@ namespace Mapping
         #endregion
 
         #region private function
+        private void AddTestItemCondition()
+        {
+            Dictionary<string, string> row;
+
+            for (int i = 0; i < TestItemCondition.Count; i++)
+            {
+                TestItemCondition[i].TryGetValue("Item", out string item);
+
+                if (item == Cmbx_TestItem.Text)
+                {
+                    TestItemCondition.RemoveAt(i);
+                    break;
+                }
+            }
+
+            row = new Dictionary<string, string>();
+
+            row["Item"] = Cmbx_TestItem.Text;
+            row["Start"] = TxtBx_Start.Text;
+            row["End"] = TxtBx_End.Text;
+            row["Step"] = TxtBx_Step.Text;
+
+            TestItemCondition.Add(row);
+
+        }
+        private void SaveTestItemCondition()
+        {
+            tool.SaveHistoryToFile("Save Test Item Condition Start");
+
+            Dictionary<string, string> row = new Dictionary<string, string>();
+
+            //寫檔案標題
+            row["Item"] = "Item";
+            row["Start"] = "Start";
+            row["End"] = "End";
+            row["Step"] = "Step";
+
+            TestItemCondition[0].TryGetValue("Item", out string item);
+            
+            if (item != "Item")
+                TestItemCondition.Insert(0, row);
+
+            StreamWriter writer = tool.CreateFile("TestData\\TestItemCondition", ".txt", false);
+
+            //寫入資料
+            string context = "";
+            int ii = 0;
+            int jj = 0;
+            foreach (var dict in TestItemCondition)
+            {
+                jj++; 
+
+                foreach (var kvp in dict)
+                {
+                    ii++;
+
+                    if (ii < dict.Count)
+                        context = context + kvp.Value + ",";
+                    else
+                        context = context + kvp.Value;
+                }
+
+                tool.WriteFile(writer, context);
+
+                context = "";
+                ii = 0;
+            }
+
+            tool.CloseFile(writer);
+
+            tool.SaveHistoryToFile("Save Test Item Condition End");
+        }
+        private void LoadTestItemCondition()
+        {
+            tool.SaveHistoryToFile("LoadTsetItemCodition Start");
+            
+            string path = System.IO.Directory.GetCurrentDirectory();
+            path = path + "\\" + "TestData\\TestItemCondition.txt";
+
+            List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
+            TestItemCondition = tool.ReadCsvFile(path, true);
+
+            tool.SaveHistoryToFile("LoadTsetItemCodition End");
+        }
+        private void UpdateTestItemConditionToForm()
+        {
+            for(int i=0; i<TestItemCondition.Count; i++)
+            {
+                TestItemCondition[i].TryGetValue("Item", out string item);
+
+                if(item == Cmbx_TestItem.Text)
+                {
+                    TestItemCondition[i].TryGetValue("Start", out string start);
+                    TestItemCondition[i].TryGetValue("End", out string end);
+                    TestItemCondition[i].TryGetValue("Step", out string step);
+
+                    TxtBx_Start.Text = start;
+                    TxtBx_End.Text = end;
+                    TxtBx_Step.Text = step;
+                }
+            }
+        }
+        private void InitialApplication()
+        {
+            tool.SaveHistoryToFile("開啟應用程式");
+
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+
+            LoadTestItemCondition();
+        }
         private void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList, double[] ValueRegion)
         {
             float startX = 25; // 图表起始横坐标
@@ -560,8 +672,7 @@ namespace Mapping
         {
             InitializeComponent();
 
-            ApplicationSetting.ReadAllRecipe<FormItem>();
-            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+            InitialApplication();
         }
 
         private void Btn_DrawMap_Click(object sender, EventArgs e)
@@ -582,6 +693,7 @@ namespace Mapping
 
             PicBx_Colorbar.Visible = false;
             PicBx_Mapping.Visible = false;
+            Labl_ShowCellValue.Visible = false;
 
             TxtBx_ShowItem.Text = Cmbx_TestItem.Text;
 
@@ -644,6 +756,8 @@ namespace Mapping
 
             tool.SaveHistoryToFile("繪圖完成");
 
+            AddTestItemCondition();
+
             //GC.Collect();
             //GC.WaitForPendingFinalizers();
         }
@@ -654,7 +768,7 @@ namespace Mapping
         }
 
         private void Btn_LoadFile_Click(object sender, EventArgs e)
-        {
+        {           
             Licence licence = new Licence();
             if (!licence.CheckLicence())
             {
@@ -723,6 +837,64 @@ namespace Mapping
             f_Setting.Show();
 
             f_Setting.Closed += (s, args) => this.Show();
+        }
+        private void F_Mapping_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SaveTestItemCondition();
+        }
+
+        private void Cmbx_TestItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTestItemConditionToForm();
+        }
+
+        private void PicBx_Mapping_MouseClick(object sender, MouseEventArgs e)
+        {
+            //獲取點擊位置的座標
+            int x = e.X;
+            int y = e.Y;
+
+            float gridSize = mapInformation.GridSize;           
+            int[] XY_Direc = new int[2];
+            float f_x, f_y;
+
+            //將點擊位置X座標轉換成晶粒X座標
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 1)
+            {
+                XY_Direc[0] = -1;
+                f_x = (x - gridSize) / gridSize * XY_Direc[0] - mapInformation.ShiftX + 1;
+            }
+            else
+            {
+                XY_Direc[0] = 1;
+                f_x = (x - gridSize) / gridSize * XY_Direc[0] - mapInformation.ShiftX;
+            }
+
+            //將點擊位置Y座標轉換成晶粒Y座標
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc) == 1)
+            {
+                XY_Direc[1] = -1;
+                f_y = ((Pnl_Mapping.Height - 2 * gridSize) - y) / gridSize * XY_Direc[1] - mapInformation.ShiftY;
+            }
+            else
+            {
+                XY_Direc[1] = 1;
+                f_y = ((Pnl_Mapping.Height - 2 * gridSize) - y) / gridSize * XY_Direc[1] - mapInformation.ShiftY + 1;
+            }
+
+            x = (int)f_x;
+            y = (int)f_y;
+
+            Labl_ShowCellValue.Text = $"({x}, {y})";
+
+            // 設置 Label 的位置在滑鼠點擊的右側
+            if(e.X > PicBx_Mapping.Width/2)
+                Labl_ShowCellValue.Location = new System.Drawing.Point(e.X - 70, e.Y);
+            else
+                Labl_ShowCellValue.Location = new System.Drawing.Point(e.X + 20, e.Y);
+
+            // 確保 Label 可見
+            Labl_ShowCellValue.Visible = true;
         }
     }
 }

@@ -76,11 +76,15 @@ namespace CommonFunction
 
                     string[] headers = new string[200];// = sr.ReadLine().Split(',');
 
-                    for (int i = 0; i < 200; i++)
+                    //若讀取資料沒有Title則填入Item方便搜尋
+                    if(HaveTitle == false)
                     {
-                        headers[i] = "Item" + i.ToString();
+                        for (int i = 0; i < 200; i++)
+                        {
+                            headers[i] = "Item" + i.ToString();
+                        }
                     }
-
+                    
                     // 逐行讀取 CSV 檔案
                     while (!sr.EndOfStream)
                     {
@@ -96,6 +100,18 @@ namespace CommonFunction
                         // 將資料與欄位名稱對應起來
                         for (int i = 0; i < fields.Length; i++)
                         {
+                            
+                            //讀取的資料有Title的話則使用本身的Title
+                            if(HaveTitle)
+                            {
+                                for(int j=0; j<fields.Length; j++)
+                                {
+                                    headers[j] = fields[j];
+                                }
+
+                                HaveTitle = false;
+                            }
+                            
                             row[headers[i]] = fields[i];
 
                             if (i > 199)

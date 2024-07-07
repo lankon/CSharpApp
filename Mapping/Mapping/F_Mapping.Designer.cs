@@ -52,6 +52,7 @@ namespace Mapping
             this.Pnl_Colorbar = new System.Windows.Forms.Panel();
             this.PicBx_Colorbar = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Labl_ShowCellValue = new System.Windows.Forms.Label();
             this.Pnl_Mapping.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Mapping)).BeginInit();
             this.panel1.SuspendLayout();
@@ -65,6 +66,7 @@ namespace Mapping
             // 
             this.Pnl_Mapping.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Pnl_Mapping.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pnl_Mapping.Controls.Add(this.Labl_ShowCellValue);
             this.Pnl_Mapping.Controls.Add(this.TxtBx_ShowItem);
             this.Pnl_Mapping.Controls.Add(this.PicBx_Mapping);
             this.Pnl_Mapping.Location = new System.Drawing.Point(245, 48);
@@ -92,6 +94,7 @@ namespace Mapping
             this.PicBx_Mapping.Size = new System.Drawing.Size(498, 498);
             this.PicBx_Mapping.TabIndex = 0;
             this.PicBx_Mapping.TabStop = false;
+            this.PicBx_Mapping.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PicBx_Mapping_MouseClick);
             // 
             // panel1
             // 
@@ -215,6 +218,7 @@ namespace Mapping
             this.Cmbx_TestItem.Name = "Cmbx_TestItem";
             this.Cmbx_TestItem.Size = new System.Drawing.Size(111, 28);
             this.Cmbx_TestItem.TabIndex = 8;
+            this.Cmbx_TestItem.SelectedIndexChanged += new System.EventHandler(this.Cmbx_TestItem_SelectedIndexChanged);
             // 
             // Btn_DrawMap
             // 
@@ -274,6 +278,17 @@ namespace Mapping
             this.PicBx_Colorbar.TabIndex = 0;
             this.PicBx_Colorbar.TabStop = false;
             // 
+            // Labl_ShowCellValue
+            // 
+            this.Labl_ShowCellValue.AutoSize = true;
+            this.Labl_ShowCellValue.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.Labl_ShowCellValue.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Labl_ShowCellValue.Location = new System.Drawing.Point(458, 40);
+            this.Labl_ShowCellValue.Name = "Labl_ShowCellValue";
+            this.Labl_ShowCellValue.Size = new System.Drawing.Size(37, 20);
+            this.Labl_ShowCellValue.TabIndex = 2;
+            this.Labl_ShowCellValue.Text = "X, Y";
+            // 
             // F_Mapping
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -288,6 +303,7 @@ namespace Mapping
             this.Name = "F_Mapping";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "F_Mapping";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.F_Mapping_FormClosed);
             this.Load += new System.EventHandler(this.F_Mapping_Load);
             this.Pnl_Mapping.ResumeLayout(false);
             this.Pnl_Mapping.PerformLayout();
@@ -327,5 +343,6 @@ namespace Mapping
         private System.Windows.Forms.PictureBox PicBx_Mapping;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox TxtBx_ShowItem;
+        private System.Windows.Forms.Label Labl_ShowCellValue;
     }
 }
