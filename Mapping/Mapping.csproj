@@ -77,11 +77,18 @@
     <Compile Include="F_MainForm.Designer.cs">
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalVariable.cs" />
     <Compile Include="GRR\F_GRR.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GRR\F_GRR.Designer.cs">
       <DependentUpon>F_GRR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mapping\F_Mapping_ButtonGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mapping\F_Mapping_ButtonGroup.Designer.cs">
+      <DependentUpon>F_Mapping_ButtonGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="OneToOne\F_OneToOne.cs">
       <SubType>Form</SubType>
@@ -111,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GRR\F_GRR.resx">
       <DependentUpon>F_GRR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapping\F_Mapping_ButtonGroup.resx">
+      <DependentUpon>F_Mapping_ButtonGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OneToOne\F_OneToOne.resx">
       <DependentUpon>F_OneToOne.cs</DependentUpon>

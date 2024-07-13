@@ -23,20 +23,9 @@ namespace Mapping
         FileInformation File2 = new FileInformation();     
         private struct FileInformation
         {
-            //public int MapSize;
-            //public int ShiftX;
-            //public int ShiftY;
-            //public int CellCount;
-            //public int[] ValueRegionCount;
-
-            //public float GridSize;
-
-            //public double[] ValueRegion;
-
             public List<Dictionary<string, string>> CellInfo;
-
-            //public List<Color> ColorList;
         }
+        List<Dictionary<string, string>> TestItemCondition = new List<Dictionary<string, string>>();
         #endregion
 
         #region private function
@@ -50,6 +39,8 @@ namespace Mapping
 
             ApplicationSetting.ReadAllRecipe<FormItem>();
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+
+            LoadTestItemCondition();    //載入上下限等參數
         }
         private List<Dictionary<string, string>> ReadCsvFile(String Path)
         {
@@ -222,10 +213,126 @@ namespace Mapping
 
             chart.Series.Add(series);
         }
+        private void AddTestItemCondition()
+        {
+            Dictionary<string, string> row;
+
+            for (int i = 0; i < TestItemCondition.Count; i++)
+            {
+                TestItemCondition[i].TryGetValue("Item", out string item);
+
+                if (item == Cmbx_TestItem.Text)
+                {
+                    TestItemCondition.RemoveAt(i);
+                    break;
+                }
+            }
+
+            row = new Dictionary<string, string>();
+
+            row["Item"] = Cmbx_TestItem.Text;
+            row["Scale_Setting"] = Cmbx_ScaleSetting.SelectedIndex.ToString();
+            row["Up Limit"] = TxtBx_UpLimit.Text;
+            row["Low Limit"] = TxtBx_LowLimit.Text;
+            row["Percentage"] = Cmbx_UsePercentage.SelectedIndex.ToString();
+
+            TestItemCondition.Add(row);
+
+        }
+        private void SaveTestItemCondition()
+        {
+            tool.SaveHistoryToFile("Save Test Item Condition OneToOne Start");
+
+            Dictionary<string, string> row = new Dictionary<string, string>();
+
+            //寫檔案標題
+            row["Item"] = "Item";
+            row["Scale_Setting"] = "Scale_Setting";
+            row["Up Limit"] = "Up Limit";
+            row["Low Limit"] = "Low Limit";
+            row["Percentage"] = "Percentage";
+
+            TestItemCondition[0].TryGetValue("Item", out string item);
+
+            if (item != "Item")
+                TestItemCondition.Insert(0, row);
+
+            StreamWriter writer = tool.CreateFile("TestData\\TestItemCondition_OneToOne", ".txt", false);
+
+            //寫入資料
+            string context = "";
+            int ii = 0;
+            int jj = 0;
+            foreach (var dict in TestItemCondition)
+            {
+                jj++;
+
+                foreach (var kvp in dict)
+                {
+                    ii++;
+
+                    if (ii < dict.Count)
+                        context = context + kvp.Value + ",";
+                    else
+                        context = context + kvp.Value;
+                }
+
+                tool.WriteFile(writer, context);
+
+                context = "";
+                ii = 0;
+            }
+
+            tool.CloseFile(writer);
+
+            tool.SaveHistoryToFile("Save Test Item Condition OneToOne End");
+        }
+        private void LoadTestItemCondition()
+        {
+            tool.SaveHistoryToFile("LoadTsetItemCodition OneToOne Start");
+
+            string path = System.IO.Directory.GetCurrentDirectory();
+            path = path + "\\" + "TestData\\TestItemCondition_OneToOne.txt";
+
+            List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
+            TestItemCondition = tool.ReadCsvFile(path, true);
+
+            tool.SaveHistoryToFile("LoadTsetItemCodition OneToOne End");
+        }
+        private void UpdateTestItemConditionToForm()
+        {
+            for (int i = 0; i < TestItemCondition.Count; i++)
+            {
+                TestItemCondition[i].TryGetValue("Item", out string item);
+
+                if (item == Cmbx_TestItem.Text)
+                {                   
+                    TestItemCondition[i].TryGetValue("Scale_Setting", out string scale);
+                    TestItemCondition[i].TryGetValue("Up Limit", out string up);
+                    TestItemCondition[i].TryGetValue("Low Limit", out string low);
+                    TestItemCondition[i].TryGetValue("Percentage", out string per);
+
+
+                    if (tool.StringToInt(scale) == -999)
+                        Cmbx_ScaleSetting.SelectedIndex = 0;
+                    else
+                        Cmbx_ScaleSetting.SelectedIndex = tool.StringToInt(scale);
+
+                    TxtBx_UpLimit.Text = up;
+                    TxtBx_LowLimit.Text = low;
+
+                    if (tool.StringToInt(per) == -999)
+                        Cmbx_UsePercentage.SelectedIndex = 0;
+                    else
+                        Cmbx_UsePercentage.SelectedIndex = tool.StringToInt(per);
+
+                }
+            }
+        }
         #endregion
 
         #region public function
-        public void SetF_Setting(Panel pnl, F_OneToOne form)
+        public void SetF_OneToOne(Panel pnl, F_OneToOne form)
         {
             form.Dock = DockStyle.Fill;
             form.Visible = false;
@@ -329,6 +436,11 @@ namespace Mapping
             ClearChart(Chart_Difference);
 
             DrawChart(array_diff, Chart_Difference, Cmbx_TestItem.Text, IsAutoScale);
+
+            AddTestItemCondition();
+            SaveTestItemCondition();
+
+            tool.SaveHistoryToFile("繪圖完成");
         }
 
         private void Cmbx_ScaleSetting_SelectedIndexChanged(object sender, EventArgs e)
@@ -346,6 +458,11 @@ namespace Mapping
 
             int item = Cmbx_ScaleSetting.SelectedIndex;
             ApplicationSetting.SetRecipe((int)FormItem.Cmbx_ScaleSetting, item.ToString());
+        }
+
+        private void Cmbx_TestItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTestItemConditionToForm();
         }
     }
 }

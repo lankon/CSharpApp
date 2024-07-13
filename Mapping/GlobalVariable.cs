@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace InstrumentTest
+namespace Mapping
 {
     public static class GlobalVariable
     {
         public static Panel MyStaticPanel;      //F_MainForm:Pnl_Group
-        public static Panel MyStaticPanel_1;    //F_MainForm:Pnl_Group1
-        public static Task_TemperatureController Task_TC = new Task_TemperatureController();
+        public static Panel MyStaticPanel_1;    //F_MainForm:Pnl_Group
     }
 }

@@ -30,7 +30,7 @@ namespace Mapping
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.panel2 = new System.Windows.Forms.Panel();
             this.TxtBx_FilePath2 = new System.Windows.Forms.TextBox();
             this.Btn_LoadFile2 = new System.Windows.Forms.Button();
@@ -123,10 +123,10 @@ namespace Mapping
             this.Chart_Difference.Size = new System.Drawing.Size(737, 451);
             this.Chart_Difference.TabIndex = 0;
             this.Chart_Difference.Text = "chart1";
-            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title1.Name = "Title1";
-            title1.Text = "File1-File2";
-            this.Chart_Difference.Titles.Add(title1);
+            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title3.Name = "Title1";
+            title3.Text = "File1-File2";
+            this.Chart_Difference.Titles.Add(title3);
             // 
             // panel3
             // 
@@ -185,6 +185,7 @@ namespace Mapping
             this.Cmbx_TestItem.Name = "Cmbx_TestItem";
             this.Cmbx_TestItem.Size = new System.Drawing.Size(111, 28);
             this.Cmbx_TestItem.TabIndex = 8;
+            this.Cmbx_TestItem.SelectedIndexChanged += new System.EventHandler(this.Cmbx_TestItem_SelectedIndexChanged);
             // 
             // label3
             // 

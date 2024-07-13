@@ -32,11 +32,9 @@ namespace Mapping
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_MainForm));
             this.Pnl_Function = new System.Windows.Forms.Panel();
-            this.Btn_GRR = new System.Windows.Forms.Button();
-            this.Btn_OneToOne = new System.Windows.Forms.Button();
+            this.Pnl_Group1 = new System.Windows.Forms.Panel();
             this.Btn_Save = new System.Windows.Forms.Button();
             this.Btn_Home = new System.Windows.Forms.Button();
-            this.Btn_Setting = new System.Windows.Forms.Button();
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -45,11 +43,9 @@ namespace Mapping
             // 
             // Pnl_Function
             // 
-            this.Pnl_Function.Controls.Add(this.Btn_GRR);
-            this.Pnl_Function.Controls.Add(this.Btn_OneToOne);
+            this.Pnl_Function.Controls.Add(this.Pnl_Group1);
             this.Pnl_Function.Controls.Add(this.Btn_Save);
             this.Pnl_Function.Controls.Add(this.Btn_Home);
-            this.Pnl_Function.Controls.Add(this.Btn_Setting);
             this.Pnl_Function.Controls.Add(this.Btn_CloseApp);
             this.Pnl_Function.Location = new System.Drawing.Point(13, 3);
             this.Pnl_Function.Name = "Pnl_Function";
@@ -57,28 +53,13 @@ namespace Mapping
             this.Pnl_Function.TabIndex = 27;
             this.Pnl_Function.Paint += new System.Windows.Forms.PaintEventHandler(this.Pnl_Function_Paint);
             // 
-            // Btn_GRR
+            // Pnl_Group1
             // 
-            this.Btn_GRR.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_GRR.BackgroundImage")));
-            this.Btn_GRR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_GRR.Location = new System.Drawing.Point(201, 5);
-            this.Btn_GRR.Name = "Btn_GRR";
-            this.Btn_GRR.Size = new System.Drawing.Size(60, 60);
-            this.Btn_GRR.TabIndex = 33;
-            this.Btn_GRR.UseVisualStyleBackColor = true;
-            this.Btn_GRR.Visible = false;
-            this.Btn_GRR.Click += new System.EventHandler(this.Btn_GRR_Click);
-            // 
-            // Btn_OneToOne
-            // 
-            this.Btn_OneToOne.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_OneToOne.BackgroundImage")));
-            this.Btn_OneToOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_OneToOne.Location = new System.Drawing.Point(135, 5);
-            this.Btn_OneToOne.Name = "Btn_OneToOne";
-            this.Btn_OneToOne.Size = new System.Drawing.Size(60, 60);
-            this.Btn_OneToOne.TabIndex = 32;
-            this.Btn_OneToOne.UseVisualStyleBackColor = true;
-            this.Btn_OneToOne.Click += new System.EventHandler(this.Btn_OneToOne_Click);
+            this.Pnl_Group1.Location = new System.Drawing.Point(69, 3);
+            this.Pnl_Group1.Name = "Pnl_Group1";
+            this.Pnl_Group1.Size = new System.Drawing.Size(883, 65);
+            this.Pnl_Group1.TabIndex = 35;
+            this.Pnl_Group1.Visible = false;
             // 
             // Btn_Save
             // 
@@ -89,6 +70,7 @@ namespace Mapping
             this.Btn_Save.Size = new System.Drawing.Size(60, 60);
             this.Btn_Save.TabIndex = 31;
             this.Btn_Save.UseVisualStyleBackColor = true;
+            this.Btn_Save.Visible = false;
             this.Btn_Save.Click += new System.EventHandler(this.Btn_Save_Click);
             // 
             // Btn_Home
@@ -101,17 +83,6 @@ namespace Mapping
             this.Btn_Home.TabIndex = 29;
             this.Btn_Home.UseVisualStyleBackColor = true;
             this.Btn_Home.Click += new System.EventHandler(this.Btn_Home_Click);
-            // 
-            // Btn_Setting
-            // 
-            this.Btn_Setting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Setting.BackgroundImage")));
-            this.Btn_Setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_Setting.Location = new System.Drawing.Point(892, 5);
-            this.Btn_Setting.Name = "Btn_Setting";
-            this.Btn_Setting.Size = new System.Drawing.Size(60, 60);
-            this.Btn_Setting.TabIndex = 28;
-            this.Btn_Setting.UseVisualStyleBackColor = true;
-            this.Btn_Setting.Click += new System.EventHandler(this.Btn_Setting_Click);
             // 
             // Btn_CloseApp
             // 
@@ -152,13 +123,11 @@ namespace Mapping
         #endregion
 
         private System.Windows.Forms.Panel Pnl_Function;
-        private System.Windows.Forms.Button Btn_Setting;
         private System.Windows.Forms.Button Btn_CloseApp;
         private System.Windows.Forms.Panel Pnl_Group;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Btn_Home;
         private System.Windows.Forms.Button Btn_Save;
-        private System.Windows.Forms.Button Btn_OneToOne;
-        private System.Windows.Forms.Button Btn_GRR;
+        private System.Windows.Forms.Panel Pnl_Group1;
     }
 }

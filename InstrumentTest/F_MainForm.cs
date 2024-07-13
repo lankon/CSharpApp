@@ -16,8 +16,7 @@ namespace InstrumentTest
     public partial class F_MainForm : Form
     {
         #region parameter define 
-        public static Panel MyStaticPanel;
-        public static Panel MyStaticPanel_1;
+        
         Tool tool = new Tool();
         F_SelectApp f_SelectApp = new F_SelectApp();
         #endregion
@@ -70,22 +69,22 @@ namespace InstrumentTest
             //
             // Panel 主要顯示頁面
             //
-            MyStaticPanel = new Panel();
-            MyStaticPanel.Location = new System.Drawing.Point(13, 77);
-            MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
-            MyStaticPanel.BackColor = System.Drawing.Color.AliceBlue;
+            GlobalVariable.MyStaticPanel = new Panel();
+            GlobalVariable.MyStaticPanel.Location = new System.Drawing.Point(13, 77);
+            GlobalVariable.MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
+            GlobalVariable.MyStaticPanel.BackColor = System.Drawing.Color.AliceBlue;
             //MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.Controls.Add(MyStaticPanel);
+            this.Controls.Add(GlobalVariable.MyStaticPanel);
 
             //
             // Panel 顯示上方選項頁面
             //
-            MyStaticPanel_1 = new Panel();
-            MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
-            MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
+            GlobalVariable.MyStaticPanel_1 = new Panel();
+            GlobalVariable.MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
+            GlobalVariable.MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
             //MyStaticPanel_1.BackColor = System.Drawing.Color.AliceBlue;
-            MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.Pnl_Function.Controls.Add(F_MainForm.MyStaticPanel_1);
+            GlobalVariable.MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.Pnl_Function.Controls.Add(GlobalVariable.MyStaticPanel_1);
 
         }
         private void InitialApplication()
@@ -94,7 +93,7 @@ namespace InstrumentTest
 
             CreateDynamicElement();
 
-            f_SelectApp.SetF_SelectApp(MyStaticPanel, f_SelectApp);
+            f_SelectApp.SetF_SelectApp(GlobalVariable.MyStaticPanel, f_SelectApp);
 
             // 使用Task创建并启动线程
             //Task task = Task.Run(() =>MainTask());
@@ -128,8 +127,8 @@ namespace InstrumentTest
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
-            HideElementOnPanel(MyStaticPanel);
-            HideElementOnPanel(MyStaticPanel_1);
+            HideElementOnPanel(GlobalVariable.MyStaticPanel);
+            HideElementOnPanel(GlobalVariable.MyStaticPanel_1);
 
             f_SelectApp.Show();
         }

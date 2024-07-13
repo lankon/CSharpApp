@@ -75,7 +75,7 @@ namespace Mapping
 
             return true;
         }
-        
+
         #endregion
 
         #region private function
@@ -757,6 +757,7 @@ namespace Mapping
             tool.SaveHistoryToFile("繪圖完成");
 
             AddTestItemCondition();
+            SaveTestItemCondition();
 
             //GC.Collect();
             //GC.WaitForPendingFinalizers();
@@ -838,10 +839,6 @@ namespace Mapping
 
             f_Setting.Closed += (s, args) => this.Show();
         }
-        private void F_Mapping_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            SaveTestItemCondition();
-        }
 
         private void Cmbx_TestItem_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -850,6 +847,12 @@ namespace Mapping
 
         private void PicBx_Mapping_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right)
+            {
+                Labl_ShowCellValue.Visible = false;
+                return;
+            }
+
             //獲取點擊位置的座標
             int x = e.X;
             int y = e.Y;

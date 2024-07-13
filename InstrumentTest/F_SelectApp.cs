@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace InstrumentTest
 {
     public partial class F_SelectApp : Form
@@ -25,7 +27,7 @@ namespace InstrumentTest
         }
         private void Show_TC_Form()
         {
-            HideElementOnPanel(F_MainForm.MyStaticPanel);
+            HideElementOnPanel(GlobalVariable.MyStaticPanel);
 
             f_TemperatureController.Show();
         }
@@ -75,21 +77,21 @@ namespace InstrumentTest
 
         private void Btn_DeltaLoadCell_Click(object sender, EventArgs e)
         {
-            HideElementOnPanel(F_MainForm.MyStaticPanel);
+            HideElementOnPanel(GlobalVariable.MyStaticPanel);
 
-            f_LoadCell.SetF_LoadCell(F_MainForm.MyStaticPanel, f_LoadCell);
+            f_LoadCell.SetF_LoadCell(GlobalVariable.MyStaticPanel, f_LoadCell);
             f_LoadCell.Show();
         }
 
         private void Btn_TemperatureControl_Click(object sender, EventArgs e)
         {
-            HideElementOnPanel(F_MainForm.MyStaticPanel);
+            HideElementOnPanel(GlobalVariable.MyStaticPanel);
 
-            f_TemperatureController.SetF_TemperatureController(F_MainForm.MyStaticPanel, f_TemperatureController);
+            f_TemperatureController.SetF_TemperatureController(GlobalVariable.MyStaticPanel, f_TemperatureController);
             f_TemperatureController.Show();
 
             f_TC_ButtonGroup = new F_TC_ButtonGroup();
-            f_TC_ButtonGroup.SetF_TC_ButtonGroup(F_MainForm.MyStaticPanel_1, f_TC_ButtonGroup);
+            f_TC_ButtonGroup.SetF_TC_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_TC_ButtonGroup);
             f_TC_ButtonGroup.Show();
 
             F_Show_PV_TPT8000 f_Show_PV_TPT8000 = new F_Show_PV_TPT8000();

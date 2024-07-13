@@ -18,32 +18,51 @@ namespace Mapping
     {
         #region parameter define
         Tool tool = new Tool();
-        F_Setting f_Setting = new F_Setting();
-        F_Mapping f_Mapping = new F_Mapping();
-        F_OneToOne f_OneToOne = new F_OneToOne();
-        F_GRR f_GRR = new F_GRR();
         #endregion
 
         #region private function
+        private void CreateDynamicElement()
+        {
+            //
+            // Panel 主要顯示頁面
+            //
+            GlobalVariable.MyStaticPanel = new Panel();
+            //GlobalVariable.MyStaticPanel.Location = new System.Drawing.Point(13, 77);
+            GlobalVariable.MyStaticPanel.Location = new System.Drawing.Point(0, 0);
+            GlobalVariable.MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
+            GlobalVariable.MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.Pnl_Group.Controls.Add(GlobalVariable.MyStaticPanel);
+
+            //
+            // Panel 顯示上方選項頁面
+            //
+            GlobalVariable.MyStaticPanel_1 = new Panel();
+            GlobalVariable.MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
+            GlobalVariable.MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
+            GlobalVariable.MyStaticPanel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.Pnl_Function.Controls.Add(GlobalVariable.MyStaticPanel_1);
+        }
         private void InitialApplication()
         {
-            f_Mapping.SetF_Mapping(Pnl_Group, f_Mapping);
+            //f_Mapping.SetF_Mapping(Pnl_Group, f_Mapping);
+            SetHint();  //設定提示
+            
+            CreateDynamicElement(); //創建動態元件
+            
+            CreateFolder(); //建立必要的資料夾
 
-            SetHint();
-            CreateFolder();
+            F_Mapping_ButtonGroup f_Mapping_ButtonGroup = new F_Mapping_ButtonGroup();
+            f_Mapping_ButtonGroup.SetF_Mapping_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Mapping_ButtonGroup);
+            f_Mapping_ButtonGroup.Show();
+
+            F_Mapping f_Mapping = new F_Mapping();
+            f_Mapping.SetF_Mapping(GlobalVariable.MyStaticPanel, f_Mapping);
+            f_Mapping.Show();
         }
         private void SetHint()
         {
             toolTip1.SetToolTip(Btn_CloseApp, "Close");
-            toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_Home, "Home");
-            toolTip1.SetToolTip(Btn_Save, "Save Picture");
-            toolTip1.SetToolTip(Btn_OneToOne, "One To One");
-
-            if (f_Mapping.Visible == true)
-            {
-                toolTip1.SetToolTip(Btn_Save, "Save Picture");
-            }
         }
         private void HideFormOnPanel(Panel pnl)
         {
@@ -92,20 +111,11 @@ namespace Mapping
 
         #endregion
 
-
         public F_MainForm()
         {
             InitializeComponent();
 
             InitialApplication();
-        }
-
-        private void Btn_Setting_Click(object sender, EventArgs e)
-        {
-            HideFormOnPanel(Pnl_Group);
-
-            f_Setting.SetF_Setting(Pnl_Group, f_Setting);
-            f_Setting.Show();
         }
 
         private void Btn_CloseApp_Click(object sender, EventArgs e)
@@ -129,9 +139,15 @@ namespace Mapping
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
-            HideFormOnPanel(Pnl_Group);
+            HideFormOnPanel(GlobalVariable.MyStaticPanel);
+            
+            F_Mapping f_Mapping = new F_Mapping();
+            f_Mapping.SetF_Mapping(GlobalVariable.MyStaticPanel, f_Mapping);
             f_Mapping.Show();
-            SetHint();
+
+            F_Mapping_ButtonGroup f_Mapping_ButtonGroup = new F_Mapping_ButtonGroup();
+            f_Mapping_ButtonGroup.SetF_Mapping_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Mapping_ButtonGroup);
+            f_Mapping_ButtonGroup.Show();
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -146,23 +162,6 @@ namespace Mapping
 
         private void Btn_Save_Click(object sender, EventArgs e)
         {
-            f_Mapping.SavePicture();
-        }
-
-        private void Btn_OneToOne_Click(object sender, EventArgs e)
-        {
-            HideFormOnPanel(Pnl_Group);
-
-            f_OneToOne.SetF_Setting(Pnl_Group, f_OneToOne);
-            f_OneToOne.Show();
-        }
-
-        private void Btn_GRR_Click(object sender, EventArgs e)
-        {
-            HideFormOnPanel(Pnl_Group);
-                      
-            f_GRR.SetF_GRR(Pnl_Group, f_GRR);
-            f_GRR.Show();
         }
     }
 }
