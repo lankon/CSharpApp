@@ -55,7 +55,7 @@ namespace Mapping
             // 
             // Pnl_Group1
             // 
-            this.Pnl_Group1.Location = new System.Drawing.Point(69, 3);
+            this.Pnl_Group1.Location = new System.Drawing.Point(86, 9);
             this.Pnl_Group1.Name = "Pnl_Group1";
             this.Pnl_Group1.Size = new System.Drawing.Size(883, 65);
             this.Pnl_Group1.TabIndex = 35;

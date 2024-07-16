@@ -10,8 +10,14 @@ using System.Windows.Forms;
 
 namespace Mapping
 {
+    public delegate void SaveImageCallBack();
+
     public partial class F_Mapping_ButtonGroup : Form
     {
+        #region parameter define 
+        public SaveImageCallBack SaveImage { get; set; }
+        #endregion
+
         #region private function
         private void HideElementOnPanel(Panel pnl)
         {
@@ -43,6 +49,7 @@ namespace Mapping
             toolTip1.SetToolTip(Btn_OneToOne, "One To One");
         }
         #endregion
+
         #region public function
         public void SetF_Mapping_ButtonGroup(Panel pnl, F_Mapping_ButtonGroup form)
         {
@@ -81,6 +88,11 @@ namespace Mapping
             F_Setting f_Setting = new F_Setting();
             f_Setting.SetF_Setting(GlobalVariable.MyStaticPanel, f_Setting);
             f_Setting.Show();
+        }
+
+        private void Btn_Save_Click(object sender, EventArgs e)
+        {
+            SaveImage();
         }
     }
 }

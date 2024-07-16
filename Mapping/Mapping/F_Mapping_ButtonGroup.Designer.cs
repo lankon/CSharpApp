@@ -69,6 +69,7 @@ namespace Mapping
             this.Btn_Save.Size = new System.Drawing.Size(60, 60);
             this.Btn_Save.TabIndex = 35;
             this.Btn_Save.UseVisualStyleBackColor = true;
+            this.Btn_Save.Click += new System.EventHandler(this.Btn_Save_Click);
             // 
             // Btn_Setting
             // 

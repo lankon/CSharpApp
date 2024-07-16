@@ -58,6 +58,8 @@ namespace Mapping
             F_Mapping f_Mapping = new F_Mapping();
             f_Mapping.SetF_Mapping(GlobalVariable.MyStaticPanel, f_Mapping);
             f_Mapping.Show();
+
+            f_Mapping_ButtonGroup.SaveImage += f_Mapping.SavePicture;
         }
         private void SetHint()
         {
@@ -148,6 +150,8 @@ namespace Mapping
             F_Mapping_ButtonGroup f_Mapping_ButtonGroup = new F_Mapping_ButtonGroup();
             f_Mapping_ButtonGroup.SetF_Mapping_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Mapping_ButtonGroup);
             f_Mapping_ButtonGroup.Show();
+
+            f_Mapping_ButtonGroup.SaveImage += f_Mapping.SavePicture;
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)

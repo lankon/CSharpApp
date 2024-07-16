@@ -17,19 +17,11 @@ namespace Mapping
         bool bCustomerShow = false; //用於判別是否秀出Customer名稱
         #endregion
 
-
-        public F_Setting()
-        {
-            InitializeComponent();
-
-            ApplicationSetting.ReadAllRecipe<FormItem>();
-            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
-        }
-
+        #region public functino
         public void SetF_Setting(Panel pnl, F_Setting form)
         {
             form.Dock = DockStyle.Fill;
-            form.Visible = true;
+            form.Visible = false;
             form.TopLevel = false;
             form.Top = 0;
             form.Left = 0;
@@ -38,7 +30,6 @@ namespace Mapping
 
             form.Hide();
         }
-
         public int[] Get_XY_Direc()
         {
             int[] xy_direc = new int[2];
@@ -54,6 +45,18 @@ namespace Mapping
 
             return xy_direc;
         }
+        #endregion
+
+
+        public F_Setting()
+        {
+            InitializeComponent();
+
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+        }
+
+        
 
         private void F_Setting_FormClosed(object sender, FormClosedEventArgs e)
         {

@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 
 namespace Mapping
 {
+    
     public partial class F_Mapping : Form
     {
         #region parameter define 
@@ -41,14 +42,14 @@ namespace Mapping
         public void SetF_Mapping(Panel pnl, F_Mapping form)
         {
             form.Dock = DockStyle.Fill;
-            form.Visible = true;
+            form.Visible = false;
             form.TopLevel = false;
             form.Top = 0;
             form.Left = 0;
 
             pnl.Controls.Add(form);
         }
-        public bool SavePicture()
+        public void SavePicture()
         {
             Control ctrl = Pnl_Colorbar;
 
@@ -72,8 +73,6 @@ namespace Mapping
 
             // 釋放 Bitmap 資源
             bitmap.Dispose();
-
-            return true;
         }
 
         #endregion
@@ -189,6 +188,7 @@ namespace Mapping
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
 
             LoadTestItemCondition();
+
         }
         private void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList, double[] ValueRegion)
         {
@@ -666,6 +666,7 @@ namespace Mapping
 
             return flag;
         }
+
         #endregion
 
         public F_Mapping()
