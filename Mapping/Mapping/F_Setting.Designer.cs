@@ -29,6 +29,7 @@ namespace Mapping
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,6 +42,8 @@ namespace Mapping
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Labl_Customer = new System.Windows.Forms.Label();
             this.Cmbx_Customer = new System.Windows.Forms.ComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Pnl_FormHint = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -207,12 +210,20 @@ namespace Mapping
             this.Cmbx_Customer.Size = new System.Drawing.Size(140, 28);
             this.Cmbx_Customer.TabIndex = 8;
             // 
+            // Pnl_FormHint
+            // 
+            this.Pnl_FormHint.Location = new System.Drawing.Point(974, 522);
+            this.Pnl_FormHint.Name = "Pnl_FormHint";
+            this.Pnl_FormHint.Size = new System.Drawing.Size(51, 35);
+            this.Pnl_FormHint.TabIndex = 41;
+            // 
             // F_Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.Pnl_FormHint);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -245,5 +256,7 @@ namespace Mapping
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label Labl_Customer;
         private System.Windows.Forms.ComboBox Cmbx_Customer;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel Pnl_FormHint;
     }
 }

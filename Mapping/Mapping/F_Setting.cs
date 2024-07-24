@@ -17,6 +17,15 @@ namespace Mapping
         bool bCustomerShow = false; //用於判別是否秀出Customer名稱
         #endregion
 
+        private void InitialApplication()
+        {
+            ShowHint();
+        }
+        private void ShowHint()
+        {
+            toolTip1.SetToolTip(Pnl_FormHint, "F_Setting");
+        }
+
         #region public functino
         public void SetF_Setting(Panel pnl, F_Setting form)
         {
@@ -54,6 +63,8 @@ namespace Mapping
 
             ApplicationSetting.ReadAllRecipe<FormItem>();
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+
+            InitialApplication();
         }
 
         

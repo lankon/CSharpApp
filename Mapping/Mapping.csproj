@@ -56,15 +56,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Common Function\ApplicationSetting.cs">
-      <Link>ApplicationSetting.cs</Link>
+      <Link>BaseFile\ApplicationSetting.cs</Link>
     </Compile>
     <Compile Include="..\Common Function\Licence.cs">
-      <Link>Licence.cs</Link>
+      <Link>BaseFile\Licence.cs</Link>
     </Compile>
     <Compile Include="..\Common Function\Tool.cs">
-      <Link>Tool.cs</Link>
+      <Link>BaseFile\Tool.cs</Link>
     </Compile>
-    <Compile Include="eAppSetting.cs" />
+    <Compile Include="BaseFile\eAppSetting.cs" />
     <Compile Include="F_BinTable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,7 +77,7 @@
     <Compile Include="F_MainForm.Designer.cs">
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GlobalVariable.cs" />
+    <Compile Include="BaseFile\GlobalVariable.cs" />
     <Compile Include="GRR\F_GRR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,5 +154,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

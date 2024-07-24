@@ -36,6 +36,7 @@ namespace Mapping
             this.Btn_Save = new System.Windows.Forms.Button();
             this.Btn_Setting = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Pnl_FormHint = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // Btn_GRR
@@ -82,6 +83,13 @@ namespace Mapping
             this.Btn_Setting.UseVisualStyleBackColor = true;
             this.Btn_Setting.Click += new System.EventHandler(this.Btn_Setting_Click);
             // 
+            // Pnl_FormHint
+            // 
+            this.Pnl_FormHint.Location = new System.Drawing.Point(832, 0);
+            this.Pnl_FormHint.Name = "Pnl_FormHint";
+            this.Pnl_FormHint.Size = new System.Drawing.Size(51, 70);
+            this.Pnl_FormHint.TabIndex = 39;
+            // 
             // F_Mapping_ButtonGroup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -92,6 +100,7 @@ namespace Mapping
             this.Controls.Add(this.Btn_OneToOne);
             this.Controls.Add(this.Btn_Save);
             this.Controls.Add(this.Btn_Setting);
+            this.Controls.Add(this.Pnl_FormHint);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_Mapping_ButtonGroup";
             this.Text = "F_Mapping_ButtonGroup";
@@ -106,5 +115,6 @@ namespace Mapping
         private System.Windows.Forms.Button Btn_Save;
         private System.Windows.Forms.Button Btn_Setting;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel Pnl_FormHint;
     }
 }

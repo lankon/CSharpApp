@@ -163,9 +163,5 @@ namespace Mapping
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
-
-        private void Btn_Save_Click(object sender, EventArgs e)
-        {
-        }
     }
 }

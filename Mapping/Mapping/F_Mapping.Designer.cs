@@ -53,6 +53,7 @@ namespace Mapping
             this.Pnl_Colorbar = new System.Windows.Forms.Panel();
             this.PicBx_Colorbar = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Pnl_FormHint = new System.Windows.Forms.Panel();
             this.Pnl_Mapping.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Mapping)).BeginInit();
             this.panel1.SuspendLayout();
@@ -289,6 +290,13 @@ namespace Mapping
             this.PicBx_Colorbar.TabIndex = 0;
             this.PicBx_Colorbar.TabStop = false;
             // 
+            // Pnl_FormHint
+            // 
+            this.Pnl_FormHint.Location = new System.Drawing.Point(971, 520);
+            this.Pnl_FormHint.Name = "Pnl_FormHint";
+            this.Pnl_FormHint.Size = new System.Drawing.Size(51, 35);
+            this.Pnl_FormHint.TabIndex = 40;
+            // 
             // F_Mapping
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -297,6 +305,7 @@ namespace Mapping
             this.ClientSize = new System.Drawing.Size(1022, 554);
             this.Controls.Add(this.Pnl_Colorbar);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.Pnl_FormHint);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Pnl_Mapping);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -343,5 +352,6 @@ namespace Mapping
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox TxtBx_ShowItem;
         private System.Windows.Forms.Label Labl_ShowCellValue;
+        private System.Windows.Forms.Panel Pnl_FormHint;
     }
 }

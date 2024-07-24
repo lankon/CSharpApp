@@ -44,9 +44,10 @@ namespace Mapping
         }
         private void ShowHint()
         {
-            //toolTip1.SetToolTip(Btn_Back, "Back");
+            toolTip1.SetToolTip(Btn_Save, "Save Mapping");
             toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_OneToOne, "One To One");
+            toolTip1.SetToolTip(Pnl_FormHint, "F_Mapping_ButtonGroup");
         }
         #endregion
 
@@ -69,6 +70,8 @@ namespace Mapping
         public F_Mapping_ButtonGroup()
         {
             InitializeComponent();
+
+            InitialApplication();
         }
 
         private void Btn_OneToOne_Click(object sender, EventArgs e)

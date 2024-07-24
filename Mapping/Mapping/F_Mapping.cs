@@ -78,6 +78,22 @@ namespace Mapping
         #endregion
 
         #region private function
+        private void InitialApplication()
+        {
+            tool.SaveHistoryToFile("開啟應用程式");
+
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+
+            LoadTestItemCondition();
+
+            ShowHint();
+
+        }
+        private void ShowHint()
+        {
+            toolTip1.SetToolTip(Pnl_FormHint, "F_Mapping");
+        }
         private void AddTestItemCondition()
         {
             Dictionary<string, string> row;
@@ -179,16 +195,6 @@ namespace Mapping
                     TxtBx_Step.Text = step;
                 }
             }
-        }
-        private void InitialApplication()
-        {
-            tool.SaveHistoryToFile("開啟應用程式");
-
-            ApplicationSetting.ReadAllRecipe<FormItem>();
-            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
-
-            LoadTestItemCondition();
-
         }
         private void DrawColorbar(Panel Pnl, int[] ValueRegionCount, List<Color> ColorList, double[] ValueRegion)
         {
