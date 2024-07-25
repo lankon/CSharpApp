@@ -18,27 +18,28 @@ namespace FileTransform
         Tool tool = new Tool();
         F_CoordinateExpansion f_CoordinateExpansion = new F_CoordinateExpansion();
         F_CoordinateExpanSetting f_CoordinateExpanSetting = new F_CoordinateExpanSetting();
+        F_NearField f_NearField = new F_NearField();
         #endregion
 
         #region private function
         #region 初始化應用程式
         private void InitialApplication()
         {
-            f_CoordinateExpansion.SetF_CoordinateExpansion(Pnl_Group, f_CoordinateExpansion);
-            f_CoordinateExpanSetting.SetF_CoordinateExpanSetting(Pnl_Group, f_CoordinateExpanSetting);
-
             SetHint();
+
+            CreateDynamicElement();
+
             CreateFolder();
-            f_CoordinateExpansion.Show();
+
+            f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
+            f_NearField.Show();
         }
 
         private void SetHint()
         {
             toolTip1.SetToolTip(Btn_CloseApp, "Close");
             toolTip1.SetToolTip(Btn_Setting, "Setting");
-            toolTip1.SetToolTip(Btn_Home, "Home");
-
-           
+            toolTip1.SetToolTip(Btn_Home, "Home");           
         }
 
         private void CreateFolder()
@@ -46,6 +47,27 @@ namespace FileTransform
             tool.CreateFolder(Application.StartupPath + @"\Temp");
             tool.CreateFolder(Application.StartupPath + @"\History");
             tool.CreateFolder(Application.StartupPath + @"\Picture");
+        }
+
+        private void CreateDynamicElement()
+        {
+            // Panel 主要顯示頁面
+            //
+            GlobalVariable.MyStaticPanel = new Panel();
+            GlobalVariable.MyStaticPanel.Location = new System.Drawing.Point(0, 0);
+            GlobalVariable.MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
+            GlobalVariable.MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.Pnl_Group.Controls.Add(GlobalVariable.MyStaticPanel);
+
+            //
+            // Panel 顯示上方選項頁面
+            //
+            GlobalVariable.MyStaticPanel_1 = new Panel();
+            GlobalVariable.MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
+            GlobalVariable.MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
+            GlobalVariable.MyStaticPanel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.Pnl_Function.Controls.Add(GlobalVariable.MyStaticPanel_1);
+
         }
         #endregion
         private void HideFormOnPanel(Panel pnl)

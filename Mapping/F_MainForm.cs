@@ -27,7 +27,6 @@ namespace Mapping
             // Panel 主要顯示頁面
             //
             GlobalVariable.MyStaticPanel = new Panel();
-            //GlobalVariable.MyStaticPanel.Location = new System.Drawing.Point(13, 77);
             GlobalVariable.MyStaticPanel.Location = new System.Drawing.Point(0, 0);
             GlobalVariable.MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
             GlobalVariable.MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
