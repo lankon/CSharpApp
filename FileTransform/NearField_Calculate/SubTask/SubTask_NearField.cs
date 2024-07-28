@@ -54,7 +54,8 @@ namespace FileTransform
         //private string sparity = "";
         //private string scomport = "";
         //ITemperatureController[] TC = new ITemperatureController[4];
-        Mat image;
+        private List<Point[]> filteredContours = new List<Point[]>();
+        private Mat image;
         public ShowImageCallBack ShowImage { get; set; }
         #endregion
 
@@ -123,10 +124,13 @@ namespace FileTransform
             {                               
                 case WORK.INITIAL:
                     {
+                        state = WORK.LOAD_IMAGE;
                         goto case WORK.LOAD_IMAGE;
                     }
                 case WORK.LOAD_IMAGE:
                     {
+                        tool.SaveHistoryToFile("(SubTask_NearField):" + state.ToString());
+
                         ResetTimeCount(out test_time);
 
                         image = new Mat(@"C:\Users\lankon\Desktop\tmep\0.tiff", ImreadModes.AnyDepth | ImreadModes.Grayscale);
@@ -138,14 +142,20 @@ namespace FileTransform
                             break;
                         }
 
-                        goto case WORK.THRESHOLD_IMAGE;
+                        using(Mat dst = new Mat())
+                        {
+                            Cv2.Normalize(image, dst, 0, 255, NormTypes.MinMax, MatType.CV_8U); //16位元轉8位元
+                            Cv2.ImWrite(Save_Path, dst);  //儲存圖像
+                            ShowImage(Save_Path);   // 顯示影像於主畫面
+                        }
+                        
+                        Transition(WORK.THRESHOLD_IMAGE);
                     }
+                    break;
                 case WORK.THRESHOLD_IMAGE:
                     {
-                        tool.SaveHistoryToFile("(SubTask_NearField):" + state.ToString());
-
                         // 二值化閥值處理
-                        double thresholdValue = 30; 
+                        double thresholdValue = 80; 
                         double maxValue = 65535; //16位元影像,最大值65536
                         Cv2.Threshold(image, image, thresholdValue, maxValue, ThresholdTypes.Binary);
 
@@ -168,50 +178,71 @@ namespace FileTransform
                         Cv2.FindContours(image, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
 
                         // 創建一個彩色圖像用於顯示結果
+                        using(Mat outputImage = new Mat())
+                        {
+                            Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
+
+                            int aa = 0;
+
+                            foreach (var contour in contours)
+                            {
+                                // 計算每個輪廓的最小外接圓
+                                Point2f center;
+                                float radius;
+                                Cv2.MinEnclosingCircle(contour, out center, out radius);
+
+                                // 計算半徑
+                                double diameter = radius * 2;
+
+                                if (diameter > 35)
+                                {
+                                    aa++;
+                                    Cv2.Circle(outputImage, (OpenCvSharp.Point)center, 4, new Scalar(0, 255, 0), 10);   //繪製中心點
+                                    Cv2.Circle(outputImage, (OpenCvSharp.Point)center, (int)radius, new Scalar(0, 0, 255), 4);  // 繪製輪廓圓
+                                    filteredContours.Add(contour);
+                                }
+                            }
+
+                            Cv2.ImWrite(Save_Path, outputImage);
+
+                            ShowImage(Save_Path);
+                        }
+                        
+                        Transition(WORK.SUCCESS);
+                    }
+                    break;
+                case WORK.SUCCESS:
+                    {
+                        Point2f[] points = filteredContours.SelectMany(c => c).Select(p => new Point2f(p.X, p.Y)).ToArray();
+                        RotatedRect minRect = Cv2.MinAreaRect(points);
+
+                        // 創建一個彩色圖像用於顯示結果
                         Mat outputImage = new Mat();
                         Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
 
-                        int aa = 0;
-
-                        foreach (var contour in contours)
+                        // 繪製最小外接矩形
+                        Point2f[] rectPoints = minRect.Points();
+                        for (int i = 0; i < 4; i++)
                         {
-                            // 計算每個輪廓的最小外接圓
-                            Point2f center;
-                            float radius;
-                            Cv2.MinEnclosingCircle(contour, out center, out radius);
-
-                            // 計算半徑
-                            double diameter = radius * 2;
-
-                            if (diameter > 10)
-                            {
-                                aa++;
-                                Cv2.Circle(outputImage, (OpenCvSharp.Point)center, 2, new Scalar(0, 255, 0), 10);
-                            }
-
-                            // 繪製輪廓圓
-                            Cv2.Circle(outputImage, (OpenCvSharp.Point)center, (int)radius, new Scalar(0, 0, 255), 4);
+                            Cv2.Line(outputImage, (Point)rectPoints[i], (Point)rectPoints[(i + 1) % 4], Scalar.Red, 2);
                         }
 
                         Cv2.ImWrite(Save_Path, outputImage);
 
                         ShowImage(Save_Path);
 
-                        Transition(WORK.SUCCESS);
-                    }
-                    break;
-                case WORK.SUCCESS:
-                    {
+
                         int time = GetTimeCount(test_time);
                         image.Dispose();
                         
-                        GC.Collect();
+                        
                         Transition(WORK.END);
                     }
                     break;
 
                 case WORK.END:
                     {
+                        GC.Collect();
                         IsFinish = true;
                     }
                     break;

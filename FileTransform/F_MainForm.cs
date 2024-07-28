@@ -16,13 +16,9 @@ namespace FileTransform
     {
         #region parameter define
         Tool tool = new Tool();
-        F_CoordinateExpansion f_CoordinateExpansion = new F_CoordinateExpansion();
-        F_CoordinateExpanSetting f_CoordinateExpanSetting = new F_CoordinateExpanSetting();
-        F_NearField f_NearField = new F_NearField();
         #endregion
 
         #region private function
-        #region 初始化應用程式
         private void InitialApplication()
         {
             SetHint();
@@ -31,24 +27,28 @@ namespace FileTransform
 
             CreateFolder();
 
+            ApplicationSetting.ReadAllRecipe<FormItem>();
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+
+            F_NearField f_NearField = new F_NearField();
             f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
             f_NearField.Show();
-        }
 
+            F_NearField_ButtonGroup f_NearField_ButtonGroup = new F_NearField_ButtonGroup();
+            f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_NearField_ButtonGroup);
+            f_NearField_ButtonGroup.Show();
+        }
         private void SetHint()
         {
             toolTip1.SetToolTip(Btn_CloseApp, "Close");
-            toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_Home, "Home");           
         }
-
         private void CreateFolder()
         {
             tool.CreateFolder(Application.StartupPath + @"\Temp");
             tool.CreateFolder(Application.StartupPath + @"\History");
             tool.CreateFolder(Application.StartupPath + @"\Picture");
         }
-
         private void CreateDynamicElement()
         {
             // Panel 主要顯示頁面
@@ -69,7 +69,6 @@ namespace FileTransform
             this.Pnl_Function.Controls.Add(GlobalVariable.MyStaticPanel_1);
 
         }
-        #endregion
         private void HideFormOnPanel(Panel pnl)
         {
             foreach (Control control in pnl.Controls)
@@ -77,6 +76,18 @@ namespace FileTransform
                 if (control is Form && control.Visible == true)
                 {
                     ((Form)control).Hide();
+                    break;
+                }
+            }
+        }
+        private void CloseFormOnPanel(Panel pnl)
+        {
+            foreach (Control control in pnl.Controls)
+            {
+                if (control is Form && control.Visible == true)
+                {
+                    ((Form)control).Close();
+                    ((Form)control).Dispose();
                     break;
                 }
             }
@@ -101,28 +112,7 @@ namespace FileTransform
             InitializeComponent();
 
             InitialApplication();
-
-            ApplicationSetting.ReadAllRecipe<FormItem>();
-            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
         }       
-
-        private void Btn_Setting_Click(object sender, EventArgs e)
-        {
-            if (f_CoordinateExpanSetting.Visible == true)   //設定頁面已開啟直接跳過
-                return;
-            
-            bool CE_flag = false;
-
-            if (f_CoordinateExpansion.Visible == true)
-                CE_flag = true;
-                      
-            HideFormOnPanel(Pnl_Group);
-
-            if(CE_flag == true)
-            {
-                f_CoordinateExpanSetting.Show();
-            }
-        }
 
         private void Btn_CloseApp_Click(object sender, EventArgs e)
         {
@@ -145,9 +135,11 @@ namespace FileTransform
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
-            HideFormOnPanel(Pnl_Group);
-            f_CoordinateExpansion.Show();
-            SetHint();
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+
+            F_NearField f_NearField = new F_NearField();
+            f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
+            f_NearField.Show();
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)

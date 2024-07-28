@@ -83,6 +83,7 @@ namespace Mapping
                 if (control is Form && control.Visible == true)
                 {
                     ((Form)control).Close();
+                    ((Form)control).Dispose();
                     break;
                 }
             }
@@ -140,8 +141,9 @@ namespace Mapping
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
-            HideFormOnPanel(GlobalVariable.MyStaticPanel);
-            
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel_1);
+
             F_Mapping f_Mapping = new F_Mapping();
             f_Mapping.SetF_Mapping(GlobalVariable.MyStaticPanel, f_Mapping);
             f_Mapping.Show();
@@ -151,6 +153,8 @@ namespace Mapping
             f_Mapping_ButtonGroup.Show();
 
             f_Mapping_ButtonGroup.SaveImage += f_Mapping.SavePicture;
+
+            GC.Collect();
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)

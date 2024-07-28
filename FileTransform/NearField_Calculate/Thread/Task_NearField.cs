@@ -131,7 +131,7 @@ namespace FileTransform
                         break;
 
                     case WORK.IDLE:
-
+                        Teach = null;
                         break;
 
                     #region 近場教學
@@ -146,7 +146,7 @@ namespace FileTransform
                         {
                             bool check = Teach.Run();
 
-                            //GoToPause(WORK.WAIT_TEACH);
+                           // GoToPause(WORK.WAIT_TEACH);
                             CheckResult(check, WORK.IDLE);
                         }
                         break;

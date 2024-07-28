@@ -906,5 +906,6 @@ namespace Mapping
             // 確保 Label 可見
             Labl_ShowCellValue.Visible = true;
         }
+
     }
 }

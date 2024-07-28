@@ -32,13 +32,13 @@ namespace InstrumentTest
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             this.Cmbx_Parity = new System.Windows.Forms.ComboBox();
             this.Cmbx_BaudRate = new System.Windows.Forms.ComboBox();
             this.Cmbx_TC_Type = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.Cmbx_Comport = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +66,18 @@ namespace InstrumentTest
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(350, 156);
             this.tableLayoutPanel5.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Location = new System.Drawing.Point(6, 117);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(198, 36);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Comport";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Cmbx_Parity
             // 
@@ -146,18 +158,6 @@ namespace InstrumentTest
             this.label9.TabIndex = 8;
             this.label9.Text = "Parity";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(6, 117);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 36);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Comport";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Cmbx_Comport
             // 

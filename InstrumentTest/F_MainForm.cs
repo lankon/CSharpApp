@@ -83,7 +83,7 @@ namespace InstrumentTest
             GlobalVariable.MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
             GlobalVariable.MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
             //MyStaticPanel_1.BackColor = System.Drawing.Color.AliceBlue;
-            GlobalVariable.MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            GlobalVariable.MyStaticPanel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.Pnl_Function.Controls.Add(GlobalVariable.MyStaticPanel_1);
 
         }

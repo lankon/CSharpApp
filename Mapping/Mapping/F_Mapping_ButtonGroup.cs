@@ -49,6 +49,18 @@ namespace Mapping
             toolTip1.SetToolTip(Btn_OneToOne, "One To One");
             toolTip1.SetToolTip(Pnl_FormHint, "F_Mapping_ButtonGroup");
         }
+        private void CloseFormOnPanel(Panel pnl)
+        {
+            foreach (Control control in pnl.Controls)
+            {
+                if (control is Form && control.Visible == true)
+                {
+                    ((Form)control).Close();
+                    ((Form)control).Dispose();
+                    break;
+                }
+            }
+        }
         #endregion
 
         #region public function
@@ -76,8 +88,8 @@ namespace Mapping
 
         private void Btn_OneToOne_Click(object sender, EventArgs e)
         {
-            HideElementOnPanel(GlobalVariable.MyStaticPanel);
-            HideElementOnPanel(GlobalVariable.MyStaticPanel_1);
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel_1);
 
             F_OneToOne f_OneToOne = new F_OneToOne();
             f_OneToOne.SetF_OneToOne(GlobalVariable.MyStaticPanel, f_OneToOne);
@@ -86,7 +98,8 @@ namespace Mapping
 
         private void Btn_Setting_Click(object sender, EventArgs e)
         {
-            HideElementOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel_1);
 
             F_Setting f_Setting = new F_Setting();
             f_Setting.SetF_Setting(GlobalVariable.MyStaticPanel, f_Setting);
@@ -97,5 +110,6 @@ namespace Mapping
         {
             SaveImage();
         }
+
     }
 }

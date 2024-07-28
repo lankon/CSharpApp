@@ -36,16 +36,6 @@ namespace FileTransform
         }
         private void ShowImage(string path)
         {
-            //if (Labl_PV.InvokeRequired)
-            //{
-            //    Labl_PV.Invoke(new Action(() => Labl_PV.Text = value.ToString("0.0")));
-            //}
-            //else
-            //{
-            //    Labl_PV.Text = value.ToString();
-            //}
-
-
             tool.LoadImageToPicBx(PicBx_Picture, @"C:\Users\lankon\Desktop\新增資料夾\FileTransform\bin\Debug\Picture\Nearfile.png");
         }
         #endregion
@@ -80,9 +70,14 @@ namespace FileTransform
 
         private void Btn_Next_Click(object sender, EventArgs e)
         {
-            //NF.Process_Continue();
-            GC.Collect();
+            NF.Process_Continue();
+            //GC.Collect();
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            GC.Collect();
         }
     }
 }

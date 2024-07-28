@@ -33,6 +33,7 @@ namespace FileTransform
             this.Btn_Next = new System.Windows.Forms.Button();
             this.Pnl_Picture = new System.Windows.Forms.Panel();
             this.PicBx_Picture = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.Pnl_Picture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Picture)).BeginInit();
             this.SuspendLayout();
@@ -76,12 +77,23 @@ namespace FileTransform
             this.PicBx_Picture.TabIndex = 0;
             this.PicBx_Picture.TabStop = false;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(813, 104);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(84, 51);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Garbage Collect";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // F_NearField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.Pnl_Picture);
             this.Controls.Add(this.Btn_Next);
             this.Controls.Add(this.button1);
@@ -100,5 +112,6 @@ namespace FileTransform
         private System.Windows.Forms.Button Btn_Next;
         private System.Windows.Forms.Panel Pnl_Picture;
         private System.Windows.Forms.PictureBox PicBx_Picture;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -33,7 +33,6 @@ namespace FileTransform
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_MainForm));
             this.Pnl_Function = new System.Windows.Forms.Panel();
             this.Btn_Home = new System.Windows.Forms.Button();
-            this.Btn_Setting = new System.Windows.Forms.Button();
             this.Btn_CloseApp = new System.Windows.Forms.Button();
             this.Pnl_Group = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -43,7 +42,6 @@ namespace FileTransform
             // Pnl_Function
             // 
             this.Pnl_Function.Controls.Add(this.Btn_Home);
-            this.Pnl_Function.Controls.Add(this.Btn_Setting);
             this.Pnl_Function.Controls.Add(this.Btn_CloseApp);
             this.Pnl_Function.Location = new System.Drawing.Point(13, 3);
             this.Pnl_Function.Name = "Pnl_Function";
@@ -61,17 +59,6 @@ namespace FileTransform
             this.Btn_Home.TabIndex = 29;
             this.Btn_Home.UseVisualStyleBackColor = true;
             this.Btn_Home.Click += new System.EventHandler(this.Btn_Home_Click);
-            // 
-            // Btn_Setting
-            // 
-            this.Btn_Setting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Setting.BackgroundImage")));
-            this.Btn_Setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_Setting.Location = new System.Drawing.Point(892, 5);
-            this.Btn_Setting.Name = "Btn_Setting";
-            this.Btn_Setting.Size = new System.Drawing.Size(60, 60);
-            this.Btn_Setting.TabIndex = 28;
-            this.Btn_Setting.UseVisualStyleBackColor = true;
-            this.Btn_Setting.Click += new System.EventHandler(this.Btn_Setting_Click);
             // 
             // Btn_CloseApp
             // 
@@ -112,7 +99,6 @@ namespace FileTransform
         #endregion
 
         private System.Windows.Forms.Panel Pnl_Function;
-        private System.Windows.Forms.Button Btn_Setting;
         private System.Windows.Forms.Button Btn_CloseApp;
         private System.Windows.Forms.Panel Pnl_Group;
         private System.Windows.Forms.ToolTip toolTip1;

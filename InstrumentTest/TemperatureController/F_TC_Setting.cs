@@ -15,8 +15,8 @@ namespace InstrumentTest
     public partial class F_TC_Setting : Form
     {
         #region parameter define
-        Tool tool = new Tool();
-        private bool InitialApp = false;
+
+
         #endregion
 
         #region private function

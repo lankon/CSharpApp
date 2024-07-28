@@ -52,7 +52,7 @@ namespace CommonFunction
         {
             StreamWriter sw;
             DateTime currentTime = DateTime.Now;
-            string Time = currentTime.ToString("yyyy-MM-dd HH:mm:ss");
+            string Time = currentTime.ToString("MM-dd HH:mm:ss.fff");
             string Date = currentTime.ToString("yyyMMdd");
             
             sw = CreateFile("History\\Log_"+ Date, ".txt", true);

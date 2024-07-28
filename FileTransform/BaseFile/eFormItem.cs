@@ -15,5 +15,7 @@ namespace FileTransform
         TxtBx_SaveFilePath,
         Cmbx_ExpansionType,
         TxtBx_RadiusExpansion,
+
+        Cmbx_DebugMode,
     }
 }
