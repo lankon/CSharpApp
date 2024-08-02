@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Management;
 using CommonFunction;
 
+using FileTransform.Recursion;
+
 namespace FileTransform
 {
     public partial class F_MainForm : Form
@@ -30,13 +32,22 @@ namespace FileTransform
             ApplicationSetting.ReadAllRecipe<FormItem>();
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
 
-            F_NearField f_NearField = new F_NearField();
-            f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
-            f_NearField.Show();
+            //F_NearField f_NearField = new F_NearField();
+            //f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
+            //f_NearField.Show();
 
-            F_NearField_ButtonGroup f_NearField_ButtonGroup = new F_NearField_ButtonGroup();
-            f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_NearField_ButtonGroup);
-            f_NearField_ButtonGroup.Show();
+            //F_NearField_ButtonGroup f_NearField_ButtonGroup = new F_NearField_ButtonGroup();
+            //f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_NearField_ButtonGroup);
+            //f_NearField_ButtonGroup.Show();
+
+            F_Recursion f_Recursion = new F_Recursion();
+            f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
+            f_Recursion.Show();
+
+            F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
+            f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
+            f_Recursion_ButtonGroup.Show();
+
         }
         private void SetHint()
         {
