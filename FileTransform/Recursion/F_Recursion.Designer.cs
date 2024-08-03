@@ -59,7 +59,11 @@ namespace FileTransform.Recursion
             this.PicBx_Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PicBx_Picture.TabIndex = 0;
             this.PicBx_Picture.TabStop = false;
+            this.PicBx_Picture.Paint += new System.Windows.Forms.PaintEventHandler(this.PicBx_Picture_Paint);
             this.PicBx_Picture.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PicBx_Picture_MouseClick);
+            this.PicBx_Picture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PicBx_Picture_MouseDown);
+            this.PicBx_Picture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PicBx_Picture_MouseMove);
+            this.PicBx_Picture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PicBx_Picture_MouseUp);
             // 
             // Pnl_Picture
             // 

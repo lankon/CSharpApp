@@ -21,9 +21,11 @@ namespace FileTransform.Recursion
             INITIAL,
 
             LOAD_IMAGE,
+            GRAB_IMAGE,
             THRESHOLD_IMAGE,
-            FIND_EMITTER,
-           
+            FIND_Circule,
+            FIND_RECTANGLE,
+            CALCULATE_DIST,
 
             ERROR,
 
@@ -52,8 +54,11 @@ namespace FileTransform.Recursion
         //private string sparity = "";
         //private string scomport = "";
         //ITemperatureController[] TC = new ITemperatureController[4];
+        Rect boundingRect;
+        Point2f center_final;
         private List<Point[]> filteredContours = new List<Point[]>();
         private Mat image;
+        Mat outputImage = new Mat();
         public ShowImageCallBack ShowImage { get; set; }
         #endregion
 
@@ -131,8 +136,8 @@ namespace FileTransform.Recursion
 
                         ResetTimeCount(out test_time);
 
-                        image = new Mat(@"C:\Users\lankon\Desktop\tmep\2.png", ImreadModes.AnyDepth | ImreadModes.Grayscale);
-
+                        image = new Mat(@"C:\Users\lankon\Desktop\tmep\picture.png", ImreadModes.AnyDepth | ImreadModes.Grayscale);
+                        
                         if (image.Empty())
                         {
                             tool.SaveHistoryToFile("針痕教學影像不存在");
@@ -147,7 +152,19 @@ namespace FileTransform.Recursion
                             ShowImage(Save_Path);   // 顯示影像於主畫面
                         }
 
-                        MessageBox.Show("Please Grab Picture");
+                        Transition(WORK.GRAB_IMAGE);
+                    }
+                    break;
+                case WORK.GRAB_IMAGE:
+                    {
+                        // 定義範圍 (x, y, width, height)
+                        Rect roi = new Rect(754, 754, 400, 400); // 假設你想擷取從 (50, 50) 開始，寬度和高度各 200 的區域
+
+                        // 擷取圖像範圍
+                        Mat cropped = new Mat(image, roi);
+                        image.Dispose();
+                        image = cropped;
+
                         Transition(WORK.THRESHOLD_IMAGE);
                     }
                     break;
@@ -162,73 +179,87 @@ namespace FileTransform.Recursion
                         //將圖像轉換成8位元深度
                         //image.ConvertTo(image, MatType.CV_8UC1, 255.0 / 65535.0);
 
+                        // 創建一個彩色圖像用於顯示結果
+                        Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
+
                         Cv2.ImWrite(Save_Path, image);
 
                         //顯示圖像
                         ShowImage(Save_Path);
 
-                        Transition(WORK.FIND_EMITTER);
+                        Transition(WORK.FIND_Circule);
                     }
                     break;
-                case WORK.FIND_EMITTER:
+                case WORK.FIND_Circule:
                     {
                         // 檢測輪廓
                         OpenCvSharp.Point[][] contours;
                         HierarchyIndex[] hierarchy;
                         Cv2.FindContours(image, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
 
-                        // 創建一個彩色圖像用於顯示結果
-                        using(Mat outputImage = new Mat())
+                        int aa = 0;
+
+                        foreach (var contour in contours)
                         {
-                            Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
+                            // 計算每個輪廓的最小外接圓
+                            Point2f center;
+                            float radius;
+                            Cv2.MinEnclosingCircle(contour, out center, out radius);
 
-                            int aa = 0;
+                            // 計算半徑
+                            double diameter = radius * 2;
 
-                            foreach (var contour in contours)
+                            if (diameter > 20 && diameter < 35)
                             {
-                                // 計算每個輪廓的最小外接圓
-                                Point2f center;
-                                float radius;
-                                Cv2.MinEnclosingCircle(contour, out center, out radius);
-
-                                // 計算半徑
-                                double diameter = radius * 2;
-
-                                if (diameter > 20)
-                                {
-                                    aa++;
-                                    Cv2.Circle(outputImage, (OpenCvSharp.Point)center, 4, new Scalar(0, 255, 0), 10);   //繪製中心點
-                                    Cv2.Circle(outputImage, (OpenCvSharp.Point)center, (int)radius, new Scalar(0, 0, 255), 4);  // 繪製輪廓圓
-                                    filteredContours.Add(contour);
-                                }
+                                aa++;
+                                Cv2.Circle(outputImage, (OpenCvSharp.Point)center, 3, new Scalar(0, 255, 0), 5);   //繪製中心點
+                                Cv2.Circle(outputImage, (OpenCvSharp.Point)center, (int)radius, new Scalar(0, 0, 255), 4);  // 繪製輪廓圓
+                                center_final = center;
+                                
                             }
 
-                            Cv2.ImWrite(Save_Path, outputImage);
-
-                            ShowImage(Save_Path);
+                            filteredContours.Add(contour);
                         }
+
+                        Cv2.ImWrite(Save_Path, outputImage);
+                        ShowImage(Save_Path);
                         
-                        Transition(WORK.SUCCESS);
+                        Transition(WORK.FIND_RECTANGLE);
                     }
                     break;
-                case WORK.SUCCESS:
+                case WORK.FIND_RECTANGLE:
                     {
                         Point2f[] points = filteredContours.SelectMany(c => c).Select(p => new Point2f(p.X, p.Y)).ToArray();
-                        Rect boundingRect = Cv2.BoundingRect(points);
 
-                        // 創建一個彩色圖像用於顯示結果
-                        Mat outputImage = new Mat();
-                        Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
+                        // 尋找最小外接矩形
+                        boundingRect = Cv2.BoundingRect(points);
 
                         // 繪製矩形
-                        Cv2.Rectangle(outputImage, boundingRect, Scalar.Blue, 1);
+                        Cv2.Rectangle(outputImage, boundingRect, Scalar.Blue, 2);
 
                         Cv2.ImWrite(Save_Path, outputImage);
 
                         ShowImage(Save_Path);
 
+                        Transition(WORK.CALCULATE_DIST);
+                    }
+                    break;
+                case WORK.CALCULATE_DIST:
+                    {
+                        // 計算圓心到方框邊的距離
+                        float PixelSizeX = 0.59261f;
+                        float PixelSizeY = 0.59346f;
+                        float distanceX = Math.Min(center_final.X - boundingRect.Left, boundingRect.Right - center_final.X) * PixelSizeX;
+                        float distanceY = Math.Min(center_final.Y - boundingRect.Top, boundingRect.Bottom - center_final.Y) * PixelSizeY;
+
+                        Transition(WORK.SUCCESS);
+                    }
+                    break;
+                case WORK.SUCCESS:
+                    {
                         int time = GetTimeCount(test_time);
                         image.Dispose();
+                        outputImage.Dispose();
 
                         Transition(WORK.END);
                     }
