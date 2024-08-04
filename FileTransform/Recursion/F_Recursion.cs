@@ -41,7 +41,7 @@ namespace FileTransform.Recursion
         {
             Dic_Picture = tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Recursion.png");
         }
-        private double[] PicBxPositionToPixel(PictureBox pic, double mouse_x, double mouse_y, double image_w, double image_h)
+        private int[] PicBxPositionToPixel(PictureBox pic, double mouse_x, double mouse_y, double image_w, double image_h)
         {
             // 功能：將PictureBox點擊的位置轉換成實際像素
             // 參數：pic->PictureBox , mouse_x->滑鼠x位置, mouse_y->滑鼠y位置, image_h->影像高度, image_w->影像寬度
@@ -61,9 +61,9 @@ namespace FileTransform.Recursion
                 offset_x = Pnl_Picture.Width / 2 - image_w / 2 / ratio;
 
             // 像素座標
-            double[] show_pos = new double[2];
-            show_pos[0] = (mouse_x - offset_x) * ratio;
-            show_pos[1] = (mouse_y - offset_y) * ratio;
+            int[] show_pos = new int[2];
+            show_pos[0] = (int)((mouse_x - offset_x) * ratio);
+            show_pos[1] = (int)((mouse_y - offset_y) * ratio);
 
             return show_pos;
         }
@@ -114,7 +114,7 @@ namespace FileTransform.Recursion
             Dic_Picture.TryGetValue("width", out double image_x);
             Dic_Picture.TryGetValue("height", out double image_y);
 
-            double[] show = new double[2];
+            int[] show = new int[2];
             show = PicBxPositionToPixel(PicBx_Picture, mousePosition.X, mousePosition.Y, image_x, image_y);
 
             string sx = show[0].ToString("0.0");
@@ -151,14 +151,35 @@ namespace FileTransform.Recursion
                 _isDrawing = false;
                 PicBx_Picture.Invalidate();
                 Point point = _rectangle.Location;
-                double width = _rectangle.Width;
-                double height = _rectangle.Height;
+                int width = _rectangle.Width;
+                int height = _rectangle.Height;
 
                 Dic_Picture.TryGetValue("width", out double image_x);
                 Dic_Picture.TryGetValue("height", out double image_y);
 
-                double[] start_xy = PicBxPositionToPixel(PicBx_Picture, point.X, point.Y, image_x, image_y);
-                double[] len = PicBxPositionToPixel(PicBx_Picture, width, height, image_x, image_y);
+                if(GlobalVariable.status == 1)
+                    GlobalVariable.start_xy = PicBxPositionToPixel(PicBx_Picture, point.X, point.Y, image_x, image_y);
+                else if (GlobalVariable.status == 2)
+                    GlobalVariable.orgin_xy = PicBxPositionToPixel(PicBx_Picture, point.X, point.Y, image_x, image_y);
+                
+                // 計算縮放比例
+                double ratio_x = image_x / PicBx_Picture.Width;
+                double ratio_y = image_y / PicBx_Picture.Height;
+                double ratio = Math.Max(ratio_x, ratio_y);
+
+                if (GlobalVariable.status == 1)
+                {
+                    GlobalVariable.len = new int[2];
+                    GlobalVariable.len[0] = (int)(width * ratio);
+                    GlobalVariable.len[1] = (int)(height * ratio);
+                }
+                else if(GlobalVariable.status == 2)
+                {
+                    GlobalVariable.orgin_len = new int[2];
+                    GlobalVariable.orgin_len[0] = (int)(width * ratio);
+                    GlobalVariable.orgin_len[1] = (int)(height * ratio);
+                }
+
             }
         }
 

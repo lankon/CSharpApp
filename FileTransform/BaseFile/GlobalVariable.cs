@@ -11,5 +11,11 @@ namespace FileTransform
     {
         public static Panel MyStaticPanel;      //F_MainForm:Pnl_Group
         public static Panel MyStaticPanel_1;    //F_MainForm:Pnl_Group1
+
+        public static int[] start_xy;    //暫時先寫在這
+        public static int[] len;         //暫時先寫在這
+        public static int[] orgin_xy;   //暫時先寫在這
+        public static int[] orgin_len;  //暫時先寫在這
+        public static int status;
     }
 }

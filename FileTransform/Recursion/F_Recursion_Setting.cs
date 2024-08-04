@@ -51,5 +51,23 @@ namespace FileTransform
             ApplicationSetting.SaveAllRecipe(this);
             ApplicationSetting.ReadAllRecipe<FormItem>();
         }
+
+        private void TxtBx_TeachPath_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string selectedFileName = "";
+
+            // 設置文件選擇對話框的屬性
+            openFileDialog.Title = "Select TeahPicture";
+            openFileDialog.Filter = "TeachPicture|*.png|TeachPicture|*.tiff|All|*.*";
+
+            // 如果用戶選擇了文件，顯示文件名
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                selectedFileName = openFileDialog.FileName;
+            }
+
+            TxtBx_TeachPath.Text = selectedFileName;
+        }
     }
 }

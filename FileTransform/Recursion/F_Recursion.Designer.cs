@@ -41,11 +41,12 @@ namespace FileTransform.Recursion
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(836, 234);
+            this.button1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button1.Location = new System.Drawing.Point(747, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(146, 71);
+            this.button1.Size = new System.Drawing.Size(112, 71);
             this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
+            this.button1.Text = "Teach";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -75,9 +76,10 @@ namespace FileTransform.Recursion
             // 
             // Btn_Next
             // 
-            this.Btn_Next.Location = new System.Drawing.Point(823, 393);
+            this.Btn_Next.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_Next.Location = new System.Drawing.Point(889, 12);
             this.Btn_Next.Name = "Btn_Next";
-            this.Btn_Next.Size = new System.Drawing.Size(112, 66);
+            this.Btn_Next.Size = new System.Drawing.Size(112, 71);
             this.Btn_Next.TabIndex = 4;
             this.Btn_Next.Text = "Next";
             this.Btn_Next.UseVisualStyleBackColor = true;

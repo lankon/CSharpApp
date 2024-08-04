@@ -22,6 +22,7 @@ namespace FileTransform.Recursion
 
             LOAD_IMAGE,
             GRAB_IMAGE,
+            GRAB_ORRGIN,
             THRESHOLD_IMAGE,
             FIND_Circule,
             FIND_RECTANGLE,
@@ -133,10 +134,10 @@ namespace FileTransform.Recursion
                 case WORK.LOAD_IMAGE:
                     {
                         tool.SaveHistoryToFile("(SubTask_Recursion_Teach):" + state.ToString());
-
                         ResetTimeCount(out test_time);
 
-                        image = new Mat(@"C:\Users\lankon\Desktop\tmep\2.png", ImreadModes.AnyDepth | ImreadModes.Grayscale);
+                        string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
+                        image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
                         
                         if (image.Empty())
                         {
@@ -153,25 +154,37 @@ namespace FileTransform.Recursion
                         }
 
                         Transition(WORK.GRAB_IMAGE);
+
+                        MessageBox.Show("Capture Image");
+
+                        GlobalVariable.status = 1;
+
                     }
                     break;
                 case WORK.GRAB_IMAGE:
                     {
-                        // 定義範圍 (x, y, width, height)
-                        //Rect roi = new Rect(754, 754, 400, 400); 
+                        //定義範圍(x, y, width, height)
+                        Rect roi = new Rect((int)GlobalVariable.start_xy[0],
+                                            (int)GlobalVariable.start_xy[1],
+                                            (int)GlobalVariable.len[0],
+                                            (int)GlobalVariable.len[1]);
+                        //Rect roi = new Rect(177, 30, 100, 100);
 
-                        //// 擷取圖像範圍
-                        //Mat cropped = new Mat(image, roi);
-                        //image.Dispose();
-                        //image = cropped;
+                        // 擷取圖像範圍
+                        Mat cropped = new Mat(image, roi);
+                        image.Dispose();
+                        image = cropped;
 
-                        Transition(WORK.THRESHOLD_IMAGE);
+                        state = WORK.THRESHOLD_IMAGE;
+                        goto case WORK.THRESHOLD_IMAGE;
+
+                        //Transition(WORK.GRAB_ORRGIN);
                     }
-                    break;
+                    //break;
                 case WORK.THRESHOLD_IMAGE:
                     {
                         // 二值化閥值處理
-                        double thresholdValue = 70;
+                        double thresholdValue = 50;
                         //double maxValue = 65535; //16位元影像,最大值65536
                         double maxValue = 256; //8位元影像,最大值25
                         Cv2.Threshold(image, image, thresholdValue, maxValue, ThresholdTypes.Binary);
@@ -188,38 +201,50 @@ namespace FileTransform.Recursion
                         ShowImage(Save_Path);
 
                         Transition(WORK.FIND_Circule);
+
+                        MessageBox.Show("Capture Needle Image");
+                        GlobalVariable.status = 2;
                     }
                     break;
                 case WORK.FIND_Circule:
                     {
+                        GlobalVariable.status = -1;
+
                         // 檢測輪廓
                         OpenCvSharp.Point[][] contours;
                         HierarchyIndex[] hierarchy;
                         Cv2.FindContours(image, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
 
                         int aa = 0;
+                        double largest_diameter = 0;
+                        double radius_final = 0;
 
                         foreach (var contour in contours)
                         {
                             // 計算每個輪廓的最小外接圓
                             Point2f center;
-                            float radius;
+                            float radius = 0;
                             Cv2.MinEnclosingCircle(contour, out center, out radius);
 
                             // 計算半徑
                             double diameter = radius * 2;
 
-                            if (diameter > 20 && diameter < 35)
+                            if (diameter < GlobalVariable.orgin_len[0] &&
+                                diameter > largest_diameter &&
+                                (GlobalVariable.orgin_xy[0] < center.X && center.X < GlobalVariable.orgin_xy[0] + GlobalVariable.orgin_len[0]) &&
+                                (GlobalVariable.orgin_xy[1] < center.Y && center.Y < GlobalVariable.orgin_xy[1] + GlobalVariable.orgin_len[1]))
                             {
+                                largest_diameter = diameter;
                                 aa++;
-                                Cv2.Circle(outputImage, (OpenCvSharp.Point)center, 3, new Scalar(0, 255, 0), 5);   //繪製中心點
-                                Cv2.Circle(outputImage, (OpenCvSharp.Point)center, (int)radius, new Scalar(0, 0, 255), 4);  // 繪製輪廓圓
                                 center_final = center;
-                                
+                                radius_final = radius;
                             }
 
                             filteredContours.Add(contour);
                         }
+
+                        Cv2.Circle(outputImage, (OpenCvSharp.Point)center_final, 3, new Scalar(0, 255, 0), 5);   //繪製中心點
+                        Cv2.Circle(outputImage, (OpenCvSharp.Point)center_final, (int)radius_final, new Scalar(0, 0, 255), 4);  // 繪製輪廓圓
 
                         Cv2.ImWrite(Save_Path, outputImage);
                         ShowImage(Save_Path);
@@ -252,6 +277,8 @@ namespace FileTransform.Recursion
                         double distanceX = Math.Min(center_final.X - boundingRect.Left, boundingRect.Right - center_final.X) * PixelSizeX;
                         double distanceY = Math.Min(center_final.Y - boundingRect.Top, boundingRect.Bottom - center_final.Y) * PixelSizeY;
 
+                        MessageBox.Show($"X:{(int)distanceX}um, Y:${(int)distanceY}um");
+
                         Transition(WORK.SUCCESS);
                     }
                     break;
@@ -261,14 +288,17 @@ namespace FileTransform.Recursion
                         image.Dispose();
                         outputImage.Dispose();
 
-                        Transition(WORK.END);
+                        //Transition(WORK.END);
+                        state = WORK.END;
+                        goto case WORK.END;
                     }
-                    break;
+                    //break;
 
                 case WORK.END:
                     {
                         GC.Collect();
                         IsFinish = true;
+                        MessageBox.Show("Finish");
                     }
                     break;
             }           

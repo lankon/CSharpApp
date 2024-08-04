@@ -21,6 +21,19 @@ namespace FileTransform
         #region Recursion
         TxtBx_PixelX,
         TxtBx_PixelY,
+        TxtBx_TeachPath,
+
+        //教學結果
+        TxtBx_RegionStartX,
+        TxtBx_RegionStartY,
+        TxtBx_RegionWidth,
+        TxtBx_RegionHeight,
+        TxtBx_PinStartX,
+        TxtBx_PinStartY,
+        TxtBx_PinWidth,
+        TxtBx_PinHeight,
+
+
         #endregion
     }
 }
