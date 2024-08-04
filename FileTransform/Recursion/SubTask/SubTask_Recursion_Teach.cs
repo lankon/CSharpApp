@@ -277,7 +277,7 @@ namespace FileTransform.Recursion
                         double distanceX = Math.Min(center_final.X - boundingRect.Left, boundingRect.Right - center_final.X) * PixelSizeX;
                         double distanceY = Math.Min(center_final.Y - boundingRect.Top, boundingRect.Bottom - center_final.Y) * PixelSizeY;
 
-                        MessageBox.Show($"X:{(int)distanceX}um, Y:${(int)distanceY}um");
+                        MessageBox.Show($"X:{(int)distanceX}um, Y:{(int)distanceY}um");
 
                         Transition(WORK.SUCCESS);
                     }

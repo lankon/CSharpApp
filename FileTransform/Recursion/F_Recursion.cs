@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using CommonFunction;
 
@@ -188,6 +189,24 @@ namespace FileTransform.Recursion
             if (_rectangle != Rectangle.Empty)
             {
                 e.Graphics.DrawRectangle(Pens.Red, _rectangle);
+            }
+        }
+
+        private void Btn_BatchCalculate_Click(object sender, EventArgs e)
+        {
+            string folderPath = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_BatchPath);
+            string[] files = Directory.GetFiles(folderPath);
+            List<string> specificFiles = new List<string>();
+
+            foreach (string file in files)
+            {
+                string extension = Path.GetExtension(file);
+
+                // 根據你的需求篩選特定副檔名的檔案，例如 .txt 和 .jpg
+                if (extension == ".JPG" || extension == ".jpg" || extension == ".png")
+                {
+                    specificFiles.Add(file);
+                }
             }
         }
     }

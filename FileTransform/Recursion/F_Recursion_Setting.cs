@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using CommonFunction;
 
@@ -68,6 +69,24 @@ namespace FileTransform
             }
 
             TxtBx_TeachPath.Text = selectedFileName;
+        }
+
+        private void TxtBx_BatchPath_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string selectedFileName = "";
+
+            // 設置文件選擇對話框的屬性
+            openFileDialog.Title = "Select TeahPicture";
+            openFileDialog.Filter = "TeachPicture|*.png|TeachPicture|*.tiff|All|*.*";
+
+            // 如果用戶選擇了文件，顯示文件名
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                selectedFileName = openFileDialog.FileName;
+            }
+            ;
+            TxtBx_BatchPath.Text = Path.GetDirectoryName(selectedFileName);
         }
     }
 }

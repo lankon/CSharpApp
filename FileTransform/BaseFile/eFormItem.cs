@@ -22,6 +22,7 @@ namespace FileTransform
         TxtBx_PixelX,
         TxtBx_PixelY,
         TxtBx_TeachPath,
+        TxtBx_BatchPath,
 
         //教學結果
         TxtBx_RegionStartX,

@@ -35,6 +35,7 @@ namespace FileTransform.Recursion
             this.Pnl_Picture = new System.Windows.Forms.Panel();
             this.Btn_Next = new System.Windows.Forms.Button();
             this.ToTip_Image = new System.Windows.Forms.ToolTip(this.components);
+            this.Btn_BatchCalculate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Picture)).BeginInit();
             this.Pnl_Picture.SuspendLayout();
             this.SuspendLayout();
@@ -85,12 +86,24 @@ namespace FileTransform.Recursion
             this.Btn_Next.UseVisualStyleBackColor = true;
             this.Btn_Next.Click += new System.EventHandler(this.Btn_Next_Click);
             // 
+            // Btn_BatchCalculate
+            // 
+            this.Btn_BatchCalculate.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_BatchCalculate.Location = new System.Drawing.Point(747, 103);
+            this.Btn_BatchCalculate.Name = "Btn_BatchCalculate";
+            this.Btn_BatchCalculate.Size = new System.Drawing.Size(254, 71);
+            this.Btn_BatchCalculate.TabIndex = 5;
+            this.Btn_BatchCalculate.Text = "Batch Calculate";
+            this.Btn_BatchCalculate.UseVisualStyleBackColor = true;
+            this.Btn_BatchCalculate.Click += new System.EventHandler(this.Btn_BatchCalculate_Click);
+            // 
             // F_Recursion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.Btn_BatchCalculate);
             this.Controls.Add(this.Btn_Next);
             this.Controls.Add(this.Pnl_Picture);
             this.Controls.Add(this.button1);
@@ -110,5 +123,6 @@ namespace FileTransform.Recursion
         private System.Windows.Forms.Panel Pnl_Picture;
         private System.Windows.Forms.Button Btn_Next;
         private System.Windows.Forms.ToolTip ToTip_Image;
+        private System.Windows.Forms.Button Btn_BatchCalculate;
     }
 }

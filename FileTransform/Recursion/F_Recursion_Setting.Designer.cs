@@ -53,6 +53,8 @@ namespace FileTransform
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtBx_PinHeight = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.TxtBx_BatchPath = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -63,6 +65,8 @@ namespace FileTransform
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.43867F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.56133F));
+            this.tableLayoutPanel1.Controls.Add(this.TxtBx_BatchPath, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label12, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_PixelY, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
@@ -136,7 +140,6 @@ namespace FileTransform
             // 
             // TxtBx_TeachPath
             // 
-            this.TxtBx_TeachPath.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TeachPath.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_TeachPath.Location = new System.Drawing.Point(338, 78);
             this.TxtBx_TeachPath.Name = "TxtBx_TeachPath";
@@ -348,6 +351,28 @@ namespace FileTransform
             this.TxtBx_PinHeight.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_PinHeight.TabIndex = 23;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label12.Location = new System.Drawing.Point(6, 111);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(323, 36);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Batch Folder Path";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TxtBx_BatchPath
+            // 
+            this.TxtBx_BatchPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_BatchPath.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_BatchPath.Location = new System.Drawing.Point(338, 114);
+            this.TxtBx_BatchPath.Name = "TxtBx_BatchPath";
+            this.TxtBx_BatchPath.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_BatchPath.TabIndex = 14;
+            this.TxtBx_BatchPath.Click += new System.EventHandler(this.TxtBx_BatchPath_Click);
+            // 
             // F_Recursion_Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -394,5 +419,7 @@ namespace FileTransform
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox TxtBx_PinHeight;
+        private System.Windows.Forms.TextBox TxtBx_BatchPath;
+        private System.Windows.Forms.Label label12;
     }
 }
