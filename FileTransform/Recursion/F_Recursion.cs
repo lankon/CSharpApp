@@ -41,10 +41,10 @@ namespace FileTransform.Recursion
         {
             Dic_Picture = tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Recursion.png");
         }
-        private double[] PicBxPositionToPixel(PictureBox pic, System.Drawing.Point mousePosition, double image_h, double image_w)
+        private double[] PicBxPositionToPixel(PictureBox pic, double mouse_x, double mouse_y, double image_w, double image_h)
         {
             // 功能：將PictureBox點擊的位置轉換成實際像素
-            // 參數：pic->PictureBox , mousePosition->滑鼠點擊位置, image_h->影像高度, image_w->影像寬度
+            // 參數：pic->PictureBox , mouse_x->滑鼠x位置, mouse_y->滑鼠y位置, image_h->影像高度, image_w->影像寬度
             // 回傳: 滑鼠點擊位置的圖片像素xy座標
 
             // 計算縮放比例
@@ -62,8 +62,8 @@ namespace FileTransform.Recursion
 
             // 像素座標
             double[] show_pos = new double[2];
-            show_pos[0] = (mousePosition.X - offset_x) * ratio;
-            show_pos[1] = (mousePosition.Y - offset_y) * ratio;
+            show_pos[0] = (mouse_x - offset_x) * ratio;
+            show_pos[1] = (mouse_y - offset_y) * ratio;
 
             return show_pos;
         }
@@ -115,7 +115,7 @@ namespace FileTransform.Recursion
             Dic_Picture.TryGetValue("height", out double image_y);
 
             double[] show = new double[2];
-            show = PicBxPositionToPixel(PicBx_Picture, mousePosition, image_y, image_x);
+            show = PicBxPositionToPixel(PicBx_Picture, mousePosition.X, mousePosition.Y, image_x, image_y);
 
             string sx = show[0].ToString("0.0");
             string sy = show[1].ToString("0.0");
@@ -153,6 +153,12 @@ namespace FileTransform.Recursion
                 Point point = _rectangle.Location;
                 double width = _rectangle.Width;
                 double height = _rectangle.Height;
+
+                Dic_Picture.TryGetValue("width", out double image_x);
+                Dic_Picture.TryGetValue("height", out double image_y);
+
+                double[] start_xy = PicBxPositionToPixel(PicBx_Picture, point.X, point.Y, image_x, image_y);
+                double[] len = PicBxPositionToPixel(PicBx_Picture, width, height, image_x, image_y);
             }
         }
 

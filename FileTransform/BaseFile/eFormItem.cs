@@ -17,5 +17,10 @@ namespace FileTransform
         TxtBx_RadiusExpansion,
 
         Cmbx_DebugMode,
+
+        #region Recursion
+        TxtBx_PixelX,
+        TxtBx_PixelY,
+        #endregion
     }
 }

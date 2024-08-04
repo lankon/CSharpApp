@@ -136,7 +136,7 @@ namespace FileTransform.Recursion
 
                         ResetTimeCount(out test_time);
 
-                        image = new Mat(@"C:\Users\lankon\Desktop\tmep\picture.png", ImreadModes.AnyDepth | ImreadModes.Grayscale);
+                        image = new Mat(@"C:\Users\lankon\Desktop\tmep\2.png", ImreadModes.AnyDepth | ImreadModes.Grayscale);
                         
                         if (image.Empty())
                         {
@@ -158,12 +158,12 @@ namespace FileTransform.Recursion
                 case WORK.GRAB_IMAGE:
                     {
                         // 定義範圍 (x, y, width, height)
-                        Rect roi = new Rect(754, 754, 400, 400); // 假設你想擷取從 (50, 50) 開始，寬度和高度各 200 的區域
+                        //Rect roi = new Rect(754, 754, 400, 400); 
 
-                        // 擷取圖像範圍
-                        Mat cropped = new Mat(image, roi);
-                        image.Dispose();
-                        image = cropped;
+                        //// 擷取圖像範圍
+                        //Mat cropped = new Mat(image, roi);
+                        //image.Dispose();
+                        //image = cropped;
 
                         Transition(WORK.THRESHOLD_IMAGE);
                     }
@@ -247,10 +247,10 @@ namespace FileTransform.Recursion
                 case WORK.CALCULATE_DIST:
                     {
                         // 計算圓心到方框邊的距離
-                        float PixelSizeX = 0.59261f;
-                        float PixelSizeY = 0.59346f;
-                        float distanceX = Math.Min(center_final.X - boundingRect.Left, boundingRect.Right - center_final.X) * PixelSizeX;
-                        float distanceY = Math.Min(center_final.Y - boundingRect.Top, boundingRect.Bottom - center_final.Y) * PixelSizeY;
+                        double PixelSizeX = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelX);//0.59261f;
+                        double PixelSizeY = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelY);
+                        double distanceX = Math.Min(center_final.X - boundingRect.Left, boundingRect.Right - center_final.X) * PixelSizeX;
+                        double distanceY = Math.Min(center_final.Y - boundingRect.Top, boundingRect.Bottom - center_final.Y) * PixelSizeY;
 
                         Transition(WORK.SUCCESS);
                     }
