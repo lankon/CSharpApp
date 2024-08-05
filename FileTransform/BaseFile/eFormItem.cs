@@ -23,6 +23,8 @@ namespace FileTransform
         TxtBx_PixelY,
         TxtBx_TeachPath,
         TxtBx_BatchPath,
+        TxtBx_ResultDelayTime,
+        TxtBx_Threshold,
 
         //教學結果
         TxtBx_RegionStartX,

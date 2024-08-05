@@ -16,6 +16,7 @@ namespace FileTransform
         public static int[] len;         //暫時先寫在這
         public static int[] orgin_xy;   //暫時先寫在這
         public static int[] orgin_len;  //暫時先寫在這
-        public static int status;
+        public static int status;       //暫時先寫在這
+        public static List<string> batch_path = new List<string>();
     }
 }

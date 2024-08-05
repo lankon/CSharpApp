@@ -7,13 +7,14 @@ using System.Threading;
 using System.Windows.Forms;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using System.IO;
 
 using CommonFunction;
 
 
 namespace FileTransform.Recursion
 {
-    public class SubTask_Recursion_Teach
+    public class SubTask_Recursion_Batch
     {
         #region parameter define 
         enum WORK
@@ -45,6 +46,8 @@ namespace FileTransform.Recursion
         //private bool IsConnect = false; //確認連線
         //private bool IsMonitorAll = false;  //判斷是否啟動所有控制器
         private int test_time = 0;
+        private int delay_time = 0;
+        private int cal_count = 0;
         //private int board_num = 0;
         private string ErrorMsg = "";
         private string Save_Path = Application.StartupPath + @"\Picture\" + "Recursion.png";
@@ -85,7 +88,7 @@ namespace FileTransform.Recursion
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("(SubTask_Recursion_Teach):"+ target.ToString());
+                tool.SaveHistoryToFile("(SubTask_Recursion_Batch):"+ target.ToString());
             }
 
             state = target;
@@ -115,9 +118,13 @@ namespace FileTransform.Recursion
         //{
         //    IsMonitorAll = flag;
         //}
+        public void SetCount(int count)
+        {
+            cal_count = count;
+        }
         #endregion
 
-        public SubTask_Recursion_Teach()
+        public SubTask_Recursion_Batch()
         {
             Transition(WORK.INITIAL);
         }
@@ -133,10 +140,10 @@ namespace FileTransform.Recursion
                     }
                 case WORK.LOAD_IMAGE:
                     {
-                        tool.SaveHistoryToFile("(SubTask_Recursion_Teach):" + state.ToString());
+                        tool.SaveHistoryToFile("(SubTask_Recursion_Batch):" + state.ToString());
                         ResetTimeCount(out test_time);
 
-                        string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
+                        string path = GlobalVariable.batch_path[cal_count];
                         image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
                         
                         if (image.Empty())
@@ -150,14 +157,14 @@ namespace FileTransform.Recursion
                         {
                             Cv2.Normalize(image, dst, 0, 255, NormTypes.MinMax, MatType.CV_8U); //16位元轉8位元
                             Cv2.ImWrite(Save_Path, dst);  //儲存圖像
-                            ShowImage(Save_Path);   // 顯示影像於主畫面
+                            //ShowImage(Save_Path);   // 顯示影像於主畫面
                         }
 
                         Transition(WORK.GRAB_IMAGE);
 
-                        MessageBox.Show("Capture Image");
+                        //MessageBox.Show("Capture Image");
 
-                        GlobalVariable.status = 1;
+                        //GlobalVariable.status = 1;
 
                     }
                     break;
@@ -198,12 +205,12 @@ namespace FileTransform.Recursion
                         Cv2.ImWrite(Save_Path, image);
 
                         //顯示圖像
-                        ShowImage(Save_Path);
+                        //ShowImage(Save_Path);
 
                         Transition(WORK.FIND_Circule);
 
-                        MessageBox.Show("Capture Needle Image");
-                        GlobalVariable.status = 2;
+                        //MessageBox.Show("Capture Needle Image");
+                        //GlobalVariable.status = 2;
                     }
                     break;
                 case WORK.FIND_Circule:
@@ -247,7 +254,7 @@ namespace FileTransform.Recursion
                         Cv2.Circle(outputImage, (OpenCvSharp.Point)center_final, (int)radius_final, new Scalar(0, 0, 255), 4);  // 繪製輪廓圓
 
                         Cv2.ImWrite(Save_Path, outputImage);
-                        ShowImage(Save_Path);
+                        //ShowImage(Save_Path);
                         
                         Transition(WORK.FIND_RECTANGLE);
                     }
@@ -277,7 +284,15 @@ namespace FileTransform.Recursion
                         double distanceX = Math.Min(center_final.X - boundingRect.Left, boundingRect.Right - center_final.X) * PixelSizeX;
                         double distanceY = Math.Min(center_final.Y - boundingRect.Top, boundingRect.Bottom - center_final.Y) * PixelSizeY;
 
-                        MessageBox.Show($"X:{(int)distanceX}um, Y:{(int)distanceY}um");
+                        //MessageBox.Show($"X:{(int)distanceX}um, Y:{(int)distanceY}um");
+                        #region 寫檔
+                        StreamWriter File;
+                        string path = Application.StartupPath + @"\Result\Recursion";
+                        string file_name = Path.GetFileName(GlobalVariable.batch_path[cal_count]);
+                        File = tool.CreateFile(@"\Result\Recursion", ".csv", true);
+                        tool.WriteFile(File, $"{file_name},{distanceX},{distanceY}");
+                        tool.CloseFile(File);
+                        #endregion
 
                         Transition(WORK.SUCCESS);
                     }
@@ -289,6 +304,7 @@ namespace FileTransform.Recursion
                         outputImage.Dispose();
 
                         //Transition(WORK.END);
+                        ResetTimeCount(out delay_time);
                         state = WORK.END;
                         goto case WORK.END;
                     }
@@ -296,9 +312,13 @@ namespace FileTransform.Recursion
 
                 case WORK.END:
                     {
-                        GC.Collect();
-                        IsFinish = true;
-                        MessageBox.Show("Finish");
+                        int time = ApplicationSetting.Get_Int_Recipe((int)FormItem.TxtBx_ResultDelayTime);
+                        if(CheckTimeOverMilliSec(delay_time, time))
+                        {
+                            //GC.Collect();
+                            IsFinish = true;
+                            //MessageBox.Show("Finish");
+                        }
                     }
                     break;
             }           

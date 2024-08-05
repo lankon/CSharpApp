@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.IO;
+using System.Windows.Forms;
+
 using CommonFunction;
 
 
@@ -20,6 +23,9 @@ namespace FileTransform.Recursion
             TEACH,
             WAIT_TEACH,
 
+            BATCH_CALCULATE,
+            WAIT_BATCH_CALCULATE,
+
             ERROR,
 
             PAUSE,
@@ -31,6 +37,7 @@ namespace FileTransform.Recursion
         //public GetBoardRTDCallBack GetBoardRTD { get; set; }
 
         SubTask_Recursion_Teach Teach;
+        SubTask_Recursion_Batch Batch;
 
         Tool tool = new Tool();
         private WORK state = WORK.INITIAL;
@@ -40,6 +47,7 @@ namespace FileTransform.Recursion
         //private bool IsMonitorAll = false;  //判斷是否啟動所有控制器
         //private int delay_count = 0;
         //private int board_num = 0;
+        private int cal_count = 0;          //計算Batch執行次數
         private string ErrorMsg = "";
         //private string present_temp_value = "-99";
         //private string temp_5_rtd = "-99.0,-99.0,-99.0,-99.0,-99.0";
@@ -82,7 +90,7 @@ namespace FileTransform.Recursion
             {
                 if (target != state) //狀態有變化時紀錄
                 {
-                    tool.SaveHistoryToFile("(Task_NearField):" + target.ToString());
+                    tool.SaveHistoryToFile("(Task_Recursion):" + target.ToString());
                 }
 
                 state = target;
@@ -103,6 +111,10 @@ namespace FileTransform.Recursion
         public void Process_Continue()
         {
             Transition(WORK.CONTINUE);
+        }
+        public void Process_Bath()
+        {
+            Transition(WORK.BATCH_CALCULATE);
         }
         public string GetError()
         {
@@ -132,6 +144,7 @@ namespace FileTransform.Recursion
 
                     case WORK.IDLE:
                         Teach = null;
+                        cal_count = 0;
                         break;
 
                     #region 影像教學
@@ -148,6 +161,36 @@ namespace FileTransform.Recursion
 
                             GoToPause(WORK.WAIT_TEACH);
                             CheckResult(check, WORK.IDLE);
+                        }
+                        break;
+                    #endregion
+
+                    #region 批次計算
+                    case WORK.BATCH_CALCULATE:
+                        {
+                            Batch = new SubTask_Recursion_Batch();
+                            Batch.SetCount(cal_count);
+                            Batch.ShowImage += showimage;
+
+                            
+
+                            Transition(WORK.WAIT_BATCH_CALCULATE);
+                        }
+                        break;
+                    case WORK.WAIT_BATCH_CALCULATE:
+                        {
+                            bool check = Batch.Run();
+
+                            //GoToPause(WORK.WAIT_TEACH);
+                            if(cal_count == GlobalVariable.batch_path.Count-1)
+                                CheckResult(check, WORK.IDLE);
+                            else
+                            {
+                                CheckResult(check, WORK.BATCH_CALCULATE);
+                                
+                                if(check == true)
+                                    cal_count++;
+                            }
                         }
                         break;
                     #endregion

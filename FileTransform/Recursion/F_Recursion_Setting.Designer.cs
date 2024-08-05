@@ -30,6 +30,8 @@ namespace FileTransform
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.TxtBx_BatchPath = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.TxtBx_PixelY = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,8 +55,10 @@ namespace FileTransform
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtBx_PinHeight = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.TxtBx_BatchPath = new System.Windows.Forms.TextBox();
+            this.TxtBx_ResultDelayTime = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.TxtBx_Threshold = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -65,6 +69,9 @@ namespace FileTransform
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.43867F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.56133F));
+            this.tableLayoutPanel1.Controls.Add(this.TxtBx_Threshold, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label14, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label13, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_BatchPath, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label12, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_PixelY, 1, 1);
@@ -73,22 +80,46 @@ namespace FileTransform
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_PixelX, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_TeachPath, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.TxtBx_ResultDelayTime, 1, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00062F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00062F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00062F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.99813F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(484, 150);
+            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66708F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66708F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66708F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66542F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(484, 228);
             this.tableLayoutPanel1.TabIndex = 9;
+            // 
+            // TxtBx_BatchPath
+            // 
+            this.TxtBx_BatchPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_BatchPath.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_BatchPath.Location = new System.Drawing.Point(338, 117);
+            this.TxtBx_BatchPath.Name = "TxtBx_BatchPath";
+            this.TxtBx_BatchPath.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_BatchPath.TabIndex = 14;
+            this.TxtBx_BatchPath.Click += new System.EventHandler(this.TxtBx_BatchPath_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label12.Location = new System.Drawing.Point(6, 114);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(323, 34);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Batch Folder Path";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TxtBx_PixelY
             // 
             this.TxtBx_PixelY.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_PixelY.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_PixelY.Location = new System.Drawing.Point(338, 42);
+            this.TxtBx_PixelY.Location = new System.Drawing.Point(338, 43);
             this.TxtBx_PixelY.Name = "TxtBx_PixelY";
             this.TxtBx_PixelY.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_PixelY.TabIndex = 11;
@@ -100,7 +131,7 @@ namespace FileTransform
             this.label4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label4.Location = new System.Drawing.Point(6, 3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(323, 33);
+            this.label4.Size = new System.Drawing.Size(323, 34);
             this.label4.TabIndex = 7;
             this.label4.Text = "PixelSize X";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -110,9 +141,9 @@ namespace FileTransform
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(6, 39);
+            this.label1.Location = new System.Drawing.Point(6, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(323, 33);
+            this.label1.Size = new System.Drawing.Size(323, 34);
             this.label1.TabIndex = 9;
             this.label1.Text = "PixelSize Y";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -131,9 +162,9 @@ namespace FileTransform
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(6, 75);
+            this.label2.Location = new System.Drawing.Point(6, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(323, 33);
+            this.label2.Size = new System.Drawing.Size(323, 34);
             this.label2.TabIndex = 12;
             this.label2.Text = "Teach File Path";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -141,7 +172,7 @@ namespace FileTransform
             // TxtBx_TeachPath
             // 
             this.TxtBx_TeachPath.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TeachPath.Location = new System.Drawing.Point(338, 78);
+            this.TxtBx_TeachPath.Location = new System.Drawing.Point(338, 80);
             this.TxtBx_TeachPath.Name = "TxtBx_TeachPath";
             this.TxtBx_TeachPath.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_TeachPath.TabIndex = 13;
@@ -351,27 +382,45 @@ namespace FileTransform
             this.TxtBx_PinHeight.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_PinHeight.TabIndex = 23;
             // 
-            // label12
+            // TxtBx_ResultDelayTime
             // 
-            this.label12.AutoSize = true;
-            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label12.Location = new System.Drawing.Point(6, 111);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(323, 36);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Batch Folder Path";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TxtBx_ResultDelayTime.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_ResultDelayTime.Location = new System.Drawing.Point(338, 154);
+            this.TxtBx_ResultDelayTime.Name = "TxtBx_ResultDelayTime";
+            this.TxtBx_ResultDelayTime.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_ResultDelayTime.TabIndex = 15;
             // 
-            // TxtBx_BatchPath
+            // label13
             // 
-            this.TxtBx_BatchPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_BatchPath.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BatchPath.Location = new System.Drawing.Point(338, 114);
-            this.TxtBx_BatchPath.Name = "TxtBx_BatchPath";
-            this.TxtBx_BatchPath.Size = new System.Drawing.Size(140, 29);
-            this.TxtBx_BatchPath.TabIndex = 14;
-            this.TxtBx_BatchPath.Click += new System.EventHandler(this.TxtBx_BatchPath_Click);
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label13.Location = new System.Drawing.Point(6, 151);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(323, 34);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "Result Delay Time";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label14.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label14.Location = new System.Drawing.Point(6, 188);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(323, 37);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Threshold";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TxtBx_Threshold
+            // 
+            this.TxtBx_Threshold.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_Threshold.Location = new System.Drawing.Point(338, 191);
+            this.TxtBx_Threshold.Name = "TxtBx_Threshold";
+            this.TxtBx_Threshold.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_Threshold.TabIndex = 11;
             // 
             // F_Recursion_Setting
             // 
@@ -421,5 +470,9 @@ namespace FileTransform
         private System.Windows.Forms.TextBox TxtBx_PinHeight;
         private System.Windows.Forms.TextBox TxtBx_BatchPath;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox TxtBx_ResultDelayTime;
+        private System.Windows.Forms.TextBox TxtBx_Threshold;
+        private System.Windows.Forms.Label label14;
     }
 }

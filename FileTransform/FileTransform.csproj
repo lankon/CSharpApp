@@ -178,6 +178,7 @@
     <Compile Include="Recursion\F_Recursion_Setting.Designer.cs">
       <DependentUpon>F_Recursion_Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Recursion\SubTask\SubTask_Recursion_Batch.cs" />
     <Compile Include="Recursion\SubTask\SubTask_Recursion_Teach.cs" />
     <Compile Include="Recursion\Thread\Task_Recursion.cs" />
     <EmbeddedResource Include="CoordinateExpansion\F_CoordinateExpanSetting.resx">

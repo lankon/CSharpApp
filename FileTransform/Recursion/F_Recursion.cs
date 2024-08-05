@@ -197,6 +197,8 @@ namespace FileTransform.Recursion
             string folderPath = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_BatchPath);
             string[] files = Directory.GetFiles(folderPath);
             List<string> specificFiles = new List<string>();
+            int count = 0;
+            GlobalVariable.batch_path.Clear();
 
             foreach (string file in files)
             {
@@ -206,8 +208,19 @@ namespace FileTransform.Recursion
                 if (extension == ".JPG" || extension == ".jpg" || extension == ".png")
                 {
                     specificFiles.Add(file);
+                    GlobalVariable.batch_path.Add(file);
+                    count++;
                 }
             }
+
+            #region 寫檔
+            StreamWriter File;
+            File = tool.CreateFile(@"\Result\Recursion", ".csv", true);
+            tool.WriteFile(File, $"Name,X(um),Y(um)");
+            tool.CloseFile(File);
+            #endregion
+
+            RC.Process_Bath();
         }
     }
 }

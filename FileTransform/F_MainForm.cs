@@ -59,6 +59,7 @@ namespace FileTransform
             tool.CreateFolder(Application.StartupPath + @"\Temp");
             tool.CreateFolder(Application.StartupPath + @"\History");
             tool.CreateFolder(Application.StartupPath + @"\Picture");
+            tool.CreateFolder(Application.StartupPath + @"\Result");
         }
         private void CreateDynamicElement()
         {
