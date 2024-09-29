@@ -22,6 +22,10 @@ namespace InstrumentTest
         Cmbx_BaudRate,
         Cmbx_Parity,
         Cmbx_Comport,
+        Cmbx_CycleTest,
+        TxtBx_CT_T1,
+        TxtBx_CT_T2,
+        TxtBx_CT_Time,
         #endregion
 
         #region TPT8000 Setting

@@ -551,6 +551,7 @@ namespace FileTransform
 
         private void Btn_Transform_Click(object sender, EventArgs e)    //20240607
         {
+            // 美達轉檔用
             List<Dictionary<string, string>> CellInfo;
 
             CellInfo = ReadCellInfo(@"C:\Users\lankon\Desktop\AMIDA.csv");

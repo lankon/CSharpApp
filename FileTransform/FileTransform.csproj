@@ -96,6 +96,12 @@
       <DependentUpon>F_CoordinateExpansion.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseFile\eFormItem.cs" />
+    <Compile Include="CoordinateExpansion\F_CoordinateExpan_ButtonGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CoordinateExpansion\F_CoordinateExpan_ButtonGroup.Designer.cs">
+      <DependentUpon>F_CoordinateExpan_ButtonGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileData_Modify\F_FileDataModify.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,12 +137,6 @@
     </Compile>
     <Compile Include="FileName_Modify\F_TransformFile.Designer.cs">
       <DependentUpon>F_TransformFile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CoordinateExpansion\F_Trans_ButtonGroup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CoordinateExpansion\F_Trans_ButtonGroup.Designer.cs">
-      <DependentUpon>F_Trans_ButtonGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="NearField_Calculate\F_NearField.cs">
       <SubType>Form</SubType>
@@ -187,6 +187,9 @@
     <EmbeddedResource Include="CoordinateExpansion\F_CoordinateExpansion.resx">
       <DependentUpon>F_CoordinateExpansion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CoordinateExpansion\F_CoordinateExpan_ButtonGroup.resx">
+      <DependentUpon>F_CoordinateExpan_ButtonGroup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FileData_Modify\F_FileDataModify.resx">
       <DependentUpon>F_FileDataModify.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,9 +198,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FileName_Modify\F_TransformFile.resx">
       <DependentUpon>F_TransformFile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CoordinateExpansion\F_Trans_ButtonGroup.resx">
-      <DependentUpon>F_Trans_ButtonGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NearField_Calculate\F_NearField.resx">
       <DependentUpon>F_NearField.cs</DependentUpon>

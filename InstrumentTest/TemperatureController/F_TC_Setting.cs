@@ -29,7 +29,7 @@ namespace InstrumentTest
         }
         private void ShowHint()
         {
-            
+            toolTip1.SetToolTip(Panel_ShowFormName, "F_TC_Setting");
         }
         #endregion
 

@@ -36,7 +36,6 @@ namespace FileTransform.Recursion
             this.Btn_Next = new System.Windows.Forms.Button();
             this.ToTip_Image = new System.Windows.Forms.ToolTip(this.components);
             this.Btn_BatchCalculate = new System.Windows.Forms.Button();
-            this.TxtBx_Name = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Picture)).BeginInit();
             this.Pnl_Picture.SuspendLayout();
             this.SuspendLayout();
@@ -98,20 +97,12 @@ namespace FileTransform.Recursion
             this.Btn_BatchCalculate.UseVisualStyleBackColor = true;
             this.Btn_BatchCalculate.Click += new System.EventHandler(this.Btn_BatchCalculate_Click);
             // 
-            // TxtBx_Name
-            // 
-            this.TxtBx_Name.Location = new System.Drawing.Point(747, 201);
-            this.TxtBx_Name.Name = "TxtBx_Name";
-            this.TxtBx_Name.Size = new System.Drawing.Size(252, 22);
-            this.TxtBx_Name.TabIndex = 6;
-            // 
             // F_Recursion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
-            this.Controls.Add(this.TxtBx_Name);
             this.Controls.Add(this.Btn_BatchCalculate);
             this.Controls.Add(this.Btn_Next);
             this.Controls.Add(this.Pnl_Picture);
@@ -122,7 +113,6 @@ namespace FileTransform.Recursion
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Picture)).EndInit();
             this.Pnl_Picture.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -134,6 +124,5 @@ namespace FileTransform.Recursion
         private System.Windows.Forms.Button Btn_Next;
         private System.Windows.Forms.ToolTip ToTip_Image;
         private System.Windows.Forms.Button Btn_BatchCalculate;
-        private System.Windows.Forms.TextBox TxtBx_Name;
     }
 }

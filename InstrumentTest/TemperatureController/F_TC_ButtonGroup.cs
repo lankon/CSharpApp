@@ -48,6 +48,7 @@ namespace InstrumentTest
             toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_Setting_TPT8000, "TPT8000 Setting");
             toolTip1.SetToolTip(Btn_Show_PV, "Show PV");
+            toolTip1.SetToolTip(Pnl_FormHint, "F_TC_ButtonGroup");
         }
         #endregion
 

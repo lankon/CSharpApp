@@ -36,6 +36,7 @@ namespace InstrumentTest
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Btn_Setting_TPT8000 = new System.Windows.Forms.Button();
             this.Btn_Show_PV = new System.Windows.Forms.Button();
+            this.Pnl_FormHint = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // Btn_Setting
@@ -82,6 +83,13 @@ namespace InstrumentTest
             this.Btn_Show_PV.UseVisualStyleBackColor = true;
             this.Btn_Show_PV.Click += new System.EventHandler(this.Btn_Show_PV_Click);
             // 
+            // Pnl_FormHint
+            // 
+            this.Pnl_FormHint.Location = new System.Drawing.Point(832, -2);
+            this.Pnl_FormHint.Name = "Pnl_FormHint";
+            this.Pnl_FormHint.Size = new System.Drawing.Size(51, 70);
+            this.Pnl_FormHint.TabIndex = 40;
+            // 
             // F_TC_ButtonGroup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -92,6 +100,7 @@ namespace InstrumentTest
             this.Controls.Add(this.Btn_Setting_TPT8000);
             this.Controls.Add(this.Btn_Back);
             this.Controls.Add(this.Btn_Setting);
+            this.Controls.Add(this.Pnl_FormHint);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_TC_ButtonGroup";
             this.Text = "F_ButtonGroup";
@@ -106,5 +115,6 @@ namespace InstrumentTest
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Btn_Setting_TPT8000;
         private System.Windows.Forms.Button Btn_Show_PV;
+        private System.Windows.Forms.Panel Pnl_FormHint;
     }
 }

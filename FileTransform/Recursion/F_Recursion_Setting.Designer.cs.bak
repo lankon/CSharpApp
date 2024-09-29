@@ -59,6 +59,10 @@ namespace FileTransform
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.TxtBx_PinHeight = new System.Windows.Forms.TextBox();
+            this.TxtBx_ResultDelayTime = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.TxtBx_Threshold = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -421,6 +425,46 @@ namespace FileTransform
             this.TxtBx_PinHeight.Name = "TxtBx_PinHeight";
             this.TxtBx_PinHeight.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_PinHeight.TabIndex = 23;
+            // 
+            // TxtBx_ResultDelayTime
+            // 
+            this.TxtBx_ResultDelayTime.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_ResultDelayTime.Location = new System.Drawing.Point(338, 154);
+            this.TxtBx_ResultDelayTime.Name = "TxtBx_ResultDelayTime";
+            this.TxtBx_ResultDelayTime.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_ResultDelayTime.TabIndex = 15;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label13.Location = new System.Drawing.Point(6, 151);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(323, 34);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "Result Delay Time";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label14.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label14.Location = new System.Drawing.Point(6, 188);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(323, 37);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Threshold";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // TxtBx_Threshold
+            // 
+            this.TxtBx_Threshold.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_Threshold.Location = new System.Drawing.Point(338, 191);
+            this.TxtBx_Threshold.Name = "TxtBx_Threshold";
+            this.TxtBx_Threshold.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_Threshold.TabIndex = 11;
             // 
             // F_Recursion_Setting
             // 

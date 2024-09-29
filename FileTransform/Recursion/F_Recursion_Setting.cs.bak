@@ -60,7 +60,7 @@ namespace FileTransform
 
             // 設置文件選擇對話框的屬性
             openFileDialog.Title = "Select TeahPicture";
-            openFileDialog.Filter = "TeachPicture|*.png|TeachPicture|*.jpg|TeachPicture|*.tiff|All|*.*";
+            openFileDialog.Filter = "TeachPicture|*.png|TeachPicture|*.tiff|All|*.*";
 
             // 如果用戶選擇了文件，顯示文件名
             if (openFileDialog.ShowDialog() == DialogResult.OK)

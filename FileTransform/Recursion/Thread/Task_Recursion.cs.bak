@@ -43,7 +43,6 @@ namespace FileTransform.Recursion
         private WORK state = WORK.INITIAL;
         private WORK temp_state;
         private bool Terminate = true;  //Thread是否停止
-        private bool IsPause = false;   //判斷是否需要暫停
         //private bool IsConnect = false; //確認連線
         //private bool IsMonitorAll = false;  //判斷是否啟動所有控制器
         //private int delay_count = 0;
@@ -58,17 +57,12 @@ namespace FileTransform.Recursion
         //private string scomport = "";
         //ITemperatureController[] TC = new ITemperatureController[4];
         public ShowImageCallBack ShowImage { get; set; }
-        public ShowNameCallBack ShowName { get; set; }
         #endregion
 
         #region private function
         private void showimage(string path)
         {
             ShowImage("");
-        }
-        private void showname(string name)
-        {
-            ShowName(name);
         }
         private void ResetTimeCount(out int tick)
         {
@@ -106,7 +100,6 @@ namespace FileTransform.Recursion
         {
             temp_state = current_state;
             state = WORK.PAUSE;
-            IsPause = false;
         }
         #endregion
 
@@ -122,10 +115,6 @@ namespace FileTransform.Recursion
         public void Process_Bath()
         {
             Transition(WORK.BATCH_CALCULATE);
-        }
-        public void Process_Pause()
-        {
-            IsPause = true;
         }
         public string GetError()
         {
@@ -182,7 +171,8 @@ namespace FileTransform.Recursion
                             Batch = new SubTask_Recursion_Batch();
                             Batch.SetCount(cal_count);
                             Batch.ShowImage += showimage;
-                            Batch.ShowName += showname;
+
+                            
 
                             Transition(WORK.WAIT_BATCH_CALCULATE);
                         }
@@ -199,16 +189,8 @@ namespace FileTransform.Recursion
                                 CheckResult(check, WORK.BATCH_CALCULATE);
                                 
                                 if(check == true)
-                                {
-                                    if (IsPause)
-                                        GoToPause(WORK.BATCH_CALCULATE);
-
                                     cal_count++;
-                                }
-                                    
                             }
-
-                            
                         }
                         break;
                     #endregion

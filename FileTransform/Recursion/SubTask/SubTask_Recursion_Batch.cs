@@ -64,6 +64,7 @@ namespace FileTransform.Recursion
         private Mat image;
         Mat outputImage = new Mat();
         public ShowImageCallBack ShowImage { get; set; }
+        public ShowNameCallBack ShowName { get; set; }
         #endregion
 
         #region private function
@@ -271,7 +272,7 @@ namespace FileTransform.Recursion
 
                         Cv2.ImWrite(Save_Path, outputImage);
 
-                        ShowImage(Save_Path);
+                        //ShowImage(Save_Path);
 
                         Transition(WORK.CALCULATE_DIST);
                     }
@@ -281,8 +282,57 @@ namespace FileTransform.Recursion
                         // 計算圓心到方框邊的距離
                         double PixelSizeX = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelX);//0.59261f;
                         double PixelSizeY = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelY);
-                        double distanceX = Math.Min(center_final.X - boundingRect.Left, boundingRect.Right - center_final.X) * PixelSizeX;
-                        double distanceY = Math.Min(center_final.Y - boundingRect.Top, boundingRect.Bottom - center_final.Y) * PixelSizeY;
+                        double distanceX = 0;// Math.Min(center_final.X - boundingRect.Left, boundingRect.Right - center_final.X) * PixelSizeX;
+                        double distanceY = 0;// Math.Min(center_final.Y - boundingRect.Top, boundingRect.Bottom - center_final.Y) * PixelSizeY;
+                        int c_x = 0, c_y = 0, r_x = 0, r_y = 0;
+                        
+                        if(center_final.X - boundingRect.Left < boundingRect.Right - center_final.X)
+                        {
+                            distanceX = (center_final.X - boundingRect.Left) * PixelSizeX;
+
+                            c_x = (int)center_final.X;
+                            c_y = (int)center_final.Y;
+                            r_x = (int)boundingRect.Left;
+                            r_y = (int)center_final.Y;
+                        }
+                        else
+                        {
+                            distanceX = (boundingRect.Right - center_final.X) * PixelSizeX;
+
+                            c_x = (int)center_final.X;
+                            c_y = (int)center_final.Y;
+                            r_x = (int)boundingRect.Right;
+                            r_y = (int)center_final.Y;
+                        }
+
+                        Cv2.Line(outputImage, c_x, c_y, r_x, r_y, Scalar.OrangeRed, 4);
+
+                        if (center_final.Y - boundingRect.Top < boundingRect.Bottom - center_final.Y)
+                        {
+                            distanceY = (center_final.Y - boundingRect.Top) * PixelSizeY;
+
+                            c_x = (int)center_final.X;
+                            c_y = (int)center_final.Y;
+                            r_x = (int)center_final.X;
+                            r_y = (int)boundingRect.Top;
+                        }
+                        else
+                        {
+                            distanceY = (boundingRect.Bottom - center_final.Y) * PixelSizeY;
+
+                            c_x = (int)center_final.X;
+                            c_y = (int)center_final.Y;
+                            r_x = (int)center_final.X;
+                            r_y = (int)boundingRect.Bottom;
+                        }
+
+                        Cv2.Line(outputImage, c_x, c_y, r_x, r_y, Scalar.OrangeRed, 4);
+
+                        Cv2.ImWrite(Save_Path, outputImage);
+
+                        ShowImage(Save_Path);
+
+                        //ShowName()
 
                         //MessageBox.Show($"X:{(int)distanceX}um, Y:{(int)distanceY}um");
                         #region 寫檔
@@ -293,6 +343,8 @@ namespace FileTransform.Recursion
                         tool.WriteFile(File, $"{file_name},{distanceX},{distanceY}");
                         tool.CloseFile(File);
                         #endregion
+
+                        ShowName(file_name);
 
                         Transition(WORK.SUCCESS);
                     }

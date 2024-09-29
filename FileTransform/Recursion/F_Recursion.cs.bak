@@ -37,22 +37,10 @@ namespace FileTransform.Recursion
 
             //ShowHint();
             RC.ShowImage += ShowImage;
-            RC.ShowName += ShowName;
         }
         private void ShowImage(string path)
         {
             Dic_Picture = tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Recursion.png");
-        }
-        private void ShowName(string name)
-        {
-            if (TxtBx_Name.InvokeRequired)
-            {
-                TxtBx_Name.Invoke(new Action(() => TxtBx_Name.Text = name));
-            }
-            else
-            {
-                TxtBx_Name.Text = name;
-            }
         }
         private int[] PicBxPositionToPixel(PictureBox pic, double mouse_x, double mouse_y, double image_w, double image_h)
         {

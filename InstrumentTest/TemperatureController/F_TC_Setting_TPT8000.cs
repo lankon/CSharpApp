@@ -40,6 +40,7 @@ namespace InstrumentTest
         private void ShowHint()
         {
             toolTip1.SetToolTip(Btn_Save, "Save Offset Value");
+            toolTip1.SetToolTip(Panel_ShowFormName, "F_TC_Setting_TPT8000");
         }
         #endregion
 

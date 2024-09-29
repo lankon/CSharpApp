@@ -44,6 +44,7 @@ namespace InstrumentTest
         private bool Terminate = true;  //Thread是否停止
         private bool IsConnect = false; //確認連線
         private bool IsMonitorAll = false;  //判斷是否啟動所有控制器
+        private bool IsUseCycleTest = false;  //判斷是否使用循環測試
         private int delay_count = 0;
         private int board_num = 0;
         private WORK state = WORK.INITIAL;
@@ -54,11 +55,16 @@ namespace InstrumentTest
         private string sbaudrate = "";
         private string sparity = "";
         private string scomport = "";
-        ITemperatureController[] TC = new ITemperatureController[4];
+        //ITemperatureController[] TC = new ITemperatureController[4];
+        BaseTemperatureController[] TC = new BaseTemperatureController[4];
         #endregion
 
         #region private function
-        private ITemperatureController Create_TC(string Type)
+        /// <summary>
+        /// 建立TC物件。
+        /// </summary>
+        /// <returns>BaseTemperatureController。</returns>
+        private BaseTemperatureController Create_TC(string Type)
         {
             switch (Type)
             {
@@ -67,6 +73,7 @@ namespace InstrumentTest
             }
             return null;
         }
+
         private void ResetTimeCount(out int tick)
         {
             tick = Environment.TickCount;
@@ -173,6 +180,10 @@ namespace InstrumentTest
         {
             IsMonitorAll = flag;
         }
+        public void UseCycleTest(bool flag)
+        {
+            IsUseCycleTest = flag;
+        }
         #endregion
 
         public Task_TemperatureController()
@@ -190,7 +201,7 @@ namespace InstrumentTest
                         
 
                         break;
-
+                    #region Idle
                     case WORK.IDLE:
                         if (IsConnect)
                         {
@@ -223,6 +234,7 @@ namespace InstrumentTest
                             }
                         }
                         break;
+                    #endregion
 
                     #region Monitor
                     case WORK.MONITOR:
@@ -374,6 +386,13 @@ namespace InstrumentTest
                             int ctrl = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoxNo1 + i);
                             string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_BoxCh1 + i);
                             int temp = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_TargetT1 + i);
+
+                            if (IsUseCycleTest == true)
+                            {
+                                
+                                temp = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_CT_T1);
+                            }
+                                
                             
                             if (TC[0].Start(ctrl,ch,temp))
                             {

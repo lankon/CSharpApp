@@ -10,7 +10,7 @@ using CommonFunction;
 
 namespace InstrumentTest
 {
-    public class TemperatureController_TPT8000 : ITemperatureController
+    public class TemperatureController_TPT8000 : BaseTemperatureController
     {
         #region parameter define
         Tool tool = new Tool();
@@ -35,12 +35,7 @@ namespace InstrumentTest
         #endregion
 
         #region Public Function       
-        //************************************************************
-        //功能：開啟通訊
-        //參數：None
-        //回傳：None
-        //************************************************************
-        public bool Open(String com, String baudrate, String parity)
+        public override bool Open(String com, String baudrate, String parity)
         {
             Comport.PortName = "COM7";
             Comport.BaudRate = int.Parse("38400");
@@ -66,12 +61,7 @@ namespace InstrumentTest
             }
             return true;
         }
-        //************************************************************
-        //功能：關閉通訊
-        //參數：None
-        //回傳：None
-        //************************************************************
-        public bool Close()
+        public override bool Close()
         {
             bool res = true;
 
@@ -95,12 +85,7 @@ namespace InstrumentTest
 
             return res;
         }
-        //************************************************************
-        //功能：取得TPT8000回傳溫度
-        //參數：None
-        //回傳：是否成功
-        //************************************************************
-        public bool AskPV()
+        public override bool AskPV()
         {
             int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
             string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
@@ -131,12 +116,7 @@ namespace InstrumentTest
 
             return res;
         }
-        //************************************************************
-        //功能：取得TPT8000回傳溫度(小程式使用,勿移植到主程式上)
-        //參數：ctrl_box:控制箱編號 , ch:控制箱Channel
-        //回傳：是否成功
-        //************************************************************
-        public bool AskPV(int ctrl_box, string ch)
+        public override bool AskPV(int ctrl_box, string ch)
         {
             bool res = false;
             String ReadTemperature_Order = $"B{ctrl_box.ToString("00")},GTEMP,{ch}\r\n";
@@ -161,12 +141,7 @@ namespace InstrumentTest
 
             return res;
         }
-        //************************************************************
-        //功能：取得TPT8000回傳溫度
-        //參數：None
-        //回傳：主RTD溫度
-        //************************************************************
-        public String GetAns()
+        public override String GetAns()
         {
             try
             {
@@ -218,12 +193,7 @@ namespace InstrumentTest
                 return "error";
             }
         }       
-        //************************************************************
-        //功能：開始控溫
-        //參數：None
-        //回傳：None
-        //************************************************************
-        public bool Start()
+        public override bool Start()
         {
             int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);         
             string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
@@ -262,12 +232,7 @@ namespace InstrumentTest
             }
             return res;
         }
-        //************************************************************
-        //功能：開始控溫(小程式使用,勿移植到主程式上)
-        //參數：ctrl_box:控制箱編號 , ch:控制箱Channel
-        //回傳：是否成功
-        //************************************************************
-        public bool Start(int ctrl_box, string ch, int Value)
+        public override bool Start(int ctrl_box, string ch, int Value)
         {
             int temp_ctrl_box = ctrl_box;
 
@@ -331,12 +296,7 @@ namespace InstrumentTest
             }
             return res;
         }
-        //************************************************************
-        //功能：停止控溫
-        //參數：None
-        //回傳：None
-        //************************************************************
-        public bool Stop()
+        public override bool Stop()
         {
             int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);
 
@@ -367,12 +327,7 @@ namespace InstrumentTest
             }
             return res;
         }
-        //************************************************************
-        //功能：停止控溫(小程式使用,勿移植到主程式上)
-        //參數：ctrl_box:控制箱編號 , ch:控制箱Channel
-        //回傳：是否成功
-        //************************************************************
-        public bool Stop(int ctrl_box, string ch)
+        public override bool Stop(int ctrl_box, string ch)
         {
             if (ctrl_box >= 1)   //TPT8000韌體端沒有編號B01控制箱指令
                 ctrl_box++;
@@ -399,11 +354,6 @@ namespace InstrumentTest
             }
             return res;
         }
-        //************************************************************
-        //功能：讀取溫度校正值
-        //參數：ControlNum->溫控箱編號 ; ChuckNum->溫控箱Channel
-        //回傳：None
-        //************************************************************
         public void ReadTempOffsetFile(int ControlNum, int ChuckNum)
         {
             String Line;
@@ -457,12 +407,7 @@ namespace InstrumentTest
             }
             sw.Close();
         }
-        //************************************************************
-        //功能：五點RTD值
-        //參數：None
-        //回傳：五點RTD
-        //************************************************************
-        public String GetFivePointValue()
+        public override String GetFivePointValue()
         {
             string value = FivePointValue;
             char[] separator = new char[] { ',' };

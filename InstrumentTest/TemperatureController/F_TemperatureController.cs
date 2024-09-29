@@ -36,6 +36,7 @@ namespace InstrumentTest
             toolTip1.SetToolTip(Btn_DisConnect, "DisConnect");
             toolTip1.SetToolTip(Btn_Start, "Start");
             toolTip1.SetToolTip(Btn_Stop, "Stop");
+            toolTip1.SetToolTip(Panel_ShowFormName, "F_TemperatureController");
         }
         private void Update_PV(double value)
         {
@@ -197,6 +198,11 @@ namespace InstrumentTest
             ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Target, TxtBx_Target.Text);
             ApplicationSetting.SaveAllRecipe(this);
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

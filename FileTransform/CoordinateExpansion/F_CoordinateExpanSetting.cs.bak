@@ -19,7 +19,7 @@ namespace FileTransform
         public void SetF_CoordinateExpanSetting(Panel pnl, F_CoordinateExpanSetting form)
         {
             form.Dock = DockStyle.Fill;
-            form.Visible = false;
+            form.Visible = true;
             form.TopLevel = false;
             form.Top = 0;
             form.Left = 0;

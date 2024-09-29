@@ -91,6 +91,7 @@ namespace FileTransform
             this.Btn_Transform.Size = new System.Drawing.Size(60, 60);
             this.Btn_Transform.TabIndex = 16;
             this.Btn_Transform.UseVisualStyleBackColor = true;
+            this.Btn_Transform.Visible = false;
             this.Btn_Transform.Click += new System.EventHandler(this.Btn_Transform_Click);
             // 
             // F_CoordinateExpansion

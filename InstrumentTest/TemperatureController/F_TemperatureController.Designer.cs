@@ -29,35 +29,37 @@ namespace InstrumentTest
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_TemperatureController));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Labl_PV = new System.Windows.Forms.Label();
             this.Labl_SV = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.TxtBx_CT_Time = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.TxtBx_Target = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.TxtBx_CT_T1 = new System.Windows.Forms.TextBox();
+            this.TxtBx_CT_T2 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Cmbx_CycleTest = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Btn_StopAll = new System.Windows.Forms.Button();
             this.Btn_StartAll = new System.Windows.Forms.Button();
             this.Btn_Stop = new System.Windows.Forms.Button();
-            this.Btn_DisConnect = new System.Windows.Forms.Button();
-            this.Btn_Connect = new System.Windows.Forms.Button();
             this.Btn_Start = new System.Windows.Forms.Button();
+            this.Btn_Connect = new System.Windows.Forms.Button();
+            this.Btn_DisConnect = new System.Windows.Forms.Button();
+            this.Btn_StopAll = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.toolTip1 = new System.Windows.Forms.ToolTip();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Panel_ShowFormName = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -137,16 +139,16 @@ namespace InstrumentTest
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.textBox4, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.TxtBx_CT_Time, 1, 4);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label5, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label7, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.TxtBx_Target, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox2, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBox3, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.TxtBx_CT_T1, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.TxtBx_CT_T2, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.comboBox1, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.Cmbx_CycleTest, 1, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(450, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 5;
@@ -158,15 +160,15 @@ namespace InstrumentTest
             this.tableLayoutPanel2.Size = new System.Drawing.Size(300, 185);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
-            // textBox4
+            // TxtBx_CT_Time
             // 
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Enabled = false;
-            this.textBox4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox4.Location = new System.Drawing.Point(154, 150);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(140, 29);
-            this.textBox4.TabIndex = 9;
+            this.TxtBx_CT_Time.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_CT_Time.Enabled = false;
+            this.TxtBx_CT_Time.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_CT_Time.Location = new System.Drawing.Point(154, 150);
+            this.TxtBx_CT_Time.Name = "TxtBx_CT_Time";
+            this.TxtBx_CT_Time.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_CT_Time.TabIndex = 9;
             // 
             // label4
             // 
@@ -225,25 +227,25 @@ namespace InstrumentTest
             this.TxtBx_Target.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_Target.TabIndex = 4;
             // 
-            // textBox2
+            // TxtBx_CT_T1
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox2.Location = new System.Drawing.Point(154, 78);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(140, 29);
-            this.textBox2.TabIndex = 5;
+            this.TxtBx_CT_T1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_CT_T1.Enabled = false;
+            this.TxtBx_CT_T1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_CT_T1.Location = new System.Drawing.Point(154, 78);
+            this.TxtBx_CT_T1.Name = "TxtBx_CT_T1";
+            this.TxtBx_CT_T1.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_CT_T1.TabIndex = 5;
             // 
-            // textBox3
+            // TxtBx_CT_T2
             // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Enabled = false;
-            this.textBox3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox3.Location = new System.Drawing.Point(154, 114);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(140, 29);
-            this.textBox3.TabIndex = 6;
+            this.TxtBx_CT_T2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtBx_CT_T2.Enabled = false;
+            this.TxtBx_CT_T2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_CT_T2.Location = new System.Drawing.Point(154, 114);
+            this.TxtBx_CT_T2.Name = "TxtBx_CT_T2";
+            this.TxtBx_CT_T2.Size = new System.Drawing.Size(140, 29);
+            this.TxtBx_CT_T2.TabIndex = 6;
             // 
             // label8
             // 
@@ -257,44 +259,31 @@ namespace InstrumentTest
             this.label8.Text = "CT Time(min)";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // comboBox1
+            // Cmbx_CycleTest
             // 
-            this.comboBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox1.Enabled = false;
-            this.comboBox1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(154, 42);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(140, 28);
-            this.comboBox1.TabIndex = 8;
-            this.comboBox1.Text = "No Use";
+            this.Cmbx_CycleTest.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_CycleTest.Enabled = false;
+            this.Cmbx_CycleTest.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_CycleTest.FormattingEnabled = true;
+            this.Cmbx_CycleTest.Location = new System.Drawing.Point(154, 42);
+            this.Cmbx_CycleTest.Name = "Cmbx_CycleTest";
+            this.Cmbx_CycleTest.Size = new System.Drawing.Size(140, 28);
+            this.Cmbx_CycleTest.TabIndex = 8;
+            this.Cmbx_CycleTest.Text = "No Use";
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.Btn_StopAll);
             this.panel1.Controls.Add(this.Btn_StartAll);
             this.panel1.Controls.Add(this.Btn_Stop);
-            this.panel1.Controls.Add(this.Btn_DisConnect);
-            this.panel1.Controls.Add(this.Btn_Connect);
             this.panel1.Controls.Add(this.Btn_Start);
+            this.panel1.Controls.Add(this.Btn_Connect);
+            this.panel1.Controls.Add(this.Btn_DisConnect);
+            this.panel1.Controls.Add(this.Btn_StopAll);
             this.panel1.Location = new System.Drawing.Point(12, 456);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(998, 86);
             this.panel1.TabIndex = 4;
-            // 
-            // Btn_StopAll
-            // 
-            this.Btn_StopAll.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_StopAll.BackgroundImage")));
-            this.Btn_StopAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_StopAll.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Btn_StopAll.Location = new System.Drawing.Point(274, 4);
-            this.Btn_StopAll.Name = "Btn_StopAll";
-            this.Btn_StopAll.Size = new System.Drawing.Size(85, 79);
-            this.Btn_StopAll.TabIndex = 10;
-            this.Btn_StopAll.UseVisualStyleBackColor = true;
-            this.Btn_StopAll.Visible = false;
-            this.Btn_StopAll.Click += new System.EventHandler(this.Btn_StopAll_Click);
             // 
             // Btn_StartAll
             // 
@@ -320,18 +309,17 @@ namespace InstrumentTest
             this.Btn_Stop.UseVisualStyleBackColor = true;
             this.Btn_Stop.Click += new System.EventHandler(this.Btn_Stop_Click);
             // 
-            // Btn_DisConnect
+            // Btn_Start
             // 
-            this.Btn_DisConnect.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_DisConnect.BackgroundImage")));
-            this.Btn_DisConnect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_DisConnect.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Btn_DisConnect.Location = new System.Drawing.Point(4, 4);
-            this.Btn_DisConnect.Name = "Btn_DisConnect";
-            this.Btn_DisConnect.Size = new System.Drawing.Size(85, 79);
-            this.Btn_DisConnect.TabIndex = 7;
-            this.Btn_DisConnect.UseVisualStyleBackColor = true;
-            this.Btn_DisConnect.Visible = false;
-            this.Btn_DisConnect.Click += new System.EventHandler(this.Btn_DisConnect_Click);
+            this.Btn_Start.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Start.BackgroundImage")));
+            this.Btn_Start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Start.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_Start.Location = new System.Drawing.Point(94, 4);
+            this.Btn_Start.Name = "Btn_Start";
+            this.Btn_Start.Size = new System.Drawing.Size(85, 79);
+            this.Btn_Start.TabIndex = 4;
+            this.Btn_Start.UseVisualStyleBackColor = true;
+            this.Btn_Start.Click += new System.EventHandler(this.Btn_Start_Click);
             // 
             // Btn_Connect
             // 
@@ -345,17 +333,31 @@ namespace InstrumentTest
             this.Btn_Connect.UseVisualStyleBackColor = true;
             this.Btn_Connect.Click += new System.EventHandler(this.Btn_Connect_Click);
             // 
-            // Btn_Start
+            // Btn_DisConnect
             // 
-            this.Btn_Start.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Start.BackgroundImage")));
-            this.Btn_Start.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_Start.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Btn_Start.Location = new System.Drawing.Point(94, 4);
-            this.Btn_Start.Name = "Btn_Start";
-            this.Btn_Start.Size = new System.Drawing.Size(85, 79);
-            this.Btn_Start.TabIndex = 4;
-            this.Btn_Start.UseVisualStyleBackColor = true;
-            this.Btn_Start.Click += new System.EventHandler(this.Btn_Start_Click);
+            this.Btn_DisConnect.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_DisConnect.BackgroundImage")));
+            this.Btn_DisConnect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_DisConnect.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_DisConnect.Location = new System.Drawing.Point(4, 4);
+            this.Btn_DisConnect.Name = "Btn_DisConnect";
+            this.Btn_DisConnect.Size = new System.Drawing.Size(85, 79);
+            this.Btn_DisConnect.TabIndex = 7;
+            this.Btn_DisConnect.UseVisualStyleBackColor = true;
+            this.Btn_DisConnect.Visible = false;
+            this.Btn_DisConnect.Click += new System.EventHandler(this.Btn_DisConnect_Click);
+            // 
+            // Btn_StopAll
+            // 
+            this.Btn_StopAll.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_StopAll.BackgroundImage")));
+            this.Btn_StopAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_StopAll.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_StopAll.Location = new System.Drawing.Point(274, 4);
+            this.Btn_StopAll.Name = "Btn_StopAll";
+            this.Btn_StopAll.Size = new System.Drawing.Size(85, 79);
+            this.Btn_StopAll.TabIndex = 10;
+            this.Btn_StopAll.UseVisualStyleBackColor = true;
+            this.Btn_StopAll.Visible = false;
+            this.Btn_StopAll.Click += new System.EventHandler(this.Btn_StopAll_Click);
             // 
             // panel2
             // 
@@ -368,17 +370,24 @@ namespace InstrumentTest
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.Location = new System.Drawing.Point(2, 3);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(991, 226);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
+            // 
+            // Panel_ShowFormName
+            // 
+            this.Panel_ShowFormName.Location = new System.Drawing.Point(966, 516);
+            this.Panel_ShowFormName.Name = "Panel_ShowFormName";
+            this.Panel_ShowFormName.Size = new System.Drawing.Size(52, 35);
+            this.Panel_ShowFormName.TabIndex = 15;
             // 
             // F_TemperatureController
             // 
@@ -390,6 +399,7 @@ namespace InstrumentTest
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.Panel_ShowFormName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_TemperatureController";
             this.Text = "F_TemperatureController";
@@ -417,20 +427,21 @@ namespace InstrumentTest
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox TxtBx_Target;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox TxtBx_CT_T1;
+        private System.Windows.Forms.TextBox TxtBx_CT_T2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Btn_Start;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button Btn_Connect;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox TxtBx_CT_Time;
+        private System.Windows.Forms.ComboBox Cmbx_CycleTest;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Btn_DisConnect;
         private System.Windows.Forms.Button Btn_Stop;
         private System.Windows.Forms.Button Btn_StartAll;
         private System.Windows.Forms.Button Btn_StopAll;
+        private System.Windows.Forms.Panel Panel_ShowFormName;
     }
 }

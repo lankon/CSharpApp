@@ -159,6 +159,18 @@ namespace Mapping
             }
 
             return array_diff;
+        } 
+        private List<double> CompareDataNeedSort(string key, List<Dictionary<string, string>> data1, List<Dictionary<string, string>> data2, bool percentage)
+        {
+            // 功能：比對座標後,將兩份檔案測試值相減
+            // 參數：
+            // 回傳: 每個座標的測試值差異
+
+            List<double> array_diff = new List<double>();
+
+
+
+            return array_diff;
         }
         private void ClearChart(Chart chart)
         {

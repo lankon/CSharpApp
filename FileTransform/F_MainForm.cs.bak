@@ -32,7 +32,6 @@ namespace FileTransform
             ApplicationSetting.ReadAllRecipe<FormItem>();
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
 
-            #region NearField
             //F_NearField f_NearField = new F_NearField();
             //f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
             //f_NearField.Show();
@@ -40,27 +39,14 @@ namespace FileTransform
             //F_NearField_ButtonGroup f_NearField_ButtonGroup = new F_NearField_ButtonGroup();
             //f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_NearField_ButtonGroup);
             //f_NearField_ButtonGroup.Show();
-            #endregion
 
-            #region Recursion
-            //F_Recursion f_Recursion = new F_Recursion();
-            //f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
-            //f_Recursion.Show();
+            F_Recursion f_Recursion = new F_Recursion();
+            f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
+            f_Recursion.Show();
 
-            //F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
-            //f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
-            //f_Recursion_ButtonGroup.Show();
-            #endregion
-
-            #region CoordinateExpan
-            F_CoordinateExpansion f_CoordinateExpansion = new F_CoordinateExpansion();
-            f_CoordinateExpansion.SetF_CoordinateExpansion(GlobalVariable.MyStaticPanel, f_CoordinateExpansion);
-            f_CoordinateExpansion.Show();
-
-            F_CoordinateExpan_ButtonGroup f_CoordinateExpan_ButtonGroup = new F_CoordinateExpan_ButtonGroup();
-            f_CoordinateExpan_ButtonGroup.SetF_CoordinateExpan_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_CoordinateExpan_ButtonGroup);
-            f_CoordinateExpan_ButtonGroup.Show();
-            #endregion
+            F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
+            f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
+            f_Recursion_ButtonGroup.Show();
 
         }
         private void SetHint()
@@ -167,25 +153,13 @@ namespace FileTransform
             //f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
             //f_NearField.Show();
 
-            #region Recursion
-            //F_Recursion f_Recursion = new F_Recursion();
-            //f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
-            //f_Recursion.Show();
+            F_Recursion f_Recursion = new F_Recursion();
+            f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
+            f_Recursion.Show();
 
-            //F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
-            //f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
-            //f_Recursion_ButtonGroup.Show();
-            #endregion
-
-            #region CoordinateExpan
-            F_CoordinateExpansion f_CoordinateExpansion = new F_CoordinateExpansion();
-            f_CoordinateExpansion.SetF_CoordinateExpansion(GlobalVariable.MyStaticPanel, f_CoordinateExpansion);
-            f_CoordinateExpansion.Show();
-
-            F_CoordinateExpan_ButtonGroup f_CoordinateExpan_ButtonGroup = new F_CoordinateExpan_ButtonGroup();
-            f_CoordinateExpan_ButtonGroup.SetF_CoordinateExpan_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_CoordinateExpan_ButtonGroup);
-            f_CoordinateExpan_ButtonGroup.Show();
-            #endregion
+            F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
+            f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
+            f_Recursion_ButtonGroup.Show();
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)

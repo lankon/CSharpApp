@@ -40,6 +40,7 @@ namespace InstrumentTest
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.Cmbx_Comport = new System.Windows.Forms.ComboBox();
+            this.Panel_ShowFormName = new System.Windows.Forms.Panel();
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,12 +181,20 @@ namespace InstrumentTest
             this.Cmbx_Comport.Size = new System.Drawing.Size(131, 28);
             this.Cmbx_Comport.TabIndex = 12;
             // 
+            // Panel_ShowFormName
+            // 
+            this.Panel_ShowFormName.Location = new System.Drawing.Point(968, 517);
+            this.Panel_ShowFormName.Name = "Panel_ShowFormName";
+            this.Panel_ShowFormName.Size = new System.Drawing.Size(52, 35);
+            this.Panel_ShowFormName.TabIndex = 6;
+            // 
             // F_TC_Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.Panel_ShowFormName);
             this.Controls.Add(this.tableLayoutPanel5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_TC_Setting";
@@ -209,5 +218,6 @@ namespace InstrumentTest
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox Cmbx_Comport;
+        private System.Windows.Forms.Panel Panel_ShowFormName;
     }
 }
