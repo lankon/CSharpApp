@@ -60,7 +60,7 @@ namespace InstrumentTest
             this.label18 = new System.Windows.Forms.Label();
             this.TxtBx_Temp1 = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.Pnl_BxChSetting = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label15 = new System.Windows.Forms.Label();
             this.TxtBx_BoardCount = new System.Windows.Forms.TextBox();
@@ -110,7 +110,7 @@ namespace InstrumentTest
             this.Pnl_TPT8000_Offset.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.Pnl_BxChSetting.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -252,6 +252,7 @@ namespace InstrumentTest
             this.Cmbx_CalibrationFunc.Name = "Cmbx_CalibrationFunc";
             this.Cmbx_CalibrationFunc.Size = new System.Drawing.Size(99, 28);
             this.Cmbx_CalibrationFunc.TabIndex = 9;
+            this.Cmbx_CalibrationFunc.SelectedIndexChanged += new System.EventHandler(this.Cmbx_CalibrationFunc_SelectedIndexChanged);
             // 
             // tableLayoutPanel3
             // 
@@ -474,15 +475,16 @@ namespace InstrumentTest
             this.TxtBx_Temp1.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Temp1.TabIndex = 5;
             // 
-            // panel1
+            // Pnl_BxChSetting
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.tableLayoutPanel4);
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Location = new System.Drawing.Point(524, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(472, 439);
-            this.panel1.TabIndex = 10;
+            this.Pnl_BxChSetting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pnl_BxChSetting.Controls.Add(this.tableLayoutPanel4);
+            this.Pnl_BxChSetting.Controls.Add(this.tableLayoutPanel1);
+            this.Pnl_BxChSetting.Location = new System.Drawing.Point(509, 5);
+            this.Pnl_BxChSetting.Name = "Pnl_BxChSetting";
+            this.Pnl_BxChSetting.Size = new System.Drawing.Size(487, 452);
+            this.Pnl_BxChSetting.TabIndex = 10;
+            this.Pnl_BxChSetting.MouseLeave += new System.EventHandler(this.Pnl_BxChSetting_MouseLeave);
             // 
             // tableLayoutPanel4
             // 
@@ -494,7 +496,7 @@ namespace InstrumentTest
             this.tableLayoutPanel4.Controls.Add(this.label15, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.TxtBx_BoardCount, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.Cmbx_Board, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(10, 6);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -595,7 +597,7 @@ namespace InstrumentTest
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_BoxCh9, 2, 9);
             this.tableLayoutPanel1.Controls.Add(this.label19, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_TargetT1, 3, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 45);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 50);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 10;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11012F));
@@ -1028,7 +1030,7 @@ namespace InstrumentTest
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
             this.Controls.Add(this.Panel_ShowFormName);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.Pnl_BxChSetting);
             this.Controls.Add(this.Pnl_TPT8000_Offset);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_TC_Setting_TPT8000";
@@ -1040,7 +1042,7 @@ namespace InstrumentTest
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.Pnl_BxChSetting.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -1078,7 +1080,7 @@ namespace InstrumentTest
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox TxtBx_Temp1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel Pnl_BxChSetting;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox TxtBx_BoardCount;

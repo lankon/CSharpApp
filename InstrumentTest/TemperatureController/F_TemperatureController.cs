@@ -113,7 +113,6 @@ namespace InstrumentTest
             {
                 Btn_Connect.Visible = true;
                 Btn_DisConnect.Visible = false;
-
             }
             else
             {

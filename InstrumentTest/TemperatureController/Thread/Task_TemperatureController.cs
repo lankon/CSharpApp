@@ -73,7 +73,6 @@ namespace InstrumentTest
             }
             return null;
         }
-
         private void ResetTimeCount(out int tick)
         {
             tick = Environment.TickCount;
@@ -288,7 +287,7 @@ namespace InstrumentTest
                     case WORK.ANS_PV_ALL:
                         if (CheckTimeOverMilliSec(delay_count, 100))
                         {
-                            TC[0].GetAns();
+                            present_temp_value = TC[0].GetAns();
                             temp_5_rtd = TC[0].GetFivePointValue();
                             ResetTimeCount(out delay_count);
                             //Transition(WORK);
@@ -389,13 +388,16 @@ namespace InstrumentTest
 
                             if (IsUseCycleTest == true)
                             {
-                                
-                                temp = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_CT_T1);
+                                int temp_ct2 = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_CT_T1);
+                                if (Math.Abs(Int32.Parse(present_temp_value) - temp_ct2) < 5 )
+                                    temp = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_CT_T1);
+                                else
+                                    temp = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_CT_T2);
                             }
-                                
                             
                             if (TC[0].Start(ctrl,ch,temp))
                             {
+                                Thread.Sleep(50);
                                 tool.SaveHistoryToFile("TC Start All");
                             }
                             else

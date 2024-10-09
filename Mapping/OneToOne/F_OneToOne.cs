@@ -31,7 +31,7 @@ namespace Mapping
         #region private function
         private void ShowHint()
         {
-            //toolTip1.SetToolTip(Btn_Connect, "Connect");
+            toolTip1.SetToolTip(Panel_ShowFormName, "Connect");
         }
         private void InitialApplication()
         {
@@ -130,6 +130,14 @@ namespace Mapping
             Cmbx.SelectedIndex = 0;
             return Item;
         }
+        /// <summary>
+        /// 比對兩份資料計算差值
+        /// </summary>
+        /// <param name="key">比對項目</param>
+        /// <param name="data1"></param>
+        /// <param name="data2"></param>
+        /// <param name="percentage">是否以百分比表示</param>
+        /// <returns>兩份資料間的差值</returns>
         private List<double> CompareData(string key, List<Dictionary<string, string>> data1, List<Dictionary<string, string>> data2, bool percentage)
         {
             List<double> array_diff = new List<double>();
@@ -178,13 +186,16 @@ namespace Mapping
             chart.ChartAreas.Clear();
             chart.Titles.Clear();
         }
+        /// <summary>
+        /// 畫差值散點圖
+        /// </summary>
         private void DrawChart(List<double> array_diff, Chart chart, string test_item, bool AutoScale)
         {
-            Title title = new Title();
-            title.Text = test_item + " File1-File2";
-            title.ForeColor = System.Drawing.Color.Black;
-            title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold);
-            chart.Titles.Add(title);
+            //Title title = new Title();
+            //title.Text = test_item + " File1-File2";
+            //title.ForeColor = System.Drawing.Color.Black;
+            //title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold);
+            //chart.Titles.Add(title);
 
             // 創建一個 ChartArea
             ChartArea chartArea = new ChartArea();
@@ -423,7 +434,6 @@ namespace Mapping
 
         private void Btn_Compare_Click(object sender, EventArgs e)
         {
-            
             if(File1.CellInfo == null || File2.CellInfo == null)
             {
                 tool.SaveHistoryToFile("未載入資料");

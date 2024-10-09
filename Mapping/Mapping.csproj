@@ -65,12 +65,6 @@
       <Link>BaseFile\Tool.cs</Link>
     </Compile>
     <Compile Include="BaseFile\eAppSetting.cs" />
-    <Compile Include="F_BinTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_BinTable.Designer.cs">
-      <DependentUpon>F_BinTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="F_MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,9 +104,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="F_BinTable.resx">
-      <DependentUpon>F_BinTable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="F_MainForm.resx">
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </EmbeddedResource>

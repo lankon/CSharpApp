@@ -172,5 +172,16 @@ namespace InstrumentTest
             //}
         
         }
+
+        private void Cmbx_CalibrationFunc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Pnl_BxChSetting_MouseLeave(object sender, EventArgs e)
+        {
+            ApplicationSetting.SaveAllRecipe(this);
+            ApplicationSetting.ReadAllRecipe<eFormAppSet>();
+        }
     }
 }

@@ -31,8 +31,8 @@ namespace InstrumentTest
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_TemperatureController));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Labl_PV = new System.Windows.Forms.Label();
             this.Labl_SV = new System.Windows.Forms.Label();
@@ -163,7 +163,6 @@ namespace InstrumentTest
             // TxtBx_CT_Time
             // 
             this.TxtBx_CT_Time.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_CT_Time.Enabled = false;
             this.TxtBx_CT_Time.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_CT_Time.Location = new System.Drawing.Point(154, 150);
             this.TxtBx_CT_Time.Name = "TxtBx_CT_Time";
@@ -230,7 +229,6 @@ namespace InstrumentTest
             // TxtBx_CT_T1
             // 
             this.TxtBx_CT_T1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_CT_T1.Enabled = false;
             this.TxtBx_CT_T1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_CT_T1.Location = new System.Drawing.Point(154, 78);
             this.TxtBx_CT_T1.Name = "TxtBx_CT_T1";
@@ -240,7 +238,6 @@ namespace InstrumentTest
             // TxtBx_CT_T2
             // 
             this.TxtBx_CT_T2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtBx_CT_T2.Enabled = false;
             this.TxtBx_CT_T2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.TxtBx_CT_T2.Location = new System.Drawing.Point(154, 114);
             this.TxtBx_CT_T2.Name = "TxtBx_CT_T2";
@@ -262,14 +259,15 @@ namespace InstrumentTest
             // Cmbx_CycleTest
             // 
             this.Cmbx_CycleTest.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Cmbx_CycleTest.Enabled = false;
             this.Cmbx_CycleTest.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Cmbx_CycleTest.FormattingEnabled = true;
+            this.Cmbx_CycleTest.Items.AddRange(new object[] {
+            "No Use",
+            "Use"});
             this.Cmbx_CycleTest.Location = new System.Drawing.Point(154, 42);
             this.Cmbx_CycleTest.Name = "Cmbx_CycleTest";
             this.Cmbx_CycleTest.Size = new System.Drawing.Size(140, 28);
             this.Cmbx_CycleTest.TabIndex = 8;
-            this.Cmbx_CycleTest.Text = "No Use";
             // 
             // panel1
             // 
@@ -370,14 +368,14 @@ namespace InstrumentTest
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(2, 3);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(991, 226);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";

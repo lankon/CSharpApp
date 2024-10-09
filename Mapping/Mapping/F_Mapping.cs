@@ -24,7 +24,7 @@ namespace Mapping
             public int MapSize;
             public int ShiftX;
             public int ShiftY;
-            public int CellCount;
+            //public int CellCount;
             public int[] ValueRegionCount;
 
             public float GridSize;
@@ -425,7 +425,7 @@ namespace Mapping
             else
                 MapCellCount = Y_Len;
 
-            myDictionary.Add("CellCount", MapCellCount);
+            //myDictionary.Add("CellCount", MapCellCount);
             #endregion
 
             #region 決定Map GridSize大小
@@ -738,7 +738,7 @@ namespace Mapping
             myDictionary = FindMapInfo(mapInformation.MapSize, mapInformation.CellInfo, XY_Direc);
             mapInformation.ShiftX = (int)myDictionary["ShiftX"];
             mapInformation.ShiftY = (int)myDictionary["ShiftY"];
-            mapInformation.CellCount = (int)myDictionary["CellCount"];
+            //mapInformation.CellCount = (int)myDictionary["CellCount"];
             mapInformation.GridSize = (float)myDictionary["GridSize"];
 
             mapInformation.ColorList = SetCellColor(Start, End, Step);
@@ -899,7 +899,7 @@ namespace Mapping
 
             // 設置 Label 的位置在滑鼠點擊的右側
             if(e.X > PicBx_Mapping.Width/2)
-                Labl_ShowCellValue.Location = new System.Drawing.Point(e.X - 70, e.Y);
+                Labl_ShowCellValue.Location = new System.Drawing.Point(e.X - 90, e.Y);
             else
                 Labl_ShowCellValue.Location = new System.Drawing.Point(e.X + 20, e.Y);
 
