@@ -106,7 +106,12 @@ namespace Mapping
             this.PicBx_Mapping.Size = new System.Drawing.Size(498, 498);
             this.PicBx_Mapping.TabIndex = 0;
             this.PicBx_Mapping.TabStop = false;
+            this.PicBx_Mapping.Paint += new System.Windows.Forms.PaintEventHandler(this.PicBx_Mapping_Paint);
+            this.PicBx_Mapping.DoubleClick += new System.EventHandler(this.PicBx_Mapping_DoubleClick);
             this.PicBx_Mapping.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PicBx_Mapping_MouseClick);
+            this.PicBx_Mapping.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PicBx_Mapping_MouseDown);
+            this.PicBx_Mapping.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PicBx_Mapping_MouseMove);
+            this.PicBx_Mapping.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PicBx_Mapping_MouseUp);
             // 
             // panel1
             // 

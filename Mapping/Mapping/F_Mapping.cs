@@ -19,6 +19,7 @@ namespace Mapping
         #region parameter define 
         Tool tool = new Tool();
         MapInformation mapInformation = new MapInformation();
+        MapInformation SmallMap = new MapInformation();
         private struct MapInformation
         {
             public int MapSize;
@@ -533,7 +534,7 @@ namespace Mapping
                 ValueRegionCount[i] = 0;
             }
 
-            for (int i = 1; i < mapInformation.CellInfo.Count(); i++)
+            for (int i = 1; i < CellInfo.Count(); i++)
             {
                 Color CellColor = Color.Black;
 
@@ -698,6 +699,7 @@ namespace Mapping
                 return;
             }
 
+            #region draw mapping
             PicBx_Colorbar.Visible = false;
             PicBx_Mapping.Visible = false;
             Labl_ShowCellValue.Visible = false;
@@ -758,13 +760,26 @@ namespace Mapping
             tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
             tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
 
+            isLargeImg = false;
             PicBx_Colorbar.Visible = true;
             PicBx_Mapping.Visible = true;
-
+            
             tool.SaveHistoryToFile("繪圖完成");
+            #endregion
 
             AddTestItemCondition();
             SaveTestItemCondition();
+
+            #region copy cell data
+            SmallMap.CellInfo = new List<Dictionary<string, string>>();
+
+            foreach (var dictionary in mapInformation.CellInfo)
+            {
+                // 複製字典
+                Dictionary<string, string> newDict = new Dictionary<string, string>(dictionary);
+                SmallMap.CellInfo.Add(newDict);
+            }
+            #endregion
 
             //GC.Collect();
             //GC.WaitForPendingFinalizers();
@@ -852,6 +867,53 @@ namespace Mapping
             UpdateTestItemConditionToForm();
         }
 
+
+        private int[] GetCoordinate(Point mouse_pos, Panel map_panel, 
+                                    float gridSize, int x_dir, int y_dir,
+                                    int shift_x, int shift_y)
+        {
+            //獲取點擊位置的座標
+            int x = mouse_pos.X;
+            int y = mouse_pos.Y;
+
+            //float gridSize = mapInformation.GridSize;
+            int[] XY_Direc = new int[2];
+            float f_x, f_y;
+
+            //將點擊位置X座標轉換成晶粒X座標
+            if (x_dir == 1)
+            {
+                XY_Direc[0] = -1;
+                f_x = (x - gridSize) / gridSize * XY_Direc[0] - shift_x + 1;
+            }
+            else
+            {
+                XY_Direc[0] = 1;
+                f_x = (x - gridSize) / gridSize * XY_Direc[0] - shift_x;
+            }
+
+            //將點擊位置Y座標轉換成晶粒Y座標
+            if (y_dir == 1)
+            {
+                XY_Direc[1] = -1;
+                f_y = ((500 - 2 * gridSize) - y) / gridSize * XY_Direc[1] - shift_y;
+            }
+            else
+            {
+                XY_Direc[1] = 1;
+                f_y = ((500 - 2 * gridSize) - y) / gridSize * XY_Direc[1] - shift_y+1;
+            }
+
+            x = (int)f_x;
+            y = (int)f_y;
+
+            int[] xy_pos = new int[2];
+            xy_pos[0] = x;
+            xy_pos[1] = y;
+
+            return xy_pos;
+        }
+
         private void PicBx_Mapping_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -860,42 +922,23 @@ namespace Mapping
                 return;
             }
 
-            //獲取點擊位置的座標
-            int x = e.X;
-            int y = e.Y;
-
-            float gridSize = mapInformation.GridSize;           
-            int[] XY_Direc = new int[2];
-            float f_x, f_y;
-
-            //將點擊位置X座標轉換成晶粒X座標
-            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 1)
+            int[] xy = { 0, 0 };
+            if (isLargeImg)
             {
-                XY_Direc[0] = -1;
-                f_x = (x - gridSize) / gridSize * XY_Direc[0] - mapInformation.ShiftX + 1;
+                xy = GetCoordinate(e.Location, Pnl_Mapping, SmallMap.GridSize,
+                                    ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc),
+                                    ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc),
+                                    SmallMap.ShiftX, SmallMap.ShiftY);
             }
             else
             {
-                XY_Direc[0] = 1;
-                f_x = (x - gridSize) / gridSize * XY_Direc[0] - mapInformation.ShiftX;
+                xy = GetCoordinate(e.Location, Pnl_Mapping, mapInformation.GridSize,
+                                    ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc),
+                                    ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc),
+                                    mapInformation.ShiftX, mapInformation.ShiftY);
             }
-
-            //將點擊位置Y座標轉換成晶粒Y座標
-            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc) == 1)
-            {
-                XY_Direc[1] = -1;
-                f_y = ((Pnl_Mapping.Height - 2 * gridSize) - y) / gridSize * XY_Direc[1] - mapInformation.ShiftY;
-            }
-            else
-            {
-                XY_Direc[1] = 1;
-                f_y = ((Pnl_Mapping.Height - 2 * gridSize) - y) / gridSize * XY_Direc[1] - mapInformation.ShiftY + 1;
-            }
-
-            x = (int)f_x;
-            y = (int)f_y;
-
-            Labl_ShowCellValue.Text = $"({x}, {y})";
+                
+            Labl_ShowCellValue.Text = $"({xy[0]}, {xy[1]})";
 
             // 設置 Label 的位置在滑鼠點擊的右側
             if(e.X > PicBx_Mapping.Width/2)
@@ -907,5 +950,285 @@ namespace Mapping
             Labl_ShowCellValue.Visible = true;
         }
 
+        private Point startPoint;  // 滑鼠起始點
+        private Point currentPoint;  // 滑鼠當前點
+        private bool isDrawing = false;  // 是否在繪製中
+        private bool isLargeImg = false;    //是否為放大圖
+        private bool isMouseMove = false;   //判斷滑鼠是否有拖曳
+        XY_Coord xy_record = new XY_Coord();    //記錄起始與結束的xy座標
+        
+        private struct XY_Coord
+        {
+            public int x_start;
+            public int x_end;
+            public int y_start;
+            public int y_end;
+        }
+
+        private void PicBx_Mapping_DoubleClick(object sender, EventArgs e)
+        {
+            //PickupMapInformation(SmallMap.CellInfo, 80, 85, -185, -175);
+
+            //PicBx_Colorbar.Visible = false;
+            //PicBx_Mapping.Visible = false;
+            //Labl_ShowCellValue.Visible = false;
+
+            //Dictionary<string, object> myDictionary = null;
+            //double Start = tool.StringToDouble(TxtBx_Start.Text);
+            //double End = tool.StringToDouble(TxtBx_End.Text);
+            //double Step = tool.StringToDouble(TxtBx_Step.Text);
+            //String TestItem = Cmbx_TestItem.Text;
+            //int[] XY_Direc = new int[2];
+
+            //if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 1)
+            //    XY_Direc[0] = -1;
+            //else
+            //    XY_Direc[0] = 1;
+
+            //if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc) == 1)
+            //    XY_Direc[1] = -1;
+            //else
+            //    XY_Direc[1] = 1;
+
+
+            //SmallMap.MapSize = 500;
+
+            //if (Start > End)
+            //{
+            //    MessageBox.Show("Start Large Than End");
+            //    tool.SaveHistoryToFile("起始值比結束值大");
+            //    return;
+            //}
+
+            //SetDrawSize(Pnl_Mapping, SmallMap.MapSize);
+
+            //ClearMapping(Pnl_Mapping);
+
+            //myDictionary = FindMapInfo(SmallMap.MapSize, SmallMap.CellInfo, XY_Direc);
+            //SmallMap.ShiftX = (int)myDictionary["ShiftX"];
+            //SmallMap.ShiftY = (int)myDictionary["ShiftY"];
+            ////mapInformation.CellCount = (int)myDictionary["CellCount"];
+            //SmallMap.GridSize = (float)myDictionary["GridSize"];
+
+            //SmallMap.ColorList = SetCellColor(Start, End, Step);
+
+            //SmallMap.ValueRegion = SetValueRegion(Start, Step, mapInformation.ColorList);
+
+            //DrawMapping(Pnl_Mapping, SmallMap.GridSize, SmallMap.CellInfo,
+            //            SmallMap.ShiftX, SmallMap.ShiftY,
+            //            TestItem, SmallMap.ColorList, SmallMap.ValueRegion, XY_Direc);
+
+            //tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+            //tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+
+            //PicBx_Colorbar.Visible = true;
+            //PicBx_Mapping.Visible = true;
+        }
+
+        private List<Dictionary<string, string>> PickupMapInformation(List<Dictionary<string, string>> small_map,
+                                                                      int x_start,int x_end,int y_start,int y_end)
+        {
+            #region 確保 end > start
+            if (x_end < x_start)
+            {
+                int temp = x_start;
+                x_start = x_end;
+                x_end = temp;
+            }
+
+            if(y_end < y_start)
+            {
+                int temp = y_start;
+                y_start = y_end;
+                y_end = temp;
+            }
+            #endregion
+
+            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
+            string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
+
+            for (int i = 1; i < small_map.Count; i++)
+            {
+                small_map[i].TryGetValue(s_PosX, out String sPosX);
+                small_map[i].TryGetValue(s_PosY, out String sPosY);
+
+                if (!Int32.TryParse(sPosX, out int dPosX) ||
+                    !Int32.TryParse(sPosY, out int dPosY))
+                {
+                    tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
+                    break;
+                }
+
+                if(dPosX > x_end || dPosX < x_start || 
+                   dPosY > y_end || dPosY < y_start)
+                {
+                    small_map.RemoveAt(i);  //刪除超出座標範圍的資料
+                    i--;
+                }
+            }
+
+            return small_map;
+        }
+
+        private void PicBx_Mapping_MouseDown(object sender, MouseEventArgs e)
+        {
+            // 當滑鼠按下時，開始繪製
+            isDrawing = true;
+            startPoint = e.Location;
+
+            int[] xy = { 0, 0 };
+            if(isLargeImg)
+            {
+                xy = GetCoordinate(e.Location, Pnl_Mapping, SmallMap.GridSize,
+                                    ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc),
+                                    ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc),
+                                    SmallMap.ShiftX, SmallMap.ShiftY);
+            }
+            else
+            {
+                xy = GetCoordinate(e.Location, Pnl_Mapping, mapInformation.GridSize,
+                                    ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc),
+                                    ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc),
+                                    mapInformation.ShiftX, mapInformation.ShiftY);
+            }
+
+            xy_record.x_start = xy[0];
+            xy_record.y_start = xy[1];
+        }
+
+        private void PicBx_Mapping_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDrawing)
+            {
+                // 動態更新當前滑鼠位置
+                currentPoint = e.Location;
+                PicBx_Mapping.Invalidate();  // 重新繪製 Panel
+                isMouseMove = true;
+            }
+        }
+
+        private void PicBx_Mapping_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(isDrawing && isMouseMove &&
+                Math.Abs(currentPoint.X - startPoint.X) > 15 && 
+                Math.Abs(currentPoint.Y - startPoint.Y) > 15)
+            {
+                isMouseMove = false;
+
+                int[] xy = { 0, 0 };
+
+                if (isLargeImg)
+                {
+                    xy = GetCoordinate(currentPoint, Pnl_Mapping, SmallMap.GridSize,
+                                        ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc),
+                                        ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc),
+                                        SmallMap.ShiftX, SmallMap.ShiftY);
+                }
+                else
+                {
+                    xy = GetCoordinate(currentPoint, Pnl_Mapping, mapInformation.GridSize,
+                                        ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc),
+                                        ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc),
+                                        mapInformation.ShiftX, mapInformation.ShiftY);
+                }
+
+                xy_record.x_end = xy[0];
+                xy_record.y_end = xy[1];
+
+                PickupMapInformation(SmallMap.CellInfo, 
+                                        xy_record.x_start, xy_record.x_end,
+                                        xy_record.y_start, xy_record.y_end);
+
+                PicBx_Colorbar.Visible = false;
+                PicBx_Mapping.Visible = false;
+                Labl_ShowCellValue.Visible = false;
+
+                Dictionary<string, object> myDictionary = null;
+                double Start = tool.StringToDouble(TxtBx_Start.Text);
+                double End = tool.StringToDouble(TxtBx_End.Text);
+                double Step = tool.StringToDouble(TxtBx_Step.Text);
+                String TestItem = Cmbx_TestItem.Text;
+                int[] XY_Direc = new int[2];
+
+                if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 1)
+                    XY_Direc[0] = -1;
+                else
+                    XY_Direc[0] = 1;
+
+                if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc) == 1)
+                    XY_Direc[1] = -1;
+                else
+                    XY_Direc[1] = 1;
+
+
+                SmallMap.MapSize = 500;
+
+                if (Start > End)
+                {
+                    MessageBox.Show("Start Large Than End");
+                    tool.SaveHistoryToFile("起始值比結束值大");
+                    return;
+                }
+
+                SetDrawSize(Pnl_Mapping, SmallMap.MapSize);
+
+                ClearMapping(Pnl_Mapping);
+
+                if (SmallMap.CellInfo.Count <= 1)
+                {
+                    // 結束繪製
+                    isDrawing = false;
+                    PicBx_Mapping.Invalidate();  // 最後一次繪製
+                    return;
+                }
+                    
+
+                myDictionary = FindMapInfo(SmallMap.MapSize, SmallMap.CellInfo, XY_Direc);
+                SmallMap.ShiftX = (int)myDictionary["ShiftX"];
+                SmallMap.ShiftY = (int)myDictionary["ShiftY"];
+                //mapInformation.CellCount = (int)myDictionary["CellCount"];
+                SmallMap.GridSize = (float)myDictionary["GridSize"];
+
+                SmallMap.ColorList = SetCellColor(Start, End, Step);
+
+                SmallMap.ValueRegion = SetValueRegion(Start, Step, mapInformation.ColorList);
+
+                DrawMapping(Pnl_Mapping, SmallMap.GridSize, SmallMap.CellInfo,
+                            SmallMap.ShiftX, SmallMap.ShiftY,
+                            TestItem, SmallMap.ColorList, SmallMap.ValueRegion, XY_Direc);
+
+                tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+                tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+
+                PicBx_Colorbar.Visible = true;
+                PicBx_Mapping.Visible = true;
+
+                isLargeImg = true;
+            }
+
+            // 結束繪製
+            isDrawing = false;
+            PicBx_Mapping.Invalidate();  // 最後一次繪製
+        }
+
+        private void PicBx_Mapping_Paint(object sender, PaintEventArgs e)
+        {
+            if (isDrawing)
+            {
+                // 計算矩形的左上角和寬高
+                int x = Math.Min(startPoint.X, currentPoint.X);
+                int y = Math.Min(startPoint.Y, currentPoint.Y);
+                int width = Math.Abs(startPoint.X - currentPoint.X);
+                int height = Math.Abs(startPoint.Y - currentPoint.Y);
+
+                // 繪製矩形
+                using (Pen customPen = new Pen(Color.White, 3))
+                {
+                    e.Graphics.DrawRectangle(customPen, x, y, width, height);
+                }
+            }
+        }
+
+       
     }
 }
