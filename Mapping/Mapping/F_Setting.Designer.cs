@@ -42,10 +42,10 @@ namespace Mapping
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Labl_Customer = new System.Windows.Forms.Label();
             this.Cmbx_Customer = new System.Windows.Forms.ComboBox();
+            this.Cmbx_OutputExcel = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Pnl_FormHint = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.Cmbx_OutputExcel = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -214,12 +214,18 @@ namespace Mapping
             this.Cmbx_Customer.Size = new System.Drawing.Size(140, 28);
             this.Cmbx_Customer.TabIndex = 8;
             // 
-            // Pnl_FormHint
+            // Cmbx_OutputExcel
             // 
-            this.Pnl_FormHint.Location = new System.Drawing.Point(974, 522);
-            this.Pnl_FormHint.Name = "Pnl_FormHint";
-            this.Pnl_FormHint.Size = new System.Drawing.Size(51, 35);
-            this.Pnl_FormHint.TabIndex = 41;
+            this.Cmbx_OutputExcel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_OutputExcel.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_OutputExcel.FormattingEnabled = true;
+            this.Cmbx_OutputExcel.Items.AddRange(new object[] {
+            "No Use",
+            "Use"});
+            this.Cmbx_OutputExcel.Location = new System.Drawing.Point(338, 114);
+            this.Cmbx_OutputExcel.Name = "Cmbx_OutputExcel";
+            this.Cmbx_OutputExcel.Size = new System.Drawing.Size(140, 28);
+            this.Cmbx_OutputExcel.TabIndex = 10;
             // 
             // label5
             // 
@@ -233,18 +239,12 @@ namespace Mapping
             this.label5.Text = "Output Excel";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // Cmbx_OutputExcel
+            // Pnl_FormHint
             // 
-            this.Cmbx_OutputExcel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Cmbx_OutputExcel.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.Cmbx_OutputExcel.FormattingEnabled = true;
-            this.Cmbx_OutputExcel.Items.AddRange(new object[] {
-            "No Use",
-            "Use"});
-            this.Cmbx_OutputExcel.Location = new System.Drawing.Point(338, 114);
-            this.Cmbx_OutputExcel.Name = "Cmbx_OutputExcel";
-            this.Cmbx_OutputExcel.Size = new System.Drawing.Size(140, 28);
-            this.Cmbx_OutputExcel.TabIndex = 10;
+            this.Pnl_FormHint.Location = new System.Drawing.Point(974, 522);
+            this.Pnl_FormHint.Name = "Pnl_FormHint";
+            this.Pnl_FormHint.Size = new System.Drawing.Size(51, 35);
+            this.Pnl_FormHint.TabIndex = 41;
             // 
             // F_Setting
             // 
