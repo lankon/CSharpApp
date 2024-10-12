@@ -15,5 +15,6 @@ namespace Mapping
         TxtBx_Y_KeyWord,
         Cmbx_Customer,
         Cmbx_ScaleSetting,
+        Cmbx_OutputExcel,
     }
 }

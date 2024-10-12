@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Mapping
 {
-  
+
     public static class GlobalVariable
     {
         public static Panel MyStaticPanel;      //F_MainForm:Pnl_Group

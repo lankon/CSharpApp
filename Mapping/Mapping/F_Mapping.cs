@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using CommonFunction;
 using System.Runtime.InteropServices;
+using ClosedXML.Excel;
 
 namespace Mapping
 {
@@ -18,6 +19,8 @@ namespace Mapping
     {
         #region parameter define 
         Tool tool = new Tool();
+        Xlsx xlsx = new Xlsx();
+        XLWorkbook file_xlsx;
         MapInformation mapInformation = new MapInformation();
         MapInformation SmallMap = new MapInformation();
         private struct MapInformation
@@ -25,6 +28,10 @@ namespace Mapping
             public int MapSize;
             public int ShiftX;
             public int ShiftY;
+            public int MaxPosX;
+            public int MinPosX;
+            public int MaxPosY;
+            public int MinPosY;
             //public int CellCount;
             public int[] ValueRegionCount;
 
@@ -75,7 +82,12 @@ namespace Mapping
             // 釋放 Bitmap 資源
             bitmap.Dispose();
         }
+        public void SaveMappingXlsx()
+        {
+            String TestItem = Cmbx_TestItem.Text;
 
+            SaveAsXlsxMapping(mapInformation, TestItem);
+        }
         #endregion
 
         #region private function
@@ -417,6 +429,11 @@ namespace Mapping
             int MinYPos = ArrayY.Min();
             int MaxYPos = ArrayY.Max();
 
+            myDictionary.Add("MinPosX", MinXPos);
+            myDictionary.Add("MinPosY", MinYPos);
+            myDictionary.Add("MaxPosX", MaxXPos);
+            myDictionary.Add("MaxPosY", MaxYPos);
+
             int X_Len = MaxXPos - MinXPos;
             int Y_Len = MaxYPos - MinYPos;
 
@@ -673,7 +690,89 @@ namespace Mapping
 
             return flag;
         }
+        private void OpenXlsx()
+        {
+            //開檔太慢了用Thread先讀
+            file_xlsx = xlsx.Open(@"C:\Users\lankon\Desktop\test.xlsx");
+        }
+        private void SaveAsXlsxMapping(MapInformation map, String TestItem)
+        {
+            tool.SaveHistoryToFile("儲存xlsx mapping start");
 
+            if (file_xlsx == null)
+            {
+                MessageBox.Show("Save xlsx error");
+                tool.SaveHistoryToFile("xlsx存檔失敗");
+                return;
+            }
+
+            XlsxType type = new XlsxType();
+            type = xlsx.DefaultType(type);
+
+            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
+            string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
+
+
+            int offset_x = 6;
+            int offset_y = 10;
+
+            //輸出X座標
+            for (int i = map.MinPosX; i <= map.MaxPosX; i++)
+            {
+                xlsx.SetType(file_xlsx, "Result", i - map.MinPosX + offset_x, offset_y - 1, type);
+                xlsx.WriteValue(file_xlsx, "Result", i - map.MinPosX + offset_x, offset_y - 1, i);
+
+                xlsx.SetType(file_xlsx, "Result", i - map.MinPosX + offset_x,
+                             offset_y + (map.MaxPosY - map.MinPosY) + 1, type);
+                xlsx.WriteValue(file_xlsx, "Result", i - map.MinPosX + offset_x,
+                                offset_y + (map.MaxPosY - map.MinPosY) + 1, i);
+            }
+
+            //輸出Y座標
+            for (int i = map.MinPosY; i <= map.MaxPosY; i++)
+            {
+                xlsx.SetType(file_xlsx, "Result", offset_x - 1, i - map.MinPosY + offset_y, type);
+                xlsx.WriteValue(file_xlsx, "Result", offset_x - 1, i - map.MinPosY + offset_y, i);
+
+                xlsx.SetType(file_xlsx, "Result", offset_x + (map.MaxPosX - map.MinPosX) + 1,
+                             i - map.MinPosY + offset_y, type);
+                xlsx.WriteValue(file_xlsx, "Result", offset_x + (map.MaxPosX - map.MinPosX) + 1,
+                                i - map.MinPosY + offset_y, i);
+            }
+
+            type.IsBold = false;    //取消粗體
+            type.IsBackgroundColor = true;  //添加欄位底色
+
+            //輸出測試值
+            for (int i = 1; i < map.CellInfo.Count; i++)
+            {
+                map.CellInfo[i].TryGetValue(s_PosX, out String sPosX);
+                map.CellInfo[i].TryGetValue(s_PosY, out String sPosY);
+                map.CellInfo[i].TryGetValue(TestItem, out String sValue);
+
+                int iPosX = tool.StringToInt(sPosX);
+                int iPosY = tool.StringToInt(sPosY);
+                double dValue = tool.StringToDouble(sValue);
+
+                iPosX = iPosX - map.MinPosX + offset_x;
+                iPosY = iPosY - map.MinPosY + offset_y;
+
+                xlsx.SetType(file_xlsx, "Result", iPosX, iPosY, type);
+                xlsx.WriteValue(file_xlsx, "Result", iPosX, iPosY, dValue);
+            }
+
+            bool res = xlsx.SaveAs(file_xlsx, @"C:\Users\lankon\Desktop\aa.xlsx");
+
+            if (!res)
+            {
+                MessageBox.Show("Save xlsx error");
+                tool.SaveHistoryToFile("xlsx存檔失敗");
+                return;
+            }
+
+            tool.SaveHistoryToFile("儲存xlsx mapping end");
+            MessageBox.Show("Finish");
+        }
         #endregion
 
         public F_Mapping()
@@ -685,7 +784,7 @@ namespace Mapping
 
         private void Btn_DrawMap_Click(object sender, EventArgs e)
         {
-            if (mapInformation.CellInfo == null)
+            if (mapInformation.CellInfo.Count == 0)
             {
                 MessageBox.Show("Please Load Wafer Data");
                 tool.SaveHistoryToFile("未載入晶圓資料");
@@ -740,6 +839,10 @@ namespace Mapping
             myDictionary = FindMapInfo(mapInformation.MapSize, mapInformation.CellInfo, XY_Direc);
             mapInformation.ShiftX = (int)myDictionary["ShiftX"];
             mapInformation.ShiftY = (int)myDictionary["ShiftY"];
+            mapInformation.MinPosX = (int)myDictionary["MinPosX"];
+            mapInformation.MinPosY = (int)myDictionary["MinPosY"];
+            mapInformation.MaxPosX = (int)myDictionary["MaxPosX"];
+            mapInformation.MaxPosY = (int)myDictionary["MaxPosY"];
             //mapInformation.CellCount = (int)myDictionary["CellCount"];
             mapInformation.GridSize = (float)myDictionary["GridSize"];
 
@@ -830,6 +933,8 @@ namespace Mapping
             Cmbx_TestItem.Items.Clear();
 
             InsertTestItemToCmbx(Cmbx_TestItem, mapInformation.CellInfo[0]);
+
+            Task task = Task.Run(() => OpenXlsx());
         }
 
         private void Btn_CloseApp_Click(object sender, EventArgs e)
@@ -1229,6 +1334,8 @@ namespace Mapping
             }
         }
 
-       
+        
+
+        
     }
 }

@@ -7,15 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CommonFunction;
 
 namespace Mapping
 {
     public delegate void SaveImageCallBack();
+    public delegate void SaveXlsxCallBack();
 
     public partial class F_Mapping_ButtonGroup : Form
     {
         #region parameter define 
         public SaveImageCallBack SaveImage { get; set; }
+        public SaveXlsxCallBack SaveXlsx { get; set; }
         #endregion
 
         #region private function
@@ -109,6 +112,11 @@ namespace Mapping
         private void Btn_Save_Click(object sender, EventArgs e)
         {
             SaveImage();
+
+            if(ApplicationSetting.Get_Bool_Recipe((int)FormItem.Cmbx_OutputExcel))
+            {
+                SaveXlsx();
+            }
         }
 
     }

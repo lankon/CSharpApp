@@ -86,8 +86,6 @@ namespace CommonFunction
                 return false;
             }
         }
-
-
 	}
 }
 

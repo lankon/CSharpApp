@@ -12,6 +12,7 @@ using System.Management;
 
 using CommonFunction;
 
+
 namespace Mapping
 {
     public partial class F_MainForm : Form
@@ -59,6 +60,7 @@ namespace Mapping
             f_Mapping.Show();
 
             f_Mapping_ButtonGroup.SaveImage += f_Mapping.SavePicture;
+            f_Mapping_ButtonGroup.SaveXlsx += f_Mapping.SaveMappingXlsx;
         }
         private void SetHint()
         {
@@ -153,6 +155,7 @@ namespace Mapping
             f_Mapping_ButtonGroup.Show();
 
             f_Mapping_ButtonGroup.SaveImage += f_Mapping.SavePicture;
+            f_Mapping_ButtonGroup.SaveXlsx += f_Mapping.SaveMappingXlsx;
 
             GC.Collect();
         }

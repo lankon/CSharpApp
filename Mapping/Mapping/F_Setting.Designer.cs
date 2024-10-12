@@ -44,6 +44,8 @@ namespace Mapping
             this.Cmbx_Customer = new System.Windows.Forms.ComboBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Pnl_FormHint = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.Cmbx_OutputExcel = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -173,6 +175,8 @@ namespace Mapping
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.56133F));
             this.tableLayoutPanel2.Controls.Add(this.Labl_Customer, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.Cmbx_Customer, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Cmbx_OutputExcel, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 3);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(517, 12);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
@@ -217,6 +221,31 @@ namespace Mapping
             this.Pnl_FormHint.Size = new System.Drawing.Size(51, 35);
             this.Pnl_FormHint.TabIndex = 41;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label5.Location = new System.Drawing.Point(6, 111);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(323, 36);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Output Excel";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Cmbx_OutputExcel
+            // 
+            this.Cmbx_OutputExcel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_OutputExcel.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_OutputExcel.FormattingEnabled = true;
+            this.Cmbx_OutputExcel.Items.AddRange(new object[] {
+            "No Use",
+            "Use"});
+            this.Cmbx_OutputExcel.Location = new System.Drawing.Point(338, 114);
+            this.Cmbx_OutputExcel.Name = "Cmbx_OutputExcel";
+            this.Cmbx_OutputExcel.Size = new System.Drawing.Size(140, 28);
+            this.Cmbx_OutputExcel.TabIndex = 10;
+            // 
             // F_Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -258,5 +287,7 @@ namespace Mapping
         private System.Windows.Forms.ComboBox Cmbx_Customer;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel Pnl_FormHint;
+        private System.Windows.Forms.ComboBox Cmbx_OutputExcel;
+        private System.Windows.Forms.Label label5;
     }
 }
