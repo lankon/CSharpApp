@@ -21,8 +21,24 @@ namespace Mapping
         Tool tool = new Tool();
         Xlsx xlsx = new Xlsx();
         XLWorkbook file_xlsx;
+
         MapInformation mapInformation = new MapInformation();
         MapInformation SmallMap = new MapInformation();
+        XY_Coord xy_record = new XY_Coord();    //記錄起始與結束的xy座標
+
+        private Point startPoint;  // 滑鼠起始點
+        private Point currentPoint;  // 滑鼠當前點
+        private bool isDrawing = false;  // 是否在繪製中
+        private bool isLargeImg = false;    //是否為放大圖
+        private bool isMouseMove = false;   //判斷滑鼠是否有拖曳
+        
+        private struct XY_Coord
+        {
+            public int x_start;
+            public int x_end;
+            public int y_start;
+            public int y_end;
+        }
         private struct MapInformation
         {
             public int MapSize;
@@ -43,6 +59,7 @@ namespace Mapping
 
             public List<Color> ColorList;
         }
+
         List<Dictionary<string, string>> TestItemCondition = new List<Dictionary<string, string>>();
         #endregion
 
@@ -86,7 +103,19 @@ namespace Mapping
         {
             String TestItem = Cmbx_TestItem.Text;
 
-            SaveAsXlsxMapping(mapInformation, TestItem);
+            int[] xy_dir = new int[2];
+
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 0)
+                xy_dir[0] = 1;
+            else
+                xy_dir[0] = -1;
+
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc) == 0)
+                xy_dir[1] = 1;
+            else
+                xy_dir[1] = -1;
+
+            SaveAsXlsxMapping(mapInformation, TestItem, xy_dir);
         }
         #endregion
 
@@ -695,8 +724,11 @@ namespace Mapping
             //開檔太慢了用Thread先讀
             string path = System.IO.Directory.GetCurrentDirectory() + "\\" + "Sample.xlsx";
             file_xlsx = xlsx.Open(path);
+
+            if (file_xlsx == null)
+                tool.SaveHistoryToFile("OpenXlsx開啟失敗");
         }
-        private void SaveAsXlsxMapping(MapInformation map, String TestItem)
+        private void SaveAsXlsxMapping(MapInformation map, String TestItem, int[] xy_dir)
         {
             tool.SaveHistoryToFile("儲存xlsx mapping start");
 
@@ -719,25 +751,43 @@ namespace Mapping
             //輸出X座標
             for (int i = map.MinPosX; i <= map.MaxPosX; i++)
             {
-                xlsx.SetType(file_xlsx, "Result", i - map.MinPosX + offset_x, offset_y - 1, type);
-                xlsx.WriteValue(file_xlsx, "Result", i - map.MinPosX + offset_x, offset_y - 1, i);
+                int pos_x;
 
+                if (xy_dir[0] == 1)
+                    pos_x = i - map.MinPosX + offset_x;
+                else
+                    pos_x = -i + map.MaxPosX + offset_x;
+
+                //上側
+                xlsx.SetType(file_xlsx, "Result", i - map.MinPosX + offset_x, offset_y - 1, type);
+                xlsx.WriteValue(file_xlsx, "Result", pos_x, offset_y - 1, i);
+
+                //下側
                 xlsx.SetType(file_xlsx, "Result", i - map.MinPosX + offset_x,
                              offset_y + (map.MaxPosY - map.MinPosY) + 1, type);
-                xlsx.WriteValue(file_xlsx, "Result", i - map.MinPosX + offset_x,
+                xlsx.WriteValue(file_xlsx, "Result", pos_x,
                                 offset_y + (map.MaxPosY - map.MinPosY) + 1, i);
             }
 
             //輸出Y座標
             for (int i = map.MinPosY; i <= map.MaxPosY; i++)
             {
-                xlsx.SetType(file_xlsx, "Result", offset_x - 1, i - map.MinPosY + offset_y, type);
-                xlsx.WriteValue(file_xlsx, "Result", offset_x - 1, i - map.MinPosY + offset_y, i);
+                int pos_y;
 
+                if (xy_dir[1] == 1)
+                    pos_y = i * -1 + map.MaxPosY + offset_y;
+                else
+                    pos_y = i - map.MinPosY + offset_y;
+
+                //左側
+                xlsx.SetType(file_xlsx, "Result", offset_x - 1, i - map.MinPosY + offset_y, type);
+                xlsx.WriteValue(file_xlsx, "Result", offset_x - 1, pos_y, i);
+
+                //右側
                 xlsx.SetType(file_xlsx, "Result", offset_x + (map.MaxPosX - map.MinPosX) + 1,
                              i - map.MinPosY + offset_y, type);
                 xlsx.WriteValue(file_xlsx, "Result", offset_x + (map.MaxPosX - map.MinPosX) + 1,
-                                i - map.MinPosY + offset_y, i);
+                                pos_y, i);
             }
 
             type.IsBold = false;    //取消粗體
@@ -754,8 +804,15 @@ namespace Mapping
                 int iPosY = tool.StringToInt(sPosY);
                 double dValue = tool.StringToDouble(sValue);
 
-                iPosX = iPosX - map.MinPosX + offset_x;
-                iPosY = iPosY - map.MinPosY + offset_y;
+                if (xy_dir[0] == 1)
+                    iPosX = iPosX - map.MinPosX + offset_x;
+                else
+                    iPosX = -iPosX + map.MaxPosX + offset_x;
+
+                if (xy_dir[1] == 1)
+                    iPosY = iPosY * -1 + map.MaxPosY + offset_y;
+                else
+                    iPosY = iPosY - map.MinPosY + offset_y;
 
                 xlsx.SetType(file_xlsx, "Result", iPosX, iPosY, type);
                 xlsx.WriteValue(file_xlsx, "Result", iPosX, iPosY, dValue);
@@ -773,6 +830,50 @@ namespace Mapping
 
             tool.SaveHistoryToFile("儲存xlsx mapping end");
             MessageBox.Show("Finish");
+        }
+        private List<Dictionary<string, string>> PickupMapInformation(List<Dictionary<string, string>> small_map,
+                                                                      int x_start, int x_end, int y_start, int y_end)
+        {
+            #region 確保 end > start
+            if (x_end < x_start)
+            {
+                int temp = x_start;
+                x_start = x_end;
+                x_end = temp;
+            }
+
+            if (y_end < y_start)
+            {
+                int temp = y_start;
+                y_start = y_end;
+                y_end = temp;
+            }
+            #endregion
+
+            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
+            string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
+
+            for (int i = 1; i < small_map.Count; i++)
+            {
+                small_map[i].TryGetValue(s_PosX, out String sPosX);
+                small_map[i].TryGetValue(s_PosY, out String sPosY);
+
+                if (!Int32.TryParse(sPosX, out int dPosX) ||
+                    !Int32.TryParse(sPosY, out int dPosY))
+                {
+                    tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
+                    break;
+                }
+
+                if (dPosX > x_end || dPosX < x_start ||
+                   dPosY > y_end || dPosY < y_start)
+                {
+                    small_map.RemoveAt(i);  //刪除超出座標範圍的資料
+                    i--;
+                }
+            }
+
+            return small_map;
         }
         #endregion
 
@@ -973,7 +1074,6 @@ namespace Mapping
             UpdateTestItemConditionToForm();
         }
 
-
         private int[] GetCoordinate(Point mouse_pos, Panel map_panel, 
                                     float gridSize, int x_dir, int y_dir,
                                     int shift_x, int shift_y)
@@ -998,6 +1098,9 @@ namespace Mapping
                 f_x = (x - gridSize) / gridSize * XY_Direc[0] - shift_x;
             }
 
+            if (f_x < 0)
+                f_x--;
+
             //將點擊位置Y座標轉換成晶粒Y座標
             if (y_dir == 1)
             {
@@ -1009,6 +1112,9 @@ namespace Mapping
                 XY_Direc[1] = 1;
                 f_y = ((500 - 2 * gridSize) - y) / gridSize * XY_Direc[1] - shift_y+1;
             }
+
+            if (f_y < 0)
+                f_y--;
 
             x = (int)f_x;
             y = (int)f_y;
@@ -1054,126 +1160,6 @@ namespace Mapping
 
             // 確保 Label 可見
             Labl_ShowCellValue.Visible = true;
-        }
-
-        private Point startPoint;  // 滑鼠起始點
-        private Point currentPoint;  // 滑鼠當前點
-        private bool isDrawing = false;  // 是否在繪製中
-        private bool isLargeImg = false;    //是否為放大圖
-        private bool isMouseMove = false;   //判斷滑鼠是否有拖曳
-        XY_Coord xy_record = new XY_Coord();    //記錄起始與結束的xy座標
-        
-        private struct XY_Coord
-        {
-            public int x_start;
-            public int x_end;
-            public int y_start;
-            public int y_end;
-        }
-
-        private void PicBx_Mapping_DoubleClick(object sender, EventArgs e)
-        {
-            //PickupMapInformation(SmallMap.CellInfo, 80, 85, -185, -175);
-
-            //PicBx_Colorbar.Visible = false;
-            //PicBx_Mapping.Visible = false;
-            //Labl_ShowCellValue.Visible = false;
-
-            //Dictionary<string, object> myDictionary = null;
-            //double Start = tool.StringToDouble(TxtBx_Start.Text);
-            //double End = tool.StringToDouble(TxtBx_End.Text);
-            //double Step = tool.StringToDouble(TxtBx_Step.Text);
-            //String TestItem = Cmbx_TestItem.Text;
-            //int[] XY_Direc = new int[2];
-
-            //if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 1)
-            //    XY_Direc[0] = -1;
-            //else
-            //    XY_Direc[0] = 1;
-
-            //if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc) == 1)
-            //    XY_Direc[1] = -1;
-            //else
-            //    XY_Direc[1] = 1;
-
-
-            //SmallMap.MapSize = 500;
-
-            //if (Start > End)
-            //{
-            //    MessageBox.Show("Start Large Than End");
-            //    tool.SaveHistoryToFile("起始值比結束值大");
-            //    return;
-            //}
-
-            //SetDrawSize(Pnl_Mapping, SmallMap.MapSize);
-
-            //ClearMapping(Pnl_Mapping);
-
-            //myDictionary = FindMapInfo(SmallMap.MapSize, SmallMap.CellInfo, XY_Direc);
-            //SmallMap.ShiftX = (int)myDictionary["ShiftX"];
-            //SmallMap.ShiftY = (int)myDictionary["ShiftY"];
-            ////mapInformation.CellCount = (int)myDictionary["CellCount"];
-            //SmallMap.GridSize = (float)myDictionary["GridSize"];
-
-            //SmallMap.ColorList = SetCellColor(Start, End, Step);
-
-            //SmallMap.ValueRegion = SetValueRegion(Start, Step, mapInformation.ColorList);
-
-            //DrawMapping(Pnl_Mapping, SmallMap.GridSize, SmallMap.CellInfo,
-            //            SmallMap.ShiftX, SmallMap.ShiftY,
-            //            TestItem, SmallMap.ColorList, SmallMap.ValueRegion, XY_Direc);
-
-            //tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
-            //tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
-
-            //PicBx_Colorbar.Visible = true;
-            //PicBx_Mapping.Visible = true;
-        }
-
-        private List<Dictionary<string, string>> PickupMapInformation(List<Dictionary<string, string>> small_map,
-                                                                      int x_start,int x_end,int y_start,int y_end)
-        {
-            #region 確保 end > start
-            if (x_end < x_start)
-            {
-                int temp = x_start;
-                x_start = x_end;
-                x_end = temp;
-            }
-
-            if(y_end < y_start)
-            {
-                int temp = y_start;
-                y_start = y_end;
-                y_end = temp;
-            }
-            #endregion
-
-            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
-            string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
-
-            for (int i = 1; i < small_map.Count; i++)
-            {
-                small_map[i].TryGetValue(s_PosX, out String sPosX);
-                small_map[i].TryGetValue(s_PosY, out String sPosY);
-
-                if (!Int32.TryParse(sPosX, out int dPosX) ||
-                    !Int32.TryParse(sPosY, out int dPosY))
-                {
-                    tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
-                    break;
-                }
-
-                if(dPosX > x_end || dPosX < x_start || 
-                   dPosY > y_end || dPosY < y_start)
-                {
-                    small_map.RemoveAt(i);  //刪除超出座標範圍的資料
-                    i--;
-                }
-            }
-
-            return small_map;
         }
 
         private void PicBx_Mapping_MouseDown(object sender, MouseEventArgs e)
@@ -1334,9 +1320,5 @@ namespace Mapping
                 }
             }
         }
-
-        
-
-        
     }
 }

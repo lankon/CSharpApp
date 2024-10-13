@@ -131,8 +131,6 @@ namespace Mapping
             // 
             this.Chart_Difference.BorderlineColor = System.Drawing.Color.Black;
             this.Chart_Difference.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            this.Chart_Difference.BorderlineWidth = 2;
-            chartArea1.AxisX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDot;
             chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDotDot;
             chartArea1.AxisY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDotDot;
             chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDotDot;
@@ -141,8 +139,10 @@ namespace Mapping
             this.Chart_Difference.ChartAreas.Add(chartArea1);
             this.Chart_Difference.Location = new System.Drawing.Point(3, 3);
             this.Chart_Difference.Name = "Chart_Difference";
+            series1.BorderColor = System.Drawing.Color.White;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series1.Color = System.Drawing.Color.White;
             series1.Name = "Series1";
             series1.Points.Add(dataPoint1);
             series1.Points.Add(dataPoint2);

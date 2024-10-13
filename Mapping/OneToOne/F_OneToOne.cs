@@ -199,21 +199,25 @@ namespace Mapping
 
             // 創建一個 ChartArea
             ChartArea chartArea = new ChartArea();
+
+            chartArea.AxisX.MajorGrid.LineDashStyle = ChartDashStyle.DashDotDot;  // X 軸虛線網格
+            chartArea.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.DashDotDot;  // Y 軸虛線網格
+
             chart.ChartAreas.Add(chartArea);
 
             // 設定 X 軸的標題及其位置
-            chartArea.AxisX.Title = "Point";
-            chartArea.AxisX.TitleAlignment = StringAlignment.Center; // 中間對齊
-            chartArea.AxisX.TitleForeColor = System.Drawing.Color.Black; // 設定標題顏色
-            chartArea.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Bold); // 設定標題字體
+            //chartArea.AxisX.Title = "Point";
+            //chartArea.AxisX.TitleAlignment = StringAlignment.Center; // 中間對齊
+            //chartArea.AxisX.TitleForeColor = System.Drawing.Color.Black; // 設定標題顏色
+            //chartArea.AxisX.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Bold); // 設定標題字體
 
             chartArea.AxisX.Minimum = 0; // X 軸最小值
 
             // 設定 Y 軸的標題及其位置
-            chartArea.AxisY.Title = "Difference";
-            chartArea.AxisY.TitleAlignment = StringAlignment.Center; // 中間對齊
-            chartArea.AxisY.TitleForeColor = System.Drawing.Color.Black; // 設定標題顏色
-            chartArea.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Bold); // 設定標題字體
+            //chartArea.AxisY.Title = "Difference";
+            //chartArea.AxisY.TitleAlignment = StringAlignment.Center; // 中間對齊
+            //chartArea.AxisY.TitleForeColor = System.Drawing.Color.Black; // 設定標題顏色
+            //chartArea.AxisY.TitleFont = new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Bold); // 設定標題字體
 
             // 設定 Y 軸的上下限
             if(!AutoScale)
@@ -222,12 +226,17 @@ namespace Mapping
                 chartArea.AxisY.Maximum = tool.StringToDouble(TxtBx_UpLimit.Text); // Y 軸最大值
             }
 
+            
+
             // 創建一個 Series，並設定類型為散點圖
             Series series = new Series();
             series.ChartType = SeriesChartType.Point;
             series.MarkerStyle = MarkerStyle.Circle;
             series.MarkerSize = 10;
             series.Name = "DataPoints";
+            series.Color = Color.Red;
+            series.BorderWidth = 3;
+            series.BorderColor = Color.Black;
 
             for (int i = 0; i < array_diff.Count; i++)
             {
