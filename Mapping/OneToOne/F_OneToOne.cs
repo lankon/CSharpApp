@@ -31,7 +31,7 @@ namespace Mapping
         #region private function
         private void ShowHint()
         {
-            toolTip1.SetToolTip(Panel_ShowFormName, "Connect");
+            toolTip1.SetToolTip(Panel_ShowFormName, "F_OneToOne");
         }
         private void InitialApplication()
         {

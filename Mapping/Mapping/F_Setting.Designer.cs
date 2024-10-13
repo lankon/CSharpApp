@@ -236,7 +236,7 @@ namespace Mapping
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(323, 36);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Output Excel";
+            this.label5.Text = "Save Excel Mapping";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Pnl_FormHint

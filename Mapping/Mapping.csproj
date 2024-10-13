@@ -312,10 +312,48 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="dll\Mapping.exe.Config" />
+    <None Include="dll\Sample.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="dll\ClosedXML.dll" />
+    <Content Include="dll\ClosedXML.Parser.dll" />
+    <Content Include="dll\ClosedXML.Parser.xml" />
+    <Content Include="dll\ClosedXML.pdb" />
+    <Content Include="dll\ClosedXML.xml" />
+    <Content Include="dll\DocumentFormat.OpenXml.dll" />
+    <Content Include="dll\DocumentFormat.OpenXml.Framework.dll" />
+    <Content Include="dll\DocumentFormat.OpenXml.Framework.xml" />
+    <Content Include="dll\DocumentFormat.OpenXml.xml" />
+    <Content Include="dll\ExcelNumberFormat.dll" />
+    <Content Include="dll\ExcelNumberFormat.xml" />
+    <Content Include="dll\Mapping.exe" />
+    <Content Include="dll\Mapping.pdb" />
+    <Content Include="dll\Microsoft.Bcl.HashCode.dll" />
+    <Content Include="dll\Microsoft.Bcl.HashCode.xml" />
+    <Content Include="dll\RBush.dll" />
+    <Content Include="dll\RBush.xml" />
+    <Content Include="dll\SixLabors.Fonts.dll" />
+    <Content Include="dll\SixLabors.Fonts.xml" />
+    <Content Include="dll\System.Buffers.dll" />
+    <Content Include="dll\System.Buffers.xml" />
+    <Content Include="dll\System.CodeDom.dll" />
+    <Content Include="dll\System.CodeDom.xml" />
+    <Content Include="dll\System.Configuration.ConfigurationManager.dll" />
+    <Content Include="dll\System.Configuration.ConfigurationManager.xml" />
+    <Content Include="dll\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="dll\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="dll\System.IO.Packaging.dll" />
+    <Content Include="dll\System.IO.Packaging.xml" />
+    <Content Include="dll\System.Memory.dll" />
+    <Content Include="dll\System.Memory.xml" />
+    <Content Include="dll\System.Numerics.Vectors.dll" />
+    <Content Include="dll\System.Numerics.Vectors.xml" />
+    <Content Include="dll\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="dll\System.Runtime.CompilerServices.Unsafe.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

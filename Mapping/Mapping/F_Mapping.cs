@@ -693,7 +693,8 @@ namespace Mapping
         private void OpenXlsx()
         {
             //開檔太慢了用Thread先讀
-            file_xlsx = xlsx.Open(@"C:\Users\lankon\Desktop\test.xlsx");
+            string path = System.IO.Directory.GetCurrentDirectory() + "\\" + "Sample.xlsx";
+            file_xlsx = xlsx.Open(path);
         }
         private void SaveAsXlsxMapping(MapInformation map, String TestItem)
         {
@@ -711,7 +712,6 @@ namespace Mapping
 
             string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
             string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
-
 
             int offset_x = 6;
             int offset_y = 10;
@@ -761,7 +761,8 @@ namespace Mapping
                 xlsx.WriteValue(file_xlsx, "Result", iPosX, iPosY, dValue);
             }
 
-            bool res = xlsx.SaveAs(file_xlsx, @"C:\Users\lankon\Desktop\aa.xlsx");
+            string path = System.IO.Directory.GetCurrentDirectory() + "\\" + $"TestData\\Mapping_{TestItem}.xlsx";
+            bool res = xlsx.SaveAs(file_xlsx, path);
 
             if (!res)
             {
