@@ -71,7 +71,7 @@ namespace InstrumentTest
             //
             GlobalVariable.MyStaticPanel = new Panel();
             GlobalVariable.MyStaticPanel.Location = new System.Drawing.Point(13, 77);
-            GlobalVariable.MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
+            GlobalVariable.MyStaticPanel.Size = new System.Drawing.Size(Pnl_Group.Width, Pnl_Group.Height);
             GlobalVariable.MyStaticPanel.BackColor = System.Drawing.Color.AliceBlue;
             //MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.Controls.Add(GlobalVariable.MyStaticPanel);
@@ -81,7 +81,7 @@ namespace InstrumentTest
             //
             GlobalVariable.MyStaticPanel_1 = new Panel();
             GlobalVariable.MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
-            GlobalVariable.MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
+            GlobalVariable.MyStaticPanel_1.Size = new System.Drawing.Size(Pnl_Group1.Width, Pnl_Group1.Height);
             //MyStaticPanel_1.BackColor = System.Drawing.Color.AliceBlue;
             GlobalVariable.MyStaticPanel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.Pnl_Function.Controls.Add(GlobalVariable.MyStaticPanel_1);

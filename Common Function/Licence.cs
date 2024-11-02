@@ -15,7 +15,7 @@ namespace CommonFunction
             if(!File.Exists(file_path))
             {
                 // 設定一個日期（例如，三天前的日期）
-                DateTime targetDate = new DateTime(2024, 10, 11);
+                DateTime targetDate = new DateTime(2024, 10, 14);
 
                 // 取得目前時間
                 DateTime currentDate = DateTime.Now;

@@ -18,6 +18,13 @@ namespace FileTransform
     {
         #region parameter define
         Tool tool = new Tool();
+        AppName which_app = AppName.RECURSION;
+        enum AppName
+        {
+            RECURSION,
+            COORDINATE_EXPANSION,
+            NEAR_FIELD,
+        }
         #endregion
 
         #region private function
@@ -32,36 +39,7 @@ namespace FileTransform
             ApplicationSetting.ReadAllRecipe<FormItem>();
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
 
-            #region NearField
-            //F_NearField f_NearField = new F_NearField();
-            //f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
-            //f_NearField.Show();
-
-            //F_NearField_ButtonGroup f_NearField_ButtonGroup = new F_NearField_ButtonGroup();
-            //f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_NearField_ButtonGroup);
-            //f_NearField_ButtonGroup.Show();
-            #endregion
-
-            #region Recursion
-            //F_Recursion f_Recursion = new F_Recursion();
-            //f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
-            //f_Recursion.Show();
-
-            //F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
-            //f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
-            //f_Recursion_ButtonGroup.Show();
-            #endregion
-
-            #region CoordinateExpan
-            F_CoordinateExpansion f_CoordinateExpansion = new F_CoordinateExpansion();
-            f_CoordinateExpansion.SetF_CoordinateExpansion(GlobalVariable.MyStaticPanel, f_CoordinateExpansion);
-            f_CoordinateExpansion.Show();
-
-            F_CoordinateExpan_ButtonGroup f_CoordinateExpan_ButtonGroup = new F_CoordinateExpan_ButtonGroup();
-            f_CoordinateExpan_ButtonGroup.SetF_CoordinateExpan_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_CoordinateExpan_ButtonGroup);
-            f_CoordinateExpan_ButtonGroup.Show();
-            #endregion
-
+            CreateApp(which_app);
         }
         private void SetHint()
         {
@@ -131,6 +109,41 @@ namespace FileTransform
             e.Graphics.DrawLine(Pens.Black, 1, pnl.Height - 2, pnl.Width - 2, pnl.Height - 2);
             //e.Graphics.DrawLine(Pens.Black, pnl.Width - 2, vSize.Height / 2, pnl.Width - 2, pnl.Height - 2);
         }
+        private void CreateApp(AppName app)
+        {
+            switch (app)
+            {
+                case AppName.COORDINATE_EXPANSION:
+                    F_CoordinateExpansion f_CoordinateExpansion = new F_CoordinateExpansion();
+                    f_CoordinateExpansion.SetF_CoordinateExpansion(GlobalVariable.MyStaticPanel, f_CoordinateExpansion);
+                    f_CoordinateExpansion.Show();
+
+                    F_CoordinateExpan_ButtonGroup f_CoordinateExpan_ButtonGroup = new F_CoordinateExpan_ButtonGroup();
+                    f_CoordinateExpan_ButtonGroup.SetF_CoordinateExpan_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_CoordinateExpan_ButtonGroup);
+                    f_CoordinateExpan_ButtonGroup.Show();
+                    break;
+
+                case AppName.RECURSION:
+                    F_Recursion f_Recursion = new F_Recursion();
+                    f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
+                    f_Recursion.Show();
+
+                    F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
+                    f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
+                    f_Recursion_ButtonGroup.Show();
+                    break;
+
+                case AppName.NEAR_FIELD:
+                    F_NearField f_NearField = new F_NearField();
+                    f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
+                    f_NearField.Show();
+
+                    F_NearField_ButtonGroup f_NearField_ButtonGroup = new F_NearField_ButtonGroup();
+                    f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_NearField_ButtonGroup);
+                    f_NearField_ButtonGroup.Show();
+                    break;
+            }
+        }
         #endregion
 
         public F_MainForm()
@@ -163,29 +176,7 @@ namespace FileTransform
         {
             CloseFormOnPanel(GlobalVariable.MyStaticPanel);
 
-            //F_NearField f_NearField = new F_NearField();
-            //f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
-            //f_NearField.Show();
-
-            #region Recursion
-            //F_Recursion f_Recursion = new F_Recursion();
-            //f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
-            //f_Recursion.Show();
-
-            //F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
-            //f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
-            //f_Recursion_ButtonGroup.Show();
-            #endregion
-
-            #region CoordinateExpan
-            F_CoordinateExpansion f_CoordinateExpansion = new F_CoordinateExpansion();
-            f_CoordinateExpansion.SetF_CoordinateExpansion(GlobalVariable.MyStaticPanel, f_CoordinateExpansion);
-            f_CoordinateExpansion.Show();
-
-            F_CoordinateExpan_ButtonGroup f_CoordinateExpan_ButtonGroup = new F_CoordinateExpan_ButtonGroup();
-            f_CoordinateExpan_ButtonGroup.SetF_CoordinateExpan_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_CoordinateExpan_ButtonGroup);
-            f_CoordinateExpan_ButtonGroup.Show();
-            #endregion
+            CreateApp(which_app);
         }
 
         private void F_MainForm_FormClosed(object sender, FormClosedEventArgs e)
