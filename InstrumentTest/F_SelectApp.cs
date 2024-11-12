@@ -18,6 +18,7 @@ namespace InstrumentTest
         F_TC_ButtonGroup f_TC_ButtonGroup;
         F_LoadCell f_LoadCell = new F_LoadCell();
         F_TemperatureController f_TemperatureController = new F_TemperatureController();
+        F_Communication f_Communication = new F_Communication();
         #endregion
 
         #region private function
@@ -97,6 +98,14 @@ namespace InstrumentTest
             F_Show_PV_TPT8000 f_Show_PV_TPT8000 = new F_Show_PV_TPT8000();
 
             f_TC_ButtonGroup.Show_TC_Form += Show_TC_Form;
+        }
+
+        private void Btn_Communication_Click(object sender, EventArgs e)
+        {
+            HideElementOnPanel(GlobalVariable.MyStaticPanel);
+
+            f_Communication.SetF_Communication(GlobalVariable.MyStaticPanel, f_Communication);
+            f_Communication.Show();
         }
     }
 }

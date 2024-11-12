@@ -34,6 +34,8 @@ namespace InstrumentTest
             this.Btn_TemperatureControl = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.Btn_DeltaLoadCell = new System.Windows.Forms.Button();
+            this.Btn_Communication = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label3
@@ -78,12 +80,35 @@ namespace InstrumentTest
             this.Btn_DeltaLoadCell.UseVisualStyleBackColor = true;
             this.Btn_DeltaLoadCell.Click += new System.EventHandler(this.Btn_DeltaLoadCell_Click);
             // 
+            // Btn_Communication
+            // 
+            this.Btn_Communication.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Communication.BackgroundImage")));
+            this.Btn_Communication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Communication.Location = new System.Drawing.Point(239, 12);
+            this.Btn_Communication.Name = "Btn_Communication";
+            this.Btn_Communication.Size = new System.Drawing.Size(60, 60);
+            this.Btn_Communication.TabIndex = 13;
+            this.Btn_Communication.UseVisualStyleBackColor = true;
+            this.Btn_Communication.Click += new System.EventHandler(this.Btn_Communication_Click);
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Location = new System.Drawing.Point(225, 75);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 28);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Comms.";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // F_SelectApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.Btn_Communication);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Btn_TemperatureControl);
             this.Controls.Add(this.label1);
@@ -101,5 +126,7 @@ namespace InstrumentTest
         private System.Windows.Forms.Button Btn_TemperatureControl;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Btn_DeltaLoadCell;
+        private System.Windows.Forms.Button Btn_Communication;
+        private System.Windows.Forms.Label label2;
     }
 }

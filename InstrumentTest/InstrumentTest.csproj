@@ -54,6 +54,9 @@
     <Compile Include="..\Common Function\ApplicationSetting.cs">
       <Link>BaseFile\ApplicationSetting.cs</Link>
     </Compile>
+    <Compile Include="..\Common Function\Communication_GPIB.cs">
+      <Link>BaseFile\Communication_GPIB.cs</Link>
+    </Compile>
     <Compile Include="..\Common Function\Communication_Rs485.cs">
       <Link>BaseFile\Communication_Rs485.cs</Link>
     </Compile>
@@ -61,6 +64,12 @@
       <Link>BaseFile\Tool.cs</Link>
     </Compile>
     <Compile Include="BaseFile\eFormAppSet.cs" />
+    <Compile Include="Communication\F_Communication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Communication\F_Communication.Designer.cs">
+      <DependentUpon>F_Communication.cs</DependentUpon>
+    </Compile>
     <Compile Include="F_SelectApp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +127,9 @@
       <DependentUpon>F_TemperatureController.cs</DependentUpon>
     </Compile>
     <Compile Include="TemperatureController\Thread\Task_TemperatureController.cs" />
+    <EmbeddedResource Include="Communication\F_Communication.resx">
+      <DependentUpon>F_Communication.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_SelectApp.resx">
       <DependentUpon>F_SelectApp.cs</DependentUpon>
     </EmbeddedResource>

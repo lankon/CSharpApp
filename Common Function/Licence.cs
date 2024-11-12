@@ -46,7 +46,6 @@ namespace CommonFunction
                     return false;
             }
         }
-        
         private void CreateLicenceFile()
         {
             string serial_num;
@@ -65,7 +64,6 @@ namespace CommonFunction
 
             File.Close();
         }
-
         private string ReadLicenceFile()
         {
             string filePath = System.IO.Directory.GetCurrentDirectory() + @"\Temp\Licence.ini";
@@ -81,7 +79,6 @@ namespace CommonFunction
             
             return "";
         }
-        
         private string GetSerialNum()
         {
             string serialNumber = "";
@@ -106,7 +103,6 @@ namespace CommonFunction
 
             return serialNumber;
         }
-
         private String FixPassword(String Password)
         {
             try
@@ -137,9 +133,6 @@ namespace CommonFunction
                 throw new Exception(ex.Message, ex.InnerException);
             }
         }
-
-
-
     }
 }
 

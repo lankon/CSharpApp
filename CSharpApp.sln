@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonFunction", "CommonFunction", "{1AE1D90D-5836-44C9-B12A-B4C5E757EFC1}"
 	ProjectSection(SolutionItems) = preProject
 		Common Function\ApplicationSetting.cs = Common Function\ApplicationSetting.cs
+		Common Function\Communication_GPIB.cs = Common Function\Communication_GPIB.cs
 		Common Function\Communication_Rs485.cs = Common Function\Communication_Rs485.cs
 		Common Function\Licence.cs = Common Function\Licence.cs
 		Common Function\Tool.cs = Common Function\Tool.cs
