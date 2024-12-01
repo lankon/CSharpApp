@@ -21,8 +21,16 @@ namespace InstrumentTest
         //private byte[] DataReceivedBuf = new byte[11];
         String FivePointValue = "Tmp,Temp,Temp,-99,-99,-99,-99,-99"; 
         double Offset_Value;
-        int err_Same_Count = 0; 
+        int err_Same_Count = 0;
+        public int[] UseCtrl = new int[10]; //用來判斷老化板是否使用
         String err_SameValue;
+        TC_STATE c_STATE = TC_STATE.IDLE;
+
+        enum TC_STATE
+        {
+            IDLE,
+            WORKING,
+        }
 
         //double TemperatureValue1, TemperatureValue2, TemperatureValue3;
         //double TemperatureValue4, TemperatureValue5;
@@ -213,6 +221,7 @@ namespace InstrumentTest
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}\r\n";
+            tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}");
             try
             {
                 Clear();
@@ -277,6 +286,7 @@ namespace InstrumentTest
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}\r\n";
+            tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}");
             try
             {
                 Clear();
@@ -308,6 +318,7 @@ namespace InstrumentTest
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}\r\n";
+            tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}");
             try
             {
                 Clear();
@@ -335,6 +346,7 @@ namespace InstrumentTest
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}\r\n";
+            tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}");
             try
             {
                 Clear();
@@ -358,6 +370,7 @@ namespace InstrumentTest
         public void ReadTempOffsetFile(int ControlNum, int ChuckNum)
         {
             String Line,Temp_Line = "";
+            tool.SaveHistoryToFile("讀取溫度校正值");
 
             if (ControlNum >= 1)    //TPT8000韌體端沒有編號1控制箱指令
                 ControlNum++;
@@ -390,6 +403,7 @@ namespace InstrumentTest
             int i = 0;
             char[] SplitMark = { ',', '\\' };
             bool StartRead = false;
+            bool bCheckCompensate = false;
 
             while ((Line = sw.ReadLine()) != null)
             {
@@ -402,6 +416,7 @@ namespace InstrumentTest
                 if (Temp_Line == $"#TEMPERATURE_COMPENSATE_T{ControlNum}C{ChuckNum}")
                 {
                     StartRead = true;
+                    bCheckCompensate = true;
                     String[] SplitStr = Line.Split(SplitMark);
 
                     ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Temp1 + i, SplitStr[0]);
@@ -411,10 +426,36 @@ namespace InstrumentTest
                     i++;
                 }
 
+                if (Temp_Line == $"#USE_CTRL_BOX")
+                {
+                    StartRead = true;
+                    String[] SplitStr = Line.Split(SplitMark);
+
+                    int board_num = Int32.Parse(SplitStr[0]);
+                    int use = Int32.Parse(SplitStr[1]);
+
+                    UseCtrl[board_num] = use;
+                }
+
                 if (StartRead == false)
                     Temp_Line = Line;
                 
             }
+
+            if(bCheckCompensate == false)
+            {
+                tool.SaveHistoryToFile($"TemperatureController_TPT8000:ReadTempOffsetFile Fail");
+
+                //讀檔失敗填入預設值
+                //ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, "-1");
+                for (int j = 0; j < 5; j++)
+                {
+                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Temp1 + j, "0");
+                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Comp1 + j, "0");
+                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Offset1 + j, "0");
+                }
+            }
+
             sw.Close();
         }
         public override String GetFivePointValue()

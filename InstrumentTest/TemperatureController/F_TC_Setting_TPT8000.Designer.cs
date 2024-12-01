@@ -107,6 +107,7 @@ namespace InstrumentTest
             this.label19 = new System.Windows.Forms.Label();
             this.TxtBx_TargetT1 = new System.Windows.Forms.TextBox();
             this.Panel_ShowFormName = new System.Windows.Forms.Panel();
+            this.Btn_Read = new System.Windows.Forms.Button();
             this.Pnl_TPT8000_Offset.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -118,12 +119,13 @@ namespace InstrumentTest
             // Pnl_TPT8000_Offset
             // 
             this.Pnl_TPT8000_Offset.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pnl_TPT8000_Offset.Controls.Add(this.Btn_Read);
             this.Pnl_TPT8000_Offset.Controls.Add(this.Btn_Save);
             this.Pnl_TPT8000_Offset.Controls.Add(this.tableLayoutPanel2);
             this.Pnl_TPT8000_Offset.Controls.Add(this.tableLayoutPanel3);
             this.Pnl_TPT8000_Offset.Location = new System.Drawing.Point(12, 5);
             this.Pnl_TPT8000_Offset.Name = "Pnl_TPT8000_Offset";
-            this.Pnl_TPT8000_Offset.Size = new System.Drawing.Size(473, 371);
+            this.Pnl_TPT8000_Offset.Size = new System.Drawing.Size(473, 402);
             this.Pnl_TPT8000_Offset.TabIndex = 3;
             // 
             // Btn_Save
@@ -131,7 +133,7 @@ namespace InstrumentTest
             this.Btn_Save.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Btn_Save.Location = new System.Drawing.Point(325, 5);
             this.Btn_Save.Name = "Btn_Save";
-            this.Btn_Save.Size = new System.Drawing.Size(139, 117);
+            this.Btn_Save.Size = new System.Drawing.Size(139, 60);
             this.Btn_Save.TabIndex = 3;
             this.Btn_Save.Text = "Save";
             this.Btn_Save.UseVisualStyleBackColor = true;
@@ -157,7 +159,7 @@ namespace InstrumentTest
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(314, 116);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(314, 126);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // label20
@@ -168,7 +170,7 @@ namespace InstrumentTest
             this.label20.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label20.Location = new System.Drawing.Point(6, 79);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(145, 34);
+            this.label20.Size = new System.Drawing.Size(145, 44);
             this.label20.TabIndex = 8;
             this.label20.Text = "Calibration Func.";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -279,7 +281,7 @@ namespace InstrumentTest
             this.tableLayoutPanel3.Controls.Add(this.label17, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label18, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.TxtBx_Temp1, 0, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 128);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 139);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 6;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
@@ -288,7 +290,7 @@ namespace InstrumentTest
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(460, 220);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(460, 238);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // TxtBx_Offset5
@@ -296,7 +298,7 @@ namespace InstrumentTest
             this.TxtBx_Offset5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Offset5.Enabled = false;
             this.TxtBx_Offset5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Offset5.Location = new System.Drawing.Point(310, 186);
+            this.TxtBx_Offset5.Location = new System.Drawing.Point(310, 201);
             this.TxtBx_Offset5.Name = "TxtBx_Offset5";
             this.TxtBx_Offset5.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset5.TabIndex = 19;
@@ -306,7 +308,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Comp5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Comp5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Comp5.Location = new System.Drawing.Point(158, 186);
+            this.TxtBx_Comp5.Location = new System.Drawing.Point(158, 201);
             this.TxtBx_Comp5.Name = "TxtBx_Comp5";
             this.TxtBx_Comp5.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Comp5.TabIndex = 18;
@@ -315,7 +317,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Temp5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Temp5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Temp5.Location = new System.Drawing.Point(6, 186);
+            this.TxtBx_Temp5.Location = new System.Drawing.Point(6, 201);
             this.TxtBx_Temp5.Name = "TxtBx_Temp5";
             this.TxtBx_Temp5.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Temp5.TabIndex = 17;
@@ -325,7 +327,7 @@ namespace InstrumentTest
             this.TxtBx_Offset4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Offset4.Enabled = false;
             this.TxtBx_Offset4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Offset4.Location = new System.Drawing.Point(310, 150);
+            this.TxtBx_Offset4.Location = new System.Drawing.Point(310, 162);
             this.TxtBx_Offset4.Name = "TxtBx_Offset4";
             this.TxtBx_Offset4.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset4.TabIndex = 16;
@@ -335,7 +337,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Comp4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Comp4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Comp4.Location = new System.Drawing.Point(158, 150);
+            this.TxtBx_Comp4.Location = new System.Drawing.Point(158, 162);
             this.TxtBx_Comp4.Name = "TxtBx_Comp4";
             this.TxtBx_Comp4.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Comp4.TabIndex = 15;
@@ -344,7 +346,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Temp4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Temp4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Temp4.Location = new System.Drawing.Point(6, 150);
+            this.TxtBx_Temp4.Location = new System.Drawing.Point(6, 162);
             this.TxtBx_Temp4.Name = "TxtBx_Temp4";
             this.TxtBx_Temp4.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Temp4.TabIndex = 14;
@@ -354,7 +356,7 @@ namespace InstrumentTest
             this.TxtBx_Offset3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Offset3.Enabled = false;
             this.TxtBx_Offset3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Offset3.Location = new System.Drawing.Point(310, 114);
+            this.TxtBx_Offset3.Location = new System.Drawing.Point(310, 123);
             this.TxtBx_Offset3.Name = "TxtBx_Offset3";
             this.TxtBx_Offset3.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset3.TabIndex = 13;
@@ -364,7 +366,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Comp3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Comp3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Comp3.Location = new System.Drawing.Point(158, 114);
+            this.TxtBx_Comp3.Location = new System.Drawing.Point(158, 123);
             this.TxtBx_Comp3.Name = "TxtBx_Comp3";
             this.TxtBx_Comp3.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Comp3.TabIndex = 12;
@@ -373,7 +375,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Temp3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Temp3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Temp3.Location = new System.Drawing.Point(6, 114);
+            this.TxtBx_Temp3.Location = new System.Drawing.Point(6, 123);
             this.TxtBx_Temp3.Name = "TxtBx_Temp3";
             this.TxtBx_Temp3.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Temp3.TabIndex = 11;
@@ -383,7 +385,7 @@ namespace InstrumentTest
             this.TxtBx_Offset2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Offset2.Enabled = false;
             this.TxtBx_Offset2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Offset2.Location = new System.Drawing.Point(310, 78);
+            this.TxtBx_Offset2.Location = new System.Drawing.Point(310, 84);
             this.TxtBx_Offset2.Name = "TxtBx_Offset2";
             this.TxtBx_Offset2.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset2.TabIndex = 10;
@@ -393,7 +395,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Comp2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Comp2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Comp2.Location = new System.Drawing.Point(158, 78);
+            this.TxtBx_Comp2.Location = new System.Drawing.Point(158, 84);
             this.TxtBx_Comp2.Name = "TxtBx_Comp2";
             this.TxtBx_Comp2.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Comp2.TabIndex = 9;
@@ -402,7 +404,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Temp2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Temp2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Temp2.Location = new System.Drawing.Point(6, 78);
+            this.TxtBx_Temp2.Location = new System.Drawing.Point(6, 84);
             this.TxtBx_Temp2.Name = "TxtBx_Temp2";
             this.TxtBx_Temp2.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Temp2.TabIndex = 8;
@@ -412,7 +414,7 @@ namespace InstrumentTest
             this.TxtBx_Offset1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Offset1.Enabled = false;
             this.TxtBx_Offset1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Offset1.Location = new System.Drawing.Point(310, 42);
+            this.TxtBx_Offset1.Location = new System.Drawing.Point(310, 45);
             this.TxtBx_Offset1.Name = "TxtBx_Offset1";
             this.TxtBx_Offset1.Size = new System.Drawing.Size(144, 29);
             this.TxtBx_Offset1.TabIndex = 7;
@@ -422,7 +424,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Comp1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Comp1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Comp1.Location = new System.Drawing.Point(158, 42);
+            this.TxtBx_Comp1.Location = new System.Drawing.Point(158, 45);
             this.TxtBx_Comp1.Name = "TxtBx_Comp1";
             this.TxtBx_Comp1.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Comp1.TabIndex = 6;
@@ -435,7 +437,7 @@ namespace InstrumentTest
             this.label16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label16.Location = new System.Drawing.Point(6, 3);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(143, 33);
+            this.label16.Size = new System.Drawing.Size(143, 36);
             this.label16.TabIndex = 2;
             this.label16.Text = "Temperature";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -448,7 +450,7 @@ namespace InstrumentTest
             this.label17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label17.Location = new System.Drawing.Point(158, 3);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(143, 33);
+            this.label17.Size = new System.Drawing.Size(143, 36);
             this.label17.TabIndex = 3;
             this.label17.Text = "Compensate";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -461,7 +463,7 @@ namespace InstrumentTest
             this.label18.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label18.Location = new System.Drawing.Point(310, 3);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(144, 33);
+            this.label18.Size = new System.Drawing.Size(144, 36);
             this.label18.TabIndex = 4;
             this.label18.Text = "Offset";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -470,7 +472,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_Temp1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_Temp1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_Temp1.Location = new System.Drawing.Point(6, 42);
+            this.TxtBx_Temp1.Location = new System.Drawing.Point(6, 45);
             this.TxtBx_Temp1.Name = "TxtBx_Temp1";
             this.TxtBx_Temp1.Size = new System.Drawing.Size(143, 29);
             this.TxtBx_Temp1.TabIndex = 5;
@@ -482,7 +484,7 @@ namespace InstrumentTest
             this.Pnl_BxChSetting.Controls.Add(this.tableLayoutPanel1);
             this.Pnl_BxChSetting.Location = new System.Drawing.Point(509, 5);
             this.Pnl_BxChSetting.Name = "Pnl_BxChSetting";
-            this.Pnl_BxChSetting.Size = new System.Drawing.Size(487, 452);
+            this.Pnl_BxChSetting.Size = new System.Drawing.Size(487, 490);
             this.Pnl_BxChSetting.TabIndex = 10;
             this.Pnl_BxChSetting.MouseLeave += new System.EventHandler(this.Pnl_BxChSetting_MouseLeave);
             // 
@@ -496,11 +498,11 @@ namespace InstrumentTest
             this.tableLayoutPanel4.Controls.Add(this.label15, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.TxtBx_BoardCount, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.Cmbx_Board, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(10, 6);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(10, 7);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(301, 39);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(301, 42);
             this.tableLayoutPanel4.TabIndex = 11;
             // 
             // label15
@@ -511,7 +513,7 @@ namespace InstrumentTest
             this.label15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label15.Location = new System.Drawing.Point(6, 3);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(90, 33);
+            this.label15.Size = new System.Drawing.Size(90, 36);
             this.label15.TabIndex = 6;
             this.label15.Text = "Board";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -597,7 +599,7 @@ namespace InstrumentTest
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_BoxCh9, 2, 9);
             this.tableLayoutPanel1.Controls.Add(this.label19, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.TxtBx_TargetT1, 3, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 50);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 54);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 10;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11012F));
@@ -610,14 +612,14 @@ namespace InstrumentTest
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11123F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11123F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 384);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 416);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // TxtBx_TargetT9
             // 
             this.TxtBx_TargetT9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT9.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT9.Location = new System.Drawing.Point(348, 348);
+            this.TxtBx_TargetT9.Location = new System.Drawing.Point(348, 375);
             this.TxtBx_TargetT9.Name = "TxtBx_TargetT9";
             this.TxtBx_TargetT9.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT9.TabIndex = 47;
@@ -626,7 +628,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_TargetT8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT8.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT8.Location = new System.Drawing.Point(348, 310);
+            this.TxtBx_TargetT8.Location = new System.Drawing.Point(348, 334);
             this.TxtBx_TargetT8.Name = "TxtBx_TargetT8";
             this.TxtBx_TargetT8.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT8.TabIndex = 46;
@@ -635,7 +637,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_TargetT7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT7.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT7.Location = new System.Drawing.Point(348, 272);
+            this.TxtBx_TargetT7.Location = new System.Drawing.Point(348, 293);
             this.TxtBx_TargetT7.Name = "TxtBx_TargetT7";
             this.TxtBx_TargetT7.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT7.TabIndex = 45;
@@ -644,7 +646,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_TargetT6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT6.Location = new System.Drawing.Point(348, 234);
+            this.TxtBx_TargetT6.Location = new System.Drawing.Point(348, 252);
             this.TxtBx_TargetT6.Name = "TxtBx_TargetT6";
             this.TxtBx_TargetT6.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT6.TabIndex = 44;
@@ -653,7 +655,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_TargetT5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT5.Location = new System.Drawing.Point(348, 196);
+            this.TxtBx_TargetT5.Location = new System.Drawing.Point(348, 211);
             this.TxtBx_TargetT5.Name = "TxtBx_TargetT5";
             this.TxtBx_TargetT5.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT5.TabIndex = 43;
@@ -662,7 +664,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_TargetT4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT4.Location = new System.Drawing.Point(348, 158);
+            this.TxtBx_TargetT4.Location = new System.Drawing.Point(348, 170);
             this.TxtBx_TargetT4.Name = "TxtBx_TargetT4";
             this.TxtBx_TargetT4.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT4.TabIndex = 42;
@@ -671,7 +673,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_TargetT3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT3.Location = new System.Drawing.Point(348, 120);
+            this.TxtBx_TargetT3.Location = new System.Drawing.Point(348, 129);
             this.TxtBx_TargetT3.Name = "TxtBx_TargetT3";
             this.TxtBx_TargetT3.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT3.TabIndex = 41;
@@ -680,7 +682,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_TargetT2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT2.Location = new System.Drawing.Point(348, 82);
+            this.TxtBx_TargetT2.Location = new System.Drawing.Point(348, 88);
             this.TxtBx_TargetT2.Name = "TxtBx_TargetT2";
             this.TxtBx_TargetT2.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT2.TabIndex = 40;
@@ -690,9 +692,9 @@ namespace InstrumentTest
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label12.Location = new System.Drawing.Point(6, 345);
+            this.label12.Location = new System.Drawing.Point(6, 372);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(105, 36);
+            this.label12.Size = new System.Drawing.Size(105, 41);
             this.label12.TabIndex = 28;
             this.label12.Text = "9";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -702,9 +704,9 @@ namespace InstrumentTest
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label8.Location = new System.Drawing.Point(6, 193);
+            this.label8.Location = new System.Drawing.Point(6, 208);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(105, 35);
+            this.label8.Size = new System.Drawing.Size(105, 38);
             this.label8.TabIndex = 24;
             this.label8.Text = "5";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -714,9 +716,9 @@ namespace InstrumentTest
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.Location = new System.Drawing.Point(6, 155);
+            this.label7.Location = new System.Drawing.Point(6, 167);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(105, 35);
+            this.label7.Size = new System.Drawing.Size(105, 38);
             this.label7.TabIndex = 23;
             this.label7.Text = "4";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -726,9 +728,9 @@ namespace InstrumentTest
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.Location = new System.Drawing.Point(6, 117);
+            this.label6.Location = new System.Drawing.Point(6, 126);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(105, 35);
+            this.label6.Size = new System.Drawing.Size(105, 38);
             this.label6.TabIndex = 22;
             this.label6.Text = "3";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -738,9 +740,9 @@ namespace InstrumentTest
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(6, 79);
+            this.label2.Location = new System.Drawing.Point(6, 85);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 35);
+            this.label2.Size = new System.Drawing.Size(105, 38);
             this.label2.TabIndex = 21;
             this.label2.Text = "2";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -749,7 +751,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh5.Location = new System.Drawing.Point(234, 196);
+            this.TxtBx_BoxCh5.Location = new System.Drawing.Point(234, 211);
             this.TxtBx_BoxCh5.Name = "TxtBx_BoxCh5";
             this.TxtBx_BoxCh5.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh5.TabIndex = 19;
@@ -758,7 +760,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo5.Location = new System.Drawing.Point(120, 196);
+            this.TxtBx_BoxNo5.Location = new System.Drawing.Point(120, 211);
             this.TxtBx_BoxNo5.Name = "TxtBx_BoxNo5";
             this.TxtBx_BoxNo5.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo5.TabIndex = 18;
@@ -767,7 +769,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh4.Location = new System.Drawing.Point(234, 158);
+            this.TxtBx_BoxCh4.Location = new System.Drawing.Point(234, 170);
             this.TxtBx_BoxCh4.Name = "TxtBx_BoxCh4";
             this.TxtBx_BoxCh4.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh4.TabIndex = 16;
@@ -776,7 +778,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo4.Location = new System.Drawing.Point(120, 158);
+            this.TxtBx_BoxNo4.Location = new System.Drawing.Point(120, 170);
             this.TxtBx_BoxNo4.Name = "TxtBx_BoxNo4";
             this.TxtBx_BoxNo4.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo4.TabIndex = 15;
@@ -785,7 +787,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh3.Location = new System.Drawing.Point(234, 120);
+            this.TxtBx_BoxCh3.Location = new System.Drawing.Point(234, 129);
             this.TxtBx_BoxCh3.Name = "TxtBx_BoxCh3";
             this.TxtBx_BoxCh3.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh3.TabIndex = 13;
@@ -794,7 +796,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo3.Location = new System.Drawing.Point(120, 120);
+            this.TxtBx_BoxNo3.Location = new System.Drawing.Point(120, 129);
             this.TxtBx_BoxNo3.Name = "TxtBx_BoxNo3";
             this.TxtBx_BoxNo3.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo3.TabIndex = 12;
@@ -803,7 +805,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh2.Location = new System.Drawing.Point(234, 82);
+            this.TxtBx_BoxCh2.Location = new System.Drawing.Point(234, 88);
             this.TxtBx_BoxCh2.Name = "TxtBx_BoxCh2";
             this.TxtBx_BoxCh2.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh2.TabIndex = 10;
@@ -812,7 +814,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo2.Location = new System.Drawing.Point(120, 82);
+            this.TxtBx_BoxNo2.Location = new System.Drawing.Point(120, 88);
             this.TxtBx_BoxNo2.Name = "TxtBx_BoxNo2";
             this.TxtBx_BoxNo2.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo2.TabIndex = 9;
@@ -821,7 +823,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh1.Location = new System.Drawing.Point(234, 44);
+            this.TxtBx_BoxCh1.Location = new System.Drawing.Point(234, 47);
             this.TxtBx_BoxCh1.Name = "TxtBx_BoxCh1";
             this.TxtBx_BoxCh1.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh1.TabIndex = 7;
@@ -830,7 +832,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo1.Location = new System.Drawing.Point(120, 44);
+            this.TxtBx_BoxNo1.Location = new System.Drawing.Point(120, 47);
             this.TxtBx_BoxNo1.Name = "TxtBx_BoxNo1";
             this.TxtBx_BoxNo1.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo1.TabIndex = 6;
@@ -843,7 +845,7 @@ namespace InstrumentTest
             this.label3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label3.Location = new System.Drawing.Point(6, 3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(105, 35);
+            this.label3.Size = new System.Drawing.Size(105, 38);
             this.label3.TabIndex = 2;
             this.label3.Text = "Board";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -856,7 +858,7 @@ namespace InstrumentTest
             this.label4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label4.Location = new System.Drawing.Point(120, 3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 35);
+            this.label4.Size = new System.Drawing.Size(105, 38);
             this.label4.TabIndex = 3;
             this.label4.Text = "Box No.";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -869,7 +871,7 @@ namespace InstrumentTest
             this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label5.Location = new System.Drawing.Point(234, 3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(105, 35);
+            this.label5.Size = new System.Drawing.Size(105, 38);
             this.label5.TabIndex = 4;
             this.label5.Text = "Channel";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -879,9 +881,9 @@ namespace InstrumentTest
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(6, 41);
+            this.label1.Location = new System.Drawing.Point(6, 44);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 35);
+            this.label1.Size = new System.Drawing.Size(105, 38);
             this.label1.TabIndex = 20;
             this.label1.Text = "1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -891,9 +893,9 @@ namespace InstrumentTest
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label11.Location = new System.Drawing.Point(6, 307);
+            this.label11.Location = new System.Drawing.Point(6, 331);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(105, 35);
+            this.label11.Size = new System.Drawing.Size(105, 38);
             this.label11.TabIndex = 27;
             this.label11.Text = "8";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -903,9 +905,9 @@ namespace InstrumentTest
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.Location = new System.Drawing.Point(6, 269);
+            this.label9.Location = new System.Drawing.Point(6, 290);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(105, 35);
+            this.label9.Size = new System.Drawing.Size(105, 38);
             this.label9.TabIndex = 25;
             this.label9.Text = "7";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -915,9 +917,9 @@ namespace InstrumentTest
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label10.Location = new System.Drawing.Point(6, 231);
+            this.label10.Location = new System.Drawing.Point(6, 249);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(105, 35);
+            this.label10.Size = new System.Drawing.Size(105, 38);
             this.label10.TabIndex = 26;
             this.label10.Text = "6";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -926,7 +928,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo6.Location = new System.Drawing.Point(120, 234);
+            this.TxtBx_BoxNo6.Location = new System.Drawing.Point(120, 252);
             this.TxtBx_BoxNo6.Name = "TxtBx_BoxNo6";
             this.TxtBx_BoxNo6.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo6.TabIndex = 29;
@@ -935,7 +937,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo7.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo7.Location = new System.Drawing.Point(120, 272);
+            this.TxtBx_BoxNo7.Location = new System.Drawing.Point(120, 293);
             this.TxtBx_BoxNo7.Name = "TxtBx_BoxNo7";
             this.TxtBx_BoxNo7.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo7.TabIndex = 30;
@@ -944,7 +946,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo8.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo8.Location = new System.Drawing.Point(120, 310);
+            this.TxtBx_BoxNo8.Location = new System.Drawing.Point(120, 334);
             this.TxtBx_BoxNo8.Name = "TxtBx_BoxNo8";
             this.TxtBx_BoxNo8.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo8.TabIndex = 31;
@@ -953,7 +955,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh6.Location = new System.Drawing.Point(234, 234);
+            this.TxtBx_BoxCh6.Location = new System.Drawing.Point(234, 252);
             this.TxtBx_BoxCh6.Name = "TxtBx_BoxCh6";
             this.TxtBx_BoxCh6.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh6.TabIndex = 32;
@@ -962,7 +964,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh7.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh7.Location = new System.Drawing.Point(234, 272);
+            this.TxtBx_BoxCh7.Location = new System.Drawing.Point(234, 293);
             this.TxtBx_BoxCh7.Name = "TxtBx_BoxCh7";
             this.TxtBx_BoxCh7.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh7.TabIndex = 33;
@@ -971,7 +973,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh8.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh8.Location = new System.Drawing.Point(234, 310);
+            this.TxtBx_BoxCh8.Location = new System.Drawing.Point(234, 334);
             this.TxtBx_BoxCh8.Name = "TxtBx_BoxCh8";
             this.TxtBx_BoxCh8.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh8.TabIndex = 36;
@@ -980,7 +982,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxNo9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxNo9.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxNo9.Location = new System.Drawing.Point(120, 348);
+            this.TxtBx_BoxNo9.Location = new System.Drawing.Point(120, 375);
             this.TxtBx_BoxNo9.Name = "TxtBx_BoxNo9";
             this.TxtBx_BoxNo9.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxNo9.TabIndex = 35;
@@ -989,7 +991,7 @@ namespace InstrumentTest
             // 
             this.TxtBx_BoxCh9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_BoxCh9.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_BoxCh9.Location = new System.Drawing.Point(234, 348);
+            this.TxtBx_BoxCh9.Location = new System.Drawing.Point(234, 375);
             this.TxtBx_BoxCh9.Name = "TxtBx_BoxCh9";
             this.TxtBx_BoxCh9.Size = new System.Drawing.Size(105, 29);
             this.TxtBx_BoxCh9.TabIndex = 37;
@@ -1002,7 +1004,7 @@ namespace InstrumentTest
             this.label19.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label19.Location = new System.Drawing.Point(348, 3);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(106, 35);
+            this.label19.Size = new System.Drawing.Size(106, 38);
             this.label19.TabIndex = 38;
             this.label19.Text = "Target T";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1011,24 +1013,35 @@ namespace InstrumentTest
             // 
             this.TxtBx_TargetT1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TxtBx_TargetT1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_TargetT1.Location = new System.Drawing.Point(348, 44);
+            this.TxtBx_TargetT1.Location = new System.Drawing.Point(348, 47);
             this.TxtBx_TargetT1.Name = "TxtBx_TargetT1";
             this.TxtBx_TargetT1.Size = new System.Drawing.Size(106, 29);
             this.TxtBx_TargetT1.TabIndex = 39;
             // 
             // Panel_ShowFormName
             // 
-            this.Panel_ShowFormName.Location = new System.Drawing.Point(968, 518);
+            this.Panel_ShowFormName.Location = new System.Drawing.Point(968, 561);
             this.Panel_ShowFormName.Name = "Panel_ShowFormName";
-            this.Panel_ShowFormName.Size = new System.Drawing.Size(52, 35);
+            this.Panel_ShowFormName.Size = new System.Drawing.Size(52, 38);
             this.Panel_ShowFormName.TabIndex = 11;
+            // 
+            // Btn_Read
+            // 
+            this.Btn_Read.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_Read.Location = new System.Drawing.Point(325, 72);
+            this.Btn_Read.Name = "Btn_Read";
+            this.Btn_Read.Size = new System.Drawing.Size(139, 60);
+            this.Btn_Read.TabIndex = 4;
+            this.Btn_Read.Text = "Read";
+            this.Btn_Read.UseVisualStyleBackColor = true;
+            this.Btn_Read.Click += new System.EventHandler(this.Btn_Read_Click);
             // 
             // F_TC_Setting_TPT8000
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.ClientSize = new System.Drawing.Size(1022, 600);
             this.Controls.Add(this.Panel_ShowFormName);
             this.Controls.Add(this.Pnl_BxChSetting);
             this.Controls.Add(this.Pnl_TPT8000_Offset);
@@ -1129,5 +1142,6 @@ namespace InstrumentTest
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ComboBox Cmbx_CalibrationFunc;
         private System.Windows.Forms.Panel Panel_ShowFormName;
+        private System.Windows.Forms.Button Btn_Read;
     }
 }

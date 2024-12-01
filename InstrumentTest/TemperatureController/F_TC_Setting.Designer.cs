@@ -41,7 +41,11 @@ namespace InstrumentTest
             this.label9 = new System.Windows.Forms.Label();
             this.Cmbx_Comport = new System.Windows.Forms.ComboBox();
             this.Panel_ShowFormName = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.Cmbx_ReadTempAvg = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel5
@@ -188,12 +192,56 @@ namespace InstrumentTest
             this.Panel_ShowFormName.Size = new System.Drawing.Size(52, 35);
             this.Panel_ShowFormName.TabIndex = 6;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.OutsetDouble;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.Controls.Add(this.Cmbx_ReadTempAvg, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(377, 7);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(350, 143);
+            this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // Cmbx_ReadTempAvg
+            // 
+            this.Cmbx_ReadTempAvg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Cmbx_ReadTempAvg.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_ReadTempAvg.FormattingEnabled = true;
+            this.Cmbx_ReadTempAvg.Items.AddRange(new object[] {
+            "NO USE",
+            "USE"});
+            this.Cmbx_ReadTempAvg.Location = new System.Drawing.Point(213, 6);
+            this.Cmbx_ReadTempAvg.Name = "Cmbx_ReadTempAvg";
+            this.Cmbx_ReadTempAvg.Size = new System.Drawing.Size(131, 28);
+            this.Cmbx_ReadTempAvg.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.Location = new System.Drawing.Point(6, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(198, 32);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Read Temp Avg";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // F_TC_Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.Panel_ShowFormName);
             this.Controls.Add(this.tableLayoutPanel5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -203,6 +251,8 @@ namespace InstrumentTest
             this.VisibleChanged += new System.EventHandler(this.F_TC_Setting_VisibleChanged);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -219,5 +269,8 @@ namespace InstrumentTest
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox Cmbx_Comport;
         private System.Windows.Forms.Panel Panel_ShowFormName;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ComboBox Cmbx_ReadTempAvg;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -150,26 +150,12 @@ namespace InstrumentTest
 
         private void TxtBx_Board_CH_TextChanged(object sender, EventArgs e)
         {
-            if (InitialApp == false)
-                return;
-
-            ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, TxtBx_Board_CH.Text);
-
-            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
-
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, tool.StringToInt(TxtBx_Board_CH.Text));
-
-            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
+            
         }
 
         private void TxtBx_BoardCount_TextChanged(object sender, EventArgs e)
         {
-            //int count = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoardCount);
             
-            //for(int i=0; i<count; i++)
-            //{
-
-            //}
         
         }
 
@@ -182,6 +168,20 @@ namespace InstrumentTest
         {
             ApplicationSetting.SaveAllRecipe(this);
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
+        }
+
+        private void Btn_Read_Click(object sender, EventArgs e)
+        {
+            if (InitialApp == false)
+                return;
+
+            ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, TxtBx_Board_CH.Text);
+
+            TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
+
+            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, tool.StringToInt(TxtBx_Board_CH.Text));
+
+            ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
         }
     }
 }

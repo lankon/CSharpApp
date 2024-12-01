@@ -37,11 +37,11 @@ namespace InstrumentTest
         #region Public Function       
         public override bool Open(String com, String baudrate, String parity)
         {
-            Comport.PortName = "COM7";
-            Comport.BaudRate = int.Parse("38400");
+            Comport.PortName = com;
+            Comport.BaudRate = int.Parse(baudrate);
             Comport.DataBits = int.Parse("8");
             Comport.StopBits = (StopBits)Enum.Parse(typeof(StopBits), "One");
-            Comport.Parity = (Parity)Enum.Parse(typeof(Parity), "None");
+            Comport.Parity = (Parity)Enum.Parse(typeof(Parity), parity);
             Comport.ReadTimeout = 2000;
 
             if (Comport.PortName == "None")
@@ -171,10 +171,10 @@ namespace InstrumentTest
                     double Now_Value = Convert.ToDouble(temp);
                     double CalculateOffset = 0;
                     
-                    if (ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CalibrationFunc) == 0)
-                        CalculateOffset = LinearityCalibration_Ans(Now_Value);
-                    else if (ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CalibrationFunc) == 1)
-                        CalculateOffset = FivePointCalibration_Ans(temp);
+                    //if (ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CalibrationFunc) == 0)
+                    //    CalculateOffset = LinearityCalibration_Ans(Now_Value);
+                    //else if (ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CalibrationFunc) == 1)
+                    //    CalculateOffset = FivePointCalibration_Ans(temp);
 
                     Now_Value += CalculateOffset;
 
@@ -190,6 +190,7 @@ namespace InstrumentTest
             catch (Exception)
             {
                 //WriteLogData($"TPT GetAns exception: {ex}");
+                FivePointValue = "-99.0,-99.0,-99.0,-99.0,-99.0";
                 return "error";
             }
         }       
@@ -356,14 +357,14 @@ namespace InstrumentTest
         }
         public void ReadTempOffsetFile(int ControlNum, int ChuckNum)
         {
-            String Line;
+            String Line,Temp_Line = "";
 
             if (ControlNum >= 1)    //TPT8000韌體端沒有編號1控制箱指令
                 ControlNum++;
 
             String FileName = "T" + (ControlNum) + "C" + (ChuckNum);
             String FilePath = System.IO.Directory.GetCurrentDirectory();
-            FilePath = FilePath + "\\TemperatureController\\" + FileName + ".txt";
+            FilePath = FilePath + "\\TemperatureController\\" + "TPT8000_Controller" + ".txt";
 
             StreamReader sw = null;
 
@@ -388,22 +389,31 @@ namespace InstrumentTest
             }
             int i = 0;
             char[] SplitMark = { ',', '\\' };
+            bool StartRead = false;
 
             while ((Line = sw.ReadLine()) != null)
             {
-                String[] SplitStr = Line.Split(SplitMark);
+                if (Line == "#END")
+                {
+                    StartRead = false;
+                    Temp_Line = Line;
+                }
+                    
+                if (Temp_Line == $"#TEMPERATURE_COMPENSATE_T{ControlNum}C{ChuckNum}")
+                {
+                    StartRead = true;
+                    String[] SplitStr = Line.Split(SplitMark);
 
-                //if (SplitStr[0] == "#Channel")
-                //{
-                //    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, SplitStr[1]);
-                //    break;
-                //}
+                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Temp1 + i, SplitStr[0]);
+                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Comp1 + i, SplitStr[1]);
+                    ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Offset1 + i, SplitStr[2]);
 
-                ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Temp1 + i, SplitStr[0]);
-                ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Comp1 + i, SplitStr[1]);
-                ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Offset1 + i, SplitStr[2]);
+                    i++;
+                }
 
-                i++;
+                if (StartRead == false)
+                    Temp_Line = Line;
+                
             }
             sw.Close();
         }

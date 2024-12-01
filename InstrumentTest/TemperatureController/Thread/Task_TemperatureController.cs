@@ -28,9 +28,12 @@ namespace InstrumentTest
             MONITOR,
             ASK_PV,
             ANS_PV,
+            MONITOR_AVG,
+
             MONITOR_ALL,
             ASK_PV_ALL,
             ANS_PV_ALL,
+            MONITOR_AVG_ALL,
 
             ERROR,
         }
@@ -47,6 +50,9 @@ namespace InstrumentTest
         private bool IsUseCycleTest = false;  //判斷是否使用循環測試
         private int delay_count = 0;
         private int board_num = 0;
+        private int read_error = 10;    //TPT8000主控點讀取連續10次數值皆一樣報錯
+        private int avg_count = 0;      //溫度平均計數
+        private int avg_time = 10;      //溫度值取幾次平均
         private WORK state = WORK.INITIAL;
         private string ErrorMsg = "";
         private string present_temp_value = "-99";
@@ -55,8 +61,11 @@ namespace InstrumentTest
         private string sbaudrate = "";
         private string sparity = "";
         private string scomport = "";
+        private double avg_temp_value = -99;
+        double[] avg_5_rtd_temp_value = new double[5];
         //ITemperatureController[] TC = new ITemperatureController[4];
         BaseTemperatureController[] TC = new BaseTemperatureController[4];
+        private List<int> TemperatureReading;
         #endregion
 
         #region private function
@@ -88,10 +97,25 @@ namespace InstrumentTest
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("Task_TemperatureController:"+ target.ToString());
+                tool.SaveHistoryToFile("[Task]Task_TemperatureController:"+ target.ToString());
             }
 
             state = target;
+        }
+        private double[] Avg_5_RTD_Func(double[] avg_value, string value)
+        {
+            string[] split_value = value.Split(',').ToArray();
+
+            for(int i=0; i<split_value.Length; i++)
+            {
+                if (i >= avg_value.Length)
+                    break;
+                
+                double f_split_value = tool.StringToDouble(split_value[i]);
+                avg_value[i] = avg_value[i] + f_split_value;
+            }
+
+            return avg_value;
         }
         #endregion
 
@@ -155,6 +179,20 @@ namespace InstrumentTest
         public void StartAll()
         {
             ResetError();
+
+            int count = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoardCount);
+
+            if (TemperatureReading == null)
+            {
+                TemperatureReading = new List<int>(count);
+            }
+            else
+            {
+                TemperatureReading.Clear();
+                TemperatureReading = new List<int>(count);
+            }
+                
+
             Transition(WORK.START_ALL);
         }
         public void StopAll()
@@ -204,13 +242,13 @@ namespace InstrumentTest
                     case WORK.IDLE:
                         if (IsConnect)
                         {
-                            if (IsMonitorAll)
+                            if (IsMonitorAll)   //輪尋溫度
                             {
                                 state = WORK.MONITOR_ALL;
 
                                 GetBoardRTD(temp_5_rtd, board_num);
 
-                                if (board_num >= ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoardCount))
+                                if (board_num >= ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_BoardCount)-1)
                                     board_num = 0;
                                 else
                                     board_num++;
@@ -230,6 +268,7 @@ namespace InstrumentTest
                                 
                                 UpdatePresentValue(value);
                                 state = WORK.MONITOR;
+                                ResetTimeCount(out delay_count);
                             }
                         }
                         break;
@@ -238,6 +277,8 @@ namespace InstrumentTest
                     #region Monitor
                     case WORK.MONITOR:
                         //Transition(WORK.ASK_PV);
+                        avg_temp_value = 0;
+                        avg_count = 0;
                         state = WORK.ASK_PV;
                         ResetTimeCount(out delay_count);
                         break;
@@ -255,19 +296,51 @@ namespace InstrumentTest
                     case WORK.ANS_PV:
                         if(CheckTimeOverMilliSec(delay_count, 100))
                         {
-                            present_temp_value =  TC[0].GetAns();
+                            if (ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_ReadTempAvg) == 1)
+                            {
+                                string value = TC[0].GetAns();
+
+                                if (value != "error")
+                                {
+                                    avg_temp_value += tool.StringToDouble(value);
+                                    avg_count++;
+                                }
+                                    
+                                if (avg_count < avg_time)
+                                    state = WORK.ASK_PV;
+                                else
+                                    state = WORK.MONITOR_AVG;
+
+                            }
+                            else
+                            {
+                                present_temp_value = TC[0].GetAns();
+                                state = WORK.IDLE;
+                            }
+
                             ResetTimeCount(out delay_count);
-                            //Transition(WORK);
-                            state = WORK.IDLE;
                         }
+                        break;
+
+                    case WORK.MONITOR_AVG:
+                        avg_temp_value = avg_temp_value / avg_time;
+                        present_temp_value = avg_temp_value.ToString("0.0");
+                        state = WORK.IDLE;
                         break;
                     #endregion
 
                     #region Monitor All
                     case WORK.MONITOR_ALL:
-                        //Transition(WORK.ASK_PV);
-                        state = WORK.ASK_PV_ALL;
-                        ResetTimeCount(out delay_count);
+                        {
+                            avg_count = 0;
+                            for (int i = 0; i < avg_5_rtd_temp_value.Length; i++)
+                            {
+                                avg_5_rtd_temp_value[i] = 0;
+                            }
+
+                            state = WORK.ASK_PV_ALL;
+                            ResetTimeCount(out delay_count);
+                        }
                         break;
 
                     case WORK.ASK_PV_ALL:
@@ -287,10 +360,47 @@ namespace InstrumentTest
                     case WORK.ANS_PV_ALL:
                         if (CheckTimeOverMilliSec(delay_count, 100))
                         {
-                            present_temp_value = TC[0].GetAns();
-                            temp_5_rtd = TC[0].GetFivePointValue();
-                            ResetTimeCount(out delay_count);
-                            //Transition(WORK);
+                            if (ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_ReadTempAvg) == 1)
+                            {
+                                string value = TC[0].GetAns();
+                                temp_5_rtd = TC[0].GetFivePointValue();
+
+                                if (value != "error")
+                                {
+                                    avg_temp_value += tool.StringToDouble(value);
+
+                                    string five_rtd = TC[0].GetFivePointValue();
+                                    avg_5_rtd_temp_value = Avg_5_RTD_Func(avg_5_rtd_temp_value, five_rtd);
+
+                                    avg_count++;
+                                }
+
+                                if (avg_count < avg_time)
+                                    state = WORK.ASK_PV_ALL;
+                                else
+                                    state = WORK.MONITOR_AVG_ALL;
+                            }
+                            else
+                            {
+                                present_temp_value = TC[0].GetAns();
+                                temp_5_rtd = TC[0].GetFivePointValue();
+                                ResetTimeCount(out delay_count);
+                                state = WORK.IDLE;
+                            }
+                        }
+                        break;
+
+                    case WORK.MONITOR_AVG_ALL:
+                        {
+                            temp_5_rtd = "";
+                            for (int i=0; i<avg_5_rtd_temp_value.Length; i++)
+                            {
+                                avg_5_rtd_temp_value[i] = avg_5_rtd_temp_value[i] / avg_time;
+
+                                temp_5_rtd = temp_5_rtd + avg_5_rtd_temp_value[i].ToString("0.0") + ",";
+                            }
+
+
                             state = WORK.IDLE;
                         }
                         break;
@@ -397,8 +507,8 @@ namespace InstrumentTest
                             
                             if (TC[0].Start(ctrl,ch,temp))
                             {
-                                Thread.Sleep(50);
-                                tool.SaveHistoryToFile("TC Start All");
+                                Thread.Sleep(100);
+                                tool.SaveHistoryToFile($"TC Start CtrlBox:{ctrl},CH:{ch}");
                             }
                             else
                             {
@@ -454,7 +564,7 @@ namespace InstrumentTest
 
                             if (TC[0].Stop(ctrl, ch))
                             {
-                                tool.SaveHistoryToFile("TC Stop All");
+                                tool.SaveHistoryToFile($"TC Stop CtrlBox:{ctrl},CH:{ch}");
                             }
                             else
                             {

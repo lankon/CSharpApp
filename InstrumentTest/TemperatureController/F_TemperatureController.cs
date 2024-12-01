@@ -124,7 +124,7 @@ namespace InstrumentTest
         {
             GlobalVariable.Task_TC.Start();
 
-            Labl_SV.Text = TxtBx_Target.Text;
+            Labl_SV.Text = TxtBx_TC_Target.Text;
 
             Thread.Sleep(500);
 
@@ -160,7 +160,7 @@ namespace InstrumentTest
         {
             GlobalVariable.Task_TC.StartAll();
 
-            Labl_SV.Text = TxtBx_Target.Text;
+            Labl_SV.Text = TxtBx_TC_Target.Text;
 
             Thread.Sleep(500);
 
@@ -194,14 +194,9 @@ namespace InstrumentTest
 		
 		private void TxtBx_Target_TextChanged(object sender, EventArgs e)
         {
-            ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Target, TxtBx_Target.Text);
-            ApplicationSetting.SaveAllRecipe(this);
-            ApplicationSetting.ReadAllRecipe<eFormAppSet>();
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
+            ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Target, TxtBx_TC_Target.Text);
+            //ApplicationSetting.SaveAllRecipe(this);
+            //ApplicationSetting.ReadAllRecipe<eFormAppSet>();
         }
     }
 }
