@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using System.IO;
-using System.Windows.Forms;
 
 using CommonFunction;
 
-
-namespace FileTransform.Recursion
+namespace FileTransform.Wafer_Align_Angle
 {
-    public class Task_Recursion
+    public class Task_Wafer_Align_Angle
     {
         #region parameter define 
         enum WORK
@@ -20,11 +17,8 @@ namespace FileTransform.Recursion
             INITIAL,
             IDLE,
 
-            TEACH,
-            WAIT_TEACH,
-
-            BATCH_CALCULATE,
-            WAIT_BATCH_CALCULATE,
+            CALCULATE,
+            WAIT_CALCULATE,
 
             ERROR,
 
@@ -32,8 +26,9 @@ namespace FileTransform.Recursion
             CONTINUE,
         }
 
-        SubTask_Recursion_Teach Teach;
-        SubTask_Recursion_Batch Batch;
+        //SubTask_Recursion_Teach Teach;
+        //SubTask_Recursion_Batch Batch;
+        SubTask_Angle_Calculate Calculate;
 
         Tool tool = new Tool();
         private WORK state = WORK.INITIAL;
@@ -43,7 +38,7 @@ namespace FileTransform.Recursion
         private int cal_count = 0;          //計算Batch執行次數
         private string ErrorMsg = "";
         public ShowImageCallBack ShowImage { get; set; }
-        public ShowNameCallBack ShowName { get; set; }
+        //public ShowNameCallBack ShowName { get; set; }
         #endregion
 
         #region private function
@@ -51,10 +46,10 @@ namespace FileTransform.Recursion
         {
             ShowImage("");
         }
-        private void showname(string name)
-        {
-            ShowName(name);
-        }
+        //private void showname(string name)
+        //{
+        //    ShowName(name);
+        //}
         private void ResetTimeCount(out int tick)
         {
             tick = Environment.TickCount;
@@ -70,14 +65,14 @@ namespace FileTransform.Recursion
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("(Task_NearField):"+ target.ToString());
+                tool.SaveHistoryToFile("[Task](Task_NearField):" + target.ToString());
             }
 
             state = target;
         }
         private void CheckResult(bool res, WORK target)
         {
-            if(res == true)
+            if (res == true)
             {
                 if (target != state) //狀態有變化時紀錄
                 {
@@ -96,18 +91,18 @@ namespace FileTransform.Recursion
         #endregion
 
         #region public function
-        public void Process_Teach()
+        public void Process_Calculate()
         {
-            Transition(WORK.TEACH);
+            Transition(WORK.CALCULATE);
         }
         public void Process_Continue()
         {
             Transition(WORK.CONTINUE);
         }
-        public void Process_Bath()
-        {
-            Transition(WORK.BATCH_CALCULATE);
-        }
+        //public void Process_Bath()
+        //{
+        //    Transition(WORK.BATCH_CALCULATE);
+        //}
         public void Process_Pause()
         {
             IsPause = true;
@@ -122,7 +117,7 @@ namespace FileTransform.Recursion
         }
         #endregion
 
-        public Task_Recursion()
+        public Task_Wafer_Align_Angle()
         {
             Task task = Task.Run(() => MainTask());
         }
@@ -132,69 +127,29 @@ namespace FileTransform.Recursion
             while (Terminate)
             {
                 switch (state)
-                {                               
+                {
                     case WORK.INITIAL:
-                        
+
 
                         break;
 
                     case WORK.IDLE:
-                        Teach = null;
+                        Calculate = null;
                         cal_count = 0;
                         break;
 
-                    #region 影像教學
-                    case WORK.TEACH:
-                        {
-                            Teach = new SubTask_Recursion_Teach();
-                            Teach.ShowImage += showimage;
-                            Transition(WORK.WAIT_TEACH);
-                        }
+                    #region 計算角度
+                    case WORK.CALCULATE:
+                        Calculate = new SubTask_Angle_Calculate();
+                        Calculate.ShowImage += showimage;
+                        Transition(WORK.WAIT_CALCULATE);
                         break;
-                    case WORK.WAIT_TEACH:
-                        {
-                            bool check = Teach.Run();
 
-                            GoToPause(WORK.WAIT_TEACH);
-                            CheckResult(check, WORK.IDLE);
-                        }
-                        break;
-                    #endregion
+                    case WORK.WAIT_CALCULATE:
+                        bool check = Calculate.Run();
 
-                    #region 批次計算
-                    case WORK.BATCH_CALCULATE:
-                        {
-                            Batch = new SubTask_Recursion_Batch();
-                            Batch.SetCount(cal_count);
-                            Batch.ShowImage += showimage;
-                            Batch.ShowName += showname;
-
-                            Transition(WORK.WAIT_BATCH_CALCULATE);
-                        }
-                        break;
-                    case WORK.WAIT_BATCH_CALCULATE:
-                        {
-                            bool check = Batch.Run();
-
-                            //GoToPause(WORK.WAIT_TEACH);
-                            if(cal_count == GlobalVariable.batch_path.Count-1)
-                                CheckResult(check, WORK.IDLE);
-                            else
-                            {
-                                CheckResult(check, WORK.BATCH_CALCULATE);
-                                
-                                if(check == true)
-                                {
-                                    if (IsPause)
-                                        GoToPause(WORK.BATCH_CALCULATE);
-
-                                    cal_count++;
-                                }
-                                    
-                            }
-
-                            
-                        }
+                        GoToPause(WORK.WAIT_CALCULATE);
+                        CheckResult(check, WORK.IDLE);
                         break;
                     #endregion
 
@@ -210,12 +165,13 @@ namespace FileTransform.Recursion
                             Transition(temp_state);
                         }
                         break;
-                    #endregion
-
-
-
+                        #endregion
                 }
+
+                Thread.Sleep(1);
+                
             }
         }
+
     }
 }

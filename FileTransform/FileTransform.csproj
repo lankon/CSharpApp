@@ -181,6 +181,26 @@
     <Compile Include="Recursion\SubTask\SubTask_Recursion_Batch.cs" />
     <Compile Include="Recursion\SubTask\SubTask_Recursion_Teach.cs" />
     <Compile Include="Recursion\Thread\Task_Recursion.cs" />
+    <Compile Include="Wafer_Align_Angle\F_Wafer_Align_Angle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wafer_Align_Angle\F_Wafer_Align_Angle.Designer.cs">
+      <DependentUpon>F_Wafer_Align_Angle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wafer_Align_Angle\F_Wafer_Align_Angle_ButtonGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wafer_Align_Angle\F_Wafer_Align_Angle_ButtonGroup.Designer.cs">
+      <DependentUpon>F_Wafer_Align_Angle_ButtonGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wafer_Align_Angle\F_Wafer_Align_Angle_Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wafer_Align_Angle\F_Wafer_Align_Angle_Setting.Designer.cs">
+      <DependentUpon>F_Wafer_Align_Angle_Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wafer_Align_Angle\SubTask\SubTask_Angle_Calculate.cs" />
+    <Compile Include="Wafer_Align_Angle\Thread\Task_Wafer_Align_Angle.cs" />
     <EmbeddedResource Include="CoordinateExpansion\F_CoordinateExpanSetting.resx">
       <DependentUpon>F_CoordinateExpanSetting.cs</DependentUpon>
     </EmbeddedResource>
@@ -225,6 +245,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Recursion\F_Recursion_Setting.resx">
       <DependentUpon>F_Recursion_Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wafer_Align_Angle\F_Wafer_Align_Angle.resx">
+      <DependentUpon>F_Wafer_Align_Angle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wafer_Align_Angle\F_Wafer_Align_Angle_ButtonGroup.resx">
+      <DependentUpon>F_Wafer_Align_Angle_ButtonGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wafer_Align_Angle\F_Wafer_Align_Angle_Setting.resx">
+      <DependentUpon>F_Wafer_Align_Angle_Setting.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

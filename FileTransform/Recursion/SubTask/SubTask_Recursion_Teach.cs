@@ -34,27 +34,12 @@ namespace FileTransform.Recursion
             END,
         }
 
-        //public UpdatePresentValueCallBack UpdatePresentValue { get; set; }
-        //public UpdateSetValueCallBack UpdateSetValue { get; set; }
-        //public GetBoardRTDCallBack GetBoardRTD { get; set; }
-
-
         Tool tool = new Tool();
         private WORK state;// = WORK.INITIAL;
         private bool IsFinish = false;
-        //private bool IsConnect = false; //確認連線
-        //private bool IsMonitorAll = false;  //判斷是否啟動所有控制器
         private int test_time = 0;
-        //private int board_num = 0;
         private string ErrorMsg = "";
         private string Save_Path = Application.StartupPath + @"\Picture\" + "Recursion.png";
-        //private string present_temp_value = "-99";
-        //private string temp_5_rtd = "-99.0,-99.0,-99.0,-99.0,-99.0";
-        //private string stc_type = "";
-        //private string sbaudrate = "";
-        //private string sparity = "";
-        //private string scomport = "";
-        //ITemperatureController[] TC = new ITemperatureController[4];
         Rect boundingRect;
         Point2f center_final;
         private List<Point[]> filteredContours = new List<Point[]>();

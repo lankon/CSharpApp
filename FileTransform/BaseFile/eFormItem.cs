@@ -35,8 +35,14 @@ namespace FileTransform
         TxtBx_PinStartY,
         TxtBx_PinWidth,
         TxtBx_PinHeight,
-
-
         #endregion
+
+        TxtBx_PixelPitchX,
+        TxtBx_PixelPitchY,
+        TxtBx_EdgeLowThreshold,
+        TxtBx_EdgeThreshold,
+        TxtBx_ChipWidth,
+        TxtBx_ChipHeigh,
+
     }
 }

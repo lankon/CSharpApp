@@ -11,6 +11,7 @@ using System.Management;
 using CommonFunction;
 
 using FileTransform.Recursion;
+using FileTransform.Wafer_Align_Angle;
 
 namespace FileTransform
 {
@@ -18,12 +19,13 @@ namespace FileTransform
     {
         #region parameter define
         Tool tool = new Tool();
-        AppName which_app = AppName.RECURSION;
+        AppName which_app = AppName.WAFER_ALIGN_ANGLE;  //設定使用程式類型
         enum AppName
         {
             RECURSION,
             COORDINATE_EXPANSION,
             NEAR_FIELD,
+            WAFER_ALIGN_ANGLE,
         }
         #endregion
 
@@ -141,6 +143,16 @@ namespace FileTransform
                     F_NearField_ButtonGroup f_NearField_ButtonGroup = new F_NearField_ButtonGroup();
                     f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_NearField_ButtonGroup);
                     f_NearField_ButtonGroup.Show();
+                    break;
+
+                case AppName.WAFER_ALIGN_ANGLE:
+                    F_Wafer_Align_Angle f_Wafer_Align_Angle = new F_Wafer_Align_Angle();
+                    f_Wafer_Align_Angle.SetF_Wafer_Align_Angle(GlobalVariable.MyStaticPanel, f_Wafer_Align_Angle);
+                    f_Wafer_Align_Angle.Show();
+
+                    F_Wafer_Align_Angle_ButtonGroup f_Wafer_Align_Angle_ButtonGroup = new F_Wafer_Align_Angle_ButtonGroup();
+                    f_Wafer_Align_Angle_ButtonGroup.SetF_Wafer_Align_Angle_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Wafer_Align_Angle_ButtonGroup);
+                    f_Wafer_Align_Angle_ButtonGroup.Show();
                     break;
             }
         }

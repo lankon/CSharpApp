@@ -122,7 +122,7 @@ namespace FileTransform
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(323, 34);
             this.label13.TabIndex = 11;
-            this.label13.Text = "Result Delay Time";
+            this.label13.Text = "Result Delay Time(ms)";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TxtBx_BatchPath
