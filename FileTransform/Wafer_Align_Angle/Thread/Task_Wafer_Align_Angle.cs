@@ -26,8 +26,6 @@ namespace FileTransform.Wafer_Align_Angle
             CONTINUE,
         }
 
-        //SubTask_Recursion_Teach Teach;
-        //SubTask_Recursion_Batch Batch;
         SubTask_Angle_Calculate Calculate;
 
         Tool tool = new Tool();
@@ -99,10 +97,6 @@ namespace FileTransform.Wafer_Align_Angle
         {
             Transition(WORK.CONTINUE);
         }
-        //public void Process_Bath()
-        //{
-        //    Transition(WORK.BATCH_CALCULATE);
-        //}
         public void Process_Pause()
         {
             IsPause = true;

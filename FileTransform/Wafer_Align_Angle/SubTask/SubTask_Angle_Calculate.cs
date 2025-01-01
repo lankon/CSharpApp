@@ -192,7 +192,7 @@ namespace FileTransform.Wafer_Align_Angle
                             // 擬合最小外接矩形
                             RotatedRect rotatedRect = Cv2.MinAreaRect(contour);
 
-                            if(Math.Abs(rotatedRect.Size.Width - W_Pixel) <= 5 && Math.Abs(rotatedRect.Size.Height - H_Pixel) <= 5)
+                            if (Math.Abs(rotatedRect.Size.Width - W_Pixel) <= 10 && Math.Abs(rotatedRect.Size.Height - H_Pixel) <= 10)
                             {
                                 Angle = rotatedRect.Angle;
 

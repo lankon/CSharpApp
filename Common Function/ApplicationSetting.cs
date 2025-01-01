@@ -139,10 +139,26 @@ namespace CommonFunction
                 return -1.0;
             }
         }
-        public static void SaveAllRecipe(Form form)
+        public static void SaveAllRecipe(Form form, string save_path = "default")
         {
-            // 獲取當前應用程式的配置
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            Configuration config = null;
+
+            if (save_path == "default")
+            {
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            }
+            else
+            {
+                string customConfigPath = save_path;
+
+                // 設定自訂的配置檔路徑
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap
+                {
+                    ExeConfigFilename = customConfigPath
+                };
+
+                config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            }
 
             TraverseControlsSave(form, config);
 
@@ -160,9 +176,26 @@ namespace CommonFunction
                 ApplicationInfo[(int)value] = appSettings[eName] ?? "Not Found";
             }
         }
-        public static void UpdataRecipeToForm<T>(Form form) where T:Enum
+        public static void UpdataRecipeToForm<T>(Form form, string save_path = "default") where T:Enum
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            Configuration config = null;
+
+            if (save_path == "default")
+            {
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            }
+            else
+            {
+                string customConfigPath = save_path;
+
+                // 設定自訂的配置檔路徑
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap
+                {
+                    ExeConfigFilename = customConfigPath
+                };
+
+                config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            }
 
             TraverseControlsUpdate<T>(form, config);
         }
