@@ -236,6 +236,12 @@
     </Compile>
     <Compile Include="BaseFile\eAppSetting.cs" />
     <Compile Include="BaseFile\Xlsx_File.cs" />
+    <Compile Include="BinTable\F_BinTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BinTable\F_BinTable.Designer.cs">
+      <DependentUpon>F_BinTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="F_MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,12 +249,6 @@
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseFile\GlobalVariable.cs" />
-    <Compile Include="GRR\F_GRR.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GRR\F_GRR.Designer.cs">
-      <DependentUpon>F_GRR.cs</DependentUpon>
-    </Compile>
     <Compile Include="Mapping\F_Mapping_ButtonGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,11 +275,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BinTable\F_BinTable.resx">
+      <DependentUpon>F_BinTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="F_MainForm.resx">
       <DependentUpon>F_MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GRR\F_GRR.resx">
-      <DependentUpon>F_GRR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mapping\F_Mapping_ButtonGroup.resx">
       <DependentUpon>F_Mapping_ButtonGroup.cs</DependentUpon>
@@ -355,5 +355,6 @@
     <Content Include="dll\System.Runtime.CompilerServices.Unsafe.dll" />
     <Content Include="dll\System.Runtime.CompilerServices.Unsafe.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

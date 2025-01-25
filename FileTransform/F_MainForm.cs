@@ -19,7 +19,7 @@ namespace FileTransform
     {
         #region parameter define
         Tool tool = new Tool();
-        AppName which_app = AppName.WAFER_ALIGN_ANGLE;  //設定使用程式類型
+        AppName which_app = AppName.COORDINATE_EXPANSION;  //設定使用程式類型
         enum AppName
         {
             RECURSION,

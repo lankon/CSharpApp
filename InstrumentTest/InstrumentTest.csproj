@@ -94,7 +94,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemperatureController\Base\BaseTemperatureController.cs" />
-    <Compile Include="TemperatureController\Base\ITemperatureController.cs" />
     <Compile Include="TemperatureController\Base\TemperatureController_TPT8000.cs" />
     <Compile Include="TemperatureController\F_Show_PV_TPT8000.cs">
       <SubType>Form</SubType>

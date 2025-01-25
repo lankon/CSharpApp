@@ -31,7 +31,7 @@ namespace Mapping
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_Mapping_ButtonGroup));
-            this.Btn_GRR = new System.Windows.Forms.Button();
+            this.Btn_BinTable = new System.Windows.Forms.Button();
             this.Btn_OneToOne = new System.Windows.Forms.Button();
             this.Btn_Save = new System.Windows.Forms.Button();
             this.Btn_Setting = new System.Windows.Forms.Button();
@@ -39,16 +39,15 @@ namespace Mapping
             this.Pnl_FormHint = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // Btn_GRR
+            // Btn_BinTable
             // 
-            this.Btn_GRR.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_GRR.BackgroundImage")));
-            this.Btn_GRR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_GRR.Location = new System.Drawing.Point(130, 5);
-            this.Btn_GRR.Name = "Btn_GRR";
-            this.Btn_GRR.Size = new System.Drawing.Size(60, 60);
-            this.Btn_GRR.TabIndex = 37;
-            this.Btn_GRR.UseVisualStyleBackColor = true;
-            this.Btn_GRR.Visible = false;
+            this.Btn_BinTable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_BinTable.Location = new System.Drawing.Point(130, 5);
+            this.Btn_BinTable.Name = "Btn_BinTable";
+            this.Btn_BinTable.Size = new System.Drawing.Size(60, 60);
+            this.Btn_BinTable.TabIndex = 37;
+            this.Btn_BinTable.UseVisualStyleBackColor = true;
+            this.Btn_BinTable.Visible = false;
             // 
             // Btn_OneToOne
             // 
@@ -96,7 +95,7 @@ namespace Mapping
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(883, 68);
-            this.Controls.Add(this.Btn_GRR);
+            this.Controls.Add(this.Btn_BinTable);
             this.Controls.Add(this.Btn_OneToOne);
             this.Controls.Add(this.Btn_Save);
             this.Controls.Add(this.Btn_Setting);
@@ -110,7 +109,7 @@ namespace Mapping
 
         #endregion
 
-        private System.Windows.Forms.Button Btn_GRR;
+        private System.Windows.Forms.Button Btn_BinTable;
         private System.Windows.Forms.Button Btn_OneToOne;
         private System.Windows.Forms.Button Btn_Save;
         private System.Windows.Forms.Button Btn_Setting;

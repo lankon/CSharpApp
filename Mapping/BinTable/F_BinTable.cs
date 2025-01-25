@@ -8,18 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Mapping
+namespace Mapping.BinTable
 {
-    public partial class F_GRR : Form
+    public partial class F_BinTable : Form
     {
         #region public function
-        public void SetF_GRR(Panel pnl, F_GRR form)
+        public void SetF_Mapping_ButtonGroup(Panel pnl, F_BinTable form)
         {
             form.Dock = DockStyle.Fill;
             form.Visible = true;
             form.TopLevel = false;
             form.Top = 0;
             form.Left = 0;
+            form.TopMost = true;
 
             pnl.Controls.Add(form);
 
@@ -27,14 +28,11 @@ namespace Mapping
         }
         #endregion
 
-        public F_GRR()
+
+
+        public F_BinTable()
         {
             InitializeComponent();
-        }
-
-        private void Btn_Calculate_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

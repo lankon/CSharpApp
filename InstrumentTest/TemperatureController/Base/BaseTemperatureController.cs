@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace InstrumentTest
 {
+    public delegate void UpdatePresentValueCallBack(double value);
+    public delegate void UpdateSetValueCallBack(double value);
+    public delegate string GetFiveRTDValueCallBack(string aa);
+    public delegate void GetBoardRTDCallBack(string temp, int board_number);
+
     public abstract class BaseTemperatureController
     {
         #region abstract

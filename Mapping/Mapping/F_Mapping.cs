@@ -476,7 +476,7 @@ namespace Mapping
             #endregion
 
             #region 決定Map GridSize大小
-            float[] GridSizeArray = { 50f, 25f, 10f, 5f, 4f, 2f, 1f, 0.8f };
+            float[] GridSizeArray = { 50f, 25f, 10f, 5f, 4f, 2f, 1f, 0.8f, 0.4f };
             float GridSize = 0f;
 
             for (int i = 0; i < GridSizeArray.Count(); i++)
@@ -489,6 +489,9 @@ namespace Mapping
             }
 
             myDictionary.Add("GridSize", GridSize);
+
+            if(GridSize == 0)
+                tool.SaveHistoryToFile("座標超出繪圖範圍");
             #endregion
 
             #region 找中心點位移量
@@ -574,6 +577,10 @@ namespace Mapping
             string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
             string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
 
+            int[] PosX_Array = new int[CellInfo.Count()];
+            int[] PosY_Array = new int[CellInfo.Count()];
+            Color[] Color_Array = new Color[CellInfo.Count()];
+
 
             for (int i = 0; i < ValueRegionCount.Count(); i++)
             {
@@ -631,7 +638,11 @@ namespace Mapping
                     dPosX = (dPosX + ShiftX) * xy_direc[0];
                     dPosY = (dPosY + ShiftY) * xy_direc[1];
 
-                    DrawCell(Pnl, GridSize, dPosX, dPosY, CellColor);
+                    PosX_Array[i - 1] = dPosX;
+                    PosY_Array[i - 1] = dPosY;
+                    Color_Array[i - 1] = CellColor;
+
+                    //DrawCell(Pnl, GridSize, dPosX, dPosY, CellColor);
                 }
                 else
                 {

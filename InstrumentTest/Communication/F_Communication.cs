@@ -13,6 +13,14 @@ namespace InstrumentTest
     public partial class F_Communication : Form
     {
 
+        #region private function
+        private void SwitchForm()
+        {
+
+        }
+        #endregion
+
+
         #region public function
         public void SetF_Communication(Panel pnl, F_Communication form)
         {
