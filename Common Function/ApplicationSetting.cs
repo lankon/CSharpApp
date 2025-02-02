@@ -166,14 +166,28 @@ namespace CommonFunction
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
-        public static void ReadAllRecipe<T>() where T:Enum
+        public static void ReadAllRecipe<T>(string read_path = "default") where T:Enum
         {
+            ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap
+            {
+                ExeConfigFilename = read_path
+            };
+
             foreach (var value in Enum.GetValues(typeof(T)))
             {
                 string eName = Enum.GetName(typeof(T), value);
 
-                var appSettings = ConfigurationManager.AppSettings;
-                ApplicationInfo[(int)value] = appSettings[eName] ?? "Not Found";
+                if(read_path == "default")
+                {
+                    var appSettings = ConfigurationManager.AppSettings;
+                    ApplicationInfo[(int)value] = appSettings[eName] ?? "Not Found";
+                }
+                else
+                {
+                    Configuration customConfig = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
+                    KeyValueConfigurationCollection appSettings = customConfig.AppSettings.Settings;
+                    ApplicationInfo[(int)value] = appSettings[eName]?.Value;
+                }
             }
         }
         public static void UpdataRecipeToForm<T>(Form form, string save_path = "default") where T:Enum

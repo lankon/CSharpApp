@@ -48,15 +48,19 @@ namespace CommonFunction
         #endregion
 
         #region 寫Log
-        public void SaveHistoryToFile(String Msg)
+        public void SaveHistoryToFile(String Msg, string path = "defaut")
         {
-            StreamWriter sw;
+            StreamWriter sw = null;
             DateTime currentTime = DateTime.Now;
             string Time = currentTime.ToString("MM-dd HH:mm:ss.fff");
             string Date = currentTime.ToString("yyyMMdd");
-            
-            sw = CreateFile("History\\Log_"+ Date, ".txt", true);
-            WriteFile(sw, "["+Time+"] " + Msg);
+
+            if (path == "defaut")
+                sw = CreateFile("History\\Log_" + Date, ".txt", true);
+            else
+                sw = CreateFile($"History\\{path}_Log_" + Date, ".txt", true);
+
+            WriteFile(sw, "[" + Time + "] " + Msg);
             CloseFile(sw);
         }
 

@@ -37,12 +37,15 @@ namespace FileTransform
         TxtBx_PinHeight,
         #endregion
 
+        #region Wafer_Align_Angle
         TxtBx_PixelPitchX,
         TxtBx_PixelPitchY,
         TxtBx_EdgeLowThreshold,
         TxtBx_EdgeThreshold,
         TxtBx_ChipWidth,
         TxtBx_ChipHeigh,
+        Cmbx_ServerMode,
+        #endregion
 
     }
 }

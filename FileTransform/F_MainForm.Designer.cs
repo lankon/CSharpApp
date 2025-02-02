@@ -91,6 +91,9 @@ namespace FileTransform
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "F_MainForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.F_MainForm_FormClosed);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.F_MainForm_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.F_MainForm_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.F_MainForm_MouseUp);
             this.Pnl_Function.ResumeLayout(false);
             this.ResumeLayout(false);
 

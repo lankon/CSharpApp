@@ -40,8 +40,8 @@ namespace FileTransform.Wafer_Align_Angle
         private int test_time = 0;
         private string ErrorMsg = "";
         private string Save_Path = Application.StartupPath + @"\Picture\" + "Calculate.png";
-        Rect boundingRect;
-        Point2f center_final;
+        //Rect boundingRect;
+        //Point2f center_final;
         private List<Point[]> filteredContours = new List<Point[]>();
         private Mat image;
         Mat outputImage = new Mat();
@@ -74,6 +74,13 @@ namespace FileTransform.Wafer_Align_Angle
             }
 
             state = target;
+        }
+        private void ShowMessage(string msg)
+        {
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_ServerMode) == 0)
+                MessageBox.Show(msg);
+            else
+                tool.SaveHistoryToFile(msg);
         }
         #endregion
 
@@ -226,9 +233,9 @@ namespace FileTransform.Wafer_Align_Angle
                         ShowImage(Save_Path);
 
                         if (CorrectCount <= 3)
-                            MessageBox.Show("Find Angle Error");
+                            ShowMessage("Find Angle Error");
                         else
-                            MessageBox.Show($"Angle:{Angle.ToString("0.00")}");
+                            ShowMessage($"Angle:{Angle.ToString("0.00")}");
 
                         Transition(WORK.SUCCESS);
                     }
@@ -249,7 +256,7 @@ namespace FileTransform.Wafer_Align_Angle
                     {
                         GC.Collect();
                         IsFinish = true;
-                        MessageBox.Show("Finish");
+                        ShowMessage("Finish");
                     }
                     break;
             }           

@@ -142,7 +142,11 @@ namespace FileTransform.Wafer_Align_Angle
                     case WORK.WAIT_CALCULATE:
                         bool check = Calculate.Run();
 
-                        GoToPause(WORK.WAIT_CALCULATE);
+                        if(ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_ServerMode) == 0)
+                        {
+                            GoToPause(WORK.WAIT_CALCULATE);
+                        }
+                      
                         CheckResult(check, WORK.IDLE);
                         break;
                     #endregion

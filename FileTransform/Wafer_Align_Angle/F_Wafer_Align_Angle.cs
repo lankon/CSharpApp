@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.IO;
 
 using CommonFunction;
 
@@ -111,6 +113,33 @@ namespace FileTransform.Wafer_Align_Angle
             string sy = show[1].ToString("0.0");
 
             ToTip_Image.Show($"X值: {sx}, " + $"Y值: {sy}", PicBx_Picture, e.X, e.Y - 15, 2000);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string exePath = @"C:\Users\lankon\Desktop\Debug\FileTransform_Test.exe";
+            string workingDirectory = Path.GetDirectoryName(exePath);   //工作目錄
+            string inputString = "CallServer";
+
+            // 使用 Process.Start 傳遞命令列參數
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = exePath,
+                Arguments = $"\"{inputString}\"", // 將字串作為參數傳遞
+                WorkingDirectory = workingDirectory, // 設定工作目錄為執行檔目錄
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            try
+            {
+                Process process = Process.Start(startInfo);
+                //Console.WriteLine("字串已作為參數傳送到目標程式。");
+            }
+            catch (Exception ex)
+            {
+                tool.SaveHistoryToFile(ex.ToString());
+            }
         }
     }
 }

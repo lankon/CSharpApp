@@ -30,6 +30,8 @@ namespace FileTransform.Wafer_Align_Angle
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.TxtBx_EdgeLowThreshold = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -44,11 +46,13 @@ namespace FileTransform.Wafer_Align_Angle
             this.TxtBx_TeachPath = new System.Windows.Forms.TextBox();
             this.TxtBx_ResultDelayTime = new System.Windows.Forms.TextBox();
             this.TxtBx_EdgeThreshold = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.TxtBx_ChipWidth = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.TxtBx_ChipHeigh = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.Cmbx_ServerMode = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -89,6 +93,30 @@ namespace FileTransform.Wafer_Align_Angle
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(484, 344);
             this.tableLayoutPanel1.TabIndex = 10;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label6.Location = new System.Drawing.Point(6, 307);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(323, 35);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Chip Heigh(mm)";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label5.Location = new System.Drawing.Point(6, 269);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(323, 35);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Chip Width(mm)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
@@ -235,18 +263,6 @@ namespace FileTransform.Wafer_Align_Angle
             this.TxtBx_EdgeThreshold.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_EdgeThreshold.TabIndex = 17;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(6, 269);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(323, 35);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Chip Width(mm)";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // TxtBx_ChipWidth
             // 
             this.TxtBx_ChipWidth.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -254,18 +270,6 @@ namespace FileTransform.Wafer_Align_Angle
             this.TxtBx_ChipWidth.Name = "TxtBx_ChipWidth";
             this.TxtBx_ChipWidth.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_ChipWidth.TabIndex = 19;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.Location = new System.Drawing.Point(6, 307);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(323, 35);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Chip Heigh(mm)";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TxtBx_ChipHeigh
             // 
@@ -275,12 +279,54 @@ namespace FileTransform.Wafer_Align_Angle
             this.TxtBx_ChipHeigh.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_ChipHeigh.TabIndex = 21;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.OutsetDouble;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.43867F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.56133F));
+            this.tableLayoutPanel2.Controls.Add(this.label16, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Cmbx_ServerMode, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(526, 12);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(484, 114);
+            this.tableLayoutPanel2.TabIndex = 11;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label16.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label16.Location = new System.Drawing.Point(6, 3);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(323, 33);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "Server Mode";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Cmbx_ServerMode
+            // 
+            this.Cmbx_ServerMode.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Cmbx_ServerMode.FormattingEnabled = true;
+            this.Cmbx_ServerMode.Items.AddRange(new object[] {
+            "No Use",
+            "Use"});
+            this.Cmbx_ServerMode.Location = new System.Drawing.Point(338, 6);
+            this.Cmbx_ServerMode.Name = "Cmbx_ServerMode";
+            this.Cmbx_ServerMode.Size = new System.Drawing.Size(140, 28);
+            this.Cmbx_ServerMode.TabIndex = 8;
+            // 
             // F_Wafer_Align_Angle_Setting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_Wafer_Align_Angle_Setting";
@@ -288,6 +334,8 @@ namespace FileTransform.Wafer_Align_Angle
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.F_Wafer_Align_Angle_Setting_FormClosed);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -313,5 +361,8 @@ namespace FileTransform.Wafer_Align_Angle
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TxtBx_ChipWidth;
         private System.Windows.Forms.TextBox TxtBx_ChipHeigh;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox Cmbx_ServerMode;
     }
 }

@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Management;
-using CommonFunction;
+using System.Runtime.InteropServices;
 
+using CommonFunction;
 using FileTransform.Recursion;
 using FileTransform.Wafer_Align_Angle;
+
 
 namespace FileTransform
 {
@@ -19,7 +21,7 @@ namespace FileTransform
     {
         #region parameter define
         Tool tool = new Tool();
-        AppName which_app = AppName.COORDINATE_EXPANSION;  //設定使用程式類型
+        AppName which_app = AppName.WAFER_ALIGN_ANGLE;  //設定使用程式類型
         enum AppName
         {
             RECURSION,
@@ -156,13 +158,62 @@ namespace FileTransform
                     break;
             }
         }
+
+        #region 視窗拖曳功能
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+        [DllImport("user32.dll")]
+        public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+
+        bool beginMove = false;//初始化滑鼠位置
+        int currentXPosition;
+        int currentYPosition;
+
+        private void F_MainForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                beginMove = true;
+                currentXPosition = MousePosition.X;//滑鼠的x座標為當前窗體左上角x座標
+                currentYPosition = MousePosition.Y;//滑鼠的y座標為當前窗體左上角y座標
+            }
+        }
+
+        private void F_MainForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (beginMove)
+            {
+                this.Left += MousePosition.X - currentXPosition;//根據滑鼠x座標確定窗體的左邊座標x
+                this.Top += MousePosition.Y - currentYPosition;//根據滑鼠的y座標窗體的頂部，即Y座標
+                currentXPosition = MousePosition.X;
+                currentYPosition = MousePosition.Y;
+            }
+        }
+
+        private void F_MainForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                currentXPosition = 0; //設定初始狀態
+                currentYPosition = 0;
+                beginMove = false;
+            }
+        }
         #endregion
 
-        public F_MainForm()
+        #endregion
+
+        public F_MainForm(string msg)
         {
             InitializeComponent();
 
             InitialApplication();
+
+            if (msg == "ProgramStart")
+            {
+                tool.SaveHistoryToFile("ProgramStart隱藏視窗");
+                this.Visible = false;
+            }
         }       
 
         private void Btn_CloseApp_Click(object sender, EventArgs e)
@@ -201,5 +252,6 @@ namespace FileTransform
             GC.WaitForPendingFinalizers();
         }
 
+        
     }
 }

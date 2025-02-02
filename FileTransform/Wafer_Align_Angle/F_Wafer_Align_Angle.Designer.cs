@@ -35,6 +35,7 @@ namespace FileTransform.Wafer_Align_Angle
             this.Btn_LoadImage = new System.Windows.Forms.Button();
             this.Btn_Next = new System.Windows.Forms.Button();
             this.ToTip_Image = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.Pnl_Picture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Picture)).BeginInit();
             this.SuspendLayout();
@@ -81,12 +82,23 @@ namespace FileTransform.Wafer_Align_Angle
             this.Btn_Next.UseVisualStyleBackColor = true;
             this.Btn_Next.Click += new System.EventHandler(this.Btn_Next_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(728, 297);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(96, 43);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // F_Wafer_Align_Angle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Btn_Next);
             this.Controls.Add(this.Btn_LoadImage);
             this.Controls.Add(this.Pnl_Picture);
@@ -106,5 +118,6 @@ namespace FileTransform.Wafer_Align_Angle
         private System.Windows.Forms.Button Btn_LoadImage;
         private System.Windows.Forms.Button Btn_Next;
         private System.Windows.Forms.ToolTip ToTip_Image;
+        private System.Windows.Forms.Button button1;
     }
 }
