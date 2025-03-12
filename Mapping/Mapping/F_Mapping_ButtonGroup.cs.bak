@@ -13,14 +13,12 @@ namespace Mapping
 {
     public delegate void SaveImageCallBack();
     public delegate void SaveXlsxCallBack();
-    public delegate void SaveTxtCallBack();
 
     public partial class F_Mapping_ButtonGroup : Form
     {
         #region parameter define 
         public SaveImageCallBack SaveImage { get; set; }
         public SaveXlsxCallBack SaveXlsx { get; set; }
-        public SaveTxtCallBack SaveTxt { get; set; }
         #endregion
 
         #region private function
@@ -118,7 +116,6 @@ namespace Mapping
             if(ApplicationSetting.Get_Bool_Recipe((int)FormItem.Cmbx_OutputExcel))
             {
                 SaveXlsx();
-                SaveTxt();
             }
         }
 

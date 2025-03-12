@@ -61,6 +61,7 @@ namespace Mapping
 
             f_Mapping_ButtonGroup.SaveImage += f_Mapping.SavePicture;
             f_Mapping_ButtonGroup.SaveXlsx += f_Mapping.SaveMappingXlsx;
+            f_Mapping_ButtonGroup.SaveTxt += f_Mapping.SaveMappingTxt;
         }
         private void SetHint()
         {
@@ -156,6 +157,7 @@ namespace Mapping
 
             f_Mapping_ButtonGroup.SaveImage += f_Mapping.SavePicture;
             f_Mapping_ButtonGroup.SaveXlsx += f_Mapping.SaveMappingXlsx;
+            f_Mapping_ButtonGroup.SaveTxt += f_Mapping.SaveMappingTxt;
 
             GC.Collect();
         }

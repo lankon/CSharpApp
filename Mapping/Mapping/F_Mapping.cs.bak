@@ -117,22 +117,6 @@ namespace Mapping
 
             SaveAsXlsxMapping(mapInformation, TestItem, xy_dir);
         }
-        public void SaveMappingTxt()
-        {
-            int[] xy_dir = new int[2];
-
-            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_X_Direc) == 0)
-                xy_dir[0] = 1;
-            else
-                xy_dir[0] = -1;
-
-            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Y_Direc) == 0)
-                xy_dir[1] = 1;
-            else
-                xy_dir[1] = -1;
-
-            SaveAsTxtMapping(mapInformation, "BIN", xy_dir);
-        }
         #endregion
 
         #region private function
@@ -493,12 +477,11 @@ namespace Mapping
 
             #region 決定Map GridSize大小
             float[] GridSizeArray = { 50f, 25f, 10f, 5f, 4f, 2f, 1f, 0.8f, 0.4f };
-            //float[] GridSizeArray = {25f, 10f, 5f, 4f, 2f, 1f, 0.8f, 0.4f };
             float GridSize = 0f;
 
             for (int i = 0; i < GridSizeArray.Count(); i++)
             {
-                if (MapSize / GridSizeArray[i] > MapCellCount+3)    //+3防止Map被截掉
+                if (MapSize / GridSizeArray[i] > MapCellCount)
                 {
                     GridSize = GridSizeArray[i];
                     break;
@@ -659,7 +642,7 @@ namespace Mapping
                     PosY_Array[i - 1] = dPosY;
                     Color_Array[i - 1] = CellColor;
 
-                    DrawCell(Pnl, GridSize, dPosX, dPosY, CellColor);
+                    //DrawCell(Pnl, GridSize, dPosX, dPosY, CellColor);
                 }
                 else
                 {
@@ -858,82 +841,6 @@ namespace Mapping
 
             tool.SaveHistoryToFile("儲存xlsx mapping end");
             MessageBox.Show("Finish");
-        }
-        private void SaveAsTxtMapping(MapInformation map, String TestItem, int[] xy_dir)
-        {
-            //BIN0顯示"X"
-            //其他BIN顯示"1"
-            //空洞顯示"."
-
-            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
-            string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
-
-            //創建二維陣列
-            List<List<string>> bin_map = new List<List<string>>();
-
-            int max_x = map.MaxPosX;
-            int max_y = map.MaxPosY;
-            int min_x = map.MinPosX;
-            int min_y = map.MinPosY;
-
-            int len_x = max_x - min_x + 1;
-            int len_y = max_y - min_y + 1;
-
-            #region 填入空洞預設值
-            for (int i = 0; i < len_x; i++)
-            {
-                List<string> row = new List<string>();
-                for (int j = 0; j < len_y; j++)
-                {
-                    row.Add(".");  //先把所有值設定為空洞
-                }
-                bin_map.Add(row);
-            }
-            #endregion
-
-            #region 依照Bin的結果填入"1"or"X"
-            for (int i = 1; i < map.CellInfo.Count; i++)    //i=0 為Title
-            {
-                map.CellInfo[i].TryGetValue(s_PosX, out String sPosX);
-                map.CellInfo[i].TryGetValue(s_PosY, out String sPosY);
-                map.CellInfo[i].TryGetValue(TestItem, out String sValue);
-
-                int iPosX = tool.StringToInt(sPosX);
-                int iPosY = tool.StringToInt(sPosY);
-
-                if (xy_dir[0] == 1)
-                    iPosX = iPosX - map.MinPosX;
-                else
-                    iPosX = -iPosX + map.MaxPosX;
-
-                if (xy_dir[1] == 1)
-                    iPosY = iPosY * -1 + map.MaxPosY;
-                else
-                    iPosY = iPosY - map.MinPosY;
-
-                if (sValue == "0")
-                    bin_map[iPosX][iPosY] = "X";
-                else
-                    bin_map[iPosX][iPosY] = "1";
-            }
-            #endregion
-
-            #region 寫檔
-            StreamWriter File = tool.CreateFile(@"\Result\Mapping", ".txt", false);
-            string data = "";
-            for (int i = 0; i < len_y; i++)
-            {
-                for (int j = 0; j < len_x; j++)
-                {
-                    data += bin_map[j][i];
-                }
-
-                tool.WriteFile(File, data);
-                data = "";
-            }
-            #endregion
-
-            tool.CloseFile(File);
         }
         private List<Dictionary<string, string>> PickupMapInformation(List<Dictionary<string, string>> small_map,
                                                                       int x_start, int x_end, int y_start, int y_end)
