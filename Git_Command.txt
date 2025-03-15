@@ -1,0 +1,14 @@
+//刪除本地端分支
+git branch -D 分支名稱
+
+//刪除遠端分支
+git push origin --delete 分支名稱
+
+//切換回master
+git checkout master
+
+//拉取最新的 master 變更
+git pull origin master
+
+/合併開發分支
+git merge 
