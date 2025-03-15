@@ -57,6 +57,9 @@
     <Compile Include="..\Common Function\Communication_GPIB.cs">
       <Link>BaseFile\Communication_GPIB.cs</Link>
     </Compile>
+    <Compile Include="..\Common Function\Communication_Rs232.cs">
+      <Link>BaseFile\Communication_Rs232.cs</Link>
+    </Compile>
     <Compile Include="..\Common Function\Communication_Rs485.cs">
       <Link>BaseFile\Communication_Rs485.cs</Link>
     </Compile>

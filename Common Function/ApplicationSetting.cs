@@ -166,21 +166,46 @@ namespace CommonFunction
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
-        public static void ReadAllRecipe<T>(string read_path = "default") where T:Enum
+        /// <summary>
+        /// 讀取應用程式參數檔
+        /// </summary>
+        /// <typeparam name="T">元件名稱</typeparam>
+        /// <param name="read_path">檔名讀取路徑</param>
+        /// <param name="function">參數讀取方式</param>
+        public static void ReadAllRecipe<T>(string read_path = "default", string function = "flash") where T : Enum
         {
             ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap
             {
                 ExeConfigFilename = read_path
             };
 
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
             foreach (var value in Enum.GetValues(typeof(T)))
             {
                 string eName = Enum.GetName(typeof(T), value);
 
-                if(read_path == "default")
+                if (read_path == "default") //預設存放檔名-> {專案名稱}.exe.config
                 {
-                    var appSettings = ConfigurationManager.AppSettings;
-                    ApplicationInfo[(int)value] = appSettings[eName] ?? "Not Found";
+                    if (function == "flash") //快閃記憶體讀取
+                    {
+
+                        var appSettings = ConfigurationManager.AppSettings;
+                        ApplicationInfo[(int)value] = appSettings[eName] ?? "Not Found";
+                    }
+                    else if (function == "ReRead") //重新讀取{專案名稱}.exe.config檔案內參數
+                    {
+                        var setting = config.AppSettings.Settings[eName]?.Value;
+                        if (string.IsNullOrEmpty(setting))
+                        {
+                            //未設定，找不到參數
+                            ApplicationInfo[(int)value] = "Not Found";
+                        }
+                        else
+                        {
+                            ApplicationInfo[(int)value] = setting;
+                        }
+                    }
                 }
                 else
                 {
@@ -190,6 +215,7 @@ namespace CommonFunction
                 }
             }
         }
+        
         public static void UpdataRecipeToForm<T>(Form form, string save_path = "default") where T:Enum
         {
             Configuration config = null;

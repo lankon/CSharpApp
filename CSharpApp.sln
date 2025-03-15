@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonFunction", "CommonFun
 	ProjectSection(SolutionItems) = preProject
 		Common Function\ApplicationSetting.cs = Common Function\ApplicationSetting.cs
 		Common Function\Communication_GPIB.cs = Common Function\Communication_GPIB.cs
+		Common Function\Communication_Rs232.cs = Common Function\Communication_Rs232.cs
 		Common Function\Communication_Rs485.cs = Common Function\Communication_Rs485.cs
 		Common Function\Communication_TCPIP_ClientServer.cs = Common Function\Communication_TCPIP_ClientServer.cs
 		Common Function\Licence.cs = Common Function\Licence.cs

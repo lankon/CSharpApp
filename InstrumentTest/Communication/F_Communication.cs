@@ -8,12 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using CommonFunction;
+
 namespace InstrumentTest
 {
     public partial class F_Communication : Form
     {
-
+        Rs232 rs232 = new Rs232();
+       
+        
         #region private function
+        
         private void SwitchForm()
         {
 
@@ -40,6 +45,22 @@ namespace InstrumentTest
         public F_Communication()
         {
             InitializeComponent();
+        }
+
+        private void Btn_Open_Click(object sender, EventArgs e)
+        {
+            if (rs232.Open("COM5", 19200, 0, 8, 1))
+                MessageBox.Show("連線成功");
+        }
+
+        private void Btn_Close_Click(object sender, EventArgs e)
+        {
+            rs232.Close();
+        }
+
+        private void Btn_Send_Click(object sender, EventArgs e)
+        {
+            rs232.SenMsg(TxtBx_Msg.Text);
         }
     }
 }
