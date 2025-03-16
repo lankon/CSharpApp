@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 using CommonFunction;
 
@@ -17,7 +18,6 @@ namespace FileTransform.Wafer_Align_Angle
     public partial class F_Wafer_Align_Angle : Form
     {
         #region parameter define
-        Task_Wafer_Align_Angle WAA_Task = new Task_Wafer_Align_Angle();
         Tool tool = new Tool();
         Dictionary<string, double> Dic_Picture = new Dictionary<string, double>();
         #endregion
@@ -29,13 +29,9 @@ namespace FileTransform.Wafer_Align_Angle
             ApplicationSetting.ReadAllRecipe<FormItem>();
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
 
-            WAA_Task.ShowImage += ShowImage;
             //ShowHint();
         }
-        private void ShowImage(string path)
-        {
-            Dic_Picture = tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Calculate.png");
-        }
+        
         private int[] PicBxPositionToPixel(PictureBox pic, double mouse_x, double mouse_y, double image_w, double image_h)
         {
             // 功能：將PictureBox點擊的位置轉換成實際像素
@@ -77,6 +73,10 @@ namespace FileTransform.Wafer_Align_Angle
 
             form.Hide();
         }
+        public void ShowImage(string path)
+        {
+            Dic_Picture = tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Calculate.png");
+        }
         #endregion
 
 
@@ -90,12 +90,21 @@ namespace FileTransform.Wafer_Align_Angle
 
         private void Btn_LoadImage_Click(object sender, EventArgs e)
         {
-            WAA_Task.Process_Calculate();
+            //創建Task Class
+            Scope.ProcessTask.SetTask<Task_AngleCalculate>();
+            //添加必要事件
+            Scope.ProcessTask.UpdateTaskState += UpdateTask;
+            Scope.ProcessTask.SetPauseAbortContinue += SetPauseAbortContinue;
+            Scope.ProcessTask.SetErrorMsg += UpdateError;
+            Scope.ProcessTask.base_task.UpdateTaskState += UpdateTask;
+            Scope.ProcessTask.base_task.SetForm(this);
+            //執行
+            Scope.ProcessTask.Run();
         }
 
         private void Btn_Next_Click(object sender, EventArgs e)
         {
-            WAA_Task.Process_Continue();
+            Scope.ProcessTask.GoToContinue();
         }
 
         private void PicBx_Picture_MouseClick(object sender, MouseEventArgs e)
@@ -140,6 +149,48 @@ namespace FileTransform.Wafer_Align_Angle
             {
                 tool.SaveHistoryToFile(ex.ToString());
             }
+        }
+        private void UpdateTask(string msg)
+        {
+
+        }
+        private void UpdateError(string msg)
+        {
+
+        }
+        private void SetPauseAbortContinue(TASK_STATUS status)
+        {
+
+        }
+
+        private void Btn_ServeTest_Click(object sender, EventArgs e)
+        {
+            //創建Task Class
+            Scope.ProcessTask.SetTask<Task_Server>();
+            //添加必要事件
+            Scope.ProcessTask.UpdateTaskState += UpdateTask;
+            Scope.ProcessTask.SetPauseAbortContinue += SetPauseAbortContinue;
+            Scope.ProcessTask.SetErrorMsg += UpdateError;
+            Scope.ProcessTask.base_task.UpdateTaskState += UpdateTask;
+            Scope.ProcessTask.base_task.SetForm(this);
+            //執行
+            Scope.ProcessTask.Run();
+        }
+
+        private void Btn_ClientTest_Click(object sender, EventArgs e)
+        {
+            TCPIP_Client tCPIP_Client = new TCPIP_Client();
+
+            tCPIP_Client.Open("127.0.0.1", 87);
+
+            tCPIP_Client.SendMessage("WaferAlign");
+
+            //Thread.Sleep(100);
+            
+            string IsOK = tCPIP_Client.ReceiveMessage();
+
+            tCPIP_Client.Close();
+
         }
     }
 }

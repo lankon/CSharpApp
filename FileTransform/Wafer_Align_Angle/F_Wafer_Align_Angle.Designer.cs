@@ -36,6 +36,8 @@ namespace FileTransform.Wafer_Align_Angle
             this.Btn_Next = new System.Windows.Forms.Button();
             this.ToTip_Image = new System.Windows.Forms.ToolTip(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.Btn_ServeTest = new System.Windows.Forms.Button();
+            this.Btn_ClientTest = new System.Windows.Forms.Button();
             this.Pnl_Picture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Picture)).BeginInit();
             this.SuspendLayout();
@@ -92,12 +94,34 @@ namespace FileTransform.Wafer_Align_Angle
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // Btn_ServeTest
+            // 
+            this.Btn_ServeTest.Location = new System.Drawing.Point(777, 406);
+            this.Btn_ServeTest.Name = "Btn_ServeTest";
+            this.Btn_ServeTest.Size = new System.Drawing.Size(125, 50);
+            this.Btn_ServeTest.TabIndex = 8;
+            this.Btn_ServeTest.Text = "Server Test";
+            this.Btn_ServeTest.UseVisualStyleBackColor = true;
+            this.Btn_ServeTest.Click += new System.EventHandler(this.Btn_ServeTest_Click);
+            // 
+            // Btn_ClientTest
+            // 
+            this.Btn_ClientTest.Location = new System.Drawing.Point(777, 462);
+            this.Btn_ClientTest.Name = "Btn_ClientTest";
+            this.Btn_ClientTest.Size = new System.Drawing.Size(125, 50);
+            this.Btn_ClientTest.TabIndex = 9;
+            this.Btn_ClientTest.Text = "Client Test";
+            this.Btn_ClientTest.UseVisualStyleBackColor = true;
+            this.Btn_ClientTest.Click += new System.EventHandler(this.Btn_ClientTest_Click);
+            // 
             // F_Wafer_Align_Angle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.Btn_ClientTest);
+            this.Controls.Add(this.Btn_ServeTest);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Btn_Next);
             this.Controls.Add(this.Btn_LoadImage);
@@ -119,5 +143,7 @@ namespace FileTransform.Wafer_Align_Angle
         private System.Windows.Forms.Button Btn_Next;
         private System.Windows.Forms.ToolTip ToTip_Image;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Btn_ServeTest;
+        private System.Windows.Forms.Button Btn_ClientTest;
     }
 }

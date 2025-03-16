@@ -13,7 +13,7 @@ using System.Drawing;
 
 namespace CommonFunction
 {
-    class Tool
+    public class Tool
     {
         #region 寫檔
         public StreamWriter CreateFile(String Name, String Type, bool ContinueWrite)

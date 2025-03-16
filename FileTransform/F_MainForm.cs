@@ -61,20 +61,20 @@ namespace FileTransform
         {
             // Panel 主要顯示頁面
             //
-            GlobalVariable.MyStaticPanel = new Panel();
-            GlobalVariable.MyStaticPanel.Location = new System.Drawing.Point(0, 0);
-            GlobalVariable.MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
-            GlobalVariable.MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.Pnl_Group.Controls.Add(GlobalVariable.MyStaticPanel);
+            Scope.MyStaticPanel = new Panel();
+            Scope.MyStaticPanel.Location = new System.Drawing.Point(0, 0);
+            Scope.MyStaticPanel.Size = new System.Drawing.Size(1022, 554);
+            Scope.MyStaticPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.Pnl_Group.Controls.Add(Scope.MyStaticPanel);
 
             //
             // Panel 顯示上方選項頁面
             //
-            GlobalVariable.MyStaticPanel_1 = new Panel();
-            GlobalVariable.MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
-            GlobalVariable.MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
-            GlobalVariable.MyStaticPanel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.Pnl_Function.Controls.Add(GlobalVariable.MyStaticPanel_1);
+            Scope.MyStaticPanel_1 = new Panel();
+            Scope.MyStaticPanel_1.Location = new System.Drawing.Point(69, 0);
+            Scope.MyStaticPanel_1.Size = new System.Drawing.Size(883, 65);
+            Scope.MyStaticPanel_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.Pnl_Function.Controls.Add(Scope.MyStaticPanel_1);
 
         }
         private void HideFormOnPanel(Panel pnl)
@@ -119,41 +119,41 @@ namespace FileTransform
             {
                 case AppName.COORDINATE_EXPANSION:
                     F_CoordinateExpansion f_CoordinateExpansion = new F_CoordinateExpansion();
-                    f_CoordinateExpansion.SetF_CoordinateExpansion(GlobalVariable.MyStaticPanel, f_CoordinateExpansion);
+                    f_CoordinateExpansion.SetF_CoordinateExpansion(Scope.MyStaticPanel, f_CoordinateExpansion);
                     f_CoordinateExpansion.Show();
 
                     F_CoordinateExpan_ButtonGroup f_CoordinateExpan_ButtonGroup = new F_CoordinateExpan_ButtonGroup();
-                    f_CoordinateExpan_ButtonGroup.SetF_CoordinateExpan_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_CoordinateExpan_ButtonGroup);
+                    f_CoordinateExpan_ButtonGroup.SetF_CoordinateExpan_ButtonGroup(Scope.MyStaticPanel_1, f_CoordinateExpan_ButtonGroup);
                     f_CoordinateExpan_ButtonGroup.Show();
                     break;
 
                 case AppName.RECURSION:
                     F_Recursion f_Recursion = new F_Recursion();
-                    f_Recursion.SetF_Recursion(GlobalVariable.MyStaticPanel, f_Recursion);
+                    f_Recursion.SetF_Recursion(Scope.MyStaticPanel, f_Recursion);
                     f_Recursion.Show();
 
                     F_Recursion_ButtonGroup f_Recursion_ButtonGroup = new F_Recursion_ButtonGroup();
-                    f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Recursion_ButtonGroup);
+                    f_Recursion_ButtonGroup.SetF_Recursion_ButtonGroup(Scope.MyStaticPanel_1, f_Recursion_ButtonGroup);
                     f_Recursion_ButtonGroup.Show();
                     break;
 
                 case AppName.NEAR_FIELD:
                     F_NearField f_NearField = new F_NearField();
-                    f_NearField.SetF_NearField(GlobalVariable.MyStaticPanel, f_NearField);
+                    f_NearField.SetF_NearField(Scope.MyStaticPanel, f_NearField);
                     f_NearField.Show();
 
                     F_NearField_ButtonGroup f_NearField_ButtonGroup = new F_NearField_ButtonGroup();
-                    f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_NearField_ButtonGroup);
+                    f_NearField_ButtonGroup.SetF_NearFiled_ButtonGroup(Scope.MyStaticPanel_1, f_NearField_ButtonGroup);
                     f_NearField_ButtonGroup.Show();
                     break;
 
                 case AppName.WAFER_ALIGN_ANGLE:
                     F_Wafer_Align_Angle f_Wafer_Align_Angle = new F_Wafer_Align_Angle();
-                    f_Wafer_Align_Angle.SetF_Wafer_Align_Angle(GlobalVariable.MyStaticPanel, f_Wafer_Align_Angle);
+                    f_Wafer_Align_Angle.SetF_Wafer_Align_Angle(Scope.MyStaticPanel, f_Wafer_Align_Angle);
                     f_Wafer_Align_Angle.Show();
 
                     F_Wafer_Align_Angle_ButtonGroup f_Wafer_Align_Angle_ButtonGroup = new F_Wafer_Align_Angle_ButtonGroup();
-                    f_Wafer_Align_Angle_ButtonGroup.SetF_Wafer_Align_Angle_ButtonGroup(GlobalVariable.MyStaticPanel_1, f_Wafer_Align_Angle_ButtonGroup);
+                    f_Wafer_Align_Angle_ButtonGroup.SetF_Wafer_Align_Angle_ButtonGroup(Scope.MyStaticPanel_1, f_Wafer_Align_Angle_ButtonGroup);
                     f_Wafer_Align_Angle_ButtonGroup.Show();
                     break;
             }
@@ -237,7 +237,7 @@ namespace FileTransform
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
-            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(Scope.MyStaticPanel);
 
             CreateApp(which_app);
         }

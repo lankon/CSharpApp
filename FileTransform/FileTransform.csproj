@@ -88,7 +88,9 @@
     <Compile Include="..\Common Function\Tool.cs">
       <Link>BaseFile\Tool.cs</Link>
     </Compile>
-    <Compile Include="BaseFile\GlobalVariable.cs" />
+    <Compile Include="BaseFile\Scope.cs" />
+    <Compile Include="BaseFile\IBaseTask.cs" />
+    <Compile Include="BaseFile\MainTask.cs" />
     <Compile Include="CoordinateExpansion\F_CoordinateExpanSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,8 +207,11 @@
     <Compile Include="Wafer_Align_Angle\F_Wafer_Align_Angle_Setting.Designer.cs">
       <DependentUpon>F_Wafer_Align_Angle_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wafer_Align_Angle\SubTask\SubTask_Angle_Calculate.cs" />
-    <Compile Include="Wafer_Align_Angle\Thread\Task_Wafer_Align_Angle.cs" />
+    <Compile Include="Wafer_Align_Angle\SubTask\SubTask_AngleCalculate.cs" />
+    <Compile Include="Wafer_Align_Angle\SubTask\Old_SubTask_Angle_Calculate.cs" />
+    <Compile Include="Wafer_Align_Angle\Task\Task_AngleCalculate.cs" />
+    <Compile Include="Wafer_Align_Angle\Task\Task_Server.cs" />
+    <Compile Include="Wafer_Align_Angle\Task\Task_Wafer_Align_Angle.cs" />
     <EmbeddedResource Include="CoordinateExpansion\F_CoordinateExpanSetting.resx">
       <DependentUpon>F_CoordinateExpanSetting.cs</DependentUpon>
     </EmbeddedResource>

@@ -42,18 +42,8 @@ namespace FileTransform
             }
             else
             {
-                tool.SaveHistoryToFile("b");
                 Application.Run(new F_MainForm(""));
             }
-
-            //if (parentProcessName == "explorer")
-            //{
-            //    Application.Run(new F_MainForm("ClickStart"));  //點擊執行檔啟動
-            //}
-            //else
-            //{
-            //    Application.Run(new MyApplicationContext());
-            //}
         }
 
         static string GetParentProcessName()

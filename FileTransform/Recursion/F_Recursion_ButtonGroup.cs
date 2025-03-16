@@ -65,10 +65,10 @@ namespace FileTransform
 
         private void Btn_Setting_Click(object sender, EventArgs e)
         {
-            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(Scope.MyStaticPanel);
 
             F_Recursion_Setting f_Recursion_Setting = new F_Recursion_Setting();
-            f_Recursion_Setting.SetF_Recursion_Setting(GlobalVariable.MyStaticPanel, f_Recursion_Setting);
+            f_Recursion_Setting.SetF_Recursion_Setting(Scope.MyStaticPanel, f_Recursion_Setting);
             f_Recursion_Setting.Show();
         }
     }

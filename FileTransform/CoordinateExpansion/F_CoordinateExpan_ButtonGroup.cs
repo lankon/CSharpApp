@@ -65,10 +65,10 @@ namespace FileTransform
 
         private void Btn_Setting_Click(object sender, EventArgs e)
         {
-            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(Scope.MyStaticPanel);
 
             F_CoordinateExpanSetting f_CoordinateExpanSetting = new F_CoordinateExpanSetting();
-            f_CoordinateExpanSetting.SetF_CoordinateExpanSetting(GlobalVariable.MyStaticPanel, f_CoordinateExpanSetting);
+            f_CoordinateExpanSetting.SetF_CoordinateExpanSetting(Scope.MyStaticPanel, f_CoordinateExpanSetting);
             f_CoordinateExpanSetting.Show();
         }
     }

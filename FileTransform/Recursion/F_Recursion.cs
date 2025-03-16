@@ -170,27 +170,27 @@ namespace FileTransform.Recursion
                 Dic_Picture.TryGetValue("width", out double image_x);
                 Dic_Picture.TryGetValue("height", out double image_y);
 
-                if(GlobalVariable.status == 1)
-                    GlobalVariable.start_xy = PicBxPositionToPixel(PicBx_Picture, point.X, point.Y, image_x, image_y);
-                else if (GlobalVariable.status == 2)
-                    GlobalVariable.orgin_xy = PicBxPositionToPixel(PicBx_Picture, point.X, point.Y, image_x, image_y);
+                if(Scope.status == 1)
+                    Scope.start_xy = PicBxPositionToPixel(PicBx_Picture, point.X, point.Y, image_x, image_y);
+                else if (Scope.status == 2)
+                    Scope.orgin_xy = PicBxPositionToPixel(PicBx_Picture, point.X, point.Y, image_x, image_y);
                 
                 // 計算縮放比例
                 double ratio_x = image_x / PicBx_Picture.Width;
                 double ratio_y = image_y / PicBx_Picture.Height;
                 double ratio = Math.Max(ratio_x, ratio_y);
 
-                if (GlobalVariable.status == 1)
+                if (Scope.status == 1)
                 {
-                    GlobalVariable.len = new int[2];
-                    GlobalVariable.len[0] = (int)(width * ratio);
-                    GlobalVariable.len[1] = (int)(height * ratio);
+                    Scope.len = new int[2];
+                    Scope.len[0] = (int)(width * ratio);
+                    Scope.len[1] = (int)(height * ratio);
                 }
-                else if(GlobalVariable.status == 2)
+                else if(Scope.status == 2)
                 {
-                    GlobalVariable.orgin_len = new int[2];
-                    GlobalVariable.orgin_len[0] = (int)(width * ratio);
-                    GlobalVariable.orgin_len[1] = (int)(height * ratio);
+                    Scope.orgin_len = new int[2];
+                    Scope.orgin_len[0] = (int)(width * ratio);
+                    Scope.orgin_len[1] = (int)(height * ratio);
                 }
 
             }
@@ -210,7 +210,7 @@ namespace FileTransform.Recursion
             string[] files = Directory.GetFiles(folderPath);
             List<string> specificFiles = new List<string>();
             int count = 0;
-            GlobalVariable.batch_path.Clear();
+            Scope.batch_path.Clear();
 
             foreach (string file in files)
             {
@@ -220,7 +220,7 @@ namespace FileTransform.Recursion
                 if (extension == ".JPG" || extension == ".jpg" || extension == ".png")
                 {
                     specificFiles.Add(file);
-                    GlobalVariable.batch_path.Add(file);
+                    Scope.batch_path.Add(file);
                     count++;
                 }
             }

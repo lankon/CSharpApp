@@ -67,10 +67,10 @@ namespace FileTransform.Wafer_Align_Angle
 
         private void Btn_Setting_Click(object sender, EventArgs e)
         {
-            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(Scope.MyStaticPanel);
 
             F_Wafer_Align_Angle_Setting f_Wafer_Align_Angle_Setting = new F_Wafer_Align_Angle_Setting();
-            f_Wafer_Align_Angle_Setting.SetF_Wafer_Align_Angle_Setting(GlobalVariable.MyStaticPanel, f_Wafer_Align_Angle_Setting);
+            f_Wafer_Align_Angle_Setting.SetF_Wafer_Align_Angle_Setting(Scope.MyStaticPanel, f_Wafer_Align_Angle_Setting);
             f_Wafer_Align_Angle_Setting.Show();
         }
     }

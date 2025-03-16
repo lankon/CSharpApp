@@ -64,10 +64,10 @@ namespace FileTransform
 
         private void Btn_Setting_Click(object sender, EventArgs e)
         {
-            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(Scope.MyStaticPanel);
 
             F_NearField_Setting f_NearField_Setting = new F_NearField_Setting();
-            f_NearField_Setting.SetF_NearField_Setting(GlobalVariable.MyStaticPanel, f_NearField_Setting);
+            f_NearField_Setting.SetF_NearField_Setting(Scope.MyStaticPanel, f_NearField_Setting);
             f_NearField_Setting.Show();
         }
     }

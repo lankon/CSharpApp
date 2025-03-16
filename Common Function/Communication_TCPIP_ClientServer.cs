@@ -39,7 +39,7 @@ namespace CommonFunction
                 listener = new TcpListener(IPAddress.Parse(ip), port);   //本地地址ex:127.0.0.1 區網地址ex:192.168.x.x Port:87
                 listener.Start();
                 tool.SaveHistoryToFile($"[Server]Open server at {ip}:{port}");
-                Task task = Task.Run(() => MainTask());
+                //Task task = Task.Run(() => MainTask());
 
                 res = true;
             }
@@ -98,6 +98,21 @@ namespace CommonFunction
                 cmd = q_Command.Dequeue();
 
             return cmd;
+        }
+
+        public void WaitClientCommand()
+        {
+            // 等待客戶端連線
+            client = listener.AcceptTcpClient();
+
+            // 處理客戶端的請求
+            stream = client.GetStream();
+            byte[] buffer = new byte[1024];
+            int bytesRead = stream.Read(buffer, 0, buffer.Length);
+            string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            GetCommand = receivedMessage;
+            q_Command.Enqueue(GetCommand);
+            tool.SaveHistoryToFile($"[Server]Read:{receivedMessage}", "Server");
         }
         #endregion
 
@@ -158,6 +173,24 @@ namespace CommonFunction
             return res;
         }
 
+        public bool Close()
+        {
+            bool res = false;
+
+            try
+            {
+                // 關閉連線
+                client.Close();
+                res = true;
+            }
+            catch (Exception ex)
+            {
+                tool.SaveHistoryToFile($"{ex}");
+            }
+
+            return res;
+        }
+
         public bool SendMessage(string msg)
         {
             bool res = false;
@@ -181,20 +214,22 @@ namespace CommonFunction
 
         public string ReceiveMessage()
         {
-            string res = "";
+            string res = "FAIL";
 
             try
             {
                 // 接收伺服器回應
                 byte[] buffer = new byte[1024];
+                stream.ReadTimeout = 1500; // 設定 1.5 秒超時
                 int bytesRead = stream.Read(buffer, 0, buffer.Length);
                 string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 res = response;
-                tool.SaveHistoryToFile($"[Client]Receive:{response}");
+                tool.SaveHistoryToFile($"[Client]Receive:{response}", "Client");
             }
             catch (Exception ex)
             {
                 tool.SaveHistoryToFile($"{ex}");
+                return res = "FAIL";
             }
 
             return res;

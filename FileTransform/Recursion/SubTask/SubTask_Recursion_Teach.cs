@@ -142,17 +142,17 @@ namespace FileTransform.Recursion
 
                         MessageBox.Show("Capture Image");
 
-                        GlobalVariable.status = 1;
+                        Scope.status = 1;
 
                     }
                     break;
                 case WORK.GRAB_IMAGE:
                     {
                         //定義範圍(x, y, width, height)
-                        Rect roi = new Rect((int)GlobalVariable.start_xy[0],
-                                            (int)GlobalVariable.start_xy[1],
-                                            (int)GlobalVariable.len[0],
-                                            (int)GlobalVariable.len[1]);
+                        Rect roi = new Rect((int)Scope.start_xy[0],
+                                            (int)Scope.start_xy[1],
+                                            (int)Scope.len[0],
+                                            (int)Scope.len[1]);
                         //Rect roi = new Rect(177, 30, 100, 100);
 
                         // 擷取圖像範圍
@@ -188,12 +188,12 @@ namespace FileTransform.Recursion
                         Transition(WORK.FIND_Circule);
 
                         MessageBox.Show("Capture Needle Image");
-                        GlobalVariable.status = 2;
+                        Scope.status = 2;
                     }
                     break;
                 case WORK.FIND_Circule:
                     {
-                        GlobalVariable.status = -1;
+                        Scope.status = -1;
 
                         // 檢測輪廓
                         OpenCvSharp.Point[][] contours;
@@ -214,10 +214,10 @@ namespace FileTransform.Recursion
                             // 計算半徑
                             double diameter = radius * 2;
 
-                            if (diameter < GlobalVariable.orgin_len[0] &&
+                            if (diameter < Scope.orgin_len[0] &&
                                 diameter > largest_diameter &&
-                                (GlobalVariable.orgin_xy[0] < center.X && center.X < GlobalVariable.orgin_xy[0] + GlobalVariable.orgin_len[0]) &&
-                                (GlobalVariable.orgin_xy[1] < center.Y && center.Y < GlobalVariable.orgin_xy[1] + GlobalVariable.orgin_len[1]))
+                                (Scope.orgin_xy[0] < center.X && center.X < Scope.orgin_xy[0] + Scope.orgin_len[0]) &&
+                                (Scope.orgin_xy[1] < center.Y && center.Y < Scope.orgin_xy[1] + Scope.orgin_len[1]))
                             {
                                 largest_diameter = diameter;
                                 aa++;

@@ -177,7 +177,7 @@ namespace FileTransform.Recursion
                             bool check = Batch.Run();
 
                             //GoToPause(WORK.WAIT_TEACH);
-                            if(cal_count == GlobalVariable.batch_path.Count-1)
+                            if(cal_count == Scope.batch_path.Count-1)
                                 CheckResult(check, WORK.IDLE);
                             else
                             {
