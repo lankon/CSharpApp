@@ -279,6 +279,60 @@ namespace CommonFunction
                 //SaveHistoryToFile("資料夾已存在");
             }
         }
+        public void CallExecute(string path, string input_command = "Non")
+        {
+            string workingDirectory = Path.GetDirectoryName(path);   //工作目錄
+
+            // 使用 Process.Start 傳遞命令列參數
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = path,
+                Arguments = $"\"{input_command}\"", // 將字串作為參數傳遞
+                WorkingDirectory = workingDirectory, // 設定工作目錄為執行檔目錄
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            try
+            {
+                Process process = Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                SaveHistoryToFile(ex.ToString());
+            }
+        }
+        public void CloseExecute(string path)
+        {
+            string exeName = Path.GetFileNameWithoutExtension(path); // 取得執行檔名稱（不含副檔名）
+
+            // 取得所有與 exeName 相同的處理程序
+            Process[] processes = Process.GetProcessesByName(exeName);
+
+            foreach (Process process in processes)
+            {
+                try
+                {
+                    // 確保是目標路徑的執行檔
+                    if (process.MainModule.FileName.Equals(path, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine($"關閉進程: {process.ProcessName}");
+                        process.CloseMainWindow(); // 優雅地關閉
+                        process.WaitForExit(5000); // 等待 5 秒
+
+                        if (!process.HasExited)
+                        {
+                            process.Kill(); // 強制結束
+                            Console.WriteLine($"{process.ProcessName} 已被強制關閉");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"無法關閉 {exeName}: {ex.Message}");
+                }
+            }
+        }
 
         #region 截圖相關功能
         public void CaptureImage(Control ctrl, string filename)

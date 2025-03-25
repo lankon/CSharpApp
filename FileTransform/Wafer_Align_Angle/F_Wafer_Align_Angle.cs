@@ -124,31 +124,11 @@ namespace FileTransform.Wafer_Align_Angle
             ToTip_Image.Show($"X值: {sx}, " + $"Y值: {sy}", PicBx_Picture, e.X, e.Y - 15, 2000);
         }
 
+        
+
         private void button1_Click(object sender, EventArgs e)
         {
-            string exePath = @"C:\Users\lankon\Desktop\Debug\FileTransform_Test.exe";
-            string workingDirectory = Path.GetDirectoryName(exePath);   //工作目錄
-            string inputString = "CallServer";
-
-            // 使用 Process.Start 傳遞命令列參數
-            ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = exePath,
-                Arguments = $"\"{inputString}\"", // 將字串作為參數傳遞
-                WorkingDirectory = workingDirectory, // 設定工作目錄為執行檔目錄
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            try
-            {
-                Process process = Process.Start(startInfo);
-                //Console.WriteLine("字串已作為參數傳送到目標程式。");
-            }
-            catch (Exception ex)
-            {
-                tool.SaveHistoryToFile(ex.ToString());
-            }
+            
         }
         private void UpdateTask(string msg)
         {
@@ -163,7 +143,7 @@ namespace FileTransform.Wafer_Align_Angle
 
         }
 
-        private void Btn_ServeTest_Click(object sender, EventArgs e)
+        public void Btn_ServeTest_Click(object sender, EventArgs e)
         {
             //創建Task Class
             Scope.ProcessTask.SetTask<Task_Server>();
@@ -175,10 +155,17 @@ namespace FileTransform.Wafer_Align_Angle
             Scope.ProcessTask.base_task.SetForm(this);
             //執行
             Scope.ProcessTask.Run();
+
+            
         }
 
         private void Btn_ClientTest_Click(object sender, EventArgs e)
         {
+            //開啟Server
+            tool.CallExecute(@"C:\Users\lankon\Desktop\Debug\FileTransform.exe", "CallServer");
+
+            Thread.Sleep(50);
+            
             TCPIP_Client tCPIP_Client = new TCPIP_Client();
 
             tCPIP_Client.Open("127.0.0.1", 87);
@@ -189,7 +176,11 @@ namespace FileTransform.Wafer_Align_Angle
             
             string IsOK = tCPIP_Client.ReceiveMessage();
 
+            tool.SaveHistoryToFile("result:" + IsOK);
+
             tCPIP_Client.Close();
+
+            tool.CloseExecute(@"C:\Users\lankon\Desktop\Debug\FileTransform.exe");
 
         }
     }

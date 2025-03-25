@@ -20,7 +20,9 @@ namespace FileTransform
     public partial class F_MainForm : Form
     {
         #region parameter define
+        bool IsServerMode = false;
         Tool tool = new Tool();
+        
         AppName which_app = AppName.WAFER_ALIGN_ANGLE;  //設定使用程式類型
         enum AppName
         {
@@ -151,6 +153,8 @@ namespace FileTransform
                     F_Wafer_Align_Angle f_Wafer_Align_Angle = new F_Wafer_Align_Angle();
                     f_Wafer_Align_Angle.SetF_Wafer_Align_Angle(Scope.MyStaticPanel, f_Wafer_Align_Angle);
                     f_Wafer_Align_Angle.Show();
+                    if(IsServerMode)
+                        f_Wafer_Align_Angle.Btn_ServeTest_Click(null, EventArgs.Empty);
 
                     F_Wafer_Align_Angle_ButtonGroup f_Wafer_Align_Angle_ButtonGroup = new F_Wafer_Align_Angle_ButtonGroup();
                     f_Wafer_Align_Angle_ButtonGroup.SetF_Wafer_Align_Angle_ButtonGroup(Scope.MyStaticPanel_1, f_Wafer_Align_Angle_ButtonGroup);
@@ -205,15 +209,18 @@ namespace FileTransform
 
         public F_MainForm(string msg)
         {
-            InitializeComponent();
-
-            InitialApplication();
-
             if (msg == "ProgramStart")
             {
                 tool.SaveHistoryToFile("ProgramStart隱藏視窗");
                 this.Visible = false;
+                IsServerMode = true;
             }
+
+            InitializeComponent();
+
+            InitialApplication();
+
+            
         }       
 
         private void Btn_CloseApp_Click(object sender, EventArgs e)
