@@ -604,75 +604,80 @@ namespace Mapping
                 ValueRegionCount[i] = 0;
             }
 
-            for (int i = 1; i < CellInfo.Count(); i++)
+            using (Graphics Gph = Pnl.CreateGraphics())
             {
-                Color CellColor = Color.Black;
-
-                CellInfo[i].TryGetValue(s_PosX, out String sPosX);
-                CellInfo[i].TryGetValue(s_PosY, out String sPosY);
-                CellInfo[i].TryGetValue(TestItem, out String sValue);
-
-                for (int j = 0; j < ColorList.Count() - 2; j++)
+                for (int i = 1; i < CellInfo.Count(); i++)
                 {
-                    if (Double.TryParse(sValue, out double dVale))
+                    Color CellColor = Color.Black;
+
+                    CellInfo[i].TryGetValue(s_PosX, out String sPosX);
+                    CellInfo[i].TryGetValue(s_PosY, out String sPosY);
+                    CellInfo[i].TryGetValue(TestItem, out String sValue);
+
+                    for (int j = 0; j < ColorList.Count() - 2; j++)
                     {
-                        if (dVale < ValueRegion[0])
+                        if (Double.TryParse(sValue, out double dVale))
                         {
-                            CellColor = ColorList[0];
-                            ValueRegionCount[0]++;
+                            if (dVale < ValueRegion[0])
+                            {
+                                CellColor = ColorList[0];
+                                ValueRegionCount[0]++;
+                                break;
+                            }
+                            else if (ValueRegion[ColorList.Count() - 2] < dVale)
+                            {
+                                CellColor = ColorList[ColorList.Count() - 1];
+                                ValueRegionCount[ColorList.Count() - 1]++;
+                                break;
+                            }
+                            else if (ValueRegion[j] <= dVale && dVale <= ValueRegion[j + 1] &&
+                                     ColorList.Count() - 3 == j)
+                            {
+                                CellColor = ColorList[j + 1];
+                                ValueRegionCount[j + 1]++;
+                                break;
+                            }
+                            else if (ValueRegion[j] <= dVale && dVale < ValueRegion[j + 1])
+                            {
+                                CellColor = ColorList[j + 1];
+                                ValueRegionCount[j + 1]++;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            tool.SaveHistoryToFile("繪圖失敗,讀取測試值型態轉換錯誤");
                             break;
                         }
-                        else if (ValueRegion[ColorList.Count() - 2] < dVale)
-                        {
-                            CellColor = ColorList[ColorList.Count() - 1];
-                            ValueRegionCount[ColorList.Count() - 1]++;
-                            break;
-                        }
-                        else if (ValueRegion[j] <= dVale && dVale <= ValueRegion[j + 1] &&
-                                 ColorList.Count() - 3 == j)
-                        {
-                            CellColor = ColorList[j + 1];
-                            ValueRegionCount[j + 1]++;
-                            break;
-                        }
-                        else if (ValueRegion[j] <= dVale && dVale < ValueRegion[j + 1])
-                        {
-                            CellColor = ColorList[j + 1];
-                            ValueRegionCount[j + 1]++;
-                            break;
-                        }
+                    }
+
+                    if (Int32.TryParse(sPosX, out int dPosX) &&
+                        Int32.TryParse(sPosY, out int dPosY))
+                    {
+                        dPosX = (dPosX + ShiftX) * xy_direc[0];
+                        dPosY = (dPosY + ShiftY) * xy_direc[1];
+
+                        PosX_Array[i - 1] = dPosX;
+                        PosY_Array[i - 1] = dPosY;
+                        Color_Array[i - 1] = CellColor;
+
+                        DrawCell(Gph, Pnl, GridSize, dPosX, dPosY, CellColor);
                     }
                     else
                     {
-                        tool.SaveHistoryToFile("繪圖失敗,讀取測試值型態轉換錯誤");
+                        tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
                         break;
                     }
                 }
-
-                if (Int32.TryParse(sPosX, out int dPosX) &&
-                    Int32.TryParse(sPosY, out int dPosY))
-                {
-                    dPosX = (dPosX + ShiftX) * xy_direc[0];
-                    dPosY = (dPosY + ShiftY) * xy_direc[1];
-
-                    PosX_Array[i - 1] = dPosX;
-                    PosY_Array[i - 1] = dPosY;
-                    Color_Array[i - 1] = CellColor;
-
-                    DrawCell(Pnl, GridSize, dPosX, dPosY, CellColor);
-                }
-                else
-                {
-                    tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
-                    break;
-                }
             }
+
+            
 
             return ValueRegionCount;
         }
-        private void DrawCell(Panel Pnl, float gridSize, int PosX, int PosY, Color CellColor)
+        private void DrawCell(Graphics g, Panel Pnl, float gridSize, int PosX, int PosY, Color CellColor)
         {
-            using (Graphics g = Pnl.CreateGraphics())
+            //using (Graphics g = Pnl.CreateGraphics())
             {
                 SolidBrush solidBrush = new SolidBrush(CellColor);
 
@@ -685,7 +690,11 @@ namespace Mapping
         }
         private void SetDrawSize(Panel Pnl, int MapSize)
         {
-            Pnl.ClientSize = new Size(MapSize, MapSize);
+            Pnl.Width = MapSize;
+            Pnl.Height = MapSize;
+
+            //Pnl.PerformLayout();  // 強制排版
+            //Pnl.Refresh();        // 重新繪圖（等效於重觸發 Paint）
         }
         private void ClearMapping(Panel Pnl)
         {
@@ -957,23 +966,21 @@ namespace Mapping
             string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
             string s_PosY = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord);
 
-            for (int i = 1; i < small_map.Count; i++)
+            for (int i = small_map.Count - 1; i >= 1; i--)
             {
-                small_map[i].TryGetValue(s_PosX, out String sPosX);
-                small_map[i].TryGetValue(s_PosY, out String sPosY);
-
-                if (!Int32.TryParse(sPosX, out int dPosX) ||
+                if (!small_map[i].TryGetValue(s_PosX, out string sPosX) ||
+                    !small_map[i].TryGetValue(s_PosY, out string sPosY) ||
+                    !Int32.TryParse(sPosX, out int dPosX) ||
                     !Int32.TryParse(sPosY, out int dPosY))
                 {
                     tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
-                    break;
+                    continue;
                 }
 
                 if (dPosX > x_end || dPosX < x_start ||
-                   dPosY > y_end || dPosY < y_start)
+                    dPosY > y_end || dPosY < y_start)
                 {
-                    small_map.RemoveAt(i);  //刪除超出座標範圍的資料
-                    i--;
+                    small_map.RemoveAt(i);  // 倒著刪，不用 i--
                 }
             }
 
@@ -1062,7 +1069,7 @@ namespace Mapping
 
             DrawColorbar(Pnl_Colorbar, mapInformation.ValueRegionCount,
                          mapInformation.ColorList, mapInformation.ValueRegion);
-                     
+
             tool.CreateFolder(Application.StartupPath + @"\Temp");
             tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
             tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
