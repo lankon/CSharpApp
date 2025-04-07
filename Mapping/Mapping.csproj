@@ -236,6 +236,12 @@
     </Compile>
     <Compile Include="BaseFile\eAppSetting.cs" />
     <Compile Include="BaseFile\Xlsx_File.cs" />
+    <Compile Include="BinMapping\F_BinMapping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BinMapping\F_BinMapping.Designer.cs">
+      <DependentUpon>F_BinMapping.cs</DependentUpon>
+    </Compile>
     <Compile Include="BinTable\F_BinTable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +281,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BinMapping\F_BinMapping.resx">
+      <DependentUpon>F_BinMapping.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BinTable\F_BinTable.resx">
       <DependentUpon>F_BinTable.cs</DependentUpon>
     </EmbeddedResource>

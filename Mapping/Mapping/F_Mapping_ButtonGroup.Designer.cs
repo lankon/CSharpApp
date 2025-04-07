@@ -37,12 +37,13 @@ namespace Mapping
             this.Btn_Setting = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Pnl_FormHint = new System.Windows.Forms.Panel();
+            this.Btn_BinMapping = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Btn_BinTable
             // 
             this.Btn_BinTable.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_BinTable.Location = new System.Drawing.Point(130, 5);
+            this.Btn_BinTable.Location = new System.Drawing.Point(267, 5);
             this.Btn_BinTable.Name = "Btn_BinTable";
             this.Btn_BinTable.Size = new System.Drawing.Size(60, 60);
             this.Btn_BinTable.TabIndex = 37;
@@ -89,12 +90,23 @@ namespace Mapping
             this.Pnl_FormHint.Size = new System.Drawing.Size(51, 70);
             this.Pnl_FormHint.TabIndex = 39;
             // 
+            // Btn_BinMapping
+            // 
+            this.Btn_BinMapping.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_BinMapping.BackgroundImage")));
+            this.Btn_BinMapping.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_BinMapping.Location = new System.Drawing.Point(131, 5);
+            this.Btn_BinMapping.Name = "Btn_BinMapping";
+            this.Btn_BinMapping.Size = new System.Drawing.Size(60, 60);
+            this.Btn_BinMapping.TabIndex = 40;
+            this.Btn_BinMapping.UseVisualStyleBackColor = true;
+            this.Btn_BinMapping.Click += new System.EventHandler(this.Btn_BinMapping_Click);
+            // 
             // F_Mapping_ButtonGroup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(883, 68);
+            this.Controls.Add(this.Btn_BinMapping);
             this.Controls.Add(this.Btn_BinTable);
             this.Controls.Add(this.Btn_OneToOne);
             this.Controls.Add(this.Btn_Save);
@@ -115,5 +127,6 @@ namespace Mapping
         private System.Windows.Forms.Button Btn_Setting;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel Pnl_FormHint;
+        private System.Windows.Forms.Button Btn_BinMapping;
     }
 }

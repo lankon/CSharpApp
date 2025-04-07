@@ -95,18 +95,20 @@ namespace Mapping
 
             Cmbx_Customer.Items.Clear();
 
-            string[] customer_item = new string[2];
+            string[] customer_item = new string[3];
 
             if (bCustomerShow == false)
             {
                 customer_item[0] = "Default";
                 customer_item[1] = "AMIDA";
+                customer_item[2] = "Poworld";
                 bCustomerShow = true;
             }
             else
             {
                 customer_item[0] = "Default";
                 customer_item[1] = "Customer1";
+                customer_item[2] = "Customer2";
                 bCustomerShow = false;
             }
 

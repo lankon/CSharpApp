@@ -14,7 +14,26 @@ using ClosedXML.Excel;
 
 namespace Mapping
 {
-    
+    public struct MapInformation
+    {
+        public int MapSize;
+        public int ShiftX;
+        public int ShiftY;
+        public int MaxPosX;
+        public int MinPosX;
+        public int MaxPosY;
+        public int MinPosY;
+        //public int CellCount;
+        public int[] ValueRegionCount;
+
+        public float GridSize;
+
+        public double[] ValueRegion;
+
+        public List<Dictionary<string, string>> CellInfo;
+
+        public List<Color> ColorList;
+    }
     public partial class F_Mapping : Form
     {
         #region parameter define 
@@ -39,26 +58,7 @@ namespace Mapping
             public int y_start;
             public int y_end;
         }
-        private struct MapInformation
-        {
-            public int MapSize;
-            public int ShiftX;
-            public int ShiftY;
-            public int MaxPosX;
-            public int MinPosX;
-            public int MaxPosY;
-            public int MinPosY;
-            //public int CellCount;
-            public int[] ValueRegionCount;
-
-            public float GridSize;
-
-            public double[] ValueRegion;
-
-            public List<Dictionary<string, string>> CellInfo;
-
-            public List<Color> ColorList;
-        }
+        
 
         List<Dictionary<string, string>> TestItemCondition = new List<Dictionary<string, string>>();
         #endregion
@@ -133,6 +133,45 @@ namespace Mapping
 
             SaveAsTxtMapping(mapInformation, "BIN", xy_dir);
         }
+        public bool CheckLoadFileCondition()
+        {
+            bool flag = true;
+
+            if (ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord) == "")
+            {
+                flag = false;
+                MessageBox.Show("Please Enter X Coordinate Key Word");
+                tool.SaveHistoryToFile("X座標關鍵字未輸入");
+            }
+
+            if (ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord) == "")
+            {
+                flag = false;
+                MessageBox.Show("Please Enter Y Coordinate Key Word");
+                tool.SaveHistoryToFile("Y座標關鍵字未輸入");
+            }
+
+            return flag;
+        }
+        public List<Dictionary<string, string>> ReadCellInfo(string Path)
+        {
+            List<Dictionary<string, string>> CellInfo = null;
+
+            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Customer) == 1)
+            {
+                CellInfo = ReadCsvFile_AMIDA(Path);
+            }
+            else if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Customer) == 2)
+            {
+                CellInfo = ReadCsvFile_Poworld(Path);
+            }
+            else
+            {
+                CellInfo = ReadCsvFile(Path);
+            }
+
+            return CellInfo;
+        }
         #endregion
 
         #region private function
@@ -146,7 +185,6 @@ namespace Mapping
             LoadTestItemCondition();
 
             ShowHint();
-
         }
         private void ShowHint()
         {
@@ -421,6 +459,81 @@ namespace Mapping
                 return data;
             }
         }
+        private List<Dictionary<string, string>> ReadCsvFile_Poworld(String Path)
+        {
+            // 使用 Dictionary 來儲存資料
+            List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
+            bool StartReadFile = false;
+            string s_PosX = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord);
+
+            try
+            {
+                // 使用 StreamReader 來讀取檔案
+                using (StreamReader sr = new StreamReader(Path))
+                {
+                    if (sr == null) return data;
+
+                    string[] headers = new string[2000];// = sr.ReadLine().Split(',');
+                    List<string> TestItem = new List<string>();
+
+                    // 逐行讀取 CSV 檔案
+                    while (!sr.EndOfStream)
+                    {
+                        // 讀取一行
+                        string line = sr.ReadLine();
+
+                        // 使用逗號分隔解析欄位
+                        string[] fields = line.Split(',');
+
+
+                        if (StartReadFile == false)
+                        {
+                            for (int i = 0; i < fields.Count(); i++)
+                            {
+                                headers[i] = fields[i].Trim();
+
+                                if (line.Contains("Std. Item"))
+                                {
+                                    TestItem.Add(fields[i].Trim());
+                                }
+
+                                if (fields[i].Trim() == s_PosX)
+                                {
+                                    StartReadFile = true;
+                                }
+                            }
+                        }
+
+                        //將的測試項目加至headers
+                        for (int i = 0; i < TestItem.Count; i++)
+                        {
+                            headers[i + 5] = TestItem[i];
+                        }
+
+                        if (StartReadFile == true)
+                        {
+                            // 使用 Dictionary 來儲存每一行的資料
+                            Dictionary<string, string> row = new Dictionary<string, string>();
+
+                            // 將資料與欄位名稱對應起來
+                            for (int i = 0; i < fields.Length; i++)
+                            {
+                                row[headers[i]] = fields[i];
+                            }
+
+                            // 將此行的資料加入到 List 中
+                            data.Add(row);
+                        }
+                    }
+
+                    return data;
+                }
+            }
+            catch
+            {
+                return data;
+            }
+        }
         private void InsertTestItemToCmbx(ComboBox Cmbx, Dictionary<string, string> dictTestItem)
         {
             int i = 0;
@@ -525,21 +638,7 @@ namespace Mapping
 
             return myDictionary;
         }
-        private List<Dictionary<string, string>> ReadCellInfo(string Path)
-        {
-            List<Dictionary<string, string>> CellInfo = null;
-            
-            if (ApplicationSetting.Get_Int_Recipe((int)FormItem.Cmbx_Customer) == 1)
-            {
-                CellInfo = ReadCsvFile_AMIDA(Path);
-            }
-            else
-            {
-                CellInfo = ReadCsvFile(Path);
-            }
-
-            return CellInfo;
-        }
+        
         private int HueToRGB(int hue)
         {
             // 辅助方法：将色相转换为 RGB 分量
@@ -736,26 +835,7 @@ namespace Mapping
                 pen.Dispose();
             }
         }
-        private bool CheckLoadFileCondition()
-        {
-            bool flag = true;
-
-            if (ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_X_KeyWord) == "")
-            {
-                flag = false;
-                MessageBox.Show("Please Enter X Coordinate Key Word");
-                tool.SaveHistoryToFile("X座標關鍵字未輸入");
-            }
-
-            if (ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord) == "")
-            {
-                flag = false;
-                MessageBox.Show("Please Enter Y Coordinate Key Word");
-                tool.SaveHistoryToFile("Y座標關鍵字未輸入");
-            }
-
-            return flag;
-        }
+        
         private void OpenXlsx()
         {
             //開檔太慢了用Thread先讀
@@ -1107,7 +1187,7 @@ namespace Mapping
         }
 
         private void Btn_LoadFile_Click(object sender, EventArgs e)
-        {           
+        {
             Licence licence = new Licence();
             if (!licence.CheckLicence())
             {

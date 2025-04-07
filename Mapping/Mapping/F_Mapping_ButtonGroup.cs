@@ -52,6 +52,7 @@ namespace Mapping
             toolTip1.SetToolTip(Btn_Save, "Save Mapping");
             toolTip1.SetToolTip(Btn_Setting, "Setting");
             toolTip1.SetToolTip(Btn_OneToOne, "One To One");
+            toolTip1.SetToolTip(Btn_BinMapping, "Bin Mapping");
             toolTip1.SetToolTip(Pnl_FormHint, "F_Mapping_ButtonGroup");
         }
         private void CloseFormOnPanel(Panel pnl)
@@ -122,5 +123,14 @@ namespace Mapping
             }
         }
 
+        private void Btn_BinMapping_Click(object sender, EventArgs e)
+        {
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel);
+            CloseFormOnPanel(GlobalVariable.MyStaticPanel_1);
+
+            F_BinMapping f_BinMapping = new F_BinMapping();
+            f_BinMapping.SetF_BinMapping_ButtonGroup(GlobalVariable.MyStaticPanel, f_BinMapping);
+            f_BinMapping.Show();
+        }
     }
 }

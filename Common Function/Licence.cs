@@ -32,6 +32,7 @@ namespace CommonFunction
             }
             else
             {
+                #region 判斷驗證碼是否正確
                 string sLicence;
                 string serial_num;
 
@@ -39,8 +40,26 @@ namespace CommonFunction
                 serial_num = GetSerialNum();
 
                 serial_num = FixPassword(serial_num);
+                #endregion
 
-                if (sLicence == serial_num)
+                #region 判斷是否超過期現
+                // 設定一個日期（例如，三天前的日期）
+                DateTime targetDate = new DateTime(2025, 12, 7);
+
+                // 取得目前時間
+                DateTime currentDate = DateTime.Now;
+
+                // 計算日期之間的差異
+                TimeSpan difference = targetDate - currentDate;
+
+                // 判斷是否在三天內
+                bool time_out = false;
+
+                if (difference.TotalDays < 0)
+                    time_out = true;
+                #endregion
+
+                if (sLicence == serial_num && !time_out)
                     return true;
                 else
                     return false;

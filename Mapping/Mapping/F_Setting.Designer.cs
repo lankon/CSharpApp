@@ -208,7 +208,8 @@ namespace Mapping
             this.Cmbx_Customer.FormattingEnabled = true;
             this.Cmbx_Customer.Items.AddRange(new object[] {
             "Default",
-            "Customer1"});
+            "Customer1",
+            "Customer2"});
             this.Cmbx_Customer.Location = new System.Drawing.Point(338, 6);
             this.Cmbx_Customer.Name = "Cmbx_Customer";
             this.Cmbx_Customer.Size = new System.Drawing.Size(140, 28);
@@ -248,8 +249,7 @@ namespace Mapping
             // 
             // F_Setting
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
             this.Controls.Add(this.Pnl_FormHint);
