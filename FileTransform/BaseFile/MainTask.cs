@@ -180,6 +180,10 @@ namespace FileTransform
             SetStatusCommand(TASK_STATUS.CONTINUE);
             Transition(pre_state);
         }
+        public void ForceAction()
+        {
+            Transition(WORK.IDLE);
+        }
         #endregion
 
         public MainTask()

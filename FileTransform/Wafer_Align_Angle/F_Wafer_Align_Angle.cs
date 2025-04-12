@@ -90,6 +90,8 @@ namespace FileTransform.Wafer_Align_Angle
 
         private void Btn_LoadImage_Click(object sender, EventArgs e)
         {
+            //強制MainThread至Idle狀態
+            Scope.ProcessTask.ForceAction();
             //創建Task Class
             Scope.ProcessTask.SetTask<Task_AngleCalculate>();
             //添加必要事件
