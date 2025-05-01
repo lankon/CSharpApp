@@ -38,6 +38,8 @@ namespace FileTransform.Wafer_Align_Angle
             this.button1 = new System.Windows.Forms.Button();
             this.Btn_ServeTest = new System.Windows.Forms.Button();
             this.Btn_ClientTest = new System.Windows.Forms.Button();
+            this.Btn_BatchCalculate = new System.Windows.Forms.Button();
+            this.Labl_OCR_Result = new System.Windows.Forms.Label();
             this.Pnl_Picture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Picture)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +62,11 @@ namespace FileTransform.Wafer_Align_Angle
             this.PicBx_Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PicBx_Picture.TabIndex = 0;
             this.PicBx_Picture.TabStop = false;
+            this.PicBx_Picture.Paint += new System.Windows.Forms.PaintEventHandler(this.PicBx_Picture_Paint);
             this.PicBx_Picture.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PicBx_Picture_MouseClick);
+            this.PicBx_Picture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PicBx_Picture_MouseDown);
+            this.PicBx_Picture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PicBx_Picture_MouseMove);
+            this.PicBx_Picture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PicBx_Picture_MouseUp);
             // 
             // Btn_LoadImage
             // 
@@ -86,17 +92,18 @@ namespace FileTransform.Wafer_Align_Angle
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(728, 297);
+            this.button1.Location = new System.Drawing.Point(870, 438);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 43);
             this.button1.TabIndex = 7;
             this.button1.Text = "Test";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Btn_ServeTest
             // 
-            this.Btn_ServeTest.Location = new System.Drawing.Point(777, 406);
+            this.Btn_ServeTest.Location = new System.Drawing.Point(859, 487);
             this.Btn_ServeTest.Name = "Btn_ServeTest";
             this.Btn_ServeTest.Size = new System.Drawing.Size(125, 50);
             this.Btn_ServeTest.TabIndex = 8;
@@ -106,7 +113,7 @@ namespace FileTransform.Wafer_Align_Angle
             // 
             // Btn_ClientTest
             // 
-            this.Btn_ClientTest.Location = new System.Drawing.Point(777, 462);
+            this.Btn_ClientTest.Location = new System.Drawing.Point(728, 487);
             this.Btn_ClientTest.Name = "Btn_ClientTest";
             this.Btn_ClientTest.Size = new System.Drawing.Size(125, 50);
             this.Btn_ClientTest.TabIndex = 9;
@@ -114,12 +121,36 @@ namespace FileTransform.Wafer_Align_Angle
             this.Btn_ClientTest.UseVisualStyleBackColor = true;
             this.Btn_ClientTest.Click += new System.EventHandler(this.Btn_ClientTest_Click);
             // 
+            // Btn_BatchCalculate
+            // 
+            this.Btn_BatchCalculate.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Btn_BatchCalculate.Location = new System.Drawing.Point(728, 140);
+            this.Btn_BatchCalculate.Name = "Btn_BatchCalculate";
+            this.Btn_BatchCalculate.Size = new System.Drawing.Size(282, 71);
+            this.Btn_BatchCalculate.TabIndex = 10;
+            this.Btn_BatchCalculate.Text = "Batch Calculate";
+            this.Btn_BatchCalculate.UseVisualStyleBackColor = true;
+            this.Btn_BatchCalculate.Click += new System.EventHandler(this.Btn_BatchCalculate_Click);
+            // 
+            // Labl_OCR_Result
+            // 
+            this.Labl_OCR_Result.BackColor = System.Drawing.Color.Yellow;
+            this.Labl_OCR_Result.Font = new System.Drawing.Font("微軟正黑體", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Labl_OCR_Result.Location = new System.Drawing.Point(724, 283);
+            this.Labl_OCR_Result.Name = "Labl_OCR_Result";
+            this.Labl_OCR_Result.Size = new System.Drawing.Size(286, 56);
+            this.Labl_OCR_Result.TabIndex = 11;
+            this.Labl_OCR_Result.Text = "OCR Result";
+            this.Labl_OCR_Result.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // F_Wafer_Align_Angle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 554);
+            this.Controls.Add(this.Labl_OCR_Result);
+            this.Controls.Add(this.Btn_BatchCalculate);
             this.Controls.Add(this.Btn_ClientTest);
             this.Controls.Add(this.Btn_ServeTest);
             this.Controls.Add(this.button1);
@@ -145,5 +176,7 @@ namespace FileTransform.Wafer_Align_Angle
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button Btn_ServeTest;
         private System.Windows.Forms.Button Btn_ClientTest;
+        private System.Windows.Forms.Button Btn_BatchCalculate;
+        private System.Windows.Forms.Label Labl_OCR_Result;
     }
 }

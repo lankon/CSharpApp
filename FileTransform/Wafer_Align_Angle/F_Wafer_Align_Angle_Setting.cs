@@ -64,7 +64,10 @@ namespace FileTransform.Wafer_Align_Angle
 
             // 設置文件選擇對話框的屬性
             openFileDialog.Title = "Select TeahPicture";
-            openFileDialog.Filter = "TeachPicture|*.bmp|TeachPicture|*.jpg|TeachPicture|*.tiff|All|*.*";
+            openFileDialog.Filter = "TeachPicture|*.bmp|" +
+                                    "TeachPicture|*.jpg|" +
+                                    "TeachPicture|*.tiff|" +
+                                    "All|*.*";
 
             // 如果用戶選擇了文件，顯示文件名
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -89,7 +92,10 @@ namespace FileTransform.Wafer_Align_Angle
 
             // 設置文件選擇對話框的屬性
             openFileDialog.Title = "Select TeahPicture";
-            openFileDialog.Filter = "TeachPicture|*.bmp|TeachPicture|*.tiff|All|*.*";
+            openFileDialog.Filter = "TeachPicture|*.bmp|" +
+                                    "TeachPicture|*.jpg|" +
+                                    "TeachPicture|*.tiff|" +
+                                    "All|*.*";
 
             // 如果用戶選擇了文件，顯示文件名
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -106,5 +112,7 @@ namespace FileTransform.Wafer_Align_Angle
 
             TxtBx_BatchPath.Text = Path.GetDirectoryName(selectedFileName);
         }
+
+        
     }
 }

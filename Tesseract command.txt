@@ -1,0 +1,29 @@
+#辨識圖片
+tesseract OCR.png stdout -l eng
+tesseract OCR.png stdout -l eng_custom --psm 10
+
+
+tesseract OCR.png OCR batch.nochop makebox
+
+#創建訓練用資料檔
+tesseract OCR.png OCR --psm 10 lstm.train
+
+# 建立暫存資料夾
+mkdir my_lstmfs
+move *.lstmf my_lstmfs
+
+# 將原始 eng.traineddata 解壓
+combine_tessdata -e tessdata\eng_custom.traineddata eng.lstm
+
+# 開始微調訓練（以 eng 為基礎）
+lstmtraining ^
+  --model_output output\eng_custom ^
+  --continue_from eng.lstm ^
+  --traineddata tessdata\eng_custom.traineddata ^
+  --train_listfile mylist.txt
+
+# 最後合併成 .traineddata
+lstmtraining --stop_training ^
+  --continue_from output\eng_custom_checkpoint ^
+  --traineddata tessdata\eng_custom.traineddata ^
+  --model_output output\eng_custom.traineddata

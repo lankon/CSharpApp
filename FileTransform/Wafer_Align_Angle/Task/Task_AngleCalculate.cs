@@ -19,6 +19,7 @@ namespace FileTransform.Wafer_Align_Angle
         private bool TerminateClient = false;
         private int task_delay = 0;
         private int delay_time = 2;
+        private int cal_count = 0;          //計算Batch執行次數
         Tool tool = new Tool();
         TCPIP_Server tCPIP_Server = new TCPIP_Server();
         SubTask_AngleCalculate Calculate;
@@ -39,6 +40,9 @@ namespace FileTransform.Wafer_Align_Angle
 
             WAFER_ALIGN,
             WAIT_WAFER_ALIGN,
+
+            BATCH_CALCULATE,
+            WAIT_BATCH_CALCULATE,
 
             END,
 
@@ -234,6 +238,12 @@ namespace FileTransform.Wafer_Align_Angle
         {
             switch (set_state)
             {
+                case "Batch_Calculate":
+                    {
+                        state = WORK.BATCH_CALCULATE;
+                        ResetTimeCount(out task_delay);
+                    }
+                    break;
                 case "Default":
                     {
                         state = WORK.INITIAL;
@@ -287,6 +297,34 @@ namespace FileTransform.Wafer_Align_Angle
 
                         if (check == TASK_STATUS.PAUSE)
                             SetNextState(WORK.WAIT_WAFER_ALIGN);
+                    }
+                    break;
+
+                case WORK.BATCH_CALCULATE:
+                    {
+                        Calculate = new SubTask_AngleCalculate("Batch_Calculate");
+                        Calculate.SetForm(f_Wafer_Align_Angle);
+                        Calculate.SetBatchCount(cal_count);
+                        SetSubTaskProcessing(true); //有執行SubTask
+                        Transition(WORK.WAIT_BATCH_CALCULATE);
+                    }
+                    break;
+                case WORK.WAIT_BATCH_CALCULATE:
+                    {
+                        TASK_STATUS check = Calculate.Run(GetStatusCommand());
+
+                        CheckResult(check);
+
+                        if (cal_count == Scope.batch_path.Count - 1)
+                            CheckResult(check);
+                        else
+                        {
+                            if (check == TASK_STATUS.SUCCESS)
+                            {
+                                Transition(WORK.BATCH_CALCULATE);
+                                cal_count++;
+                            }
+                        }
                     }
                     break;
                 

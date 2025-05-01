@@ -360,25 +360,12 @@ namespace CommonFunction
         {
             using (Image img = Image.FromFile(filename)) // 從文件加載圖片
             {
-                //// 計算縮放比例
-                //float ratioX = (float)pnl.Width / img.Width;
-                //float ratioY = (float)pnl.Height / img.Height;
-                //float ratio = 0.0f;
-                //if (ratioX > ratioY)
-                //{
-                //    ratio = ratioY;
-                //    pic_bx.Height = pnl.Height;
-                //    pic_bx.Height = pic_bx.Height * img.Width / img.Height;
-                //    pic_bx.Location = new Point((int)(pnl.Width/2 + pic_bx.Width/2), 0);
-                //}
-                //else
-                //{
-                //    ratio = ratioX;
-                //    pic_bx.Width = pnl.Width;
-                //    pic_bx.Height = pic_bx.Width * img.Height / img.Width;
-                //    pic_bx.Location = new Point(0, (int)(pnl.Height/2+pic_bx.Height/2));
-                //}
-                pic_bx.Image?.Dispose(); // 如果PictureBox已經有圖片，先釋放掉
+                if (pic_bx.Image != null)
+                {
+                    pic_bx.Image.Dispose();
+                    pic_bx.Image = null;
+                }
+
                 pic_bx.Image = new Bitmap(img); // 將加載的圖片設置到PictureBox中
 
                 Dictionary<string, double> dic = new Dictionary<string, double>();

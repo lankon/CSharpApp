@@ -303,7 +303,7 @@ namespace FileTransform.Wafer_Align_Angle
             this.label16.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label16.Location = new System.Drawing.Point(6, 3);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(323, 33);
+            this.label16.Size = new System.Drawing.Size(323, 34);
             this.label16.TabIndex = 7;
             this.label16.Text = "Server Mode";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

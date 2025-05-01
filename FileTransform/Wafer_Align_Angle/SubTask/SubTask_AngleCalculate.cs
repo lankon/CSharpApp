@@ -9,8 +9,8 @@ using OpenCvSharp;
 
 
 using CommonFunction;
-
-
+using Tesseract;
+using System.Diagnostics;
 
 namespace FileTransform.Wafer_Align_Angle
 {
@@ -19,9 +19,14 @@ namespace FileTransform.Wafer_Align_Angle
         #region parameter
         private int task_delay = 0;
         private int delay_time = 2;
+        private int batch_count = 0;    //Batch計算次數
         private bool IsSubTaskProcessing = false;
-        private bool IsServerMode = false;
+        private bool NonUserPause = false;
+        private bool IsBatchCalculate = false;
         private string Save_Path = Application.StartupPath + @"\Picture\" + "Calculate.png";
+        private string path;
+        private double W_Pixel;
+        private float W_Size = 0.0f;
         private WORK state = WORK.INITIAL;
         private WORK next_state = WORK.NONE;
         private WORK pre_state = WORK.NONE;
@@ -29,8 +34,13 @@ namespace FileTransform.Wafer_Align_Angle
         private TASK_STATUS pre_status_commad = TASK_STATUS.NONE;
         private TASK_STATUS status = TASK_STATUS.CONTINUE;
         private Mat image;
-        Mat outputImage = new Mat();
+        private Mat outputImage = new Mat();
+        private Mat rotationMatrix;
+        private Mat translationMatrix;
         Tool tool = new Tool();
+        OpenCvSharp.Rect boundingRect;
+        RotatedRect rotatedRect;
+        private List<Point[]> filteredContours = new List<Point[]>();
         private F_Wafer_Align_Angle f_Wafer_Align_Angle;
         public override UpdateTaskStateCallBack UpdateTaskState { get; set; }
         public override SetErrorMsgCallBack SetErrorMsg { get ; set; }
@@ -49,6 +59,15 @@ namespace FileTransform.Wafer_Align_Angle
             FIND_RECTANGLE,
             FIND_Circule,
             CALCULATE_DIST,
+
+            ROTATE_IMAGE,
+            CREATE_TECTANGLE,
+            SHIFT_XY,
+
+            PROCESS_IMAGE,
+            GRAB_KEYWORD,
+            CHECK_OCR,
+            ROTATE_IMAGE_INVERSE,
 
 
             END,
@@ -172,7 +191,7 @@ namespace FileTransform.Wafer_Align_Angle
         }
         private void ShowMessage(string msg)
         {
-            if (IsServerMode == false)
+            if (NonUserPause == false)
                 MessageBox.Show(msg);
             else
                 tool.SaveHistoryToFile(msg);
@@ -234,6 +253,11 @@ namespace FileTransform.Wafer_Align_Angle
                 }
             }
         }
+
+        public void SetBatchCount(int count)
+        {
+            batch_count = count;
+        }
         #endregion
 
         public SubTask_AngleCalculate(string set_state = "Default")
@@ -242,7 +266,14 @@ namespace FileTransform.Wafer_Align_Angle
             {
                 case "ServerMode":
                     {
-                        IsServerMode = true;
+                        NonUserPause = true;
+                        state = WORK.INITIAL;
+                    }
+                    break;
+                case "Batch_Calculate":
+                    {
+                        NonUserPause = true;
+                        IsBatchCalculate = true;
                         state = WORK.INITIAL;
                     }
                     break;
@@ -280,7 +311,11 @@ namespace FileTransform.Wafer_Align_Angle
 
                 case WORK.LOAD_IMAGE:
                     {
-                        string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
+                        if (NonUserPause)
+                            path = Scope.batch_path[batch_count];
+                        else
+                            path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
+
                         image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
 
                         if (image.Empty())
@@ -290,56 +325,77 @@ namespace FileTransform.Wafer_Align_Angle
                             break;
                         }
 
-                        using (Mat dst = new Mat())
+                        using(Mat dst = new Mat())
                         {
                             Cv2.Normalize(image, dst, 0, 255, NormTypes.MinMax, MatType.CV_8U); //16位元轉8位元
                             Cv2.ImWrite(Save_Path, dst);  //儲存圖像
-                            f_Wafer_Align_Angle.ShowImage(Save_Path);
+                            
+                            if(!IsBatchCalculate)
+                                f_Wafer_Align_Angle.ShowImage(Save_Path);
+
+                            dst.Dispose();
                         }
 
-                        if(IsServerMode)
+                        if(NonUserPause)
                         {
-                            Transition(WORK.THRESHOLD_IMAGE);
+                            Transition(WORK.GRAB_IMAGE);
                         }
                         else
                         {
-                            SetNextState(WORK.THRESHOLD_IMAGE);
+                            SetNextState(WORK.GRAB_IMAGE);
                             SetStatus(TASK_STATUS.PAUSE);
                             Transition(WORK.PAUSE);
+
+                            Scope.status = 1;
+                            MessageBox.Show("Capture Image");
                         }
                     }
                     break;
+                case WORK.GRAB_IMAGE:
+                    {
+                        //定義範圍(x, y, width, height)
+                        OpenCvSharp.Rect roi = new OpenCvSharp.Rect((int)Scope.start_xy[0],
+                                            (int)Scope.start_xy[1],
+                                            (int)Scope.len[0],
+                                            (int)Scope.len[1]);
 
+                        // 擷取圖像範圍
+                        Mat cropped = new Mat(image, roi);
+                        image.Dispose();
+                        image = cropped;
+
+                        state = WORK.THRESHOLD_IMAGE;
+                        goto case WORK.THRESHOLD_IMAGE;
+                    }
                 case WORK.THRESHOLD_IMAGE:
                     {
-                        double LowThreshold = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_EdgeLowThreshold);
-                        double Threshold = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_EdgeThreshold);
+                        // 二值化閥值處理
+                        double thresholdValue = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_Threshold);
+                        //double maxValue = 65535; //16位元影像,最大值65536
+                        double maxValue = 255; //8位元影像,最大值256
+                        thresholdValue = 100;
+                        Cv2.Threshold(image, image, thresholdValue, maxValue, ThresholdTypes.Binary);
 
-                        //閥值處理,消除雜訊,凸顯邊緣
-                        Cv2.Canny(image, image, LowThreshold, Threshold);
+                        //將圖像轉換成8位元深度
+                        //image.ConvertTo(image, MatType.CV_8UC1, 255.0 / 65535.0);
 
                         // 創建一個彩色圖像用於顯示結果
                         Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
-
-                        Cv2.ImWrite(Save_Path, outputImage);
+                        Cv2.ImWrite(Save_Path, image);
 
                         //顯示圖像
-                        f_Wafer_Align_Angle.ShowImage(Save_Path);
+                        if (!IsBatchCalculate)
+                            f_Wafer_Align_Angle.ShowImage(Save_Path);
 
-                        if(IsServerMode)
-                        {
-                            Transition(WORK.FIND_RECTANGLE);
-                        }
-                        else
-                        {
-                            SetNextState(WORK.FIND_RECTANGLE);
-                            SetStatus(TASK_STATUS.PAUSE);
-                            Transition(WORK.PAUSE);
-                        }
+                        Transition(WORK.FIND_RECTANGLE);
+
+                        //MessageBox.Show("Capture Needle Image");
+                        //Scope.status = 2;
                     }
                     break;
                 case WORK.FIND_RECTANGLE:
                     {
+                        #region 隱藏
                         double Angle = 0.0; //Chip偏轉角度
                         double AngleCheck = 0.0;
                         double ChipWidth = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_ChipWidth);
@@ -347,8 +403,9 @@ namespace FileTransform.Wafer_Align_Angle
                         double XPitch = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelPitchX);
                         double YPitch = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelPitchY);
                         int CorrectCount = 0;
-                        double W_Pixel = 0.0;
+                        W_Pixel = 0.0;
                         double H_Pixel = 0.0;
+                        double Mini_Pixel = 0.0;
                         try
                         {
                             if (Math.Abs(XPitch - 0) > 0.01 && Math.Abs(XPitch - 0) > 0.01)
@@ -362,25 +419,27 @@ namespace FileTransform.Wafer_Align_Angle
                             tool.SaveHistoryToFile($"{ex}");
                         }
 
+                        if (W_Pixel > H_Pixel)
+                            Mini_Pixel = H_Pixel;
+                        else
+                            Mini_Pixel = W_Pixel;
+
                         // 找到輪廓
                         Point[][] contours;
                         HierarchyIndex[] hierarchy;
                         Cv2.FindContours(image, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
 
+                        Point2f[] boxPoints;
+                        Point[] intPoints;
+
                         foreach (var contour in contours)
                         {
                             // 擬合最小外接矩形
-                            RotatedRect rotatedRect = Cv2.MinAreaRect(contour);
+                            rotatedRect = Cv2.MinAreaRect(contour);
 
-                            if (Math.Abs(rotatedRect.Size.Width - W_Pixel) <= 10 && Math.Abs(rotatedRect.Size.Height - H_Pixel) <= 10)
+                            if (Math.Abs(rotatedRect.Size.Width - Mini_Pixel) <= 30 || Math.Abs(rotatedRect.Size.Height - Mini_Pixel) <= 30)
                             {
                                 Angle = rotatedRect.Angle;
-
-                                //// 修正角度範圍
-                                //if (Angle < -45)
-                                //{
-                                //    Angle += 90; // 保證角度範圍在 [-45, 45] 之間
-                                //}
 
                                 if (CorrectCount == 0)
                                 {
@@ -393,32 +452,258 @@ namespace FileTransform.Wafer_Align_Angle
                                     CorrectCount++;
                                 }
 
+                                tool.SaveHistoryToFile($"Width = {rotatedRect.Size.Width}");
+                                tool.SaveHistoryToFile($"Height = {rotatedRect.Size.Height}");
+                                W_Size = rotatedRect.Size.Width;
 
                                 // 獲取矩形的四個頂點
-                                Point2f[] boxPoints = rotatedRect.Points();
-                                Point[] intPoints = Array.ConvertAll(boxPoints, point => new Point((int)Math.Round(point.X), (int)Math.Round(point.Y)));
+                                boxPoints = rotatedRect.Points();
+                                intPoints = Array.ConvertAll(boxPoints, point => new Point((int)Math.Round(point.X), (int)Math.Round(point.Y)));
                                 // 繪製方型
                                 Cv2.Polylines(outputImage, new[] { intPoints }, true, Scalar.Red, 5);
+
+                                break;
                             }
+
+                            // 獲取矩形的四個頂點
+                            boxPoints = rotatedRect.Points();
+                            intPoints = Array.ConvertAll(boxPoints, point => new Point((int)Math.Round(point.X), (int)Math.Round(point.Y)));
+                            // 繪製方型
+                            Cv2.Polylines(outputImage, new[] { intPoints }, true, Scalar.Red, 5);
                         }
 
                         Cv2.ImWrite(Save_Path, outputImage);
-                        f_Wafer_Align_Angle.ShowImage(Save_Path);
-
-                        if (CorrectCount <= 3)
-                            ShowMessage("Find Angle Error");
-                        else
-                            ShowMessage($"Angle:{Angle.ToString("0.00")}");
+                        if (!IsBatchCalculate)
+                            f_Wafer_Align_Angle.ShowImage(Save_Path);
 
                         Scope.WaferAngle = Angle;
+
+                        if(NonUserPause)
+                        {
+                            Transition(WORK.ROTATE_IMAGE);
+                        }
+                        else
+                        {
+                            SetNextState(WORK.ROTATE_IMAGE);
+                            SetStatus(TASK_STATUS.PAUSE);
+                            Transition(WORK.PAUSE);
+                        }
+                        #endregion
+                    }
+                    break;
+
+                case WORK.ROTATE_IMAGE:
+                    {
+                        //if (Math.Abs(rotatedRect.Size.Width - W_Pixel) <= 30)
+                        if(rotatedRect.Angle < 45)
+                            rotationMatrix = Cv2.GetRotationMatrix2D(rotatedRect.Center, rotatedRect.Angle, 1.0); //座標軸正
+                        else
+                            rotationMatrix = Cv2.GetRotationMatrix2D(rotatedRect.Center, rotatedRect.Angle -90, 1.0); //座標軸差90度
+
+                        // 建立輸出圖像大小（建議使用原圖尺寸，或加大避免裁切）
+                        Cv2.WarpAffine(image, image, rotationMatrix, image.Size(), InterpolationFlags.Linear, BorderTypes.Constant, Scalar.Black);
+
+                        Cv2.ImWrite(Save_Path, image);
+                        //f_Wafer_Align_Angle.ShowImage(Save_Path);
+
+                        Transition(WORK.CREATE_TECTANGLE);
+
+                        rotationMatrix.Dispose();
+
+                    }
+                    break;
+                case WORK.CREATE_TECTANGLE:
+                    {
+                        // 檢測輪廓
+                        OpenCvSharp.Point[][] contours;
+                        HierarchyIndex[] hierarchy;
+                        Cv2.FindContours(image, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
+
+                        foreach (var contour in contours)
+                        {
+                            filteredContours.Add(contour);
+                        }
+
+                        Point2f[] points = filteredContours.SelectMany(c => c).Select(p => new Point2f(p.X, p.Y)).ToArray();
+
+                        // 尋找最小外接矩形
+                        boundingRect = Cv2.BoundingRect(points);
+
+                        //// 創建一個彩色圖像用於顯示結果
+                        Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
+
+                        // 繪製矩形
+                        Cv2.Rectangle(outputImage, boundingRect, Scalar.Blue, 2);
+
+                        Cv2.ImWrite(Save_Path, outputImage);
+
+                        if (!IsBatchCalculate)
+                            f_Wafer_Align_Angle.ShowImage(Save_Path);
+
+                        //if (IsBatchCalculate)
+                        //    Cv2.ImWrite(Application.StartupPath + @"\Picture\" + $"{batch_count}.png", result);
+
+                        Transition(WORK.SHIFT_XY);
+
+                    }
+                    break;
+
+                case WORK.SHIFT_XY:
+                    {
+                        Cv2.ImWrite(Application.StartupPath + @"\Picture\" + $"Orign.png", image);
+
+                        #region 平移圖片
+                        // 原圖
+                        //Mat image = Cv2.ImRead(ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath));
+                        int centerX = boundingRect.X + boundingRect.Width / 2;
+                        int centerY = boundingRect.Y + boundingRect.Height / 2;
+
+                        int dx = 280 - centerX; //中心點需要修改
+                        int dy = 700 - centerY;
+
+                        // 建立仿射平移矩陣 (2x3)
+                        translationMatrix = new Mat(2, 3, MatType.CV_32F);
+                        translationMatrix.Set<float>(0, 0, 1);
+                        translationMatrix.Set<float>(0, 1, 0);
+                        translationMatrix.Set<float>(0, 2, dx);
+
+                        translationMatrix.Set<float>(1, 0, 0);
+                        translationMatrix.Set<float>(1, 1, 1);
+                        translationMatrix.Set<float>(1, 2, dy);
+
+                        // 平移後圖像
+                        Mat movedImage = new Mat();
+                        Cv2.WarpAffine(image, movedImage, translationMatrix, image.Size(),
+                                       InterpolationFlags.Linear, BorderTypes.Constant, Scalar.Black);
+
+                        // 儲存或顯示
+                        Cv2.ImWrite(Application.StartupPath + @"\Picture\" + $"Shift_{batch_count}.png", movedImage);
+
+                        Cv2.ImWrite(Save_Path, movedImage);
+                        if (!IsBatchCalculate)
+                            f_Wafer_Align_Angle.ShowImage(Save_Path);
+
+                        Transition(WORK.PROCESS_IMAGE);
+
+                        #endregion
+                    }
+                    break;
+                case WORK.PROCESS_IMAGE:
+                    {
+                        image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
+
+                        #region 擷取圖片
+                        //定義範圍(x, y, width, height)
+                        OpenCvSharp.Rect roi = new OpenCvSharp.Rect((int)Scope.start_xy[0],
+                                            (int)Scope.start_xy[1],
+                                            (int)Scope.len[0],
+                                            (int)Scope.len[1]);
+
+                        // 擷取圖像範圍
+                        Mat cropped = new Mat(image, roi);
+                        image.Dispose();
+                        image = cropped;
+                        #endregion
+
+                        #region 導正圖片
+                        if (rotatedRect.Angle < 45)
+                            rotationMatrix = Cv2.GetRotationMatrix2D(rotatedRect.Center, rotatedRect.Angle, 1.0); //座標軸正
+                        else
+                            rotationMatrix = Cv2.GetRotationMatrix2D(rotatedRect.Center, rotatedRect.Angle - 90, 1.0); //座標軸差90度
+
+                        // 建立輸出圖像大小（建議使用原圖尺寸，或加大避免裁切）
+                        Cv2.WarpAffine(image, image, rotationMatrix, image.Size(), InterpolationFlags.Linear, BorderTypes.Constant, Scalar.Black);
+                        #endregion
+
+                        #region 圖片移至中心
+                        Cv2.WarpAffine(image, image, translationMatrix, image.Size(),
+                                       InterpolationFlags.Linear, BorderTypes.Constant, Scalar.Black);
+                        #endregion
+
+                        #region 圖片取閥值
+                        Cv2.Threshold(image, image, 200, 255, ThresholdTypes.Binary);
+                        #endregion
+
+                        //圖片旋轉180度
+                        Point2f center = new Point2f(280f, 700f);
+                        rotationMatrix = Cv2.GetRotationMatrix2D(center, 180, 1.0);
+                        Cv2.WarpAffine(image, image, rotationMatrix, image.Size(), InterpolationFlags.Linear, BorderTypes.Constant, Scalar.Black);
+
+                        Cv2.ImWrite(Save_Path, image);
+                        if (!IsBatchCalculate)
+                            f_Wafer_Align_Angle.ShowImage(Save_Path);
+
+                        if (NonUserPause)
+                        {
+                            Transition(WORK.GRAB_KEYWORD);
+                        }
+                        else
+                        {
+                            SetNextState(WORK.GRAB_KEYWORD);
+                            SetStatus(TASK_STATUS.PAUSE);
+                            Transition(WORK.PAUSE);
+
+                            Scope.status = 2;
+                            MessageBox.Show("Capture OCR region");
+                        }
+                    }
+                    break;
+                case WORK.GRAB_KEYWORD:
+                    {
+                        //定義範圍(x, y, width, height)
+                        OpenCvSharp.Rect roi = new OpenCvSharp.Rect((int)Scope.orgin_xy[0],
+                                            (int)Scope.orgin_xy[1],
+                                            (int)Scope.orgin_len[0],
+                                            (int)Scope.orgin_len[1]);
+
+                        // 擷取圖像範圍
+                        Mat cropped = new Mat(image, roi);
+                        image.Dispose();
+                        image = cropped;
+
+                        state = WORK.CHECK_OCR;
+                        goto case WORK.CHECK_OCR;
+                    }
+                case WORK.CHECK_OCR:
+                    {
+                        Cv2.ImWrite(Save_Path, image);
+                        f_Wafer_Align_Angle.ShowImage(Save_Path);
+
+                        using (var engine = new TesseractEngine(Application.StartupPath, "eng", EngineMode.Default))
+                        {
+                            engine.DefaultPageSegMode = PageSegMode.SingleChar;
+
+                            using (var img = Pix.LoadFromFile(Save_Path))
+                            {
+                                using (var page = engine.Process(img))
+                                {
+                                    string text = page.GetText();
+                                    Console.WriteLine("辨識結果：");
+                                    Console.WriteLine(text);
+                                    Cv2.ImWrite(Application.StartupPath + @"\Picture\" + $"OCR.png", image);
+                                    f_Wafer_Align_Angle.ShowOCR_Result(text);
+                                }
+                            }
+                        }
+
+                        ResetTimeCount(out delay_time);
 
                         Transition(WORK.SUCCESS);
                     }
                     break;
 
+
+
                 case WORK.SUCCESS:
                     {
-                        SetStatus(TASK_STATUS.SUCCESS);
+                        if(CheckTimeOverSec(delay_time,1))
+                        {
+                            SetStatus(TASK_STATUS.SUCCESS);
+
+                            image.Dispose();
+                            outputImage.Dispose();
+                            //GC.Collect();
+                        }
                     }
                     break;
 
