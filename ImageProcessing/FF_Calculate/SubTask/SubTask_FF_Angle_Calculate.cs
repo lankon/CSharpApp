@@ -28,6 +28,7 @@ namespace ImageProcessing.FF_Calculate
         Mat outputImage = new Mat();
         Tool tool = new Tool();
         private F_FF_Calculate f_FF_Calculate;
+        private FF_Algorithm FarField = new FF_Algorithm();
         public override UpdateTaskStateCallBack UpdateTaskState { get; set; }
         public override SetErrorMsgCallBack SetErrorMsg { get; set; }
 
@@ -39,6 +40,9 @@ namespace ImageProcessing.FF_Calculate
 
 
             LOAD_IMAGE,
+            PRE_PROCESS,
+            CALCULATE_RADIUS,
+
             GRAB_IMAGE,
             GRAB_ORRGIN,
             THRESHOLD_IMAGE,
@@ -174,6 +178,21 @@ namespace ImageProcessing.FF_Calculate
             else
                 tool.SaveHistoryToFile(msg);
         }
+        private void ShowImageToForm(Mat image)
+        {
+            //顯示圖片
+            if (image.Depth() == MatType.CV_16U)
+            {
+                Cv2.Normalize(image, outputImage, 0, 255, NormTypes.MinMax, MatType.CV_8U); //16位元轉8位元
+                Cv2.ImWrite(Save_Path, outputImage);
+            }
+            else
+            {
+                Cv2.ImWrite(Save_Path, image);
+            }
+
+            f_FF_Calculate.ShowImage(Save_Path);
+        }
         #endregion
 
         #region public function
@@ -222,7 +241,7 @@ namespace ImageProcessing.FF_Calculate
         }
         public override void SetForm(Form form)
         {
-            if (form.Name == "F_Wafer_Align_Angle")
+            if (form.Name == "F_FF_Calculate")
             {
                 f_FF_Calculate = form as F_FF_Calculate; // 嘗試轉型
                 if (f_FF_Calculate == null)
@@ -287,12 +306,7 @@ namespace ImageProcessing.FF_Calculate
                             break;
                         }
 
-                        using (Mat dst = new Mat())
-                        {
-                            Cv2.Normalize(image, dst, 0, 255, NormTypes.MinMax, MatType.CV_8U); //16位元轉8位元
-                            Cv2.ImWrite(Save_Path, dst);  //儲存圖像
-                            f_FF_Calculate.ShowImage(Save_Path);
-                        }
+                        ShowImageToForm(image);
 
                         if (IsServerMode)
                         {
@@ -300,10 +314,31 @@ namespace ImageProcessing.FF_Calculate
                         }
                         else
                         {
-                            SetNextState(WORK.THRESHOLD_IMAGE);
+                            SetNextState(WORK.PRE_PROCESS);
                             SetStatus(TASK_STATUS.PAUSE);
                             Transition(WORK.PAUSE);
                         }
+                    }
+                    break;
+
+                case WORK.PRE_PROCESS:
+                    {
+                        FarField.PreProcess(image);
+
+                        FarField.ImageFiltering(image);
+
+                        ShowImageToForm(image);
+
+                        Transition(WORK.CALCULATE_RADIUS);
+                    }
+                    break;
+                case WORK.CALCULATE_RADIUS:
+                    {
+                        FarField.Calculate_Half_Diameter(image);
+
+                        ShowImageToForm(image);
+
+                        Transition(WORK.SUCCESS);
                     }
                     break;
 

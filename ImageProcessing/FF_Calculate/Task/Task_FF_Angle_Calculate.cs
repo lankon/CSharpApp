@@ -13,25 +13,28 @@ namespace ImageProcessing.FF_Calculate
         #region parameter
         private string error_msg;
         private bool IsSubTaskProcessing = false;
+        private bool TerminateClient = false;
         private int task_delay = 0;
         private int delay_time = 2;
         Tool tool = new Tool();
+        F_FF_Calculate f_FF_Calculate;
+        IBaseTask Calculate;
         private WORK state = WORK.INITIAL;
+        private WORK next_state = WORK.NONE;
         private TASK_STATUS status_commad = TASK_STATUS.NONE;
         private TASK_STATUS pre_status_commad = TASK_STATUS.NONE;
         private TASK_STATUS status = TASK_STATUS.CONTINUE;
-        private F_FF_Calculate f_FF_Calculate;
-        private SubTask_FF_Angle_Calculate FF_Angle_Calculate;
         //public override UpdateTaskStateCallBack UpdateTaskState { get; set; }
         //public override SetErrorMsgCallBack SetErrorMsg { get; set; }
         //public override SetPauseAbortContinueCallBack SetPauseAbortContinue { get; set; }
         enum WORK
         {
+            NONE,
             INITIAL,
             IDLE,
 
-            FF_ANGLE_CALCULATE,
-            WAIT_FF_ANGLE_CALCULATE,
+            FF_CALCULATE,
+            WAIT_FF_CALCULATE,
 
             END,
 
@@ -52,11 +55,23 @@ namespace ImageProcessing.FF_Calculate
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[Task](Task_FF_Angle_Calculate)" + target.ToString());
-                UpdateTaskState("[Task](Task_FF_Angle_Calculate)" + target.ToString());
+                tool.SaveHistoryToFile("[Task](Task_AngleCalculate)" + target.ToString());
+                UpdateTaskState("[Task](Task_AngleCalculate)" + target.ToString());
             }
 
             state = target;
+        }
+        private void SetNextState(WORK target)
+        {
+            next_state = target;
+        }
+        private WORK GetNextState()
+        {
+            return next_state;
+        }
+        private void GoToNextState()
+        {
+            Transition(next_state);
         }
         /// <summary>
         /// 確認Task狀態
@@ -200,9 +215,9 @@ namespace ImageProcessing.FF_Calculate
         }
         public override void SetForm(Form form)
         {
-            if (form.Name == "F_Wafer_Align_Angle")
+            if (form.Name == "F_FF_Calculate")
             {
-                f_FF_Calculate = form as F_FF_Calculate; // 嘗試轉型
+                f_FF_Calculate = form as F_FF_Calculate;
                 if (f_FF_Calculate == null)
                 {
                     tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
@@ -233,27 +248,41 @@ namespace ImageProcessing.FF_Calculate
                 else
                     Transition(WORK.ABORT);
             }
+            else if (task_status == TASK_STATUS.CONTINUE)  //人員傳入CONTINUE命令
+            {
+                //SetStatusCommand(task_status);
+                Transition(WORK.CONTINUE);
+            }
 
             switch (state)
             {
                 case WORK.INITIAL:
                     {
-                        Transition(WORK.FF_ANGLE_CALCULATE);
+                        //預設進入執行case
+                        Transition(WORK.FF_CALCULATE);
                     }
                     break;
 
-                case WORK.FF_ANGLE_CALCULATE:
+                case WORK.IDLE:
                     {
-                        FF_Angle_Calculate = new SubTask_FF_Angle_Calculate();
-                        FF_Angle_Calculate.SetForm(f_FF_Calculate);
-                        SetSubTaskProcessing(true);
-                        Transition(WORK.WAIT_FF_ANGLE_CALCULATE);
                     }
                     break;
-                case WORK.WAIT_FF_ANGLE_CALCULATE:
+
+                case WORK.FF_CALCULATE:
                     {
-                        TASK_STATUS check = FF_Angle_Calculate.Run(GetStatusCommand());
+                        Calculate = new SubTask_FF_Angle_Calculate();
+                        Calculate.SetForm(f_FF_Calculate);
+                        SetSubTaskProcessing(true);
+                        Transition(WORK.WAIT_FF_CALCULATE);
+                    }
+                    break;
+                case WORK.WAIT_FF_CALCULATE:
+                    {
+                        TASK_STATUS check = Calculate.Run(GetStatusCommand());
                         CheckResult(check);
+
+                        if (check == TASK_STATUS.PAUSE)
+                            SetNextState(WORK.WAIT_FF_CALCULATE);
                     }
                     break;
 
@@ -280,6 +309,16 @@ namespace ImageProcessing.FF_Calculate
                 case WORK.ABORT:
                     {
                         SetStatus(TASK_STATUS.ABORT);
+                    }
+                    break;
+
+                case WORK.CONTINUE:
+                    {
+                        if (GetNextState() != WORK.NONE)
+                            GoToNextState();
+
+                        SetStatus(TASK_STATUS.CONTINUE);
+                        SetStatusCommand(TASK_STATUS.CONTINUE);
                     }
                     break;
 

@@ -25,8 +25,8 @@ namespace ImageProcessing.FF_Calculate
         #region private function
         private void InitialApplication()
         {
-            ApplicationSetting.ReadAllRecipe<FormItem>();
-            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+            ApplicationSetting.ReadAllRecipe<FormItem>("FF_Calculate.exe.Config");
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this, "FF_Calculate.exe.Config");
 
             //ShowHint();
         }

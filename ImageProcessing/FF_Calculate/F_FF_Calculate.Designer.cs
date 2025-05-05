@@ -127,8 +127,8 @@ namespace ImageProcessing.FF_Calculate
             this.Controls.Add(this.Btn_LoadImage);
             this.Controls.Add(this.Pnl_Picture);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "F_Wafer_Align_Angle";
-            this.Text = "F_Wafer_Align_Angle";
+            this.Name = "F_FF_Calculate";
+            this.Text = "F_FF_Calculate";
             this.Pnl_Picture.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PicBx_Picture)).EndInit();
             this.ResumeLayout(false);
