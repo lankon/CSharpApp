@@ -184,22 +184,6 @@ namespace ImageProcessing
             }
         }
 
-        private void SaveAllRecipe(AppName appName)
-        {
-            string path = "default";
-            
-            switch(appName)
-            {
-                case AppName.FF_Calculate:
-                    {
-                        path = "FF_Calculate.exe.Config";
-                    }
-                    break;
-            }
-            
-            ApplicationSetting.SaveAllRecipe(this,path);
-        }
-
         #region 視窗拖曳功能
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();

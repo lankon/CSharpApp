@@ -41,7 +41,8 @@ namespace ImageProcessing.FF_Calculate
 
             LOAD_IMAGE,
             PRE_PROCESS,
-            CALCULATE_RADIUS,
+            CALCULATE_DIAMETER,
+            CALCULATE_FARFIELD_RESULT,
 
             GRAB_IMAGE,
             GRAB_ORRGIN,
@@ -310,7 +311,7 @@ namespace ImageProcessing.FF_Calculate
 
                         if (IsServerMode)
                         {
-                            Transition(WORK.THRESHOLD_IMAGE);
+                            Transition(WORK.PRE_PROCESS);
                         }
                         else
                         {
@@ -323,21 +324,38 @@ namespace ImageProcessing.FF_Calculate
 
                 case WORK.PRE_PROCESS:
                     {
+                        FarField.PixelSize = 0.04;
+                        FarField.TestHeigh = 40;
+                        
                         FarField.PreProcess(image);
 
                         FarField.ImageFiltering(image);
 
                         ShowImageToForm(image);
 
-                        Transition(WORK.CALCULATE_RADIUS);
+                        Transition(WORK.CALCULATE_DIAMETER);
                     }
                     break;
-                case WORK.CALCULATE_RADIUS:
+                case WORK.CALCULATE_DIAMETER:
                     {
                         FarField.Calculate_Half_Diameter(image);
+                        FarField.Calculate_Diameter(image);
+
+                        //int center_x = FarField.FF_Param.Center_X;
+                        //int cneter_y = FarField.FF_Param.Center_Y;
+
+                        //Point center = new Point(center_x, cneter_y);
+                        //Cv2.Circle(outputImage, center, 4, Scalar.Red, -1);
 
                         ShowImageToForm(image);
 
+                        Transition(WORK.CALCULATE_FARFIELD_RESULT);
+                    }
+                    break;
+                case WORK.CALCULATE_FARFIELD_RESULT:
+                    {
+                        FarField.Calculate_FarField_Result(angle: true);
+                        
                         Transition(WORK.SUCCESS);
                     }
                     break;

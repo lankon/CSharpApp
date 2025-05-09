@@ -10,17 +10,24 @@ namespace ImageProcessing.FF_Calculate
     class FF_Algorithm
     {
         #region parameter define 
-        FarField_Parameter FF_Param = new FarField_Parameter();
-        
-        
-        struct FarField_Parameter
+        private FarField_Parameter FF_Param = new FarField_Parameter();
+        public double PixelSize { set { FF_Param.PixelSize = value; } }
+        public double TestHeigh { set { FF_Param.TestHeigh = value; } }
+
+        public struct FarField_Parameter
         {
             public double Image_Heigh;
             public double Image_Width;
-            public double Center_X;
-            public double Center_Y;
+            public int Center_X;
+            public int Center_Y;
+            public double[] FOV50;
+            public double[] FOV1e2;
             public double[] FOV50_Width;
+            public double[] FOV1e2_Width;
             public int ProfileAngleNum;
+
+            public double PixelSize;    //相機Pixel Size
+            public double TestHeigh;    //量測高度
         }
         enum ErrorCode
         {
@@ -32,6 +39,12 @@ namespace ImageProcessing.FF_Calculate
         #endregion
 
         #region private function
+        /// <summary>
+        /// 取得影像長寬
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="ff_param"></param>
+        /// <returns></returns>
         private FarField_Parameter GetImageSize(Mat image, FarField_Parameter ff_param)
         {
             ff_param.Image_Heigh = image.Height;
@@ -39,6 +52,11 @@ namespace ImageProcessing.FF_Calculate
             
             return ff_param;
         }
+        /// <summary>
+        /// 計算影像總能量
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         private double CalculateImageTotalPower(Mat image)
         {
             // 總像素加總（支援所有深度）
@@ -49,6 +67,11 @@ namespace ImageProcessing.FF_Calculate
 
             return valueSum;
         }
+        /// <summary>
+        /// 取得影像最大及最小光強
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
         private double[] FindImageMinMaxPower(Mat image)
         {
             double minVal, maxVal;
@@ -63,9 +86,14 @@ namespace ImageProcessing.FF_Calculate
 
             return MaxMin;
         }
-        private double[] FindImageCentroid(Mat image)
+        /// <summary>
+        /// 找光斑質心座標
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        private int[] FindImageCentroid(Mat image)
         {
-            double[] XY_Center = new double[] { 0.0, 0.0 };
+            int[] XY_Center = new int[] { 0, 0 };
 
             // 計算影像矩（moments）
             Moments m = Cv2.Moments(image, false);
@@ -150,7 +178,11 @@ namespace ImageProcessing.FF_Calculate
         {
             FF_Param.ProfileAngleNum = 4;
             FF_Param.FOV50_Width = new double[FF_Param.ProfileAngleNum];
-            
+            FF_Param.FOV50 = new double[FF_Param.ProfileAngleNum];
+            FF_Param.FOV1e2_Width = new double[FF_Param.ProfileAngleNum];
+            FF_Param.FOV1e2 = new double[FF_Param.ProfileAngleNum];
+
+
             //取得影像長寬
             FF_Param = GetImageSize(image, FF_Param);
             
@@ -186,16 +218,67 @@ namespace ImageProcessing.FF_Calculate
             //背景濾波
             BackGroundFilter(image);
 
-            double[] xy_center = FindImageCentroid(image);
+            int[] xy_center = FindImageCentroid(image);
             FF_Param.Center_X = xy_center[0];
             FF_Param.Center_Y = xy_center[1];
 
             return 0;
         }
-        public int Calculate_Diameter()
+        public int Calculate_Diameter(Mat image)
         {
-            
-            
+            int maxLength = Math.Min((int)FF_Param.Center_X, (int)FF_Param.Center_Y);
+            List<double> Data;
+
+            for (int Phase = 0; Phase < FF_Param.ProfileAngleNum; Phase++)
+            {
+                int Max = 0;
+                int start_point = 0, end_point = 0;
+                int Threshold = 0;
+
+                Data = GetProfileDegree(image, FF_Param, Phase * 45);
+
+                //取得峰值
+                for (int i = 0; i < 2 * maxLength; i++)
+                {
+                    if (Max < Data[i])
+                        Max = (int)Data[i];
+                }
+
+                //閥值
+                Threshold = (int)(Max * 0.135);
+
+                for (int i = 0; i < 2 * maxLength; i++)
+                {
+                    if (Data[i] > Threshold)
+                    {
+                        start_point = i;
+                        break;
+                    }
+                }
+
+                for (int i = 2 * maxLength - 1; i > 0; i--)
+                {
+                    if (Data[i] > Threshold)
+                    {
+                        end_point = i;
+                        break;
+                    }
+                }
+
+                //45,135長度修正
+                if (Phase % 2 != 0)
+                    FF_Param.FOV1e2_Width[Phase] = (float)((end_point - start_point) * Math.Sqrt(2.0));
+                else
+                    FF_Param.FOV1e2_Width[Phase] = end_point - start_point;
+
+            }
+
+            for (int i = 0; i < FF_Param.ProfileAngleNum; i++)
+            {
+                if (FF_Param.FOV1e2_Width[i] <= 0)
+                    return (int)ErrorCode.IMAGE_LENGTH_ERROR;
+            }
+
             return 0;
         }
         public int Calculate_Half_Diameter(Mat image)
@@ -253,6 +336,19 @@ namespace ImageProcessing.FF_Calculate
                     return (int)ErrorCode.IMAGE_LENGTH_ERROR;
             }
 
+            return 0;
+        }
+        public int Calculate_FarField_Result(bool angle = false, bool eye_safe = false, bool valley = false)
+        {
+            if(angle)   //計算發散角
+            {
+                for(int i=0; i<FF_Param.ProfileAngleNum; i++)
+                {
+                    FF_Param.FOV50[i] = 2 * (Math.Atan2(FF_Param.FOV50_Width[i] * FF_Param.PixelSize / 2, FF_Param.TestHeigh) * 180 / Math.PI);
+                    FF_Param.FOV1e2[i] = 2 * (Math.Atan2(FF_Param.FOV1e2_Width[i] * FF_Param.PixelSize / 2, FF_Param.TestHeigh) * 180 / Math.PI);
+                }
+            }
+            
             return 0;
         }
         #endregion

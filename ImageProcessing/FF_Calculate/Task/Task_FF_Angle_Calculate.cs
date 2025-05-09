@@ -270,7 +270,7 @@ namespace ImageProcessing.FF_Calculate
 
                 case WORK.FF_CALCULATE:
                     {
-                        Calculate = new SubTask_FF_Angle_Calculate();
+                        Calculate = new SubTask_FF_Angle_Calculate("ServerMode");
                         Calculate.SetForm(f_FF_Calculate);
                         SetSubTaskProcessing(true);
                         Transition(WORK.WAIT_FF_CALCULATE);
