@@ -47,5 +47,8 @@ namespace ImageProcessing
         Cmbx_ServerMode,
         #endregion
 
+        TxtBx_PixelSize,
+        TxtBx_TestHeight,
+
     }
 }

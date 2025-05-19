@@ -8,6 +8,13 @@ using CommonFunction;
 
 namespace ImageProcessing
 {
+    #region Recipe Name
+    public static partial class Scope
+    {
+        public static string FF_Calculate_RecipeName = "FF_Calculate.exe.Config";
+    }
+    #endregion
+
     public static partial class Scope
     {
         public static Panel MyStaticPanel;      //F_MainForm:Pnl_Group

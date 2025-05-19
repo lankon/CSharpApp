@@ -57,6 +57,13 @@ namespace ImageProcessing.FF_Calculate
 
             return show_pos;
         }
+        private void updateTxtBx_Invoke(TextBox textBox, string text)
+        {
+            if (textBox.InvokeRequired)
+                textBox.Invoke(new Action(() => textBox.Text = text));
+            else
+                textBox.Text = text;
+        }
         #endregion
 
         #region public function
@@ -75,6 +82,16 @@ namespace ImageProcessing.FF_Calculate
         public void ShowImage(string path)
         {
             Dic_Picture = tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Calculate.png");
+        }
+        public void ShowFarFieldResult(double angle = 0.0, double eye_safe = 0.0, double valley = 0.0)
+        {
+            updateTxtBx_Invoke(TxtBx_RltAngle, angle.ToString("0.000"));
+            updateTxtBx_Invoke(TxtBx_RltEyeSafe, eye_safe.ToString("0.000"));
+            updateTxtBx_Invoke(TxtBx_RltValley, valley.ToString("0.000"));
+        }
+        public void ShowTestTimeResult(int millsecond)
+        {
+            updateTxtBx_Invoke(TxtBx_RltTestTime, millsecond.ToString());
         }
         #endregion
 

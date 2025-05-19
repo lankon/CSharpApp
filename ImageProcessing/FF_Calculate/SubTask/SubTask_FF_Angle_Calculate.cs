@@ -15,6 +15,7 @@ namespace ImageProcessing.FF_Calculate
         #region parameter
         private int task_delay = 0;
         private int delay_time = 2;
+        private int record_test_time = 0;
         private bool IsSubTaskProcessing = false;
         private bool IsServerMode = false;
         private string Save_Path = Application.StartupPath + @"\Picture\" + "Calculate.png";
@@ -165,6 +166,12 @@ namespace ImageProcessing.FF_Calculate
         {
             tick = Environment.TickCount;
         }
+        private int GetTimeCount(int tick)
+        {
+            int time_count = Environment.TickCount - tick;
+
+            return time_count;
+        }
         private bool CheckTimeOverSec(int tick, int time)
         {
             var time_count = Environment.TickCount - tick;
@@ -291,12 +298,15 @@ namespace ImageProcessing.FF_Calculate
                     {
                         //預設進入看要幹嘛
                         ResetTimeCount(out task_delay);
+                        ResetTimeCount(out record_test_time);
                         Transition(WORK.LOAD_IMAGE);
                     }
                     break;
 
                 case WORK.LOAD_IMAGE:
                     {
+                        GetTimeCount(task_delay);
+                        
                         string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
                         image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
 
@@ -324,8 +334,8 @@ namespace ImageProcessing.FF_Calculate
 
                 case WORK.PRE_PROCESS:
                     {
-                        FarField.PixelSize = 0.04;
-                        FarField.TestHeigh = 40;
+                        FarField.PixelSize = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelSize);
+                        FarField.TestHeigh = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_TestHeight);
                         
                         FarField.PreProcess(image);
 
@@ -341,12 +351,6 @@ namespace ImageProcessing.FF_Calculate
                         FarField.Calculate_Half_Diameter(image);
                         FarField.Calculate_Diameter(image);
 
-                        //int center_x = FarField.FF_Param.Center_X;
-                        //int cneter_y = FarField.FF_Param.Center_Y;
-
-                        //Point center = new Point(center_x, cneter_y);
-                        //Cv2.Circle(outputImage, center, 4, Scalar.Red, -1);
-
                         ShowImageToForm(image);
 
                         Transition(WORK.CALCULATE_FARFIELD_RESULT);
@@ -355,112 +359,11 @@ namespace ImageProcessing.FF_Calculate
                 case WORK.CALCULATE_FARFIELD_RESULT:
                     {
                         FarField.Calculate_FarField_Result(angle: true);
-                        
-                        Transition(WORK.SUCCESS);
-                    }
-                    break;
 
-                case WORK.THRESHOLD_IMAGE:
-                    {
-                        double LowThreshold = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_EdgeLowThreshold);
-                        double Threshold = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_EdgeThreshold);
+                        outputImage = new Mat();
+                        //FarField.CalculateEyeSafe(image, out outputImage);
 
-                        //閥值處理,消除雜訊,凸顯邊緣
-                        Cv2.Canny(image, image, LowThreshold, Threshold);
-
-                        // 創建一個彩色圖像用於顯示結果
-                        Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
-
-                        Cv2.ImWrite(Save_Path, outputImage);
-
-                        //顯示圖像
-                        f_FF_Calculate.ShowImage(Save_Path);
-
-                        if (IsServerMode)
-                        {
-                            Transition(WORK.FIND_RECTANGLE);
-                        }
-                        else
-                        {
-                            SetNextState(WORK.FIND_RECTANGLE);
-                            SetStatus(TASK_STATUS.PAUSE);
-                            Transition(WORK.PAUSE);
-                        }
-                    }
-                    break;
-                case WORK.FIND_RECTANGLE:
-                    {
-                        double Angle = 0.0; //Chip偏轉角度
-                        double AngleCheck = 0.0;
-                        double ChipWidth = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_ChipWidth);
-                        double ChipHeigh = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_ChipHeigh);
-                        double XPitch = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelPitchX);
-                        double YPitch = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelPitchY);
-                        int CorrectCount = 0;
-                        double W_Pixel = 0.0;
-                        double H_Pixel = 0.0;
-                        try
-                        {
-                            if (Math.Abs(XPitch - 0) > 0.01 && Math.Abs(XPitch - 0) > 0.01)
-                            {
-                                W_Pixel = ChipWidth / XPitch;
-                                H_Pixel = ChipHeigh / YPitch;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            tool.SaveHistoryToFile($"{ex}");
-                        }
-
-                        // 找到輪廓
-                        Point[][] contours;
-                        HierarchyIndex[] hierarchy;
-                        Cv2.FindContours(image, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
-
-                        foreach (var contour in contours)
-                        {
-                            // 擬合最小外接矩形
-                            RotatedRect rotatedRect = Cv2.MinAreaRect(contour);
-
-                            if (Math.Abs(rotatedRect.Size.Width - W_Pixel) <= 10 && Math.Abs(rotatedRect.Size.Height - H_Pixel) <= 10)
-                            {
-                                Angle = rotatedRect.Angle;
-
-                                //// 修正角度範圍
-                                //if (Angle < -45)
-                                //{
-                                //    Angle += 90; // 保證角度範圍在 [-45, 45] 之間
-                                //}
-
-                                if (CorrectCount == 0)
-                                {
-                                    AngleCheck = Angle;
-                                    CorrectCount++;
-                                }
-                                else if (Math.Abs(AngleCheck - Angle) < 0.5)
-                                {
-                                    //計算找到的晶粒偏轉角度相同次數
-                                    CorrectCount++;
-                                }
-
-
-                                // 獲取矩形的四個頂點
-                                Point2f[] boxPoints = rotatedRect.Points();
-                                Point[] intPoints = Array.ConvertAll(boxPoints, point => new Point((int)Math.Round(point.X), (int)Math.Round(point.Y)));
-                                // 繪製方型
-                                Cv2.Polylines(outputImage, new[] { intPoints }, true, Scalar.Red, 5);
-                            }
-                        }
-
-                        Cv2.ImWrite(Save_Path, outputImage);
-                        f_FF_Calculate.ShowImage(Save_Path);
-
-                        if (CorrectCount <= 3)
-                            ShowMessage("Find Angle Error");
-                        else
-                            ShowMessage($"Angle:{Angle.ToString("0.00")}");
-
-                        Scope.WaferAngle = Angle;
+                        //ShowImageToForm(outputImage);
 
                         Transition(WORK.SUCCESS);
                     }
@@ -469,6 +372,11 @@ namespace ImageProcessing.FF_Calculate
                 case WORK.SUCCESS:
                     {
                         SetStatus(TASK_STATUS.SUCCESS);
+                        
+                        //顯示結果至畫面上
+                        f_FF_Calculate.ShowFarFieldResult(angle:FarField.Angle);
+
+                        GC.Collect();   //強制回收程式記憶體
                     }
                     break;
 

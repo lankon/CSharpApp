@@ -11,7 +11,7 @@ namespace CommonFunction
     
     public static class ApplicationSetting
     {
-        private static string[] ApplicationInfo = new string[2000];
+        private static string[] ApplicationInfo = new string[2000]; //程式參數,不隨使用者更改
         private static void TraverseControlsSave(Control parent, Configuration config1)
         {
             foreach (Control control in parent.Controls)

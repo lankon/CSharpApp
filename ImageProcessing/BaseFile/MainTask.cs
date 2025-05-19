@@ -13,6 +13,7 @@ namespace ImageProcessing
     {
         #region parameter
         private bool Terminate = false;
+        private int time_record = 0;
         public IBaseTask base_task;
         private TASK_STATUS status_commad = TASK_STATUS.NONE;
         private WORK state = WORK.INITIAL;
@@ -118,6 +119,12 @@ namespace ImageProcessing
         {
             tick = Environment.TickCount;
         }
+        private int GetTimeCount(int tick)
+        {
+            int time_count = Environment.TickCount - tick;
+
+            return time_count;
+        }
         private bool CheckTimeOverSec(int tick, int time)
         {
             var time_count = Environment.TickCount - tick;
@@ -209,16 +216,28 @@ namespace ImageProcessing
                         break;
                     case WORK.TASK:
                         {
+                            
+                            
                             SetPauseAbortContinue(base_task.SetUserCtrl());
                             SetStatusCommand(TASK_STATUS.NONE);
                             SetErrorMsg("Error Msg");
                             Transition(WORK.WAIT_TASK);
+
+                            ResetTimeCount(out time_record);
+
+                            
+
                         }
                         break;
                     case WORK.WAIT_TASK:    //等待Task執行完畢確認結果
                         {
+                            GetTimeCount(time_record);
+
                             TASK_STATUS check = base_task.Run(GetStatusCommand());
                             CheckResult(check);
+
+                            
+                            
                         }
                         break;
                     case WORK.FAIL:
@@ -240,7 +259,7 @@ namespace ImageProcessing
                         break;
                 }
 
-                Thread.Sleep(1);
+                //Thread.Sleep(1);
             }
         }
     } 

@@ -7,28 +7,39 @@ using OpenCvSharp;
 
 namespace ImageProcessing.FF_Calculate
 {
+    public struct FarField_Parameter
+    {
+        public double Image_Heigh;
+        public double Image_Width;
+        public double Image_MaxPower;
+        public int Center_X;
+        public int Center_Y;
+        public double[] FOV50;
+        public double[] FOV1e2;
+        public double[] FOV50_Width;
+        public double[] FOV1e2_Width;
+        public int ProfileAngleNum;
+
+        //硬體
+        public double PixelSize;    //相機Pixel Size
+        public double TestHeigh;    //量測高度
+
+        //結果
+        public double Angle;    //發散角
+        public double Valley;   //凹陷百分比
+        public double EyeSafe;  //人眼安全
+    }
+
+
     class FF_Algorithm
     {
         #region parameter define 
         private FarField_Parameter FF_Param = new FarField_Parameter();
         public double PixelSize { set { FF_Param.PixelSize = value; } }
         public double TestHeigh { set { FF_Param.TestHeigh = value; } }
-
-        public struct FarField_Parameter
-        {
-            public double Image_Heigh;
-            public double Image_Width;
-            public int Center_X;
-            public int Center_Y;
-            public double[] FOV50;
-            public double[] FOV1e2;
-            public double[] FOV50_Width;
-            public double[] FOV1e2_Width;
-            public int ProfileAngleNum;
-
-            public double PixelSize;    //相機Pixel Size
-            public double TestHeigh;    //量測高度
-        }
+        public double Angle { get; private set; }
+        public double Valley { get; }
+        public double EyeSafe { get; }
         enum ErrorCode
         {
             OUT_OF_POWER,
@@ -127,7 +138,7 @@ namespace ImageProcessing.FF_Calculate
 
             //計算背景閥值
             double total_power = CalculateImageTotalPower(Background_image);
-            double filter_value = total_power / (Background_SizeX * Background_SizeY);
+            int filter_value = (int)(total_power / (Background_SizeX * Background_SizeY));
 
             //將圖像以背景閥值濾波
             Cv2.Threshold(image, image, filter_value, 0, ThresholdTypes.Tozero);
@@ -204,6 +215,8 @@ namespace ImageProcessing.FF_Calculate
                     return (int)ErrorCode.OUT_OF_POWER;
             }
 
+            FF_Param.Image_MaxPower = MinMax[1];
+
             //判斷是否有曝光
             if (WholePower == 0)
                 return (int)ErrorCode.NO_POWER;
@@ -265,11 +278,7 @@ namespace ImageProcessing.FF_Calculate
                     }
                 }
 
-                //45,135長度修正
-                if (Phase % 2 != 0)
-                    FF_Param.FOV1e2_Width[Phase] = (float)((end_point - start_point) * Math.Sqrt(2.0));
-                else
-                    FF_Param.FOV1e2_Width[Phase] = end_point - start_point;
+                FF_Param.FOV1e2_Width[Phase] = end_point - start_point;
 
             }
 
@@ -322,12 +331,7 @@ namespace ImageProcessing.FF_Calculate
                     }
                 }
 
-                //45,135長度修正
-                if (Phase % 2 != 0)
-                    FF_Param.FOV50_Width[Phase] = (float)((end_point - start_point) * Math.Sqrt(2.0));
-                else
-                    FF_Param.FOV50_Width[Phase] = end_point - start_point;
-
+                FF_Param.FOV50_Width[Phase] = end_point - start_point;
             }
 
             for (int i = 0; i < FF_Param.ProfileAngleNum; i++)
@@ -347,9 +351,55 @@ namespace ImageProcessing.FF_Calculate
                     FF_Param.FOV50[i] = 2 * (Math.Atan2(FF_Param.FOV50_Width[i] * FF_Param.PixelSize / 2, FF_Param.TestHeigh) * 180 / Math.PI);
                     FF_Param.FOV1e2[i] = 2 * (Math.Atan2(FF_Param.FOV1e2_Width[i] * FF_Param.PixelSize / 2, FF_Param.TestHeigh) * 180 / Math.PI);
                 }
+
+                //填入結果
+                FF_Param.Angle = FF_Param.FOV1e2[0];
+                Angle = FF_Param.Angle;
             }
-            
+
             return 0;
+        }
+        public void CalculateEyeSafe(Mat image, out Mat out_image)  //還要再開發未完成
+        {
+            double threshold = FF_Param.Image_MaxPower * 0.9;
+
+            out_image = new Mat();
+
+            //影像複製，灰階處理
+            if (image.Channels() == 3)
+                Cv2.CvtColor(image, out_image, ColorConversionCodes.BGR2GRAY);
+            else
+                out_image = image.Clone();
+
+            //二值化
+            Cv2.Threshold(out_image, out_image, 6000, 255, ThresholdTypes.BinaryInv);
+
+            ////閉運算
+            //Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(3, 3));
+            //Cv2.MorphologyEx(out_image, out_image, MorphTypes.Close, kernel, iterations: 2);
+
+            ////填補孔洞
+            //Mat floodFilled = out_image.Clone();
+            //Cv2.BitwiseNot(floodFilled, floodFilled);
+
+            //// 建立 mask，比原圖大 2 px
+            //Mat mask = new Mat(floodFilled.Rows + 2, floodFilled.Cols + 2, MatType.CV_8UC1, Scalar.All(0));
+
+            //// 從邊緣做 flood fill
+            //try
+            //{
+            //    Cv2.FloodFill(floodFilled, mask, new Point(0, 0), new Scalar(255));
+            //}
+            //catch(Exception ex)
+            //{
+            //    int aa = 0;
+            //}
+
+
+            // 再反轉，填補原圖中的孔洞
+            //Cv2.BitwiseNot(floodFilled, floodFilled);
+            //Cv2.BitwiseOr(out_image, floodFilled, out_image);
+
         }
         #endregion
 

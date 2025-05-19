@@ -16,6 +16,7 @@ namespace ImageProcessing.FF_Calculate
         private bool TerminateClient = false;
         private int task_delay = 0;
         private int delay_time = 2;
+        private int record_test_time = 0;
         Tool tool = new Tool();
         F_FF_Calculate f_FF_Calculate;
         IBaseTask Calculate;
@@ -160,6 +161,12 @@ namespace ImageProcessing.FF_Calculate
         {
             tick = Environment.TickCount;
         }
+        private int GetTimeCount(int tick)
+        {
+            int time_count = Environment.TickCount - tick;
+
+            return time_count;
+        }
         private bool CheckTimeOverSec(int tick, int time)
         {
             var time_count = Environment.TickCount - tick;
@@ -270,6 +277,7 @@ namespace ImageProcessing.FF_Calculate
 
                 case WORK.FF_CALCULATE:
                     {
+                        ResetTimeCount(out record_test_time);
                         Calculate = new SubTask_FF_Angle_Calculate("ServerMode");
                         Calculate.SetForm(f_FF_Calculate);
                         SetSubTaskProcessing(true);
@@ -289,6 +297,9 @@ namespace ImageProcessing.FF_Calculate
                 case WORK.SUCCESS:
                     {
                         SetStatus(TASK_STATUS.SUCCESS);
+                        int time = GetTimeCount(record_test_time);
+                        tool.SaveHistoryToFile($"測試時間:{time}");
+                        f_FF_Calculate.ShowTestTimeResult(time);
                     }
                     break;
                 case WORK.FAIL:

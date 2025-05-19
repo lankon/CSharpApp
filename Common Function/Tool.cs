@@ -45,6 +45,26 @@ namespace CommonFunction
         {
             File.Close();
         }
+        public void CreateFolder(string folderPath)
+        {
+            if (!Directory.Exists(folderPath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(folderPath);
+                    SaveHistoryToFile("創建資料夾:" + folderPath);
+                }
+                catch (Exception ex)
+                {
+                    SaveHistoryToFile("無效的創建資料夾路徑");
+                    SaveHistoryToFile($"Tool:CreateFolder Fail{ex}");
+                }
+            }
+            else
+            {
+                //SaveHistoryToFile("資料夾已存在");
+            }
+        }
         #endregion
 
         #region 寫Log
@@ -63,7 +83,6 @@ namespace CommonFunction
             WriteFile(sw, "[" + Time + "] " + Msg);
             CloseFile(sw);
         }
-
         #endregion
 
         #region 讀檔
@@ -259,26 +278,7 @@ namespace CommonFunction
 
         #endregion
 
-        public void CreateFolder(string folderPath)
-        {
-            if (!Directory.Exists(folderPath))
-            {
-                try
-                {
-                    Directory.CreateDirectory(folderPath);
-                    SaveHistoryToFile("創建資料夾:" + folderPath);
-                }
-                catch(Exception ex)
-                {
-                    SaveHistoryToFile("無效的創建資料夾路徑");
-                    SaveHistoryToFile($"Tool:CreateFolder Fail{ex}");
-                }                
-            }
-            else
-            {
-                //SaveHistoryToFile("資料夾已存在");
-            }
-        }
+        #region 呼叫/關閉執行檔
         public void CallExecute(string path, string input_command = "Non")
         {
             string workingDirectory = Path.GetDirectoryName(path);   //工作目錄
@@ -333,6 +333,7 @@ namespace CommonFunction
                 }
             }
         }
+        #endregion
 
         #region 截圖相關功能
         public void CaptureImage(Control ctrl, string filename)
