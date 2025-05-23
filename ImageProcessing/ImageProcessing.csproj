@@ -86,6 +86,7 @@
     <Compile Include="BaseFile\MainTask.cs" />
     <Compile Include="BaseFile\Scope.cs" />
     <Compile Include="FF_Calculate\Base\FF_Algorithm.cs" />
+    <Compile Include="FF_Calculate\Base\NF_Algorithm.cs" />
     <Compile Include="FF_Calculate\F_FF_Calculate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +105,7 @@
     <Compile Include="FF_Calculate\F_FF_Calculate_Setting.Designer.cs">
       <DependentUpon>F_FF_Calculate_Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="FF_Calculate\SubTask\SubTask_NF_Angle_Calculate.cs" />
     <Compile Include="FF_Calculate\SubTask\SubTask_FF_Angle_Calculate.cs" />
     <Compile Include="FF_Calculate\Task\Task_FF_Angle_Calculate.cs" />
     <Compile Include="F_MainForm.cs">

@@ -393,6 +393,7 @@ namespace ImageProcessing.FF_Calculate
             this.TxtBx_TeachPath.Name = "TxtBx_TeachPath";
             this.TxtBx_TeachPath.Size = new System.Drawing.Size(140, 29);
             this.TxtBx_TeachPath.TabIndex = 14;
+            this.TxtBx_TeachPath.Click += new System.EventHandler(this.TxtBx_TeachPath_Click);
             // 
             // label1
             // 

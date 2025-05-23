@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using OpenCvSharp;
 
 using CommonFunction;
 
@@ -146,7 +147,30 @@ namespace ImageProcessing.FF_Calculate
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            NF_Algorithm NF_Cal = new NF_Algorithm();
+            Mat image = new Mat();
+
+            string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
+            image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
+            NF_Cal.Threshold_Ratio = 0.35;
+
+
+            //Teach AutoFocus
+            NF_Cal.Detect_Position(image);
+
+            //擷取左下角AOI_Size影像
+            int AOI_Size = (int)(5 * NF_Cal.Emitter_Diameter[0]);
+            int Capture_X = (int)(NF_Cal.Emitter_PosX[0] - 0.5 * AOI_Size);
+            int Capture_Y = (int)(NF_Cal.Emitter_PosY[0] - 0.5 * AOI_Size);
+            Rect roi = new Rect(Capture_X, Capture_Y, AOI_Size, AOI_Size);
+            Mat Capture_Image = new Mat(image, roi).Clone();
+
+
+
+
+            image.Dispose();
+            Capture_Image.Dispose();
+
         }
         private void UpdateTask(string msg)
         {

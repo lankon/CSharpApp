@@ -40,12 +40,12 @@ namespace ImageProcessing.FF_Calculate
             this.Btn_ClientTest = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.TxtBx_RltValley = new System.Windows.Forms.TextBox();
             this.TxtBx_RltAngle = new System.Windows.Forms.TextBox();
             this.TxtBx_RltEyeSafe = new System.Windows.Forms.TextBox();
+            this.TxtBx_RltValley = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.TxtBx_RltTestTime = new System.Windows.Forms.TextBox();
             this.Pnl_Picture.SuspendLayout();
@@ -64,7 +64,7 @@ namespace ImageProcessing.FF_Calculate
             // 
             // PicBx_Picture
             // 
-            this.PicBx_Picture.BackColor = System.Drawing.Color.Black;
+            this.PicBx_Picture.BackColor = System.Drawing.Color.DimGray;
             this.PicBx_Picture.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PicBx_Picture.Location = new System.Drawing.Point(0, 0);
             this.PicBx_Picture.Name = "PicBx_Picture";
@@ -104,7 +104,6 @@ namespace ImageProcessing.FF_Calculate
             this.button1.TabIndex = 7;
             this.button1.Text = "Test";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Btn_ServeTest
@@ -166,18 +165,6 @@ namespace ImageProcessing.FF_Calculate
             this.tableLayoutPanel1.Size = new System.Drawing.Size(270, 187);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(6, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 35);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Eye Safe";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -190,6 +177,18 @@ namespace ImageProcessing.FF_Calculate
             this.label2.Text = "Angle";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Location = new System.Drawing.Point(6, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(124, 35);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Eye Safe";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -201,14 +200,6 @@ namespace ImageProcessing.FF_Calculate
             this.label3.TabIndex = 19;
             this.label3.Text = "Valley";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // TxtBx_RltValley
-            // 
-            this.TxtBx_RltValley.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.TxtBx_RltValley.Location = new System.Drawing.Point(139, 82);
-            this.TxtBx_RltValley.Name = "TxtBx_RltValley";
-            this.TxtBx_RltValley.Size = new System.Drawing.Size(125, 29);
-            this.TxtBx_RltValley.TabIndex = 20;
             // 
             // TxtBx_RltAngle
             // 
@@ -225,6 +216,14 @@ namespace ImageProcessing.FF_Calculate
             this.TxtBx_RltEyeSafe.Name = "TxtBx_RltEyeSafe";
             this.TxtBx_RltEyeSafe.Size = new System.Drawing.Size(125, 29);
             this.TxtBx_RltEyeSafe.TabIndex = 22;
+            // 
+            // TxtBx_RltValley
+            // 
+            this.TxtBx_RltValley.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.TxtBx_RltValley.Location = new System.Drawing.Point(139, 82);
+            this.TxtBx_RltValley.Name = "TxtBx_RltValley";
+            this.TxtBx_RltValley.Size = new System.Drawing.Size(125, 29);
+            this.TxtBx_RltValley.TabIndex = 20;
             // 
             // label4
             // 
