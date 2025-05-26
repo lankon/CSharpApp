@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using InstrumentTest.IO_Card;
+
 
 
 namespace InstrumentTest
@@ -19,6 +21,7 @@ namespace InstrumentTest
         F_LoadCell f_LoadCell = new F_LoadCell();
         F_TemperatureController f_TemperatureController = new F_TemperatureController();
         F_Communication f_Communication = new F_Communication();
+        F_IO_Card f_IO_Card = new F_IO_Card();
         #endregion
 
         #region private function
@@ -106,6 +109,14 @@ namespace InstrumentTest
 
             f_Communication.SetF_Communication(GlobalVariable.MyStaticPanel, f_Communication);
             f_Communication.Show();
+        }
+
+        private void Btn_IO_Card_Click(object sender, EventArgs e)
+        {
+            HideElementOnPanel(GlobalVariable.MyStaticPanel);
+
+            f_IO_Card.SetF_IO_Card(GlobalVariable.MyStaticPanel,f_IO_Card);
+            f_IO_Card.Show();
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
 using System.Drawing;
+using System.Data;
 
 namespace CommonFunction
 {
@@ -392,6 +393,168 @@ namespace CommonFunction
 
                 return dic;
             } // 使用using語句確保加載的圖片資源在不再需要時釋放
+        }
+        #endregion
+
+        #region DataGrid
+        public void DataGrid_AddRow(DataGridView dataGridView, string[] context)
+        {
+            if (context.Length != dataGridView.ColumnCount)
+            {
+                SaveHistoryToFile("新增行數與DataGrid行數不一致");
+                return;
+            }
+
+            // 取得目前選取列的 index，如果沒有選取則預設加在最後
+            int insertIndex = dataGridView.CurrentCell?.RowIndex ?? dataGridView.Rows.Count;
+
+            // 插入一列
+            dataGridView.Rows.Insert(insertIndex, context);
+        }
+        public void DataGrid_DeleteRow(DataGridView dataGridView)
+        {
+            if (dataGridView.CurrentRow != null && !dataGridView.CurrentRow.IsNewRow)
+            {
+                dataGridView.Rows.Remove(dataGridView.CurrentRow);
+            }
+        }
+        public void DataGrid_RowUp(DataGridView dataGridView)
+        {
+            // 確保選取的列不為 null 且不是第一列
+            if (dataGridView.CurrentRow != null && dataGridView.CurrentRow.Index > 0)
+            {
+                int currentIndex = dataGridView.CurrentRow.Index;
+                int previousIndex = currentIndex - 1;
+
+                // 交換當前列與上一列
+                var currentRow = dataGridView.Rows[currentIndex];
+                var previousRow = dataGridView.Rows[previousIndex];
+
+                // 交換資料
+                for (int i = 0; i < dataGridView.Columns.Count; i++)
+                {
+                    var temp = currentRow.Cells[i].Value;
+                    currentRow.Cells[i].Value = previousRow.Cells[i].Value;
+                    previousRow.Cells[i].Value = temp;
+                }
+
+                // 更新選擇列
+                dataGridView.CurrentCell = previousRow.Cells[dataGridView.CurrentCell.ColumnIndex];
+            }
+            else
+            {
+                return;
+            }
+        }
+        public bool DataGrid_DataSave(DataGridView dataGridView, string file_name)
+        {
+            bool res = false;
+
+            SaveHistoryToFile($"{file_name}儲存Start");
+
+            string FolderPath = Application.StartupPath + @"\Setting";
+            CreateFolder(FolderPath);
+
+            string file_path = FolderPath + @"\" + file_name;
+
+            // 將 DataGridView 資料轉換為 DataTable
+            DataTable dt = new DataTable("IOTable");
+
+            // 假設 DataGridView 已經有資料
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                dt.Columns.Add(column.Name);
+            }
+
+            // 把每一列資料加到 DataTable 中
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                if (!row.IsNewRow)  // 忽略最後一行空白列
+                {
+                    DataRow dataRow = dt.NewRow();
+                    for (int i = 0; i < dataGridView.Columns.Count; i++)
+                    {
+                        dataRow[i] = row.Cells[i].Value;
+                    }
+                    dt.Rows.Add(dataRow);
+                }
+            }
+
+            // 儲存為 XML 檔案
+            try
+            {
+                dt.WriteXml(file_path);
+                res = true;
+            }
+            catch (Exception ex)
+            {
+                res = false;
+                return res;
+            }
+
+            SaveHistoryToFile($"{file_name}儲存End");
+
+            return res;
+        }
+        public bool DataGrid_DataLoad(DataGridView dataGridView, string file_name)
+        {
+            bool res = false;
+
+            string FolderPath = Application.StartupPath + @"\Setting";
+
+            string file_path = FolderPath + @"\" + file_name;
+
+            DataSet ds = new DataSet();
+
+            ds.ReadXml(file_path);
+
+            DataTable dt = ds.Tables[0];
+
+            dataGridView.Rows.Clear();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                int rowIndex = dataGridView.Rows.Add();
+
+                //// 對應欄位名稱來設定資料（需與 DataGridView 欄位名稱一致）
+                foreach (DataGridViewColumn col in dataGridView.Columns)
+                {
+                    if (dt.Columns.Contains(col.Name))
+                    {
+                        dataGridView.Rows[rowIndex].Cells[col.Name].Value = dr[col.Name];
+                    }
+                }
+            }
+
+            return res;
+        }
+        public void DataGrid_RowDown(DataGridView dataGridView)
+        {
+            // 確保選取的列不為 null 且不是最後一列
+            if (dataGridView.CurrentRow != null && dataGridView.CurrentRow.Index < dataGridView.Rows.Count - 1)
+            {
+                int currentIndex = dataGridView.CurrentRow.Index;
+                int previousIndex = currentIndex + 1;
+
+                // 交換當前列與下一列
+                var currentRow = dataGridView.Rows[currentIndex];
+                var previousRow = dataGridView.Rows[previousIndex];
+
+                // 交換資料
+                for (int i = 0; i < dataGridView.Columns.Count; i++)
+                {
+                    var temp = currentRow.Cells[i].Value;
+                    currentRow.Cells[i].Value = previousRow.Cells[i].Value;
+                    previousRow.Cells[i].Value = temp;
+                }
+
+                // 更新選擇列
+                dataGridView.CurrentCell = previousRow.Cells[dataGridView.CurrentCell.ColumnIndex];
+            }
+            else
+            {
+                return;
+            }
         }
         #endregion
     }
