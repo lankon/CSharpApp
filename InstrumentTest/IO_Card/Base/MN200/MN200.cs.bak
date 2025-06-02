@@ -12,6 +12,7 @@ namespace InstrumentTest.IO_Card.Base
     {
         #region parameter define
         private Int16 nErrCode;
+        private bool Initial_Success = false;
         private const Byte MaxNumDevicesPerLine = 64;
         private const Byte MaxNumLine = 5;
         private const Byte MaxNumStatus = 32;
@@ -123,9 +124,10 @@ namespace InstrumentTest.IO_Card.Base
                 return false;
             }
 
+            Initial_Success = true;
             return true;
         }
-        public override void UpdateInput(byte lineNo, byte devNo)
+        public override void UpdateInput(byte lineNo = 0, byte devNo = 0, byte port = 0)
         {
             UInt16 wData = 0;
             byte m_CurDevType = MN200_Param.DevNoType[lineNo,devNo];
@@ -150,7 +152,10 @@ namespace InstrumentTest.IO_Card.Base
         }
         public override string GetName()
         {
+            if (Initial_Success)
             return "MN200";
+            else
+                return "None";
         }
         #endregion
 

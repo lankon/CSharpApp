@@ -661,7 +661,6 @@ namespace InstrumentTest.IO_Card.Base.APS168_W64
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++			
 	public class APS168
 	{
-        #region x64
         // System & Initialization
         [DllImport("APS168x64.dll")]public static extern Int32  APS_initial( ref System.Int32  BoardID_InBits, System.Int32 Mode );
 		[DllImport("APS168x64.dll")]public static extern Int32  APS_close();
@@ -1400,6 +1399,6 @@ namespace InstrumentTest.IO_Card.Base.APS168_W64
 		[DllImport("APS168x64.dll")]public static extern Int32 APS_set_coordTransform2D_config( System.Int32 Board_ID, System.Int32 AxisID_X, System.Int32 AxisID_Y, System.Double XYAngle, System.Int32 Enable);
 		[DllImport("APS168x64.dll")]public static extern Int32 APS_get_coordTransform2D_config( System.Int32 Board_ID, ref System.Int32 AxisID_X, ref System.Int32 AxisID_Y, ref System.Double XYAngle, ref System.Int32 Enable);
 		[DllImport("APS168x64.dll")]public static extern Int32 APS_get_coordTransform2D_position( System.Int32 Board_ID, ref System.Double Cmd_transform_X, ref System.Int32 Cmd_transform_Y, ref System.Double Fbk_transform_X, ref System.Double Fbk_transform_Y);
-        #endregion
+
 	}
 }

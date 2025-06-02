@@ -7,7 +7,7 @@ using System.Data;
 using System.Runtime.InteropServices;
 
 
-namespace InstrumentTest.IO_Card.Base.APS_Define_W32
+namespace APS_Define_W32
 {
   //[StructLayout(LayoutKind.Sequential)]
   //public struct APS_Define

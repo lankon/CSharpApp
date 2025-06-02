@@ -18,21 +18,11 @@ namespace InstrumentTest.IO_Card.Base.PCIS_DASK
     public class Functions
     {
         
-        #region x86
-        //[DllImport("PCI-Dask.dll")]
-        //public static extern short Register_Card(ushort CardType, ushort card_num);
-
-        //[DllImport("PCI-Dask.dll")]
-        //public static extern short DI_ReadLine(ushort CardNumber, ushort Port, ushort Line, out ushort State);
-        #endregion
-
-        #region x64
-        [DllImport("PCI-Dask64.dll")]
+        [DllImport("PCI-Dask.dll")]
         public static extern short Register_Card(ushort CardType, ushort card_num);
 
-        [DllImport("PCI-Dask64.dll")]
+        [DllImport("PCI-Dask.dll")]
         public static extern short DI_ReadLine(ushort CardNumber, ushort Port, ushort Line, out ushort State);
-        #endregion
 
     }
 }
