@@ -22,9 +22,6 @@ namespace Mapping
 
     class Xlsx
     {
-        Tool tool = new Tool();
-        
-
         public XLWorkbook Open(string path)
         {
             XLWorkbook workbook = null;
@@ -35,7 +32,7 @@ namespace Mapping
             }
             catch
             {
-                tool.SaveHistoryToFile("開啟xlsx失敗");
+                Tool.SaveHistoryToFile("開啟xlsx失敗");
             }
 
             return workbook;
@@ -115,7 +112,7 @@ namespace Mapping
             }
             catch
             {
-                tool.SaveHistoryToFile("xlsx另存新檔失敗");
+                Tool.SaveHistoryToFile("xlsx另存新檔失敗");
                 return false;
             }
         }

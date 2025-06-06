@@ -17,8 +17,6 @@ namespace FileTransform
         [STAThread]
         static void Main(string[] args)
         {
-            Tool tool = new Tool();
-
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -31,12 +29,12 @@ namespace FileTransform
 
                 if(input == "CallServer")
                 {
-                    tool.SaveHistoryToFile("CallServer");
+                    Tool.SaveHistoryToFile("CallServer");
                     Application.Run(new MyApplicationContext());
                 }
                 else
                 {
-                    tool.SaveHistoryToFile("a");
+                    Tool.SaveHistoryToFile("a");
                     Application.Run(new F_MainForm(""));
                 }
             }

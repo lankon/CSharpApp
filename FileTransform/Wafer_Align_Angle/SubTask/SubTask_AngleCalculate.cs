@@ -30,7 +30,6 @@ namespace FileTransform.Wafer_Align_Angle
         private TASK_STATUS status = TASK_STATUS.CONTINUE;
         private Mat image;
         Mat outputImage = new Mat();
-        Tool tool = new Tool();
         private F_Wafer_Align_Angle f_Wafer_Align_Angle;
         public override UpdateTaskStateCallBack UpdateTaskState { get; set; }
         public override SetErrorMsgCallBack SetErrorMsg { get ; set; }
@@ -67,7 +66,7 @@ namespace FileTransform.Wafer_Align_Angle
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[SubTask](SubTaskCalculate)" + target.ToString());
+                Tool.SaveHistoryToFile("[SubTask](SubTaskCalculate)" + target.ToString());
             }
 
             state = target;
@@ -175,7 +174,7 @@ namespace FileTransform.Wafer_Align_Angle
             if (IsServerMode == false)
                 MessageBox.Show(msg);
             else
-                tool.SaveHistoryToFile(msg);
+                Tool.SaveHistoryToFile(msg);
         }
         #endregion
 
@@ -230,7 +229,7 @@ namespace FileTransform.Wafer_Align_Angle
                 f_Wafer_Align_Angle = form as F_Wafer_Align_Angle; // 嘗試轉型
                 if (f_Wafer_Align_Angle == null)
                 {
-                    tool.SaveHistoryToFile("F_Wafer_Align_Angle轉型失敗");
+                    Tool.SaveHistoryToFile("F_Wafer_Align_Angle轉型失敗");
                 }
             }
         }
@@ -285,7 +284,7 @@ namespace FileTransform.Wafer_Align_Angle
 
                         if (image.Empty())
                         {
-                            tool.SaveHistoryToFile("影像不存在");
+                            Tool.SaveHistoryToFile("影像不存在");
                             Transition(WORK.SUCCESS);
                             break;
                         }
@@ -359,7 +358,7 @@ namespace FileTransform.Wafer_Align_Angle
                         }
                         catch (Exception ex)
                         {
-                            tool.SaveHistoryToFile($"{ex}");
+                            Tool.SaveHistoryToFile($"{ex}");
                         }
 
                         // 找到輪廓

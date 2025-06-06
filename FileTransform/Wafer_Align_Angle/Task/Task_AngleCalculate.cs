@@ -19,7 +19,6 @@ namespace FileTransform.Wafer_Align_Angle
         private bool TerminateClient = false;
         private int task_delay = 0;
         private int delay_time = 2;
-        Tool tool = new Tool();
         TCPIP_Server tCPIP_Server = new TCPIP_Server();
         SubTask_AngleCalculate Calculate;
         private WORK state = WORK.INITIAL;
@@ -59,7 +58,7 @@ namespace FileTransform.Wafer_Align_Angle
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[Task](Task_AngleCalculate)" + target.ToString());
+                Tool.SaveHistoryToFile("[Task](Task_AngleCalculate)" + target.ToString());
                 UpdateTaskState("[Task](Task_AngleCalculate)" + target.ToString());
             }
 
@@ -224,7 +223,7 @@ namespace FileTransform.Wafer_Align_Angle
                 f_Wafer_Align_Angle = form as F_Wafer_Align_Angle; // 嘗試轉型
                 if (f_Wafer_Align_Angle == null)
                 {
-                    tool.SaveHistoryToFile("F_Wafer_Align_Angle轉型失敗");
+                    Tool.SaveHistoryToFile("F_Wafer_Align_Angle轉型失敗");
                 }
             }
         }

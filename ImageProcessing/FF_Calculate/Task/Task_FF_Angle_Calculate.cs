@@ -15,7 +15,6 @@ namespace ImageProcessing.FF_Calculate
         private bool IsSubTaskProcessing = false;
         private int task_delay = 0;
         private int delay_time = 2;
-        Tool tool = new Tool();
         private WORK state = WORK.INITIAL;
         private TASK_STATUS status_commad = TASK_STATUS.NONE;
         private TASK_STATUS pre_status_commad = TASK_STATUS.NONE;
@@ -52,7 +51,7 @@ namespace ImageProcessing.FF_Calculate
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[Task](Task_FF_Angle_Calculate)" + target.ToString());
+                Tool.SaveHistoryToFile("[Task](Task_FF_Angle_Calculate)" + target.ToString());
                 UpdateTaskState("[Task](Task_FF_Angle_Calculate)" + target.ToString());
             }
 
@@ -205,7 +204,7 @@ namespace ImageProcessing.FF_Calculate
                 f_FF_Calculate = form as F_FF_Calculate; // 嘗試轉型
                 if (f_FF_Calculate == null)
                 {
-                    tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
+                    Tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
                 }
             }
         }

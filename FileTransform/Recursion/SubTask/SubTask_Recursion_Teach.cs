@@ -34,7 +34,6 @@ namespace FileTransform.Recursion
             END,
         }
 
-        Tool tool = new Tool();
         private WORK state;// = WORK.INITIAL;
         private bool IsFinish = false;
         private int test_time = 0;
@@ -70,7 +69,7 @@ namespace FileTransform.Recursion
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("(SubTask_Recursion_Teach):"+ target.ToString());
+                Tool.SaveHistoryToFile("(SubTask_Recursion_Teach):"+ target.ToString());
             }
 
             state = target;
@@ -118,7 +117,7 @@ namespace FileTransform.Recursion
                     }
                 case WORK.LOAD_IMAGE:
                     {
-                        tool.SaveHistoryToFile("(SubTask_Recursion_Teach):" + state.ToString());
+                        Tool.SaveHistoryToFile("(SubTask_Recursion_Teach):" + state.ToString());
                         ResetTimeCount(out test_time);
 
                         string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
@@ -126,7 +125,7 @@ namespace FileTransform.Recursion
                         
                         if (image.Empty())
                         {
-                            tool.SaveHistoryToFile("針痕教學影像不存在");
+                            Tool.SaveHistoryToFile("針痕教學影像不存在");
                             Transition(WORK.SUCCESS);
                             break;
                         }

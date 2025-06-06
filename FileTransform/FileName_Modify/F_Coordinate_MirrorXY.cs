@@ -19,7 +19,6 @@ namespace FileTransform
             InitializeComponent();
         }
 
-        Tool tool = new Tool();
       
         public string Preview_Coordinate_MirrorXY(string FileName)
         {
@@ -59,7 +58,7 @@ namespace FileTransform
             }
             else
             {
-                tool.SaveHistoryToFile("未找到匹配座標");
+                Tool.SaveHistoryToFile("未找到匹配座標");
             }
 
             return newFileName;

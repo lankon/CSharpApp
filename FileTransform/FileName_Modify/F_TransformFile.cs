@@ -16,7 +16,6 @@ namespace FileTransform
 {
     public partial class F_TransformFile : Form
     {
-        Tool tool = new Tool();
         F_Insert_Text_to_File_Name fInsert_Text_to_File_Name = new F_Insert_Text_to_File_Name();
         F_Coordinate_MirrorXY fCoordinate_MirrorXY = new F_Coordinate_MirrorXY();
         F_Coordinate_Transform fCoordinated_Transdorm = new F_Coordinate_Transform();
@@ -278,7 +277,7 @@ namespace FileTransform
             {
                 if(PageCount == 1)
                 {
-                    tool.SaveHistoryToFile("無測試項可刪除");
+                    Tool.SaveHistoryToFile("無測試項可刪除");
                     return;
                 }
                 else
@@ -323,7 +322,7 @@ namespace FileTransform
         {
             if(TxtBx_FilePath.Text == "")
             {
-                tool.SaveHistoryToFile("未選擇檔案");
+                Tool.SaveHistoryToFile("未選擇檔案");
                 MessageBox.Show("Please Select File");
             }
             
@@ -331,7 +330,7 @@ namespace FileTransform
 
             if(PageCount == 1)
             {
-                tool.SaveHistoryToFile("未選擇方法");
+                Tool.SaveHistoryToFile("未選擇方法");
                 MessageBox.Show("Please Select Function");
             }
 
@@ -371,24 +370,24 @@ namespace FileTransform
 
             if (folderPath == "")
             {
-                tool.SaveHistoryToFile("未選擇檔案");
+                Tool.SaveHistoryToFile("未選擇檔案");
                 MessageBox.Show("Please Select File");
                 return;
             }
             else if (PageCount == 1)
             {
-                tool.SaveHistoryToFile("未選擇方法");
+                Tool.SaveHistoryToFile("未選擇方法");
                 MessageBox.Show("Please Select Function");
                 return;
             }
             else if (!Directory.Exists(folderPath))
             {
-                tool.SaveHistoryToFile("轉檔路徑不存在");
+                Tool.SaveHistoryToFile("轉檔路徑不存在");
                 MessageBox.Show("File Path No Exist");
                 return;
             }
 
-            tool.CreateFolder(newfolderPath);
+            Tool.CreateFolder(newfolderPath);
             TxtBx_SavePath.Text = newfolderPath;
             // 取得資料夾內的所有檔案
             string[] files = Directory.GetFiles(folderPath);

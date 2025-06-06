@@ -16,7 +16,6 @@ namespace LFSMEO.UI
     public partial class F_StartForm : Form
     {
         #region parameter define
-        Tool tool = new Tool();
         #endregion
 
         #region private function

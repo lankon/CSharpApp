@@ -32,7 +32,6 @@ namespace CSharpApp
             Cmbx_LogIn,
         }
 
-        Tool Tool = new Tool();
 
         public F_LogIn()
         {

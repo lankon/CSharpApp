@@ -16,7 +16,6 @@ namespace FileTransform
     public partial class F_Recursion_Setting : Form
     {
         #region parameter define
-        Tool tool = new Tool();
         #endregion
 
         #region private function
@@ -75,7 +74,7 @@ namespace FileTransform
             if (selectedFileName == "")
             {
                 MessageBox.Show("Teach Path Set Fail");
-                tool.SaveHistoryToFile("Teach Path設定失敗");
+                Tool.SaveHistoryToFile("Teach Path設定失敗");
                 return;
             }
 
@@ -100,7 +99,7 @@ namespace FileTransform
             if(selectedFileName == "")
             {
                 MessageBox.Show("Bath Path Set Fail");
-                tool.SaveHistoryToFile("Batch Path設定失敗");
+                Tool.SaveHistoryToFile("Batch Path設定失敗");
                 return;
             }
             

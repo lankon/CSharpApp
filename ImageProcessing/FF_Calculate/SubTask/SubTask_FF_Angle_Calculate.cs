@@ -26,7 +26,6 @@ namespace ImageProcessing.FF_Calculate
         private TASK_STATUS status = TASK_STATUS.CONTINUE;
         private Mat image;
         Mat outputImage = new Mat();
-        Tool tool = new Tool();
         private F_FF_Calculate f_FF_Calculate;
         public override UpdateTaskStateCallBack UpdateTaskState { get; set; }
         public override SetErrorMsgCallBack SetErrorMsg { get; set; }
@@ -63,7 +62,7 @@ namespace ImageProcessing.FF_Calculate
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[SubTask](SubTask_FF_Angle_Calculate)" + target.ToString());
+                Tool.SaveHistoryToFile("[SubTask](SubTask_FF_Angle_Calculate)" + target.ToString());
             }
 
             state = target;
@@ -172,7 +171,7 @@ namespace ImageProcessing.FF_Calculate
             if (IsServerMode == false)
                 MessageBox.Show(msg);
             else
-                tool.SaveHistoryToFile(msg);
+                Tool.SaveHistoryToFile(msg);
         }
         #endregion
 
@@ -227,7 +226,7 @@ namespace ImageProcessing.FF_Calculate
                 f_FF_Calculate = form as F_FF_Calculate; // 嘗試轉型
                 if (f_FF_Calculate == null)
                 {
-                    tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
+                    Tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
                 }
             }
         }
@@ -282,7 +281,7 @@ namespace ImageProcessing.FF_Calculate
 
                         if (image.Empty())
                         {
-                            tool.SaveHistoryToFile("影像不存在");
+                            Tool.SaveHistoryToFile("影像不存在");
                             Transition(WORK.SUCCESS);
                             break;
                         }
@@ -356,7 +355,7 @@ namespace ImageProcessing.FF_Calculate
                         }
                         catch (Exception ex)
                         {
-                            tool.SaveHistoryToFile($"{ex}");
+                            Tool.SaveHistoryToFile($"{ex}");
                         }
 
                         // 找到輪廓

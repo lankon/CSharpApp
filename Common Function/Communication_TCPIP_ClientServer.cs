@@ -22,7 +22,6 @@ namespace CommonFunction
         TcpListener listener;
         TcpClient client;
         NetworkStream stream;
-        Tool tool = new Tool();
         #endregion
 
         #region private function
@@ -38,14 +37,14 @@ namespace CommonFunction
             {
                 listener = new TcpListener(IPAddress.Parse(ip), port);   //本地地址ex:127.0.0.1 區網地址ex:192.168.x.x Port:87
                 listener.Start();
-                tool.SaveHistoryToFile($"[Server]Open server at {ip}:{port}");
+                Tool.SaveHistoryToFile($"[Server]Open server at {ip}:{port}");
                 //Task task = Task.Run(() => MainTask());
 
                 res = true;
             }
             catch(Exception ex)
             {
-                tool.SaveHistoryToFile($"{ex}");
+                Tool.SaveHistoryToFile($"{ex}");
             }
 
             return res;
@@ -64,7 +63,7 @@ namespace CommonFunction
             }
             catch(Exception ex)
             {
-                tool.SaveHistoryToFile($"{ex}");
+                Tool.SaveHistoryToFile($"{ex}");
             }
 
             return res;
@@ -84,7 +83,7 @@ namespace CommonFunction
             }
             catch(Exception ex)
             {
-                tool.SaveHistoryToFile($"{ex}");
+                Tool.SaveHistoryToFile($"{ex}");
             }
             
             return res;
@@ -112,7 +111,7 @@ namespace CommonFunction
             string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
             GetCommand = receivedMessage;
             q_Command.Enqueue(GetCommand);
-            tool.SaveHistoryToFile($"[Server]Read:{receivedMessage}", "Server");
+            Tool.SaveHistoryToFile($"[Server]Read:{receivedMessage}", "Server");
         }
         #endregion
 
@@ -135,7 +134,7 @@ namespace CommonFunction
                 string receivedMessage = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 GetCommand = receivedMessage;
                 q_Command.Enqueue(GetCommand);
-                tool.SaveHistoryToFile($"[Server]Read:{receivedMessage}", "Server");
+                Tool.SaveHistoryToFile($"[Server]Read:{receivedMessage}", "Server");
 
                 Thread.Sleep(1);
             }
@@ -147,7 +146,6 @@ namespace CommonFunction
         #region parameter define
         TcpClient client;
         NetworkStream stream;
-        Tool tool = new Tool();
         #endregion
 
         #region private function
@@ -162,12 +160,12 @@ namespace CommonFunction
             {
                 // 連接到伺服器
                 client = new TcpClient(serverIP, port);
-                tool.SaveHistoryToFile($"[Client]Connected to server at {serverIP}:{port}");
+                Tool.SaveHistoryToFile($"[Client]Connected to server at {serverIP}:{port}");
                 res = true;
             }
             catch(Exception ex)
             {
-                tool.SaveHistoryToFile($"{ex}");
+                Tool.SaveHistoryToFile($"{ex}");
             }
 
             return res;
@@ -185,7 +183,7 @@ namespace CommonFunction
             }
             catch (Exception ex)
             {
-                tool.SaveHistoryToFile($"{ex}");
+                Tool.SaveHistoryToFile($"{ex}");
             }
 
             return res;
@@ -200,12 +198,12 @@ namespace CommonFunction
                 byte[] data = Encoding.UTF8.GetBytes(msg);
                 stream = client.GetStream();
                 stream.Write(data, 0, data.Length);
-                tool.SaveHistoryToFile($"[Client]Sent:{msg}");
+                Tool.SaveHistoryToFile($"[Client]Sent:{msg}");
                 res = true;
             }
             catch(Exception ex)
             {
-                tool.SaveHistoryToFile($"{ex}");
+                Tool.SaveHistoryToFile($"{ex}");
                 res = false;
             }
 
@@ -224,11 +222,11 @@ namespace CommonFunction
                 int bytesRead = stream.Read(buffer, 0, buffer.Length);
                 string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 res = response;
-                tool.SaveHistoryToFile($"[Client]Receive:{response}", "Client");
+                Tool.SaveHistoryToFile($"[Client]Receive:{response}", "Client");
             }
             catch (Exception ex)
             {
-                tool.SaveHistoryToFile($"{ex}");
+                Tool.SaveHistoryToFile($"{ex}");
                 return res = "FAIL";
             }
 

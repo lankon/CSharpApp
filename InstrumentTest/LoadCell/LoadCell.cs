@@ -25,7 +25,6 @@ namespace InstrumentTest
     public class LoadCell_Delta : ILoadCell
     {
         Rs485 rs485 = new Rs485();
-        Tool tool = new Tool();
         private int DeviceNum = 2;
         private double TrigGramReference = 2.5; //目標克重
         private double[] Gram;
@@ -142,10 +141,10 @@ namespace InstrumentTest
 
         public void Set_Station(string s_station1, string s_station2, string s_station3, string s_station4)
         {
-            int station1 = tool.StringToInt(s_station1);
-            int station2 = tool.StringToInt(s_station2);
-            int station3 = tool.StringToInt(s_station3);
-            int station4 = tool.StringToInt(s_station4);
+            int station1 = Tool.StringToInt(s_station1);
+            int station2 = Tool.StringToInt(s_station2);
+            int station3 = Tool.StringToInt(s_station3);
+            int station4 = Tool.StringToInt(s_station4);
 
             Station[0] = (byte)station1;
             Station[1] = (byte)station2;
@@ -261,7 +260,6 @@ namespace InstrumentTest
             ERROR,
         }
 
-        Tool tool = new Tool();
         private bool Terminate = true;
         private WORK state = WORK.INITIAL;
         ILoadCell[] LoadCell = new ILoadCell[4];
@@ -293,7 +291,7 @@ namespace InstrumentTest
         {
             if(target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile(state.ToString());
+                Tool.SaveHistoryToFile(state.ToString());
             }
             
             state = target;         

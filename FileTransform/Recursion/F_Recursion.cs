@@ -19,7 +19,6 @@ namespace FileTransform.Recursion
     {
         #region parameter define 
         Task_Recursion RC = new Task_Recursion();
-        Tool tool = new Tool();
         Dictionary<string, double> Dic_Picture = new Dictionary<string, double>();
 
         private bool _isDrawing;
@@ -41,7 +40,7 @@ namespace FileTransform.Recursion
         }
         private void ShowImage(string path)
         {
-            Dic_Picture = tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Recursion.png");
+            Dic_Picture = Tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Recursion.png");
         }
         private void ShowName(string name)
         {
@@ -227,9 +226,9 @@ namespace FileTransform.Recursion
 
             #region 寫檔
             StreamWriter File;
-            File = tool.CreateFile(@"\Result\Recursion", ".csv", true);
-            tool.WriteFile(File, $"Name,X(um),Y(um)");
-            tool.CloseFile(File);
+            File = Tool.CreateFile(@"\Result\Recursion", ".csv", true);
+            Tool.WriteFile(File, $"Name,X(um),Y(um)");
+            Tool.CloseFile(File);
             #endregion
 
             RC.Process_Bath();

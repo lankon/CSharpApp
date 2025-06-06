@@ -17,7 +17,6 @@ namespace Mapping
     {
         #region parameter define
         F_Mapping f_Mapping = new F_Mapping();
-        Tool tool = new Tool();
         MapInformation mapInformation = new MapInformation();
         #endregion
 
@@ -78,7 +77,7 @@ namespace Mapping
             if (mapInformation.CellInfo.Count == 0)
             {
                 MessageBox.Show("Read File Error");
-                tool.SaveHistoryToFile("讀取檔案失敗");
+                Tool.SaveHistoryToFile("讀取檔案失敗");
                 return;
             }
         }
@@ -88,7 +87,7 @@ namespace Mapping
             //if (mapInformation.CellInfo.Count == 0)
             //{
             //    MessageBox.Show("Please Load Wafer Data");
-            //    tool.SaveHistoryToFile("未載入晶圓資料");
+            //    Tool.SaveHistoryToFile("未載入晶圓資料");
             //    return;
             //}
 
@@ -98,9 +97,9 @@ namespace Mapping
             //Labl_ShowCellValue.Visible = false;
 
             //Dictionary<string, object> myDictionary = null;
-            //double Start = tool.StringToDouble(TxtBx_Start.Text);
-            //double End = tool.StringToDouble(TxtBx_End.Text);
-            //double Step = tool.StringToDouble(TxtBx_Step.Text);
+            //double Start = Tool.StringToDouble(TxtBx_Start.Text);
+            //double End = Tool.StringToDouble(TxtBx_End.Text);
+            //double Step = Tool.StringToDouble(TxtBx_Step.Text);
             //String TestItem = Cmbx_TestItem.Text;
             //int[] XY_Direc = new int[2];
 
@@ -120,7 +119,7 @@ namespace Mapping
             //if (Start > End)
             //{
             //    MessageBox.Show("Start Large Than End");
-            //    tool.SaveHistoryToFile("起始值比結束值大");
+            //    Tool.SaveHistoryToFile("起始值比結束值大");
             //    return;
             //}
 
@@ -149,17 +148,17 @@ namespace Mapping
             //DrawColorbar(Pnl_Colorbar, mapInformation.ValueRegionCount,
             //             mapInformation.ColorList, mapInformation.ValueRegion);
 
-            //tool.CreateFolder(Application.StartupPath + @"\Temp");
-            //tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
-            //tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
-            //tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
-            //tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+            //Tool.CreateFolder(Application.StartupPath + @"\Temp");
+            //Tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
+            //Tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
+            //Tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+            //Tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
 
             //isLargeImg = false;
             //PicBx_Colorbar.Visible = true;
             //PicBx_Mapping.Visible = true;
 
-            //tool.SaveHistoryToFile("繪圖完成");
+            //Tool.SaveHistoryToFile("繪圖完成");
             //#endregion
 
             //AddTestItemCondition();

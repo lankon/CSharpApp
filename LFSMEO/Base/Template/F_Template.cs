@@ -15,7 +15,6 @@ namespace LFSMEO.Base.Template
     public partial class F_Template : Form
     {
         #region parameter define
-        Tool tool = new Tool();
         #endregion
 
         #region private function

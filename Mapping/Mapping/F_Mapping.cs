@@ -37,7 +37,6 @@ namespace Mapping
     public partial class F_Mapping : Form
     {
         #region parameter define 
-        Tool tool = new Tool();
         Xlsx xlsx = new Xlsx();
         XLWorkbook file_xlsx;
 
@@ -141,14 +140,14 @@ namespace Mapping
             {
                 flag = false;
                 MessageBox.Show("Please Enter X Coordinate Key Word");
-                tool.SaveHistoryToFile("X座標關鍵字未輸入");
+                Tool.SaveHistoryToFile("X座標關鍵字未輸入");
             }
 
             if (ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_Y_KeyWord) == "")
             {
                 flag = false;
                 MessageBox.Show("Please Enter Y Coordinate Key Word");
-                tool.SaveHistoryToFile("Y座標關鍵字未輸入");
+                Tool.SaveHistoryToFile("Y座標關鍵字未輸入");
             }
 
             return flag;
@@ -177,7 +176,7 @@ namespace Mapping
         #region private function
         private void InitialApplication()
         {
-            tool.SaveHistoryToFile("開啟應用程式");
+            Tool.SaveHistoryToFile("開啟應用程式");
 
             ApplicationSetting.ReadAllRecipe<FormItem>();
             ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
@@ -217,7 +216,7 @@ namespace Mapping
         }
         private void SaveTestItemCondition()
         {
-            tool.SaveHistoryToFile("Save Test Item Condition Start");
+            Tool.SaveHistoryToFile("Save Test Item Condition Start");
 
             Dictionary<string, string> row = new Dictionary<string, string>();
 
@@ -232,7 +231,7 @@ namespace Mapping
             if (item != "Item")
                 TestItemCondition.Insert(0, row);
 
-            StreamWriter writer = tool.CreateFile("TestData\\TestItemCondition", ".txt", false);
+            StreamWriter writer = Tool.CreateFile("TestData\\TestItemCondition", ".txt", false);
 
             //寫入資料
             string context = "";
@@ -252,27 +251,27 @@ namespace Mapping
                         context = context + kvp.Value;
                 }
 
-                tool.WriteFile(writer, context);
+                Tool.WriteFile(writer, context);
 
                 context = "";
                 ii = 0;
             }
 
-            tool.CloseFile(writer);
+            Tool.CloseFile(writer);
 
-            tool.SaveHistoryToFile("Save Test Item Condition End");
+            Tool.SaveHistoryToFile("Save Test Item Condition End");
         }
         private void LoadTestItemCondition()
         {
-            tool.SaveHistoryToFile("LoadTsetItemCodition Start");
+            Tool.SaveHistoryToFile("LoadTsetItemCodition Start");
             
             string path = System.IO.Directory.GetCurrentDirectory();
             path = path + "\\" + "TestData\\TestItemCondition.txt";
 
             List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
-            TestItemCondition = tool.ReadCsvFile(path, true);
+            TestItemCondition = Tool.ReadCsvFile(path, true);
 
-            tool.SaveHistoryToFile("LoadTsetItemCodition End");
+            Tool.SaveHistoryToFile("LoadTsetItemCodition End");
         }
         private void UpdateTestItemConditionToForm()
         {
@@ -546,7 +545,7 @@ namespace Mapping
                 i++;
                 if (i > 500)
                 {
-                    tool.SaveHistoryToFile("TestItemt超過500項");
+                    Tool.SaveHistoryToFile("TestItemt超過500項");
                     break;
                 }
 
@@ -621,7 +620,7 @@ namespace Mapping
             myDictionary.Add("GridSize", GridSize);
 
             if(GridSize == 0)
-                tool.SaveHistoryToFile("座標超出繪圖範圍");
+                Tool.SaveHistoryToFile("座標超出繪圖範圍");
             #endregion
 
             #region 找中心點位移量
@@ -745,7 +744,7 @@ namespace Mapping
                         }
                         else
                         {
-                            tool.SaveHistoryToFile("繪圖失敗,讀取測試值型態轉換錯誤");
+                            Tool.SaveHistoryToFile("繪圖失敗,讀取測試值型態轉換錯誤");
                             break;
                         }
                     }
@@ -764,7 +763,7 @@ namespace Mapping
                     }
                     else
                     {
-                        tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
+                        Tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
                         break;
                     }
                 }
@@ -843,16 +842,16 @@ namespace Mapping
             file_xlsx = xlsx.Open(path);
 
             if (file_xlsx == null)
-                tool.SaveHistoryToFile("OpenXlsx開啟失敗");
+                Tool.SaveHistoryToFile("OpenXlsx開啟失敗");
         }
         private void SaveAsXlsxMapping(MapInformation map, String TestItem, int[] xy_dir)
         {
-            tool.SaveHistoryToFile("儲存xlsx mapping start");
+            Tool.SaveHistoryToFile("儲存xlsx mapping start");
 
             if (file_xlsx == null)
             {
                 MessageBox.Show("Save xlsx error");
-                tool.SaveHistoryToFile("xlsx存檔失敗");
+                Tool.SaveHistoryToFile("xlsx存檔失敗");
                 return;
             }
 
@@ -917,9 +916,9 @@ namespace Mapping
                 map.CellInfo[i].TryGetValue(s_PosY, out String sPosY);
                 map.CellInfo[i].TryGetValue(TestItem, out String sValue);
 
-                int iPosX = tool.StringToInt(sPosX);
-                int iPosY = tool.StringToInt(sPosY);
-                double dValue = tool.StringToDouble(sValue);
+                int iPosX = Tool.StringToInt(sPosX);
+                int iPosY = Tool.StringToInt(sPosY);
+                double dValue = Tool.StringToDouble(sValue);
 
                 if (xy_dir[0] == 1)
                     iPosX = iPosX - map.MinPosX + offset_x;
@@ -941,11 +940,11 @@ namespace Mapping
             if (!res)
             {
                 MessageBox.Show("Save xlsx error");
-                tool.SaveHistoryToFile("xlsx存檔失敗");
+                Tool.SaveHistoryToFile("xlsx存檔失敗");
                 return;
             }
 
-            tool.SaveHistoryToFile("儲存xlsx mapping end");
+            Tool.SaveHistoryToFile("儲存xlsx mapping end");
             MessageBox.Show("Finish");
         }
         private void SaveAsTxtMapping(MapInformation map, String TestItem, int[] xy_dir)
@@ -987,8 +986,8 @@ namespace Mapping
                 map.CellInfo[i].TryGetValue(s_PosY, out String sPosY);
                 map.CellInfo[i].TryGetValue(TestItem, out String sValue);
 
-                int iPosX = tool.StringToInt(sPosX);
-                int iPosY = tool.StringToInt(sPosY);
+                int iPosX = Tool.StringToInt(sPosX);
+                int iPosY = Tool.StringToInt(sPosY);
 
                 if (xy_dir[0] == 1)
                     iPosX = iPosX - map.MinPosX;
@@ -1008,7 +1007,7 @@ namespace Mapping
             #endregion
 
             #region 寫檔
-            StreamWriter File = tool.CreateFile(@"\Result\Mapping", ".txt", false);
+            StreamWriter File = Tool.CreateFile(@"\Result\Mapping", ".txt", false);
             string data = "";
             for (int i = 0; i < len_y; i++)
             {
@@ -1017,12 +1016,12 @@ namespace Mapping
                     data += bin_map[j][i];
                 }
 
-                tool.WriteFile(File, data);
+                Tool.WriteFile(File, data);
                 data = "";
             }
             #endregion
 
-            tool.CloseFile(File);
+            Tool.CloseFile(File);
         }
         private List<Dictionary<string, string>> PickupMapInformation(List<Dictionary<string, string>> small_map,
                                                                       int x_start, int x_end, int y_start, int y_end)
@@ -1053,7 +1052,7 @@ namespace Mapping
                     !Int32.TryParse(sPosX, out int dPosX) ||
                     !Int32.TryParse(sPosY, out int dPosY))
                 {
-                    tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
+                    Tool.SaveHistoryToFile("繪圖失敗,讀取座標型態轉換錯誤");
                     continue;
                 }
 
@@ -1080,14 +1079,14 @@ namespace Mapping
             if (mapInformation.CellInfo.Count == 0)
             {
                 MessageBox.Show("Please Load Wafer Data");
-                tool.SaveHistoryToFile("未載入晶圓資料");
+                Tool.SaveHistoryToFile("未載入晶圓資料");
                 return;
             }
 
             if (TxtBx_Start.Text == "" || TxtBx_End.Text == "" || TxtBx_Step.Text == "")
             {
                 MessageBox.Show("Please Enter Draw Condition");
-                tool.SaveHistoryToFile("未輸入晶圓繪圖條件");
+                Tool.SaveHistoryToFile("未輸入晶圓繪圖條件");
                 return;
             }
 
@@ -1099,9 +1098,9 @@ namespace Mapping
             TxtBx_ShowItem.Text = Cmbx_TestItem.Text;
 
             Dictionary<string, object> myDictionary = null;
-            double Start = tool.StringToDouble(TxtBx_Start.Text);
-            double End = tool.StringToDouble(TxtBx_End.Text);
-            double Step = tool.StringToDouble(TxtBx_Step.Text);
+            double Start = Tool.StringToDouble(TxtBx_Start.Text);
+            double End = Tool.StringToDouble(TxtBx_End.Text);
+            double Step = Tool.StringToDouble(TxtBx_Step.Text);
             String TestItem = Cmbx_TestItem.Text;
             int[] XY_Direc = new int[2];
 
@@ -1121,7 +1120,7 @@ namespace Mapping
             if (Start > End)
             {
                 MessageBox.Show("Start Large Than End");
-                tool.SaveHistoryToFile("起始值比結束值大");
+                Tool.SaveHistoryToFile("起始值比結束值大");
                 return;
             }
 
@@ -1150,17 +1149,17 @@ namespace Mapping
             DrawColorbar(Pnl_Colorbar, mapInformation.ValueRegionCount,
                          mapInformation.ColorList, mapInformation.ValueRegion);
 
-            tool.CreateFolder(Application.StartupPath + @"\Temp");
-            tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
-            tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
-            tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
-            tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+            Tool.CreateFolder(Application.StartupPath + @"\Temp");
+            Tool.CaptureImage(Pnl_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
+            Tool.LoadImageToPicBx(PicBx_Colorbar, Application.StartupPath + @"\Temp\Pnl_Colorbar.png");
+            Tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+            Tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
 
             isLargeImg = false;
             PicBx_Colorbar.Visible = true;
             PicBx_Mapping.Visible = true;
             
-            tool.SaveHistoryToFile("繪圖完成");
+            Tool.SaveHistoryToFile("繪圖完成");
             #endregion
 
             AddTestItemCondition();
@@ -1219,7 +1218,7 @@ namespace Mapping
             if (mapInformation.CellInfo.Count == 0)
             {
                 MessageBox.Show("Read File Error");
-                tool.SaveHistoryToFile("讀取檔案失敗");
+                Tool.SaveHistoryToFile("讀取檔案失敗");
                 return;
             }
 
@@ -1241,7 +1240,7 @@ namespace Mapping
                 ApplicationSetting.SaveAllRecipe(this);
                 
                 Application.Exit();
-                tool.SaveHistoryToFile("關閉應用程式");
+                Tool.SaveHistoryToFile("關閉應用程式");
             }
             else
             {
@@ -1427,9 +1426,9 @@ namespace Mapping
                 Labl_ShowCellValue.Visible = false;
 
                 Dictionary<string, object> myDictionary = null;
-                double Start = tool.StringToDouble(TxtBx_Start.Text);
-                double End = tool.StringToDouble(TxtBx_End.Text);
-                double Step = tool.StringToDouble(TxtBx_Step.Text);
+                double Start = Tool.StringToDouble(TxtBx_Start.Text);
+                double End = Tool.StringToDouble(TxtBx_End.Text);
+                double Step = Tool.StringToDouble(TxtBx_Step.Text);
                 String TestItem = Cmbx_TestItem.Text;
                 int[] XY_Direc = new int[2];
 
@@ -1449,7 +1448,7 @@ namespace Mapping
                 if (Start > End)
                 {
                     MessageBox.Show("Start Large Than End");
-                    tool.SaveHistoryToFile("起始值比結束值大");
+                    Tool.SaveHistoryToFile("起始值比結束值大");
                     return;
                 }
 
@@ -1480,8 +1479,8 @@ namespace Mapping
                             SmallMap.ShiftX, SmallMap.ShiftY,
                             TestItem, SmallMap.ColorList, SmallMap.ValueRegion, XY_Direc);
 
-                tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
-                tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+                Tool.CaptureImage(Pnl_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
+                Tool.LoadImageToPicBx(PicBx_Mapping, Application.StartupPath + @"\Temp\Pnl_Mapping.png");
 
                 PicBx_Colorbar.Visible = true;
                 PicBx_Mapping.Visible = true;

@@ -13,10 +13,10 @@ using System.Drawing;
 
 namespace CommonFunction
 {
-    public class Tool
+    public static class Tool
     {
         #region 寫檔
-        public StreamWriter CreateFile(String Name, String Type, bool ContinueWrite)
+        public static StreamWriter CreateFile(String Name, String Type, bool ContinueWrite)
         {            
             String path;
             StreamWriter File;
@@ -36,19 +36,19 @@ namespace CommonFunction
             return File;
         }
 
-        public void WriteFile(StreamWriter File, String Msg)
+        public static void WriteFile(StreamWriter File, String Msg)
         {
             File.WriteLine(Msg);
         }
 
-        public void CloseFile(StreamWriter File)
+        public static void CloseFile(StreamWriter File)
         {
             File.Close();
         }
         #endregion
 
         #region 寫Log
-        public void SaveHistoryToFile(String Msg, string path = "defaut")
+        public static void SaveHistoryToFile(String Msg, string path = "defaut")
         {
             StreamWriter sw = null;
             DateTime currentTime = DateTime.Now;
@@ -67,7 +67,7 @@ namespace CommonFunction
         #endregion
 
         #region 讀檔
-        public List<Dictionary<string, string>> ReadCsvFile(String Path, bool HaveTitle)
+        public static List<Dictionary<string, string>> ReadCsvFile(String Path, bool HaveTitle)
         {
             List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
 
@@ -141,7 +141,7 @@ namespace CommonFunction
         #endregion
 
         #region 組態檔 寫入/讀取 config
-        public String ReadSetting(string key)
+        public static String ReadSetting(string key)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace CommonFunction
                 return "Error";
             }
         }
-        public String AddUmpdateAppSettings(string key, string value)
+        public static String AddUmpdateAppSettings(string key, string value)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace CommonFunction
         #endregion
 
         #region 字串加密
-        public String FixPassword(String Password)
+        public static String FixPassword(String Password)
         {
             try
             {
@@ -214,12 +214,12 @@ namespace CommonFunction
 
         #region 型別轉換
         #region Enum to String List
-        public List<EnumName> EnumToStringList<EnumName>()
+        public static List<EnumName> EnumToStringList<EnumName>()
         {
             return Enum.GetValues(typeof(EnumName)).Cast<EnumName>().ToList<EnumName>();
         }
 
-        public double StringToDouble(string str)
+        public static double StringToDouble(string str)
         {
             double result;
 
@@ -236,13 +236,13 @@ namespace CommonFunction
         #endregion
 
         #region IEEE754 to 十進制float
-        public void IEEE754ToFloat()
+        public static void IEEE754ToFloat()
         {
 
         }
         #endregion
 
-        public int StringToInt(string str)
+        public static int StringToInt(string str)
         {
             int result;
 
@@ -259,7 +259,7 @@ namespace CommonFunction
 
         #endregion
 
-        public void CreateFolder(string folderPath)
+        public static void CreateFolder(string folderPath)
         {
             if (!Directory.Exists(folderPath))
             {
@@ -279,7 +279,7 @@ namespace CommonFunction
                 //SaveHistoryToFile("資料夾已存在");
             }
         }
-        public void CallExecute(string path, string input_command = "Non")
+        public static void CallExecute(string path, string input_command = "Non")
         {
             string workingDirectory = Path.GetDirectoryName(path);   //工作目錄
 
@@ -302,7 +302,7 @@ namespace CommonFunction
                 SaveHistoryToFile(ex.ToString());
             }
         }
-        public void CloseExecute(string path)
+        public static void CloseExecute(string path)
         {
             string exeName = Path.GetFileNameWithoutExtension(path); // 取得執行檔名稱（不含副檔名）
 
@@ -335,7 +335,7 @@ namespace CommonFunction
         }
 
         #region 截圖相關功能
-        public void CaptureImage(Control ctrl, string filename)
+        public static void CaptureImage(Control ctrl, string filename)
         {            
             // 創建一個與 Panel 大小相同的 Bitmap
             Bitmap bitmap = new Bitmap(ctrl.Width, ctrl.Height);
@@ -356,7 +356,7 @@ namespace CommonFunction
             // 釋放 Bitmap 資源
             bitmap.Dispose();
         }
-        public Dictionary<string, double> LoadImageToPicBx(PictureBox pic_bx, string filename)
+        public static Dictionary<string, double> LoadImageToPicBx(PictureBox pic_bx, string filename)
         {
             using (Image img = Image.FromFile(filename)) // 從文件加載圖片
             {

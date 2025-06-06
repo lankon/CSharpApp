@@ -18,7 +18,6 @@ namespace ImageProcessing.FF_Calculate
     public partial class F_FF_Calculate : Form
     {
         #region parameter define
-        Tool tool = new Tool();
         Dictionary<string, double> Dic_Picture = new Dictionary<string, double>();
         #endregion
 
@@ -74,7 +73,7 @@ namespace ImageProcessing.FF_Calculate
         }
         public void ShowImage(string path)
         {
-            Dic_Picture = tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Calculate.png");
+            Dic_Picture = Tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Calculate.png");
         }
         #endregion
 
@@ -163,7 +162,7 @@ namespace ImageProcessing.FF_Calculate
         private void Btn_ClientTest_Click(object sender, EventArgs e)
         {
             ////開啟Server
-            //tool.CallExecute(@"C:\Users\lankon\Desktop\Debug\FileTransform.exe", "CallServer");
+            //Tool.CallExecute(@"C:\Users\lankon\Desktop\Debug\FileTransform.exe", "CallServer");
 
             //Thread.Sleep(50);
             
@@ -177,11 +176,11 @@ namespace ImageProcessing.FF_Calculate
             
             //string IsOK = tCPIP_Client.ReceiveMessage();
 
-            //tool.SaveHistoryToFile("result:" + IsOK);
+            //Tool.SaveHistoryToFile("result:" + IsOK);
 
             //tCPIP_Client.Close();
 
-            //tool.CloseExecute(@"C:\Users\lankon\Desktop\Debug\FileTransform.exe");
+            //Tool.CloseExecute(@"C:\Users\lankon\Desktop\Debug\FileTransform.exe");
 
         }
     }

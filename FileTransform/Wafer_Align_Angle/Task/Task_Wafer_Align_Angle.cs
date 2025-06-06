@@ -28,7 +28,6 @@ namespace FileTransform.Wafer_Align_Angle
 
         SubTask_Angle_Calculate Calculate;
 
-        Tool tool = new Tool();
         private WORK state = WORK.INITIAL;
         private WORK temp_state;
         private bool Terminate = true;  //Thread是否停止
@@ -63,7 +62,7 @@ namespace FileTransform.Wafer_Align_Angle
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[Task](Task_NearField):" + target.ToString());
+                Tool.SaveHistoryToFile("[Task](Task_NearField):" + target.ToString());
             }
 
             state = target;
@@ -74,7 +73,7 @@ namespace FileTransform.Wafer_Align_Angle
             {
                 if (target != state) //狀態有變化時紀錄
                 {
-                    tool.SaveHistoryToFile("(Task_Recursion):" + target.ToString());
+                    Tool.SaveHistoryToFile("(Task_Recursion):" + target.ToString());
                 }
 
                 state = target;

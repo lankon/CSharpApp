@@ -43,7 +43,6 @@ namespace InstrumentTest
         public GetBoardRTDCallBack GetBoardRTD { get; set; }
 
 
-        Tool tool = new Tool();
         private bool Terminate = true;  //Thread是否停止
         private bool IsConnect = false; //確認連線
         private bool IsMonitorAll = false;  //判斷是否啟動所有控制器
@@ -97,7 +96,7 @@ namespace InstrumentTest
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[Task]Task_TemperatureController:"+ target.ToString());
+                Tool.SaveHistoryToFile("[Task]Task_TemperatureController:"+ target.ToString());
             }
 
             state = target;
@@ -111,7 +110,7 @@ namespace InstrumentTest
                 if (i >= avg_value.Length)
                     break;
                 
-                double f_split_value = tool.StringToDouble(split_value[i]);
+                double f_split_value = Tool.StringToDouble(split_value[i]);
                 avg_value[i] = avg_value[i] + f_split_value;
             }
 
@@ -263,7 +262,7 @@ namespace InstrumentTest
                                 }
                                 else
                                 {
-                                    value = tool.StringToDouble(present_temp_value);
+                                    value = Tool.StringToDouble(present_temp_value);
                                 }
                                 
                                 UpdatePresentValue(value);
@@ -302,7 +301,7 @@ namespace InstrumentTest
 
                                 if (value != "error")
                                 {
-                                    avg_temp_value += tool.StringToDouble(value);
+                                    avg_temp_value += Tool.StringToDouble(value);
                                     avg_count++;
                                 }
                                     
@@ -367,7 +366,7 @@ namespace InstrumentTest
 
                                 if (value != "error")
                                 {
-                                    avg_temp_value += tool.StringToDouble(value);
+                                    avg_temp_value += Tool.StringToDouble(value);
 
                                     string five_rtd = TC[0].GetFivePointValue();
                                     avg_5_rtd_temp_value = Avg_5_RTD_Func(avg_5_rtd_temp_value, five_rtd);
@@ -414,12 +413,12 @@ namespace InstrumentTest
 
                             if(TC[i].Open(scomport, sbaudrate, sparity))
                             {
-                                tool.SaveHistoryToFile("TC Connect");
+                                Tool.SaveHistoryToFile("TC Connect");
                                 IsConnect = true;
                             }
                             else
                             {
-                                tool.SaveHistoryToFile("TC " + "COM? " + "Connect Fail");
+                                Tool.SaveHistoryToFile("TC " + "COM? " + "Connect Fail");
                                 ErrorMsg = "TC " + "COM? " + "Connect Fail";
                             }
                         }
@@ -430,7 +429,7 @@ namespace InstrumentTest
                     case WORK.CLOSE:
                         if (IsConnect == false)
                         {
-                            tool.SaveHistoryToFile("TC未連線");
+                            Tool.SaveHistoryToFile("TC未連線");
                             ErrorMsg = "TC " + "COM? " + "DisConnect Fail";
                             Transition(WORK.IDLE);                            
                             break;
@@ -440,12 +439,12 @@ namespace InstrumentTest
                         {
                             if(TC[i].Close())
                             {
-                                tool.SaveHistoryToFile("TC DisConnect");
+                                Tool.SaveHistoryToFile("TC DisConnect");
                                 IsConnect = false;
                             }
                             else
                             {
-                                tool.SaveHistoryToFile("TC " + "COM? " + "DisConnect Fail");
+                                Tool.SaveHistoryToFile("TC " + "COM? " + "DisConnect Fail");
                                 ErrorMsg = "TC " + "COM? " + "DisConnect Fail";
                             }
                         }
@@ -458,7 +457,7 @@ namespace InstrumentTest
                     case WORK.START:
                         if (IsConnect == false)
                         {
-                            tool.SaveHistoryToFile("TC未連線");
+                            Tool.SaveHistoryToFile("TC未連線");
                             ErrorMsg = "TC Start Fail";
                             Transition(WORK.IDLE);
                             break;
@@ -466,11 +465,11 @@ namespace InstrumentTest
 
                         if (TC[0].Start())
                         {
-                            tool.SaveHistoryToFile("TC Start");
+                            Tool.SaveHistoryToFile("TC Start");
                         }
                         else
                         {
-                            tool.SaveHistoryToFile("TC Start Fail");
+                            Tool.SaveHistoryToFile("TC Start Fail");
                             ErrorMsg = "TC Start Fail";
                         }
 
@@ -482,7 +481,7 @@ namespace InstrumentTest
                     case WORK.START_ALL:
                         if (IsConnect == false)
                         {
-                            tool.SaveHistoryToFile("TC未連線");
+                            Tool.SaveHistoryToFile("TC未連線");
                             ErrorMsg = "TC Start Fail";
                             Transition(WORK.IDLE);
                             break;
@@ -508,11 +507,11 @@ namespace InstrumentTest
                             if (TC[0].Start(ctrl,ch,temp))
                             {
                                 Thread.Sleep(100);
-                                tool.SaveHistoryToFile($"TC Start CtrlBox:{ctrl},CH:{ch}");
+                                Tool.SaveHistoryToFile($"TC Start CtrlBox:{ctrl},CH:{ch}");
                             }
                             else
                             {
-                                tool.SaveHistoryToFile($"TC T{ctrl}C{ch} Start Fail");
+                                Tool.SaveHistoryToFile($"TC T{ctrl}C{ch} Start Fail");
                                 ErrorMsg = "TC Start Fail";
                             }
                         }
@@ -525,7 +524,7 @@ namespace InstrumentTest
                     case WORK.STOP:
                         if (IsConnect == false)
                         {
-                            tool.SaveHistoryToFile("TC未連線");
+                            Tool.SaveHistoryToFile("TC未連線");
                             ErrorMsg = "TC Stop Fail";
                             Transition(WORK.IDLE);
                             break;
@@ -533,11 +532,11 @@ namespace InstrumentTest
 
                         if (TC[0].Stop())
                         {
-                            tool.SaveHistoryToFile("TC Stop");
+                            Tool.SaveHistoryToFile("TC Stop");
                         }
                         else
                         {
-                            tool.SaveHistoryToFile("TC Stop Fail");
+                            Tool.SaveHistoryToFile("TC Stop Fail");
                             ErrorMsg = "TC Stop Fail";
                         }
 
@@ -549,7 +548,7 @@ namespace InstrumentTest
                     case WORK.STOP_ALL:
                         if (IsConnect == false)
                         {
-                            tool.SaveHistoryToFile("TC未連線");
+                            Tool.SaveHistoryToFile("TC未連線");
                             ErrorMsg = "TC Start Fail";
                             Transition(WORK.IDLE);
                             break;
@@ -564,11 +563,11 @@ namespace InstrumentTest
 
                             if (TC[0].Stop(ctrl, ch))
                             {
-                                tool.SaveHistoryToFile($"TC Stop CtrlBox:{ctrl},CH:{ch}");
+                                Tool.SaveHistoryToFile($"TC Stop CtrlBox:{ctrl},CH:{ch}");
                             }
                             else
                             {
-                                tool.SaveHistoryToFile($"TC T{ctrl}C{ch} Stop Fail");
+                                Tool.SaveHistoryToFile($"TC T{ctrl}C{ch} Stop Fail");
                                 ErrorMsg = "TC Stop Fail";
                             }
                         }

@@ -21,7 +21,6 @@ namespace FileTransform
     {
         #region parameter define
         bool IsServerMode = false;
-        Tool tool = new Tool();
         
         AppName which_app = AppName.WAFER_ALIGN_ANGLE;  //設定使用程式類型
         enum AppName
@@ -54,10 +53,10 @@ namespace FileTransform
         }
         private void CreateFolder()
         {
-            tool.CreateFolder(Application.StartupPath + @"\Temp");
-            tool.CreateFolder(Application.StartupPath + @"\History");
-            tool.CreateFolder(Application.StartupPath + @"\Picture");
-            tool.CreateFolder(Application.StartupPath + @"\Result");
+            Tool.CreateFolder(Application.StartupPath + @"\Temp");
+            Tool.CreateFolder(Application.StartupPath + @"\History");
+            Tool.CreateFolder(Application.StartupPath + @"\Picture");
+            Tool.CreateFolder(Application.StartupPath + @"\Result");
         }
         private void CreateDynamicElement()
         {
@@ -211,7 +210,7 @@ namespace FileTransform
         {
             if (msg == "ProgramStart")
             {
-                tool.SaveHistoryToFile("ProgramStart隱藏視窗");
+                Tool.SaveHistoryToFile("ProgramStart隱藏視窗");
                 this.Visible = false;
                 IsServerMode = true;
             }
@@ -234,7 +233,7 @@ namespace FileTransform
                 ApplicationSetting.SaveAllRecipe(this);
 
                 Application.Exit();
-                tool.SaveHistoryToFile("關閉應用程式");
+                Tool.SaveHistoryToFile("關閉應用程式");
             }
             else
             {

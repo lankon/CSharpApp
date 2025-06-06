@@ -35,7 +35,6 @@ namespace FileTransform.Recursion
             END,
         }
 
-        Tool tool = new Tool();
         private WORK state;// = WORK.INITIAL;
         private bool IsFinish = false;
         private int test_time = 0;
@@ -74,7 +73,7 @@ namespace FileTransform.Recursion
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("(SubTask_Recursion_Batch):"+ target.ToString());
+                Tool.SaveHistoryToFile("(SubTask_Recursion_Batch):"+ target.ToString());
             }
 
             state = target;
@@ -126,7 +125,7 @@ namespace FileTransform.Recursion
                     }
                 case WORK.LOAD_IMAGE:
                     {
-                        tool.SaveHistoryToFile("(SubTask_Recursion_Batch):" + state.ToString());
+                        Tool.SaveHistoryToFile("(SubTask_Recursion_Batch):" + state.ToString());
                         ResetTimeCount(out test_time);
 
                         string path = Scope.batch_path[cal_count];
@@ -134,7 +133,7 @@ namespace FileTransform.Recursion
                         
                         if (image.Empty())
                         {
-                            tool.SaveHistoryToFile("針痕教學影像不存在");
+                            Tool.SaveHistoryToFile("針痕教學影像不存在");
                             Transition(WORK.SUCCESS);
                             break;
                         }
@@ -324,9 +323,9 @@ namespace FileTransform.Recursion
                         StreamWriter File;
                         string path = Application.StartupPath + @"\Result\Recursion";
                         string file_name = Path.GetFileName(Scope.batch_path[cal_count]);
-                        File = tool.CreateFile(@"\Result\Recursion", ".csv", true);
-                        tool.WriteFile(File, $"{file_name},{distanceX},{distanceY}");
-                        tool.CloseFile(File);
+                        File = Tool.CreateFile(@"\Result\Recursion", ".csv", true);
+                        Tool.WriteFile(File, $"{file_name},{distanceX},{distanceY}");
+                        Tool.CloseFile(File);
                         #endregion
 
                         ShowName(file_name);

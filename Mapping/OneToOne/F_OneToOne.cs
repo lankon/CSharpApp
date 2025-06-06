@@ -17,7 +17,6 @@ namespace Mapping
     public partial class F_OneToOne : Form
     {
         #region parameter define 
-        Tool tool = new Tool();
         
         FileInformation File1 = new FileInformation();
         FileInformation File2 = new FileInformation();     
@@ -120,7 +119,7 @@ namespace Mapping
                 i++;
                 if (i > len)
                 {
-                    tool.SaveHistoryToFile($"TestItemt超過{len}項");
+                    Tool.SaveHistoryToFile($"TestItemt超過{len}項");
                     break;
                 }
 
@@ -144,7 +143,7 @@ namespace Mapping
 
             if (data1.Count != data2.Count)
             {
-                tool.SaveHistoryToFile("相互比較的兩個檔案資料個數不同");
+                Tool.SaveHistoryToFile("相互比較的兩個檔案資料個數不同");
                 return array_diff;
             }
 
@@ -155,8 +154,8 @@ namespace Mapping
                 data1[i].TryGetValue(key, out string value1);
                 data2[i].TryGetValue(key, out string value2);
 
-                double d_value1 = tool.StringToDouble(value1);
-                double d_value2 = tool.StringToDouble(value2);
+                double d_value1 = Tool.StringToDouble(value1);
+                double d_value2 = Tool.StringToDouble(value2);
 
                 if (percentage)
                     difference = (d_value1 - d_value2) / d_value1 * 100;
@@ -222,8 +221,8 @@ namespace Mapping
             // 設定 Y 軸的上下限
             if(!AutoScale)
             {
-                chartArea.AxisY.Minimum = tool.StringToDouble(TxtBx_LowLimit.Text); // Y 軸最小值
-                chartArea.AxisY.Maximum = tool.StringToDouble(TxtBx_UpLimit.Text); // Y 軸最大值
+                chartArea.AxisY.Minimum = Tool.StringToDouble(TxtBx_LowLimit.Text); // Y 軸最小值
+                chartArea.AxisY.Maximum = Tool.StringToDouble(TxtBx_UpLimit.Text); // Y 軸最大值
             }
 
             
@@ -273,7 +272,7 @@ namespace Mapping
         }
         private void SaveTestItemCondition()
         {
-            tool.SaveHistoryToFile("Save Test Item Condition OneToOne Start");
+            Tool.SaveHistoryToFile("Save Test Item Condition OneToOne Start");
 
             Dictionary<string, string> row = new Dictionary<string, string>();
 
@@ -289,7 +288,7 @@ namespace Mapping
             if (item != "Item")
                 TestItemCondition.Insert(0, row);
 
-            StreamWriter writer = tool.CreateFile("TestData\\TestItemCondition_OneToOne", ".txt", false);
+            StreamWriter writer = Tool.CreateFile("TestData\\TestItemCondition_OneToOne", ".txt", false);
 
             //寫入資料
             string context = "";
@@ -309,27 +308,27 @@ namespace Mapping
                         context = context + kvp.Value;
                 }
 
-                tool.WriteFile(writer, context);
+                Tool.WriteFile(writer, context);
 
                 context = "";
                 ii = 0;
             }
 
-            tool.CloseFile(writer);
+            Tool.CloseFile(writer);
 
-            tool.SaveHistoryToFile("Save Test Item Condition OneToOne End");
+            Tool.SaveHistoryToFile("Save Test Item Condition OneToOne End");
         }
         private void LoadTestItemCondition()
         {
-            tool.SaveHistoryToFile("LoadTsetItemCodition OneToOne Start");
+            Tool.SaveHistoryToFile("LoadTsetItemCodition OneToOne Start");
 
             string path = System.IO.Directory.GetCurrentDirectory();
             path = path + "\\" + "TestData\\TestItemCondition_OneToOne.txt";
 
             List<Dictionary<string, string>> data = new List<Dictionary<string, string>>();
-            TestItemCondition = tool.ReadCsvFile(path, true);
+            TestItemCondition = Tool.ReadCsvFile(path, true);
 
-            tool.SaveHistoryToFile("LoadTsetItemCodition OneToOne End");
+            Tool.SaveHistoryToFile("LoadTsetItemCodition OneToOne End");
         }
         private void UpdateTestItemConditionToForm()
         {
@@ -345,18 +344,18 @@ namespace Mapping
                     TestItemCondition[i].TryGetValue("Percentage", out string per);
 
 
-                    if (tool.StringToInt(scale) == -999)
+                    if (Tool.StringToInt(scale) == -999)
                         Cmbx_ScaleSetting.SelectedIndex = 0;
                     else
-                        Cmbx_ScaleSetting.SelectedIndex = tool.StringToInt(scale);
+                        Cmbx_ScaleSetting.SelectedIndex = Tool.StringToInt(scale);
 
                     TxtBx_UpLimit.Text = up;
                     TxtBx_LowLimit.Text = low;
 
-                    if (tool.StringToInt(per) == -999)
+                    if (Tool.StringToInt(per) == -999)
                         Cmbx_UsePercentage.SelectedIndex = 0;
                     else
-                        Cmbx_UsePercentage.SelectedIndex = tool.StringToInt(per);
+                        Cmbx_UsePercentage.SelectedIndex = Tool.StringToInt(per);
 
                 }
             }
@@ -407,7 +406,7 @@ namespace Mapping
             if (File1.CellInfo.Count == 0)
             {
                 MessageBox.Show("Read File Error");
-                tool.SaveHistoryToFile("讀取檔案失敗");
+                Tool.SaveHistoryToFile("讀取檔案失敗");
                 return;
             }
 
@@ -436,7 +435,7 @@ namespace Mapping
             if (File2.CellInfo.Count == 0)
             {
                 MessageBox.Show("Read File Error");
-                tool.SaveHistoryToFile("讀取檔案失敗");
+                Tool.SaveHistoryToFile("讀取檔案失敗");
                 return;
             }
         }
@@ -445,7 +444,7 @@ namespace Mapping
         {
             if(File1.CellInfo == null || File2.CellInfo == null)
             {
-                tool.SaveHistoryToFile("未載入資料");
+                Tool.SaveHistoryToFile("未載入資料");
                 MessageBox.Show("Please Load Data");
                 return;
             }
@@ -471,7 +470,7 @@ namespace Mapping
             AddTestItemCondition();
             SaveTestItemCondition();
 
-            tool.SaveHistoryToFile("繪圖完成");
+            Tool.SaveHistoryToFile("繪圖完成");
         }
 
         private void Cmbx_ScaleSetting_SelectedIndexChanged(object sender, EventArgs e)

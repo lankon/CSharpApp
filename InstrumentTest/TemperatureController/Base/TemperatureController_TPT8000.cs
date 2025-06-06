@@ -13,7 +13,6 @@ namespace InstrumentTest
     public class TemperatureController_TPT8000 : BaseTemperatureController
     {
         #region parameter define
-        Tool tool = new Tool();
         private static SerialPort Comport = new SerialPort();
 
 
@@ -63,7 +62,7 @@ namespace InstrumentTest
                 }
                 catch(Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:Open Fail{ex}");
+                    Tool.SaveHistoryToFile($"TemperatureController_TPT8000:Open Fail{ex}");
                     return false;
                 }
             }
@@ -84,7 +83,7 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:Close Fail{ex}");
+                    Tool.SaveHistoryToFile($"TemperatureController_TPT8000:Close Fail{ex}");
                     res = false;
                 }
             }
@@ -207,7 +206,7 @@ namespace InstrumentTest
             int ctrl_box = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.Cmbx_CtrlBox);         
             string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
             
-            ReadTempOffsetFile(ctrl_box, tool.StringToInt(ch));
+            ReadTempOffsetFile(ctrl_box, Tool.StringToInt(ch));
 
             if (ctrl_box >= 1)   //TPT8000韌體端沒有編號1控制箱指令
                 ctrl_box++;
@@ -221,7 +220,7 @@ namespace InstrumentTest
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}\r\n";
-            tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}");
+            Tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}");
             try
             {
                 Clear();
@@ -233,12 +232,12 @@ namespace InstrumentTest
                 }
                 else
                 {
-                    tool.SaveHistoryToFile("TemperatureController_TPT8000:Start Fail");
+                    Tool.SaveHistoryToFile("TemperatureController_TPT8000:Start Fail");
                 }
             }
             catch (Exception)
             {
-                //tool.SaveHistoryToFile($"TemperatureController_TPT8000:Start Fail{ex}");
+                //Tool.SaveHistoryToFile($"TemperatureController_TPT8000:Start Fail{ex}");
             }
             return res;
         }
@@ -249,7 +248,7 @@ namespace InstrumentTest
             if (temp_ctrl_box > 0)   //為了配合主程式ReadTempOffsetFile所以減1
                 temp_ctrl_box--;
 
-            ReadTempOffsetFile(temp_ctrl_box, tool.StringToInt(ch));
+            ReadTempOffsetFile(temp_ctrl_box, Tool.StringToInt(ch));
 
             double Compensate = 0, Temperature = 0;
             //int Value = ApplicationSetting.Get_Int_Recipe((int)eFormAppSet.TxtBx_Target);
@@ -286,7 +285,7 @@ namespace InstrumentTest
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}\r\n";
-            tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}");
+            Tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,1,{SV_Value},1,{ch}");
             try
             {
                 Clear();
@@ -298,12 +297,12 @@ namespace InstrumentTest
                 }
                 else
                 {
-                    tool.SaveHistoryToFile("TemperatureController_TPT8000:Start Fail");
+                    Tool.SaveHistoryToFile("TemperatureController_TPT8000:Start Fail");
                 }
             }
             catch (Exception)
             {
-                //tool.SaveHistoryToFile($"TemperatureController_TPT8000:Start Fail{ex}");
+                //Tool.SaveHistoryToFile($"TemperatureController_TPT8000:Start Fail{ex}");
             }
             return res;
         }
@@ -318,7 +317,7 @@ namespace InstrumentTest
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}\r\n";
-            tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}");
+            Tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}");
             try
             {
                 Clear();
@@ -330,12 +329,12 @@ namespace InstrumentTest
                 }
                 else
                 {
-                    tool.SaveHistoryToFile("TemperatureController_TPT8000:Stop Fail");
+                    Tool.SaveHistoryToFile("TemperatureController_TPT8000:Stop Fail");
                 }
             }
             catch (Exception ex)
             {
-                tool.SaveHistoryToFile($"TemperatureController_TPT8000:Stop Fail{ex}");
+                Tool.SaveHistoryToFile($"TemperatureController_TPT8000:Stop Fail{ex}");
             }
             return res;
         }
@@ -346,7 +345,7 @@ namespace InstrumentTest
 
             bool res = false;
             String SetTemperature_Order = $"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}\r\n";
-            tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}");
+            Tool.SaveHistoryToFile($"B{ctrl_box.ToString("00")},STEMP,0,20,1,{ch}");
             try
             {
                 Clear();
@@ -358,19 +357,19 @@ namespace InstrumentTest
                 }
                 else
                 {
-                    tool.SaveHistoryToFile("TemperatureController_TPT8000:Stop Fail");
+                    Tool.SaveHistoryToFile("TemperatureController_TPT8000:Stop Fail");
                 }
             }
             catch (Exception ex)
             {
-                tool.SaveHistoryToFile($"TemperatureController_TPT8000:Stop Fail{ex}");
+                Tool.SaveHistoryToFile($"TemperatureController_TPT8000:Stop Fail{ex}");
             }
             return res;
         }
         public void ReadTempOffsetFile(int ControlNum, int ChuckNum)
         {
             String Line,Temp_Line = "";
-            tool.SaveHistoryToFile("讀取溫度校正值");
+            Tool.SaveHistoryToFile("讀取溫度校正值");
 
             if (ControlNum >= 1)    //TPT8000韌體端沒有編號1控制箱指令
                 ControlNum++;
@@ -387,7 +386,7 @@ namespace InstrumentTest
             }
             catch (Exception ex)
             {
-                tool.SaveHistoryToFile($"TemperatureController_TPT8000:ReadTempOffsetFile Fail{ex}");
+                Tool.SaveHistoryToFile($"TemperatureController_TPT8000:ReadTempOffsetFile Fail{ex}");
 
                 //讀檔失敗填入預設值
                 //ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, "-1");
@@ -444,7 +443,7 @@ namespace InstrumentTest
 
             if(bCheckCompensate == false)
             {
-                tool.SaveHistoryToFile($"TemperatureController_TPT8000:ReadTempOffsetFile Fail");
+                Tool.SaveHistoryToFile($"TemperatureController_TPT8000:ReadTempOffsetFile Fail");
 
                 //讀檔失敗填入預設值
                 //ApplicationSetting.SetRecipe((int)eFormAppSet.TxtBx_Board_CH, "-1");
@@ -575,7 +574,7 @@ namespace InstrumentTest
         //    }
         //    catch (Exception ex)
         //    {
-        //        tool.SaveHistoryToFile($"TemperatureController_TPT8000:SetValue Fail{ex}");
+        //        Tool.SaveHistoryToFile($"TemperatureController_TPT8000:SetValue Fail{ex}");
         //        return false;
         //    }
         //}
@@ -857,7 +856,7 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:Write Fail{ex}");
+                    Tool.SaveHistoryToFile($"TemperatureController_TPT8000:Write Fail{ex}");
                 }
             }
             else
@@ -891,7 +890,7 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:Read Fail{ex}");
+                    Tool.SaveHistoryToFile($"TemperatureController_TPT8000:Read Fail{ex}");
                     received_buf = null;
                 }
             }
@@ -915,7 +914,7 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:DiscardOutBuffer Fail{ex}");
+                    Tool.SaveHistoryToFile($"TemperatureController_TPT8000:DiscardOutBuffer Fail{ex}");
                 }
             }
         }
@@ -932,7 +931,7 @@ namespace InstrumentTest
                 }
                 catch (Exception ex)
                 {
-                    tool.SaveHistoryToFile($"TemperatureController_TPT8000:DiscarInBuffer Fail{ex}");
+                    Tool.SaveHistoryToFile($"TemperatureController_TPT8000:DiscarInBuffer Fail{ex}");
                 }
             }
         }

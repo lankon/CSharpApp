@@ -18,7 +18,6 @@ namespace Mapping
     public partial class F_MainForm : Form
     {
         #region parameter define
-        Tool tool = new Tool();
         #endregion
 
         #region private function
@@ -93,9 +92,9 @@ namespace Mapping
         }
         private void CreateFolder()
         {
-            tool.CreateFolder(Application.StartupPath + @"\Temp");
-            tool.CreateFolder(Application.StartupPath + @"\History");
-            tool.CreateFolder(Application.StartupPath + @"\Picture");
+            Tool.CreateFolder(Application.StartupPath + @"\Temp");
+            Tool.CreateFolder(Application.StartupPath + @"\History");
+            Tool.CreateFolder(Application.StartupPath + @"\Picture");
         }
         private void Pnl_Function_Paint(object sender, PaintEventArgs e)
         {
@@ -134,7 +133,7 @@ namespace Mapping
                 ApplicationSetting.SaveAllRecipe(this);
 
                 Application.Exit();
-                tool.SaveHistoryToFile("關閉應用程式");
+                Tool.SaveHistoryToFile("關閉應用程式");
             }
             else
             {

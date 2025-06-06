@@ -19,7 +19,6 @@ namespace FileTransform
     {
         #region parameter define 
         Task_NearField NF = new Task_NearField();
-        Tool tool = new Tool();
         #endregion
 
         #region private function
@@ -36,7 +35,7 @@ namespace FileTransform
         }
         private void ShowImage(string path)
         {
-            tool.LoadImageToPicBx(PicBx_Picture, @"C:\Users\lankon\Desktop\新增資料夾\FileTransform\bin\Debug\Picture\Nearfile.png");
+            Tool.LoadImageToPicBx(PicBx_Picture, @"C:\Users\lankon\Desktop\新增資料夾\FileTransform\bin\Debug\Picture\Nearfile.png");
         }
         #endregion
 

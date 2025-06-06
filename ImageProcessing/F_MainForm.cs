@@ -19,7 +19,6 @@ namespace ImageProcessing
     {
         #region parameter define
         bool IsServerMode = false;
-        Tool tool = new Tool();
         
         AppName which_app = AppName.FF_Calculate;  //設定使用程式類型
         enum AppName
@@ -53,10 +52,10 @@ namespace ImageProcessing
         }
         private void CreateFolder()
         {
-            tool.CreateFolder(Application.StartupPath + @"\Temp");
-            tool.CreateFolder(Application.StartupPath + @"\History");
-            tool.CreateFolder(Application.StartupPath + @"\Picture");
-            tool.CreateFolder(Application.StartupPath + @"\Result");
+            Tool.CreateFolder(Application.StartupPath + @"\Temp");
+            Tool.CreateFolder(Application.StartupPath + @"\History");
+            Tool.CreateFolder(Application.StartupPath + @"\Picture");
+            Tool.CreateFolder(Application.StartupPath + @"\Result");
         }
         private void CreateDynamicElement()
         {
@@ -215,7 +214,7 @@ namespace ImageProcessing
         {
             if (msg == "ProgramStart")
             {
-                tool.SaveHistoryToFile("ProgramStart隱藏視窗");
+                Tool.SaveHistoryToFile("ProgramStart隱藏視窗");
                 this.Visible = false;
                 IsServerMode = true;
             }
@@ -236,7 +235,7 @@ namespace ImageProcessing
                 ApplicationSetting.SaveAllRecipe(this);
 
                 Application.Exit();
-                tool.SaveHistoryToFile("關閉應用程式");
+                Tool.SaveHistoryToFile("關閉應用程式");
             }
             else
             {

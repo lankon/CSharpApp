@@ -17,7 +17,6 @@ namespace FileTransform
     public partial class F_CoordinateExpansion : Form
     {
         #region parameter define 
-        Tool tool = new Tool();
         private bool isSelecting = false;
         private Point selectionStart;
         private Rectangle selectionRect = new Rectangle();
@@ -47,12 +46,12 @@ namespace FileTransform
             try
             {
                 string directoryPath = Path.GetDirectoryName(path);
-                tool.CreateFolder(directoryPath);
+                Tool.CreateFolder(directoryPath);
                 sw = new StreamWriter(path);
             }
             catch(Exception)
             {
-                tool.SaveHistoryToFile("Expansion_Coordinate:創建檔案失敗");
+                Tool.SaveHistoryToFile("Expansion_Coordinate:創建檔案失敗");
                 return false;
             }
             
@@ -78,13 +77,13 @@ namespace FileTransform
                             data[k].TryGetValue("Item0", out string PosX);
                             data[k].TryGetValue("Item1", out string PosY);
 
-                            int iPosX = tool.StringToInt(PosX);
-                            int iPosY = tool.StringToInt(PosY);
+                            int iPosX = Tool.StringToInt(PosX);
+                            int iPosY = Tool.StringToInt(PosY);
 
                             iPosX = iPosX + (i - x_expansion / 2) * x_interval;
                             iPosY = iPosY + (j - y_expansion / 2) * y_interval;
 
-                            tool.WriteFile(sw, iPosX.ToString() + "," + iPosY.ToString());
+                            Tool.WriteFile(sw, iPosX.ToString() + "," + iPosY.ToString());
                         }
                     }
                 }
@@ -107,20 +106,20 @@ namespace FileTransform
                             data[k].TryGetValue("Item0", out string PosX);
                             data[k].TryGetValue("Item1", out string PosY);
 
-                            int iPosX = tool.StringToInt(PosX);
-                            int iPosY = tool.StringToInt(PosY);
+                            int iPosX = Tool.StringToInt(PosX);
+                            int iPosY = Tool.StringToInt(PosY);
 
                             iPosX = iPosX + (i) * x_interval;
                             iPosY = iPosY + (j) * y_interval;
 
-                            tool.WriteFile(sw, iPosX.ToString() + "," + iPosY.ToString());
+                            Tool.WriteFile(sw, iPosX.ToString() + "," + iPosY.ToString());
                         }
                     }
                 }
                 #endregion
             }
 
-            tool.CloseFile(sw);
+            Tool.CloseFile(sw);
 
             return true;
         }
@@ -132,7 +131,7 @@ namespace FileTransform
 
             List<Dictionary<string, string>> CoordinateData = new List<Dictionary<string, string>>();
 
-            CoordinateData = tool.ReadCsvFile(path, false);
+            CoordinateData = Tool.ReadCsvFile(path, false);
 
             // 禁用格線
             chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
@@ -146,8 +145,8 @@ namespace FileTransform
                 CoordinateData[i].TryGetValue("Item0", out string sPosX);
                 CoordinateData[i].TryGetValue("Item1", out string sPosY);
 
-                int iPosX = tool.StringToInt(sPosX);
-                int iPosY = tool.StringToInt(sPosY);
+                int iPosX = Tool.StringToInt(sPosX);
+                int iPosY = Tool.StringToInt(sPosY);
 
                 chart.Series[0].Points.AddXY(iPosX, iPosY);
             }
@@ -463,19 +462,19 @@ namespace FileTransform
 
             List<Dictionary<string, string>> CoordinateData = new List<Dictionary<string, string>>();
 
-            CoordinateData = tool.ReadCsvFile(selectedFileName, false);
+            CoordinateData = Tool.ReadCsvFile(selectedFileName, false);
 
             if (CoordinateData.Count == 0)
             {
                 MessageBox.Show("Read File Error");
-                tool.SaveHistoryToFile("讀取檔案失敗");
+                Tool.SaveHistoryToFile("讀取檔案失敗");
                 return;
             }
 
             if(!Expansion_Coordinate(CoordinateData))
             {
                 MessageBox.Show("Expansion Coordinate Error");
-                tool.SaveHistoryToFile("座標擴展失敗");
+                Tool.SaveHistoryToFile("座標擴展失敗");
                 return;
             }
 
@@ -559,7 +558,7 @@ namespace FileTransform
             if (CellInfo.Count == 0)
             {
                 MessageBox.Show("Read File Error");
-                tool.SaveHistoryToFile("讀取檔案失敗");
+                Tool.SaveHistoryToFile("讀取檔案失敗");
                 return;
             }
 
@@ -570,7 +569,7 @@ namespace FileTransform
 
             if (CellInfo.Count > 500000)
             {
-                tool.SaveHistoryToFile("數量超過500000");
+                Tool.SaveHistoryToFile("數量超過500000");
                 MessageBox.Show("File Size Over 500000");
                 return;
             }
@@ -580,8 +579,8 @@ namespace FileTransform
                 CellInfo[i].TryGetValue("X", out string sPosX);
                 CellInfo[i].TryGetValue("Y", out string sPosY);
 
-                int iPosX = tool.StringToInt(sPosX);
-                int iPosY = tool.StringToInt(sPosY);
+                int iPosX = Tool.StringToInt(sPosX);
+                int iPosY = Tool.StringToInt(sPosY);
 
                 X_RecCol[i - 1] = TranformPosX_RecCol(iPosX, 0, 0, 0, 20);
                 X_ChipCol[i - 1] = TranformPosX_ChipCol(iPosX, 0, 0, 0, 20);

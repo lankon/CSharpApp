@@ -20,7 +20,6 @@ namespace FileTransform
             InitializeComponent();
         }
 
-        Tool tool = new Tool();
 
         public string Preview_Coordinate_Transform(string FileName)
         {
@@ -45,7 +44,7 @@ namespace FileTransform
             }
             else
             {
-                tool.SaveHistoryToFile("未找到匹配座標,錯誤檔案名稱:" + newFileName);
+                Tool.SaveHistoryToFile("未找到匹配座標,錯誤檔案名稱:" + newFileName);
             }
 
             return newFileName;
@@ -84,7 +83,7 @@ namespace FileTransform
                     }
                     else
                     {
-                        tool.SaveHistoryToFile("未找到匹配座標,錯誤檔案名稱:" + newFileName);
+                        Tool.SaveHistoryToFile("未找到匹配座標,錯誤檔案名稱:" + newFileName);
                         return;
                     }
 
@@ -97,7 +96,7 @@ namespace FileTransform
             }
             else
             {
-                tool.SaveHistoryToFile("指定的資料夾不存在");
+                Tool.SaveHistoryToFile("指定的資料夾不存在");
             }
         }
 
@@ -108,7 +107,7 @@ namespace FileTransform
             {
                 number = 0;
                 TxtBx_ShiftX.Text = "Error";
-                tool.SaveHistoryToFile("型態轉換錯誤");
+                Tool.SaveHistoryToFile("型態轉換錯誤");
             }
 
             return number;
@@ -121,7 +120,7 @@ namespace FileTransform
             {
                 number = 0;
                 TxtBx_ShiftY.Text = "Error";
-                tool.SaveHistoryToFile("型態轉換錯誤");
+                Tool.SaveHistoryToFile("型態轉換錯誤");
             }
 
             return number;

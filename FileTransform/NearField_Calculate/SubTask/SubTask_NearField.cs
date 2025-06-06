@@ -39,7 +39,6 @@ namespace FileTransform
         //public GetBoardRTDCallBack GetBoardRTD { get; set; }
 
 
-        Tool tool = new Tool();
         private WORK state;// = WORK.INITIAL;
         private bool IsFinish = false;
         //private bool IsConnect = false; //確認連線
@@ -82,7 +81,7 @@ namespace FileTransform
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("(SubTask_NearField):"+ target.ToString());
+                Tool.SaveHistoryToFile("(SubTask_NearField):"+ target.ToString());
             }
 
             state = target;
@@ -130,7 +129,7 @@ namespace FileTransform
                     }
                 case WORK.LOAD_IMAGE:
                     {
-                        tool.SaveHistoryToFile("(SubTask_NearField):" + state.ToString());
+                        Tool.SaveHistoryToFile("(SubTask_NearField):" + state.ToString());
 
                         ResetTimeCount(out test_time);
 
@@ -138,7 +137,7 @@ namespace FileTransform
 
                         if (image.Empty())
                         {
-                            tool.SaveHistoryToFile("近場教學影像不存在");
+                            Tool.SaveHistoryToFile("近場教學影像不存在");
                             Transition(WORK.SUCCESS);
                             break;
                         }

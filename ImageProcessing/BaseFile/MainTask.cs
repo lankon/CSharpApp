@@ -17,7 +17,6 @@ namespace ImageProcessing
         private TASK_STATUS status_commad = TASK_STATUS.NONE;
         private WORK state = WORK.INITIAL;
         private WORK pre_state = WORK.INITIAL;
-        Tool tool = new Tool();
         public UpdateTaskStateCallBack UpdateTaskState { get; set; }
         public SetPauseAbortContinueCallBack SetPauseAbortContinue { get; set; }
         public SetErrorMsgCallBack SetErrorMsg { get; set; }
@@ -49,7 +48,7 @@ namespace ImageProcessing
             if (target != state) //狀態有變化時紀錄
             {
                 //UpdateTaskState("[Process]" + target.ToString());
-                tool.SaveHistoryToFile("[Process](MainTask)" + target.ToString());
+                Tool.SaveHistoryToFile("[Process](MainTask)" + target.ToString());
             }
 
             state = target;
@@ -137,7 +136,7 @@ namespace ImageProcessing
         {
             if (state != WORK.IDLE)
             {
-                tool.SaveHistoryToFile("Thread No Ready");
+                Tool.SaveHistoryToFile("Thread No Ready");
                 return;
             }
 

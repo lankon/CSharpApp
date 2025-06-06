@@ -35,7 +35,6 @@ namespace FileTransform.Recursion
         SubTask_Recursion_Teach Teach;
         SubTask_Recursion_Batch Batch;
 
-        Tool tool = new Tool();
         private WORK state = WORK.INITIAL;
         private WORK temp_state;
         private bool Terminate = true;  //Thread是否停止
@@ -70,7 +69,7 @@ namespace FileTransform.Recursion
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("(Task_NearField):"+ target.ToString());
+                Tool.SaveHistoryToFile("(Task_NearField):"+ target.ToString());
             }
 
             state = target;
@@ -81,7 +80,7 @@ namespace FileTransform.Recursion
             {
                 if (target != state) //狀態有變化時紀錄
                 {
-                    tool.SaveHistoryToFile("(Task_Recursion):" + target.ToString());
+                    Tool.SaveHistoryToFile("(Task_Recursion):" + target.ToString());
                 }
 
                 state = target;

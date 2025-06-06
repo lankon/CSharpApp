@@ -18,7 +18,6 @@ namespace InstrumentTest
         bool IsLoadCellOpen = false;
         bool TempStop = false;
         ILoadCell[] LoadCell = new ILoadCell[4];
-        Tool tool = new Tool();
 
         public F_LoadCell()
         {
@@ -68,7 +67,7 @@ namespace InstrumentTest
 
         private void SetParameter(int CtrlBox)
         {
-            LoadCell[CtrlBox].Set_Parameter(tool.StringToInt(Cmbx_Com1_DeviceNum.Text), tool.StringToDouble(TxtBx_Target.Text));
+            LoadCell[CtrlBox].Set_Parameter(Tool.StringToInt(Cmbx_Com1_DeviceNum.Text), Tool.StringToDouble(TxtBx_Target.Text));
             LoadCell[CtrlBox].Set_Station(TxtBx_Com1_Station1.Text, TxtBx_Com1_Station2.Text,
                                                TxtBx_Com1_Station3.Text, "123");
         }
@@ -77,21 +76,21 @@ namespace InstrumentTest
         {
             if (!Cmbx_Com1_Comport.Text.Contains("COM"))
             {
-                tool.SaveHistoryToFile("全部Comport皆未選擇");
+                Tool.SaveHistoryToFile("全部Comport皆未選擇");
                 MessageBox.Show("Please Select Comport");
                 return false;
             }
 
             if (Cmbx_Com1_Comport.Text.Contains("COM") && Cmbx_Com1_DeviceNum.SelectedIndex == 0)
             {
-                tool.SaveHistoryToFile("Device Number數量未選擇");
+                Tool.SaveHistoryToFile("Device Number數量未選擇");
                 MessageBox.Show("Please Select DeviceNum Count");
                 return false;
             }
 
             if (IsLoadCellOpen == true)
             {
-                tool.SaveHistoryToFile("LoadCell已連線");
+                Tool.SaveHistoryToFile("LoadCell已連線");
                 MessageBox.Show("LoadCell Already Connected");
                 return false;
             }
@@ -128,7 +127,7 @@ namespace InstrumentTest
                     else
                     {
                         IsLoadCellOpen = false;
-                        tool.SaveHistoryToFile(cmbx.Text + "連線失敗");
+                        Tool.SaveHistoryToFile(cmbx.Text + "連線失敗");
                         MessageBox.Show(cmbx.Text + "連線失敗");
                         break;
                     }
@@ -138,7 +137,7 @@ namespace InstrumentTest
             if (IsLoadCellOpen)
             {
                 Pnl_Open.BackColor = Color.Green;
-                tool.SaveHistoryToFile("LoadCell連線成功");
+                Tool.SaveHistoryToFile("LoadCell連線成功");
                 SetElementEnable(!IsLoadCellOpen);
             }
             else
@@ -162,7 +161,7 @@ namespace InstrumentTest
                     Gram = LoadCell[i].Get_AllGram();
                     status = LoadCell[i].Get_AllStatus();
 
-                    for (int k = 0; k < tool.StringToInt(Cmbx_Com1_DeviceNum.Text); k++)
+                    for (int k = 0; k < Tool.StringToInt(Cmbx_Com1_DeviceNum.Text); k++)
                     {
                         #region 克重顯示
                         var txt_bx_name = $"TxtBx_Com{i + 1}_Gram{k + 1}";
@@ -170,7 +169,7 @@ namespace InstrumentTest
 
                         if (temp_txt_bx == null)
                         {
-                            tool.SaveHistoryToFile("元件名稱轉換錯誤");
+                            Tool.SaveHistoryToFile("元件名稱轉換錯誤");
                             continue;
                         }
 
@@ -185,7 +184,7 @@ namespace InstrumentTest
 
                         if (temp_pnl_bx == null)
                         {
-                            tool.SaveHistoryToFile("元件名稱轉換錯誤");
+                            Tool.SaveHistoryToFile("元件名稱轉換錯誤");
                             continue;
                         }
 

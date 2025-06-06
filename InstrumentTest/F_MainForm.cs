@@ -17,7 +17,6 @@ namespace InstrumentTest
     {
         #region parameter define 
         
-        Tool tool = new Tool();
         F_SelectApp f_SelectApp = new F_SelectApp();
         #endregion
 
@@ -117,7 +116,7 @@ namespace InstrumentTest
                 ApplicationSetting.SaveAllRecipe(this);
 
                 Application.Exit();
-                tool.SaveHistoryToFile("關閉應用程式");
+                Tool.SaveHistoryToFile("關閉應用程式");
             }
             else
             {

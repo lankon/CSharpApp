@@ -16,7 +16,6 @@ namespace InstrumentTest
     public partial class F_TC_Setting_TPT8000 : Form
     {
         #region parameter define
-        Tool tool = new Tool();
         private bool InitialApp = false;
         #endregion
 
@@ -100,7 +99,7 @@ namespace InstrumentTest
 
         private void Btn_Save_Click(object sender, EventArgs e)
         {
-            tool.SaveHistoryToFile("儲存校正參數開始");
+            Tool.SaveHistoryToFile("儲存校正參數開始");
             
             ApplicationSetting.SaveAllRecipe(this);
             ApplicationSetting.ReadAllRecipe<eFormAppSet>();
@@ -115,7 +114,7 @@ namespace InstrumentTest
             String FileName = "T" + CtrlBox.ToString() + "C" + ch;
 
             StreamWriter File;
-            File = tool.CreateFile($"\\TemperatureController\\{FileName}", ".txt", false);
+            File = Tool.CreateFile($"\\TemperatureController\\{FileName}", ".txt", false);
 
             for (int i = 0; i < 5; i++)
             {
@@ -123,15 +122,15 @@ namespace InstrumentTest
                 string comp = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Comp1 + i);
                 string offset = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Offset1 + i);
 
-                tool.WriteFile(File, $"{temp},{comp},{offset}");
+                Tool.WriteFile(File, $"{temp},{comp},{offset}");
             }
 
             //string ch = ApplicationSetting.Get_String_Recipe((int)eFormAppSet.TxtBx_Board_CH);
-            //tool.WriteFile(File, $"#Channel,{ch}");
+            //Tool.WriteFile(File, $"#Channel,{ch}");
 
-            tool.CloseFile(File);
+            Tool.CloseFile(File);
 
-            tool.SaveHistoryToFile("儲存校正參數結束");
+            Tool.SaveHistoryToFile("儲存校正參數結束");
         }
 
         private void Cmbx_CtrlBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -143,7 +142,7 @@ namespace InstrumentTest
 
             TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
 
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, tool.StringToInt(TxtBx_Board_CH.Text));
+            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, Tool.StringToInt(TxtBx_Board_CH.Text));
 
             ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
         }
@@ -179,7 +178,7 @@ namespace InstrumentTest
 
             TemperatureController_TPT8000 TPT8000 = new TemperatureController_TPT8000();
 
-            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, tool.StringToInt(TxtBx_Board_CH.Text));
+            TPT8000.ReadTempOffsetFile(Cmbx_CtrlBox.SelectedIndex, Tool.StringToInt(TxtBx_Board_CH.Text));
 
             ApplicationSetting.UpdataRecipeToForm<eFormAppSet>(this);
         }
