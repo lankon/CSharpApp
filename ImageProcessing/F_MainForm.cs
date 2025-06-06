@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Management;
 using System.Runtime.InteropServices;
 
+using ImageProcessing.FF_Calculate;
 using CommonFunction;
 
 
@@ -19,6 +20,8 @@ namespace ImageProcessing
     {
         #region parameter define
         bool IsServerMode = false;
+        Tool tool = new Tool();
+        string RecipeSavePath = "default";
         
         AppName which_app = AppName.FF_Calculate;  //設定使用程式類型
         enum AppName
@@ -40,10 +43,10 @@ namespace ImageProcessing
 
             CreateFolder();
 
-            ApplicationSetting.ReadAllRecipe<FormItem>();
-            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
-
             CreateApp(which_app);
+
+            ApplicationSetting.ReadAllRecipe<FormItem>(RecipeSavePath);
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this, RecipeSavePath);
         }
         private void SetHint()
         {
@@ -52,10 +55,10 @@ namespace ImageProcessing
         }
         private void CreateFolder()
         {
-            Tool.CreateFolder(Application.StartupPath + @"\Temp");
-            Tool.CreateFolder(Application.StartupPath + @"\History");
-            Tool.CreateFolder(Application.StartupPath + @"\Picture");
-            Tool.CreateFolder(Application.StartupPath + @"\Result");
+            tool.CreateFolder(Application.StartupPath + @"\Temp");
+            tool.CreateFolder(Application.StartupPath + @"\History");
+            tool.CreateFolder(Application.StartupPath + @"\Picture");
+            tool.CreateFolder(Application.StartupPath + @"\Result");
         }
         private void CreateDynamicElement()
         {
@@ -158,6 +161,21 @@ namespace ImageProcessing
                 //    f_Wafer_Align_Angle_ButtonGroup.SetF_Wafer_Align_Angle_ButtonGroup(Scope.MyStaticPanel_1, f_Wafer_Align_Angle_ButtonGroup);
                 //    f_Wafer_Align_Angle_ButtonGroup.Show();
                 //    break;
+                case AppName.FF_Calculate:
+                    {
+                        F_FF_Calculate f_FF_Calculate = new F_FF_Calculate();
+                        f_FF_Calculate.SetF_FF_Calculate(Scope.MyStaticPanel, f_FF_Calculate);
+                        f_FF_Calculate.Show();
+
+                        F_FF_Calculate_ButtonGroup f_FF_Calculate_ButtonGroup = new F_FF_Calculate_ButtonGroup();
+                        f_FF_Calculate_ButtonGroup.SetF_FF_Calculate_ButtonGroup(Scope.MyStaticPanel_1, f_FF_Calculate_ButtonGroup);
+                        f_FF_Calculate_ButtonGroup.Show();
+
+                        //設定參數儲存檔名(選擇)
+                        RecipeSavePath = "FF_Calculate.exe.Config";
+                    }
+                    break;
+
                 default:
                     {
                         //None Application
@@ -214,7 +232,7 @@ namespace ImageProcessing
         {
             if (msg == "ProgramStart")
             {
-                Tool.SaveHistoryToFile("ProgramStart隱藏視窗");
+                tool.SaveHistoryToFile("ProgramStart隱藏視窗");
                 this.Visible = false;
                 IsServerMode = true;
             }
@@ -232,10 +250,10 @@ namespace ImageProcessing
             // 根據用戶的選擇返回布爾值
             if (dialogResult == DialogResult.Yes)
             {
-                ApplicationSetting.SaveAllRecipe(this);
+                ApplicationSetting.SaveAllRecipe(this, RecipeSavePath);
 
                 Application.Exit();
-                Tool.SaveHistoryToFile("關閉應用程式");
+                tool.SaveHistoryToFile("關閉應用程式");
             }
             else
             {

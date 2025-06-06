@@ -86,12 +86,26 @@
     <Compile Include="BaseFile\MainTask.cs" />
     <Compile Include="BaseFile\Scope.cs" />
     <Compile Include="FF_Calculate\Base\FF_Algorithm.cs" />
+    <Compile Include="FF_Calculate\Base\NF_Algorithm.cs" />
     <Compile Include="FF_Calculate\F_FF_Calculate.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FF_Calculate\F_FF_Calculate.Designer.cs">
       <DependentUpon>F_FF_Calculate.cs</DependentUpon>
     </Compile>
+    <Compile Include="FF_Calculate\F_FF_Calculate_ButtonGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FF_Calculate\F_FF_Calculate_ButtonGroup.Designer.cs">
+      <DependentUpon>F_FF_Calculate_ButtonGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FF_Calculate\F_FF_Calculate_Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FF_Calculate\F_FF_Calculate_Setting.Designer.cs">
+      <DependentUpon>F_FF_Calculate_Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FF_Calculate\SubTask\SubTask_NF_Angle_Calculate.cs" />
     <Compile Include="FF_Calculate\SubTask\SubTask_FF_Angle_Calculate.cs" />
     <Compile Include="FF_Calculate\Task\Task_FF_Angle_Calculate.cs" />
     <Compile Include="F_MainForm.cs">
@@ -104,6 +118,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FF_Calculate\F_FF_Calculate.resx">
       <DependentUpon>F_FF_Calculate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FF_Calculate\F_FF_Calculate_ButtonGroup.resx">
+      <DependentUpon>F_FF_Calculate_ButtonGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FF_Calculate\F_FF_Calculate_Setting.resx">
+      <DependentUpon>F_FF_Calculate_Setting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_MainForm.resx">
       <DependentUpon>F_MainForm.cs</DependentUpon>

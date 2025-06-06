@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using OpenCvSharp;
 
 using CommonFunction;
 
@@ -24,8 +25,8 @@ namespace ImageProcessing.FF_Calculate
         #region private function
         private void InitialApplication()
         {
-            ApplicationSetting.ReadAllRecipe<FormItem>();
-            ApplicationSetting.UpdataRecipeToForm<FormItem>(this);
+            ApplicationSetting.ReadAllRecipe<FormItem>("FF_Calculate.exe.Config");
+            ApplicationSetting.UpdataRecipeToForm<FormItem>(this, "FF_Calculate.exe.Config");
 
             //ShowHint();
         }
@@ -56,6 +57,13 @@ namespace ImageProcessing.FF_Calculate
 
             return show_pos;
         }
+        private void updateTxtBx_Invoke(TextBox textBox, string text)
+        {
+            if (textBox.InvokeRequired)
+                textBox.Invoke(new Action(() => textBox.Text = text));
+            else
+                textBox.Text = text;
+        }
         #endregion
 
         #region public function
@@ -74,6 +82,16 @@ namespace ImageProcessing.FF_Calculate
         public void ShowImage(string path)
         {
             Dic_Picture = Tool.LoadImageToPicBx(PicBx_Picture, Application.StartupPath + @"\Picture\" + "Calculate.png");
+        }
+        public void ShowFarFieldResult(double angle = 0.0, double eye_safe = 0.0, double valley = 0.0)
+        {
+            updateTxtBx_Invoke(TxtBx_RltAngle, angle.ToString("0.000"));
+            updateTxtBx_Invoke(TxtBx_RltEyeSafe, eye_safe.ToString("0.000"));
+            updateTxtBx_Invoke(TxtBx_RltValley, valley.ToString("0.000"));
+        }
+        public void ShowTestTimeResult(int millsecond)
+        {
+            updateTxtBx_Invoke(TxtBx_RltTestTime, millsecond.ToString());
         }
         #endregion
 
@@ -128,7 +146,30 @@ namespace ImageProcessing.FF_Calculate
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            NF_Algorithm NF_Cal = new NF_Algorithm();
+            Mat image = new Mat();
+
+            string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
+            image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
+            NF_Cal.Threshold_Ratio = 0.35;
+
+
+            //Teach AutoFocus
+            NF_Cal.Detect_Position(image);
+
+            //擷取左下角AOI_Size影像
+            int AOI_Size = (int)(5 * NF_Cal.Emitter_Diameter[0]);
+            int Capture_X = (int)(NF_Cal.Emitter_PosX[0] - 0.5 * AOI_Size);
+            int Capture_Y = (int)(NF_Cal.Emitter_PosY[0] - 0.5 * AOI_Size);
+            Rect roi = new Rect(Capture_X, Capture_Y, AOI_Size, AOI_Size);
+            Mat Capture_Image = new Mat(image, roi).Clone();
+
+
+
+
+            image.Dispose();
+            Capture_Image.Dispose();
+
         }
         private void UpdateTask(string msg)
         {

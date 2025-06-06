@@ -15,6 +15,7 @@ namespace ImageProcessing.FF_Calculate
         #region parameter
         private int task_delay = 0;
         private int delay_time = 2;
+        private int record_test_time = 0;
         private bool IsSubTaskProcessing = false;
         private bool IsServerMode = false;
         private string Save_Path = Application.StartupPath + @"\Picture\" + "Calculate.png";
@@ -26,7 +27,9 @@ namespace ImageProcessing.FF_Calculate
         private TASK_STATUS status = TASK_STATUS.CONTINUE;
         private Mat image;
         Mat outputImage = new Mat();
+        Tool tool = new Tool();
         private F_FF_Calculate f_FF_Calculate;
+        private FF_Algorithm FarField = new FF_Algorithm();
         public override UpdateTaskStateCallBack UpdateTaskState { get; set; }
         public override SetErrorMsgCallBack SetErrorMsg { get; set; }
 
@@ -38,6 +41,10 @@ namespace ImageProcessing.FF_Calculate
 
 
             LOAD_IMAGE,
+            PRE_PROCESS,
+            CALCULATE_DIAMETER,
+            CALCULATE_FARFIELD_RESULT,
+
             GRAB_IMAGE,
             GRAB_ORRGIN,
             THRESHOLD_IMAGE,
@@ -62,7 +69,7 @@ namespace ImageProcessing.FF_Calculate
         {
             if (target != state) //狀態有變化時紀錄
             {
-                Tool.SaveHistoryToFile("[SubTask](SubTask_FF_Angle_Calculate)" + target.ToString());
+                tool.SaveHistoryToFile("[SubTask](SubTask_FF_Angle_Calculate)" + target.ToString());
             }
 
             state = target;
@@ -159,6 +166,12 @@ namespace ImageProcessing.FF_Calculate
         {
             tick = Environment.TickCount;
         }
+        private int GetTimeCount(int tick)
+        {
+            int time_count = Environment.TickCount - tick;
+
+            return time_count;
+        }
         private bool CheckTimeOverSec(int tick, int time)
         {
             var time_count = Environment.TickCount - tick;
@@ -171,7 +184,22 @@ namespace ImageProcessing.FF_Calculate
             if (IsServerMode == false)
                 MessageBox.Show(msg);
             else
-                Tool.SaveHistoryToFile(msg);
+                tool.SaveHistoryToFile(msg);
+        }
+        private void ShowImageToForm(Mat image)
+        {
+            //顯示圖片
+            if (image.Depth() == MatType.CV_16U)
+            {
+                Cv2.Normalize(image, outputImage, 0, 255, NormTypes.MinMax, MatType.CV_8U); //16位元轉8位元
+                Cv2.ImWrite(Save_Path, outputImage);
+            }
+            else
+            {
+                Cv2.ImWrite(Save_Path, image);
+            }
+
+            f_FF_Calculate.ShowImage(Save_Path);
         }
         #endregion
 
@@ -221,12 +249,12 @@ namespace ImageProcessing.FF_Calculate
         }
         public override void SetForm(Form form)
         {
-            if (form.Name == "F_Wafer_Align_Angle")
+            if (form.Name == "F_FF_Calculate")
             {
                 f_FF_Calculate = form as F_FF_Calculate; // 嘗試轉型
                 if (f_FF_Calculate == null)
                 {
-                    Tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
+                    tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
                 }
             }
         }
@@ -270,143 +298,72 @@ namespace ImageProcessing.FF_Calculate
                     {
                         //預設進入看要幹嘛
                         ResetTimeCount(out task_delay);
+                        ResetTimeCount(out record_test_time);
                         Transition(WORK.LOAD_IMAGE);
                     }
                     break;
 
                 case WORK.LOAD_IMAGE:
                     {
+                        GetTimeCount(task_delay);
+                        
                         string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
                         image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
 
                         if (image.Empty())
                         {
-                            Tool.SaveHistoryToFile("影像不存在");
+                            tool.SaveHistoryToFile("影像不存在");
                             Transition(WORK.SUCCESS);
                             break;
                         }
 
-                        using (Mat dst = new Mat())
-                        {
-                            Cv2.Normalize(image, dst, 0, 255, NormTypes.MinMax, MatType.CV_8U); //16位元轉8位元
-                            Cv2.ImWrite(Save_Path, dst);  //儲存圖像
-                            f_FF_Calculate.ShowImage(Save_Path);
-                        }
+                        ShowImageToForm(image);
 
                         if (IsServerMode)
                         {
-                            Transition(WORK.THRESHOLD_IMAGE);
+                            Transition(WORK.PRE_PROCESS);
                         }
                         else
                         {
-                            SetNextState(WORK.THRESHOLD_IMAGE);
+                            SetNextState(WORK.PRE_PROCESS);
                             SetStatus(TASK_STATUS.PAUSE);
                             Transition(WORK.PAUSE);
                         }
                     }
                     break;
 
-                case WORK.THRESHOLD_IMAGE:
+                case WORK.PRE_PROCESS:
                     {
-                        double LowThreshold = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_EdgeLowThreshold);
-                        double Threshold = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_EdgeThreshold);
+                        FarField.PixelSize = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelSize);
+                        FarField.TestHeigh = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_TestHeight);
+                        
+                        FarField.PreProcess(image);
 
-                        //閥值處理,消除雜訊,凸顯邊緣
-                        Cv2.Canny(image, image, LowThreshold, Threshold);
+                        FarField.ImageFiltering(image);
 
-                        // 創建一個彩色圖像用於顯示結果
-                        Cv2.CvtColor(image, outputImage, ColorConversionCodes.GRAY2BGR);
+                        ShowImageToForm(image);
 
-                        Cv2.ImWrite(Save_Path, outputImage);
-
-                        //顯示圖像
-                        f_FF_Calculate.ShowImage(Save_Path);
-
-                        if (IsServerMode)
-                        {
-                            Transition(WORK.FIND_RECTANGLE);
-                        }
-                        else
-                        {
-                            SetNextState(WORK.FIND_RECTANGLE);
-                            SetStatus(TASK_STATUS.PAUSE);
-                            Transition(WORK.PAUSE);
-                        }
+                        Transition(WORK.CALCULATE_DIAMETER);
                     }
                     break;
-                case WORK.FIND_RECTANGLE:
+                case WORK.CALCULATE_DIAMETER:
                     {
-                        double Angle = 0.0; //Chip偏轉角度
-                        double AngleCheck = 0.0;
-                        double ChipWidth = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_ChipWidth);
-                        double ChipHeigh = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_ChipHeigh);
-                        double XPitch = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelPitchX);
-                        double YPitch = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelPitchY);
-                        int CorrectCount = 0;
-                        double W_Pixel = 0.0;
-                        double H_Pixel = 0.0;
-                        try
-                        {
-                            if (Math.Abs(XPitch - 0) > 0.01 && Math.Abs(XPitch - 0) > 0.01)
-                            {
-                                W_Pixel = ChipWidth / XPitch;
-                                H_Pixel = ChipHeigh / YPitch;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Tool.SaveHistoryToFile($"{ex}");
-                        }
+                        FarField.Calculate_Half_Diameter(image);
+                        FarField.Calculate_Diameter(image);
 
-                        // 找到輪廓
-                        Point[][] contours;
-                        HierarchyIndex[] hierarchy;
-                        Cv2.FindContours(image, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+                        ShowImageToForm(image);
 
-                        foreach (var contour in contours)
-                        {
-                            // 擬合最小外接矩形
-                            RotatedRect rotatedRect = Cv2.MinAreaRect(contour);
+                        Transition(WORK.CALCULATE_FARFIELD_RESULT);
+                    }
+                    break;
+                case WORK.CALCULATE_FARFIELD_RESULT:
+                    {
+                        FarField.Calculate_FarField_Result(angle: true);
 
-                            if (Math.Abs(rotatedRect.Size.Width - W_Pixel) <= 10 && Math.Abs(rotatedRect.Size.Height - H_Pixel) <= 10)
-                            {
-                                Angle = rotatedRect.Angle;
+                        outputImage = new Mat();
+                        //FarField.CalculateEyeSafe(image, out outputImage);
 
-                                //// 修正角度範圍
-                                //if (Angle < -45)
-                                //{
-                                //    Angle += 90; // 保證角度範圍在 [-45, 45] 之間
-                                //}
-
-                                if (CorrectCount == 0)
-                                {
-                                    AngleCheck = Angle;
-                                    CorrectCount++;
-                                }
-                                else if (Math.Abs(AngleCheck - Angle) < 0.5)
-                                {
-                                    //計算找到的晶粒偏轉角度相同次數
-                                    CorrectCount++;
-                                }
-
-
-                                // 獲取矩形的四個頂點
-                                Point2f[] boxPoints = rotatedRect.Points();
-                                Point[] intPoints = Array.ConvertAll(boxPoints, point => new Point((int)Math.Round(point.X), (int)Math.Round(point.Y)));
-                                // 繪製方型
-                                Cv2.Polylines(outputImage, new[] { intPoints }, true, Scalar.Red, 5);
-                            }
-                        }
-
-                        Cv2.ImWrite(Save_Path, outputImage);
-                        f_FF_Calculate.ShowImage(Save_Path);
-
-                        if (CorrectCount <= 3)
-                            ShowMessage("Find Angle Error");
-                        else
-                            ShowMessage($"Angle:{Angle.ToString("0.00")}");
-
-                        Scope.WaferAngle = Angle;
+                        //ShowImageToForm(outputImage);
 
                         Transition(WORK.SUCCESS);
                     }
@@ -415,6 +372,11 @@ namespace ImageProcessing.FF_Calculate
                 case WORK.SUCCESS:
                     {
                         SetStatus(TASK_STATUS.SUCCESS);
+                        
+                        //顯示結果至畫面上
+                        f_FF_Calculate.ShowFarFieldResult(angle:FarField.Angle);
+
+                        GC.Collect();   //強制回收程式記憶體
                     }
                     break;
 

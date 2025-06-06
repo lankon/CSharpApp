@@ -4,38 +4,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenCvSharp;
+
 using CommonFunction;
 
 namespace ImageProcessing.FF_Calculate
 {
-    class Task_FF_Angle_Calculate:IBaseTask
+    class SubTask_NF_Calculate:IBaseTask
     {
         #region parameter
-        private string error_msg;
-        private bool IsSubTaskProcessing = false;
-        private bool TerminateClient = false;
         private int task_delay = 0;
         private int delay_time = 2;
         private int record_test_time = 0;
-        Tool tool = new Tool();
-        F_FF_Calculate f_FF_Calculate;
-        IBaseTask Calculate;
+        private bool IsSubTaskProcessing = false;
+        private bool IsServerMode = false;
+        private string Save_Path = Application.StartupPath + @"\Picture\" + "Calculate.png";
         private WORK state = WORK.INITIAL;
         private WORK next_state = WORK.NONE;
+        private WORK pre_state = WORK.NONE;
         private TASK_STATUS status_commad = TASK_STATUS.NONE;
         private TASK_STATUS pre_status_commad = TASK_STATUS.NONE;
         private TASK_STATUS status = TASK_STATUS.CONTINUE;
-        //public override UpdateTaskStateCallBack UpdateTaskState { get; set; }
-        //public override SetErrorMsgCallBack SetErrorMsg { get; set; }
-        //public override SetPauseAbortContinueCallBack SetPauseAbortContinue { get; set; }
+        private Mat image;
+        Mat outputImage = new Mat();
+        Tool tool = new Tool();
+        private F_FF_Calculate f_FF_Calculate;
+        private NF_Algorithm NearField = new NF_Algorithm();
+        public override UpdateTaskStateCallBack UpdateTaskState { get; set; }
+        public override SetErrorMsgCallBack SetErrorMsg { get; set; }
+
         enum WORK
         {
             NONE,
             INITIAL,
             IDLE,
 
-            FF_CALCULATE,
-            WAIT_FF_CALCULATE,
+
+            LOAD_IMAGE,
+            PRE_PROCESS,
+            CALCULATE_DIAMETER,
+            CALCULATE_FARFIELD_RESULT,
+
+            GRAB_IMAGE,
+            GRAB_ORRGIN,
+            THRESHOLD_IMAGE,
+            FIND_RECTANGLE,
+            FIND_Circule,
+            CALCULATE_DIST,
+
 
             END,
 
@@ -49,15 +65,11 @@ namespace ImageProcessing.FF_Calculate
         #endregion
 
         #region private function
-        /// <summary>
-        /// 變換狀態
-        /// </summary>
         private void Transition(WORK target)
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[Task](Task_AngleCalculate)" + target.ToString());
-                UpdateTaskState("[Task](Task_AngleCalculate)" + target.ToString());
+                tool.SaveHistoryToFile("[SubTask](SubTask_NF_Calculate)" + target.ToString());
             }
 
             state = target;
@@ -75,6 +87,15 @@ namespace ImageProcessing.FF_Calculate
             Transition(next_state);
         }
         /// <summary>
+        /// 設定Task狀態
+        /// </summary>
+        /// <param name="st"></param>
+        protected override void SetStatus(TASK_STATUS st)
+        {
+            status = st;
+        }
+
+        /// <summary>
         /// 確認Task狀態
         /// </summary>
         /// <param name="check"></param>
@@ -85,12 +106,6 @@ namespace ImageProcessing.FF_Calculate
                 case TASK_STATUS.SUCCESS:
                     {
                         Transition(WORK.SUCCESS);
-                    }
-                    break;
-                case TASK_STATUS.PAUSE:
-                    {
-                        SetStatus(TASK_STATUS.PAUSE);
-                        Transition(WORK.PAUSE);
                     }
                     break;
                 case TASK_STATUS.ABORT:
@@ -112,12 +127,21 @@ namespace ImageProcessing.FF_Calculate
 
         }
         /// <summary>
-        /// 設定Task狀態
+        /// 設定狀態命令
         /// </summary>
-        /// <param name="st"></param>
-        protected override void SetStatus(TASK_STATUS st)
+        /// <param name="task_status"></param>
+        ///
+        protected override void SetStatusCommand(TASK_STATUS task_status)
         {
-            status = st;
+            status_commad = task_status;
+        }
+        /// <summary>
+        /// 取得狀態命令
+        /// </summary>
+        /// <returns></returns>
+        protected override TASK_STATUS GetStatusCommand()
+        {
+            return status_commad;
         }
         /// <summary>
         /// 設定是否有SubTask執行
@@ -135,26 +159,7 @@ namespace ImageProcessing.FF_Calculate
         {
             return IsSubTaskProcessing;
         }
-        /// <summary>
-        /// 設定狀態命令
-        /// </summary>
-        /// <param name="task_status"></param>
-        protected override void SetStatusCommand(TASK_STATUS task_status)
-        {
-            status_commad = task_status;
-        }
-        /// <summary>
-        /// 取得狀態命令
-        /// </summary>
-        /// <returns></returns>
-        protected override TASK_STATUS GetStatusCommand()
-        {
-            TASK_STATUS temp_status;
-            temp_status = status_commad;
-            status_commad = TASK_STATUS.NONE;
 
-            return temp_status;
-        }
 
 
         private void ResetTimeCount(out int tick)
@@ -173,6 +178,28 @@ namespace ImageProcessing.FF_Calculate
             bool res = time_count > time * 1000;
 
             return res;
+        }
+        private void ShowMessage(string msg)
+        {
+            if (IsServerMode == false)
+                MessageBox.Show(msg);
+            else
+                tool.SaveHistoryToFile(msg);
+        }
+        private void ShowImageToForm(Mat image)
+        {
+            //顯示圖片
+            if (image.Depth() == MatType.CV_16U)
+            {
+                Cv2.Normalize(image, outputImage, 0, 255, NormTypes.MinMax, MatType.CV_8U); //16位元轉8位元
+                Cv2.ImWrite(Save_Path, outputImage);
+            }
+            else
+            {
+                Cv2.ImWrite(Save_Path, image);
+            }
+
+            f_FF_Calculate.ShowImage(Save_Path);
         }
         #endregion
 
@@ -224,7 +251,7 @@ namespace ImageProcessing.FF_Calculate
         {
             if (form.Name == "F_FF_Calculate")
             {
-                f_FF_Calculate = form as F_FF_Calculate;
+                f_FF_Calculate = form as F_FF_Calculate; // 嘗試轉型
                 if (f_FF_Calculate == null)
                 {
                     tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
@@ -233,27 +260,36 @@ namespace ImageProcessing.FF_Calculate
         }
         #endregion
 
-        public Task_FF_Angle_Calculate(string set_state = "Default")
+        public SubTask_NF_Calculate(string set_state = "Default")
         {
             switch (set_state)
             {
+                case "ServerMode":
+                    {
+                        IsServerMode = true;
+                        state = WORK.INITIAL;
+                    }
+                    break;
+                case "Teach_ServerMode":
+                    {
+                        IsServerMode = true;
+                    }
+                    break;
                 case "Default":
                     {
                         state = WORK.INITIAL;
-                        ResetTimeCount(out task_delay);
                     }
                     break;
             }
+            ResetTimeCount(out task_delay);
         }
 
         private void RunLoop(TASK_STATUS task_status)
         {
             if (task_status == TASK_STATUS.ABORT)   //人員傳入ABORT命令
             {
-                if (GetSubTaskProcessing()) //判斷是否有執行SubTask
-                    SetStatusCommand(task_status);
-                else
-                    Transition(WORK.ABORT);
+                //SetStatusCommand(task_status);
+                //Transition(WORK.ABORT_PROCESS1);
             }
             else if (task_status == TASK_STATUS.CONTINUE)  //人員傳入CONTINUE命令
             {
@@ -265,43 +301,90 @@ namespace ImageProcessing.FF_Calculate
             {
                 case WORK.INITIAL:
                     {
-                        //預設進入執行case
-                        Transition(WORK.FF_CALCULATE);
-                    }
-                    break;
-
-                case WORK.IDLE:
-                    {
-                    }
-                    break;
-
-                case WORK.FF_CALCULATE:
-                    {
+                        //預設進入看要幹嘛
+                        ResetTimeCount(out task_delay);
                         ResetTimeCount(out record_test_time);
-                        Calculate = new SubTask_FF_Angle_Calculate("ServerMode");
-                        Calculate.SetForm(f_FF_Calculate);
-                        SetSubTaskProcessing(true);
-                        Transition(WORK.WAIT_FF_CALCULATE);
+                        Transition(WORK.LOAD_IMAGE);
                     }
                     break;
-                case WORK.WAIT_FF_CALCULATE:
-                    {
-                        TASK_STATUS check = Calculate.Run(GetStatusCommand());
-                        CheckResult(check);
 
-                        if (check == TASK_STATUS.PAUSE)
-                            SetNextState(WORK.WAIT_FF_CALCULATE);
+                case WORK.LOAD_IMAGE:
+                    {
+                        GetTimeCount(task_delay);
+                        
+                        string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
+                        image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
+
+                        if (image.Empty())
+                        {
+                            tool.SaveHistoryToFile("影像不存在");
+                            Transition(WORK.SUCCESS);
+                            break;
+                        }
+
+                        ShowImageToForm(image);
+
+                        if (IsServerMode)
+                        {
+                            Transition(WORK.PRE_PROCESS);
+                        }
+                        else
+                        {
+                            SetNextState(WORK.PRE_PROCESS);
+                            SetStatus(TASK_STATUS.PAUSE);
+                            Transition(WORK.PAUSE);
+                        }
+                    }
+                    break;
+
+                case WORK.PRE_PROCESS:
+                    {
+                        //FarField.PixelSize = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_PixelSize);
+                        //FarField.TestHeigh = ApplicationSetting.Get_Double_Recipe((int)FormItem.TxtBx_TestHeight);
+                        
+                        //FarField.PreProcess(image);
+
+                        //FarField.ImageFiltering(image);
+
+                        ShowImageToForm(image);
+
+                        Transition(WORK.CALCULATE_DIAMETER);
+                    }
+                    break;
+                case WORK.CALCULATE_DIAMETER:
+                    {
+                        //FarField.Calculate_Half_Diameter(image);
+                        //FarField.Calculate_Diameter(image);
+
+                        ShowImageToForm(image);
+
+                        Transition(WORK.CALCULATE_FARFIELD_RESULT);
+                    }
+                    break;
+                case WORK.CALCULATE_FARFIELD_RESULT:
+                    {
+                        //FarField.Calculate_FarField_Result(angle: true);
+
+                        outputImage = new Mat();
+                        //FarField.CalculateEyeSafe(image, out outputImage);
+
+                        //ShowImageToForm(outputImage);
+
+                        Transition(WORK.SUCCESS);
                     }
                     break;
 
                 case WORK.SUCCESS:
                     {
                         SetStatus(TASK_STATUS.SUCCESS);
-                        int time = GetTimeCount(record_test_time);
-                        tool.SaveHistoryToFile($"測試時間:{time}");
-                        f_FF_Calculate.ShowTestTimeResult(time);
+                        
+                        //顯示結果至畫面上
+                        //f_FF_Calculate.ShowFarFieldResult(angle:FarField.Angle);
+
+                        GC.Collect();   //強制回收程式記憶體
                     }
                     break;
+
                 case WORK.FAIL:
                     {
                         if (CheckTimeOverSec(task_delay, delay_time))
@@ -313,13 +396,13 @@ namespace ImageProcessing.FF_Calculate
 
                 case WORK.PAUSE:
                     {
-
                     }
                     break;
 
                 case WORK.ABORT:
                     {
                         SetStatus(TASK_STATUS.ABORT);
+                        //SaveHistoryCurrentState(WORK.ABORT);
                     }
                     break;
 
@@ -329,7 +412,6 @@ namespace ImageProcessing.FF_Calculate
                             GoToNextState();
 
                         SetStatus(TASK_STATUS.CONTINUE);
-                        SetStatusCommand(TASK_STATUS.CONTINUE);
                     }
                     break;
 

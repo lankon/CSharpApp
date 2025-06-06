@@ -61,3 +61,14 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+# 對所有文字檔自動處理換行符號
+* text=auto
+
+# 對 C# 相關檔案強制規範使用 CRLF（Windows 預設）
+*.cs     text eol=crlf
+*.designer.cs text eol=crlf
+*.resx   text eol=crlf
+*.config text eol=crlf
+*.sln    text eol=crlf
+*.csproj text eol=crlf
