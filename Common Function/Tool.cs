@@ -46,7 +46,7 @@ namespace CommonFunction
         {
             File.Close();
         }
-        public void CreateFolder(string folderPath)
+        public static void CreateFolder(string folderPath)
         {
             if (!Directory.Exists(folderPath))
             {
@@ -279,26 +279,6 @@ namespace CommonFunction
 
         #endregion
 
-        public static void CreateFolder(string folderPath)
-        {
-            if (!Directory.Exists(folderPath))
-            {
-                try
-                {
-                    Directory.CreateDirectory(folderPath);
-                    SaveHistoryToFile("創建資料夾:" + folderPath);
-                }
-                catch(Exception ex)
-                {
-                    SaveHistoryToFile("無效的創建資料夾路徑");
-                    SaveHistoryToFile($"Tool:CreateFolder Fail{ex}");
-                }                
-            }
-            else
-            {
-                //SaveHistoryToFile("資料夾已存在");
-            }
-        }
         public static void CallExecute(string path, string input_command = "Non")
         {
             string workingDirectory = Path.GetDirectoryName(path);   //工作目錄
@@ -353,7 +333,6 @@ namespace CommonFunction
                 }
             }
         }
-        #endregion
 
         #region 截圖相關功能
         public static void CaptureImage(Control ctrl, string filename)
@@ -416,7 +395,7 @@ namespace CommonFunction
         #endregion
 
         #region DataGrid
-        public void DataGrid_AddRow(DataGridView dataGridView, string[] context)
+        public static void DataGrid_AddRow(DataGridView dataGridView, string[] context)
         {
             if (context.Length != dataGridView.ColumnCount)
             {
@@ -430,14 +409,14 @@ namespace CommonFunction
             // 插入一列
             dataGridView.Rows.Insert(insertIndex, context);
         }
-        public void DataGrid_DeleteRow(DataGridView dataGridView)
+        public static void DataGrid_DeleteRow(DataGridView dataGridView)
         {
             if (dataGridView.CurrentRow != null && !dataGridView.CurrentRow.IsNewRow)
             {
                 dataGridView.Rows.Remove(dataGridView.CurrentRow);
             }
         }
-        public void DataGrid_RowUp(DataGridView dataGridView)
+        public static void DataGrid_RowUp(DataGridView dataGridView)
         {
             // 確保選取的列不為 null 且不是第一列
             if (dataGridView.CurrentRow != null && dataGridView.CurrentRow.Index > 0)
@@ -465,7 +444,7 @@ namespace CommonFunction
                 return;
             }
         }
-        public bool DataGrid_DataSave(DataGridView dataGridView, string file_name)
+        public static bool DataGrid_DataSave(DataGridView dataGridView, string file_name)
         {
             bool res = false;
 
@@ -515,7 +494,7 @@ namespace CommonFunction
 
             return res;
         }
-        public bool DataGrid_DataLoad(DataGridView dataGridView, string file_name)
+        public static bool DataGrid_DataLoad(DataGridView dataGridView, string file_name)
         {
             bool res = false;
 
@@ -547,7 +526,7 @@ namespace CommonFunction
 
             return res;
         }
-        public void DataGrid_RowDown(DataGridView dataGridView)
+        public static void DataGrid_RowDown(DataGridView dataGridView)
         {
             // 確保選取的列不為 null 且不是最後一列
             if (dataGridView.CurrentRow != null && dataGridView.CurrentRow.Index < dataGridView.Rows.Count - 1)

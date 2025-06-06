@@ -17,7 +17,6 @@ namespace ImageProcessing.FF_Calculate
         private int task_delay = 0;
         private int delay_time = 2;
         private int record_test_time = 0;
-        Tool tool = new Tool();
         F_FF_Calculate f_FF_Calculate;
         IBaseTask Calculate;
         private WORK state = WORK.INITIAL;
@@ -56,7 +55,7 @@ namespace ImageProcessing.FF_Calculate
         {
             if (target != state) //狀態有變化時紀錄
             {
-                tool.SaveHistoryToFile("[Task](Task_AngleCalculate)" + target.ToString());
+                Tool.SaveHistoryToFile("[Task](Task_AngleCalculate)" + target.ToString());
                 UpdateTaskState("[Task](Task_AngleCalculate)" + target.ToString());
             }
 
@@ -227,7 +226,7 @@ namespace ImageProcessing.FF_Calculate
                 f_FF_Calculate = form as F_FF_Calculate;
                 if (f_FF_Calculate == null)
                 {
-                    tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
+                    Tool.SaveHistoryToFile("F_FF_Calculate轉型失敗");
                 }
             }
         }
@@ -298,7 +297,7 @@ namespace ImageProcessing.FF_Calculate
                     {
                         SetStatus(TASK_STATUS.SUCCESS);
                         int time = GetTimeCount(record_test_time);
-                        tool.SaveHistoryToFile($"測試時間:{time}");
+                        Tool.SaveHistoryToFile($"測試時間:{time}");
                         f_FF_Calculate.ShowTestTimeResult(time);
                     }
                     break;

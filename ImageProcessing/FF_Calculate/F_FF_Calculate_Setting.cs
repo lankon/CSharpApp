@@ -16,7 +16,6 @@ namespace ImageProcessing.FF_Calculate
     public partial class F_FF_Calculate_Setting : Form
     {
         #region parameter define
-        Tool tool = new Tool();
         #endregion
 
         #region private function
@@ -44,7 +43,7 @@ namespace ImageProcessing.FF_Calculate
         {
             if (context.Length != dataGridView.ColumnCount)
             {
-                tool.SaveHistoryToFile("新增行數與DataGrid行數不一致");
+                Tool.SaveHistoryToFile("新增行數與DataGrid行數不一致");
                 return;
             }
 
@@ -89,10 +88,10 @@ namespace ImageProcessing.FF_Calculate
         {
             bool res = false;
 
-            tool.SaveHistoryToFile($"{file_name}儲存Start");
+            Tool.SaveHistoryToFile($"{file_name}儲存Start");
 
             string FolderPath = Application.StartupPath + @"\Setting";
-            tool.CreateFolder(FolderPath);
+            Tool.CreateFolder(FolderPath);
 
             string file_path = FolderPath + @"\" + file_name;
 
@@ -131,7 +130,7 @@ namespace ImageProcessing.FF_Calculate
                 return res;
             }
 
-            tool.SaveHistoryToFile($"{file_name}儲存End");
+            Tool.SaveHistoryToFile($"{file_name}儲存End");
 
             return res;
         }
@@ -221,7 +220,7 @@ namespace ImageProcessing.FF_Calculate
             if (selectedFileName == "")
             {
                 MessageBox.Show("Teach Path Set Fail");
-                tool.SaveHistoryToFile("Teach Path設定失敗");
+                Tool.SaveHistoryToFile("Teach Path設定失敗");
                 return;
             }
 
@@ -246,7 +245,7 @@ namespace ImageProcessing.FF_Calculate
             if (selectedFileName == "")
             {
                 MessageBox.Show("Bath Path Set Fail");
-                tool.SaveHistoryToFile("Batch Path設定失敗");
+                Tool.SaveHistoryToFile("Batch Path設定失敗");
                 return;
             }
 

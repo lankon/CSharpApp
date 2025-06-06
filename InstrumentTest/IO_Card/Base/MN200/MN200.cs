@@ -16,7 +16,6 @@ namespace InstrumentTest.IO_Card.Base
         private const Byte MaxNumDevicesPerLine = 64;
         private const Byte MaxNumLine = 5;
         private const Byte MaxNumStatus = 32;
-        Tool tool = new Tool();
         private MN200_Parameter MN200_Param = new MN200_Parameter();
         public List<byte> InputLineNo 
         {
@@ -58,20 +57,20 @@ namespace InstrumentTest.IO_Card.Base
             {
                 if ((nErrCode = PISO_MN200.Functions.mn_open_all(ref m_NumLine)) != PISO_MN200.ErrCode.SUCCESS)
                 {
-                    tool.SaveHistoryToFile("MN200開卡失敗");
+                    Tool.SaveHistoryToFile("MN200開卡失敗");
                     return false;
                 }
             }
             catch
             {
-                tool.SaveHistoryToFile("無MN200 dll");
+                Tool.SaveHistoryToFile("無MN200 dll");
                 return false;
             }
             
 
             if(m_NumLine == 0)
             {
-                tool.SaveHistoryToFile("無MN200相關設備");
+                Tool.SaveHistoryToFile("無MN200相關設備");
                 return false;
             }
 
@@ -120,7 +119,7 @@ namespace InstrumentTest.IO_Card.Base
 
             if(IO_DevNum == 0)
             {
-                tool.SaveHistoryToFile("無MN200 IO卡");
+                Tool.SaveHistoryToFile("無MN200 IO卡");
                 return false;
             }
 

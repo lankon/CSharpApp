@@ -14,7 +14,6 @@ namespace InstrumentTest.IO_Card.Base
         private int lineMaxCount = 5;
         private int devMaxCount = 2;
         private int portMaxCount = 16;
-        Tool tool = new Tool();
         PCI_DASK_Parameter pCI_Parm = new PCI_DASK_Parameter();
 
         struct PCI_DASK_Parameter
@@ -54,7 +53,7 @@ namespace InstrumentTest.IO_Card.Base
             }
             catch(Exception ex)
             {
-                tool.SaveHistoryToFile($"PCI_DASK = ({pCI_Parm.CardType}) 初始化失敗");
+                Tool.SaveHistoryToFile($"PCI_DASK = ({pCI_Parm.CardType}) 初始化失敗");
                 res = false;
             }
 

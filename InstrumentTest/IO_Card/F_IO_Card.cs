@@ -16,7 +16,6 @@ namespace InstrumentTest.IO_Card
     public partial class F_IO_Card : Form
     {
         #region parameter
-        Tool tool = new Tool();
         List<IOData> IOList = new List<IOData>();
         Function_IO_Card DIOL = new Function_IO_Card();
         private bool IO_Init = false;
@@ -76,32 +75,32 @@ namespace InstrumentTest.IO_Card
         {
             string[] context = new string[] { "None", "None", "None", "None", "-1", "OFF", "False", "-1", "-1", "-1" };
 
-            tool.DataGrid_AddRow(DGV_IO, context);
+            Tool.DataGrid_AddRow(DGV_IO, context);
         }
 
         private void Btn_Save_Click(object sender, EventArgs e)
         {
-            tool.DataGrid_DataSave(DGV_IO, "IO.xml");
+            Tool.DataGrid_DataSave(DGV_IO, "IO.xml");
         }
 
         private void Btn_Remove_Click(object sender, EventArgs e)
         {
-            tool.DataGrid_DeleteRow(DGV_IO);
+            Tool.DataGrid_DeleteRow(DGV_IO);
         }
 
         private void Btn_RowUp_Click(object sender, EventArgs e)
         {
-            tool.DataGrid_RowUp(DGV_IO);
+            Tool.DataGrid_RowUp(DGV_IO);
         }
 
         private void Btn_RowDown_Click(object sender, EventArgs e)
         {
-            tool.DataGrid_RowDown(DGV_IO);
+            Tool.DataGrid_RowDown(DGV_IO);
         }
 
         private void Btn_Load_Click(object sender, EventArgs e)
         {
-            tool.DataGrid_DataLoad(DGV_IO, "IO.xml");
+            Tool.DataGrid_DataLoad(DGV_IO, "IO.xml");
         }
 
         private void DGV_IO_CellValueChanged(object sender, DataGridViewCellEventArgs e)

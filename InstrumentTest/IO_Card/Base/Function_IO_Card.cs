@@ -48,7 +48,6 @@ namespace InstrumentTest.IO_Card.Base
         #region parameter define
         private List<Base_IO_Card> IO = new List<Base_IO_Card>();
         private List<IOData> IO_List = new List<IOData>();
-        Tool tool = new Tool();
         private Dictionary<string, IOData> ioListDict;
         #endregion
 
@@ -115,7 +114,7 @@ namespace InstrumentTest.IO_Card.Base
 
             if (!UseMN200 && !UseP32C32 && !UsePcisDask)    //沒有任何一張IO卡
             {
-                tool.SaveHistoryToFile("IO卡Initial失敗");
+                Tool.SaveHistoryToFile("IO卡Initial失敗");
                 return false;
             }
 
