@@ -393,6 +393,8 @@ namespace CommonFunction
             } // 使用using語句確保加載的圖片資源在不再需要時釋放
         }
         #endregion
+
+        
     }
 }
 
