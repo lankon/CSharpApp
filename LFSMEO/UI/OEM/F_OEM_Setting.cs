@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using CommonFunction;
+using LFSMEO.Base_LFSMEO;
 
-namespace LFSMEO.Base.Template
+namespace LFSMEO.UI
 {
-    public partial class F_Template : Form
+    public partial class F_OEM_Setting : Form
     {
         #region parameter define
         #endregion
@@ -32,12 +33,20 @@ namespace LFSMEO.Base.Template
         #endregion
 
         #region public function
-        
         #endregion
 
-        public F_Template()
+        public F_OEM_Setting()
         {
             InitializeComponent();
+        }
+
+        private void Btn_IO_Form_Click(object sender, EventArgs e)
+        {
+            Tool.HideElementOnPanel(Scope.MainPanel);
+
+            F_IO_Setting f_IO_Setting = new F_IO_Setting();
+            Tool.SetForm(Scope.MainPanel, f_IO_Setting);
+            f_IO_Setting.Show();
         }
     }
 }

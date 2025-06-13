@@ -337,7 +337,7 @@
         CgBQOQIFAKgcgQIAVI5AAQAqR6AAAJWTA+UrAIDq+I+v/j+J2KDA/mOk3wAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="Btn_MFR_Setting.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Btn_OEM_Setting.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAigAAAIoCAYAAABDDRCFAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAAFuoAABbqAeWOQxAAAKnQSURBVHhe7b31/xxF2q8PCXEIEIJbCCR4SIIHQkJwdw/u

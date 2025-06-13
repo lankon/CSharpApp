@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LFSMEO.Base.Template
 {
-    enum FormItem
+    enum eFormItem
     {
 
     }

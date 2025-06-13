@@ -33,7 +33,7 @@ namespace LFSMEO.UI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_SartForm_ButtonGroup));
             this.Pnl_Part1 = new System.Windows.Forms.Panel();
             this.Btn_LogIn = new System.Windows.Forms.Button();
-            this.Btn_MFR_Setting = new System.Windows.Forms.Button();
+            this.Btn_OEM_Setting = new System.Windows.Forms.Button();
             this.Btn_PreviousPnlPart1 = new System.Windows.Forms.Button();
             this.Btn_NextPnlPart1 = new System.Windows.Forms.Button();
             this.Btn_ParameterSetting = new System.Windows.Forms.Button();
@@ -48,7 +48,7 @@ namespace LFSMEO.UI
             // Pnl_Part1
             // 
             this.Pnl_Part1.Controls.Add(this.Btn_LogIn);
-            this.Pnl_Part1.Controls.Add(this.Btn_MFR_Setting);
+            this.Pnl_Part1.Controls.Add(this.Btn_OEM_Setting);
             this.Pnl_Part1.Controls.Add(this.Btn_PreviousPnlPart1);
             this.Pnl_Part1.Controls.Add(this.Btn_NextPnlPart1);
             this.Pnl_Part1.Controls.Add(this.Btn_ParameterSetting);
@@ -67,15 +67,16 @@ namespace LFSMEO.UI
             this.Btn_LogIn.TabIndex = 36;
             this.Btn_LogIn.UseVisualStyleBackColor = true;
             // 
-            // Btn_MFR_Setting
+            // Btn_OEM_Setting
             // 
-            this.Btn_MFR_Setting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_MFR_Setting.BackgroundImage")));
-            this.Btn_MFR_Setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_MFR_Setting.Location = new System.Drawing.Point(1095, 5);
-            this.Btn_MFR_Setting.Name = "Btn_MFR_Setting";
-            this.Btn_MFR_Setting.Size = new System.Drawing.Size(60, 60);
-            this.Btn_MFR_Setting.TabIndex = 35;
-            this.Btn_MFR_Setting.UseVisualStyleBackColor = true;
+            this.Btn_OEM_Setting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_OEM_Setting.BackgroundImage")));
+            this.Btn_OEM_Setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_OEM_Setting.Location = new System.Drawing.Point(1095, 5);
+            this.Btn_OEM_Setting.Name = "Btn_OEM_Setting";
+            this.Btn_OEM_Setting.Size = new System.Drawing.Size(60, 60);
+            this.Btn_OEM_Setting.TabIndex = 35;
+            this.Btn_OEM_Setting.UseVisualStyleBackColor = true;
+            this.Btn_OEM_Setting.Click += new System.EventHandler(this.Btn_OEM_Setting_Click);
             // 
             // Btn_PreviousPnlPart1
             // 
@@ -165,7 +166,7 @@ namespace LFSMEO.UI
         private System.Windows.Forms.Button Btn_PreviousPnlPart2;
         private System.Windows.Forms.Button Btn_NextPnlPart2;
         private System.Windows.Forms.Button Btn_ParameterSetting;
-        private System.Windows.Forms.Button Btn_MFR_Setting;
+        private System.Windows.Forms.Button Btn_OEM_Setting;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button Btn_LogIn;
     }

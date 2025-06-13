@@ -16,7 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonFunction", "CommonFun
 		Common Function\Communication_TCPIP_ClientServer.cs = Common Function\Communication_TCPIP_ClientServer.cs
 		Common Function\Licence.cs = Common Function\Licence.cs
 		Common Function\Tool.cs = Common Function\Tool.cs
-		Common Function\Tool_Form.cs = Common Function\Tool_Form.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapping", "Mapping\Mapping.csproj", "{F65F551C-276E-45AF-A6E4-BB8F099DC434}"

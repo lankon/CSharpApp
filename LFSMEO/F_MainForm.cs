@@ -19,6 +19,8 @@ namespace LFSMEO
     public partial class F_MainForm : Form
     {
         #region parameter define
+        F_StartForm f_StartForm = new F_StartForm();
+        F_SartForm_ButtonGroup f_SartForm_ButtonGroup = new F_SartForm_ButtonGroup();
         #endregion
 
         #region private function
@@ -87,13 +89,22 @@ namespace LFSMEO
         }
         private void InitialStartForm()
         {
-            F_StartForm f_StartForm = new F_StartForm();
-            Tool_Form.SetForm(Scope.MainPanel, f_StartForm);
+            //F_StartForm f_StartForm = new F_StartForm();
+            Tool.SetForm(Scope.MainPanel, f_StartForm);
             f_StartForm.Show();
 
-            F_SartForm_ButtonGroup f_SartForm_ButtonGroup = new F_SartForm_ButtonGroup();
-            Tool_Form.SetForm(Scope.UpButtonPanel, f_SartForm_ButtonGroup);
+            //F_SartForm_ButtonGroup f_SartForm_ButtonGroup = new F_SartForm_ButtonGroup();
+            Tool.SetForm(Scope.UpButtonPanel, f_SartForm_ButtonGroup);
             f_SartForm_ButtonGroup.Show();
+        }
+        protected override CreateParams CreateParams    //防止UI元件更新時畫面閃爍
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
         #endregion
 
@@ -125,6 +136,8 @@ namespace LFSMEO
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
+            Tool.HideElementOnPanel(Scope.MainPanel);
+
             InitialStartForm();
         }
     }

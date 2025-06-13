@@ -14,7 +14,7 @@ using System.Data;
 
 namespace CommonFunction
 {
-    public static class Tool
+    public static partial class Tool
     {
         #region 寫檔
         public static StreamWriter CreateFile(String Name, String Type, bool ContinueWrite)
@@ -556,6 +556,42 @@ namespace CommonFunction
         }
         #endregion
     }
+
+    //************* Form *******************
+    public static partial class Tool
+    {
+        public static void SetForm(Panel pnl, Form form)
+        {
+            form.Dock = DockStyle.Fill;
+            form.Visible = false;
+            form.TopLevel = false;
+            form.Top = 0;
+            form.Left = 0;
+
+            pnl.Controls.Add(form);
+        }
+
+        public static void HideElementOnPanel(Panel pnl)
+        {
+            foreach (Control control in pnl.Controls)
+            {
+                if (control is Form && control.Visible == true)
+                {
+                    ((Form)control).Hide();
+                    //break; 
+                }
+                else if (control is Button && control.Visible == true)
+                {
+                    ((Button)control).Visible = false;
+                }
+                else if (control is Label && control.Visible == true)
+                {
+                    ((Label)control).Visible = false;
+                }
+            }
+        }
+    }
+    
 }
 
 

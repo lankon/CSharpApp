@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using CommonFunction;
+using LFSMEO.Base_LFSMEO;
 
-namespace LFSMEO.Base.Template
+namespace LFSMEO.UI
 {
-    public partial class F_Template : Form
+    public partial class F_IO_Setting : Form
     {
         #region parameter define
         #endregion
@@ -35,9 +36,16 @@ namespace LFSMEO.Base.Template
         
         #endregion
 
-        public F_Template()
+        public F_IO_Setting()
         {
             InitializeComponent();
+        }
+
+        private void Btn_Add_Click(object sender, EventArgs e)
+        {
+            string[] context = new string[] { "None", "None", "None", "None", "-1", "OFF", "False", "-1", "-1", "-1" };
+
+            Tool.DataGrid_AddRow(DGV_IO, context);
         }
     }
 }

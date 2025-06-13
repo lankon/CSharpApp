@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using CommonFunction;
+using LFSMEO.Base_LFSMEO;
+
 namespace LFSMEO.UI
 {
     public partial class F_SartForm_ButtonGroup : Form
@@ -20,9 +23,9 @@ namespace LFSMEO.UI
         #region private function
         private void SetHint()
         {
-            toolTip1.SetToolTip(Btn_MFR_Setting, "Manufacturer Setting");
+            toolTip1.SetToolTip(Btn_OEM_Setting, "OEM Setting");
             toolTip1.SetToolTip(Btn_ParameterSetting, "Parameter Setting");
-            toolTip1.SetToolTip(Btn_LogIn, "Log In");
+            toolTip1.SetToolTip(Btn_LogIn, "LogIn");
         }
         private void InitialForm()
         {
@@ -80,9 +83,13 @@ namespace LFSMEO.UI
             curPnlPart = NextPnlPart(PnlPartList, curPnlPart);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Btn_OEM_Setting_Click(object sender, EventArgs e)
         {
-            GC.Collect();
+            Tool.HideElementOnPanel(Scope.MainPanel);
+            
+            F_OEM_Setting f_OEM_Setting = new F_OEM_Setting();
+            Tool.SetForm(Scope.MainPanel, f_OEM_Setting);
+            f_OEM_Setting.Show();
         }
     }
 }
