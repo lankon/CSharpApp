@@ -94,5 +94,15 @@ namespace InstrumentTest.IO_Card.Base
         {
             throw new NotImplementedException();
         }
+
+        public override void UpdateOutput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool GetOutputStatus(byte lineNo, byte DevNo, byte port)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

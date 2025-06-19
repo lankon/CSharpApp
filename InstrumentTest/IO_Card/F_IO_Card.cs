@@ -226,6 +226,9 @@ namespace InstrumentTest.IO_Card
                                             (byte)IOList[e.RowIndex].Title_IO_Num,
                                             true);
                 }
+
+                DGV_IO.ClearSelection();
+                DGV_IO.CurrentCell = null;
             }
         }
     }

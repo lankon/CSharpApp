@@ -80,7 +80,7 @@ namespace InstrumentTest.IO_Card.Base
                     }
                 }
 
-                Thread.Sleep(1);
+                Thread.Sleep(15);
             }
         }
         #endregion
@@ -150,6 +150,21 @@ namespace InstrumentTest.IO_Card.Base
 
             ioListDict = IO_List.GroupBy(x => x.Title_Name).ToDictionary(g => g.Key, g => g.First());
         }
+        public bool GetInputStatus(EIOCardType CardType, byte lineNo, byte devNo, byte port, int iList)
+        {
+            for (int i = 0; i < IO.Count; i++)
+            {
+                if (IO[i].GetName() != CardType.ToString())
+                    continue;
+
+                if (IO_List[iList].Title_Inverse == "True" || IO_List[iList].Title_Inverse == "true")
+                    return !IO[i].GetInputStatus(lineNo, devNo, port);
+                else if (IO_List[iList].Title_Inverse == "False" || IO_List[iList].Title_Inverse == "false")
+                    return IO[i].GetInputStatus(lineNo, devNo, port);
+            }
+
+            return false;
+        }
         public bool GetInputStatus(EIOName name)
         {
             ioListDict.TryGetValue(name.ToString(), out IOData iOData);
@@ -169,21 +184,6 @@ namespace InstrumentTest.IO_Card.Base
                     return IO[j].GetInputStatus(lineNo, devNo, port);
             }
             
-            return false;
-        }
-        public bool GetInputStatus(EIOCardType CardType,byte lineNo, byte devNo, byte port, int iList)
-        {
-            for(int i=0; i<IO.Count; i++)
-            {
-                if (IO[i].GetName() != CardType.ToString())
-                    continue;
-
-                if(IO_List[iList].Title_Inverse == "True" || IO_List[iList].Title_Inverse == "true")
-                    return !IO[i].GetInputStatus(lineNo, devNo, port);
-                else if (IO_List[iList].Title_Inverse == "False" || IO_List[iList].Title_Inverse == "false")
-                    return IO[i].GetInputStatus(lineNo, devNo, port);
-            }
-
             return false;
         }
         public bool SetOutputStatus(EIOCardType CardType, byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
