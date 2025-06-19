@@ -16,11 +16,12 @@ namespace InstrumentTest.IO_Card.Base
         
         struct APS_Parameter
         {
-            public Int32 card_name;
+            public Int32 CardType;
             public Int32 MAX_DI_NUM;
-            public bool[,,] InputStatus;   //紀錄[LineNo,DevNo,Port]對應的Input訊號
+            public Int32 MAX_DO_NUM;
+            public bool[,,] Input_Status;   //紀錄[LineNo,DevNo,Port]對應的Input訊號
+            public int PRA_EL_LOGIC;
         }
-
         #endregion
 
         public APS()
@@ -28,14 +29,25 @@ namespace InstrumentTest.IO_Card.Base
 
         }
         
+        #region IO Function
         public override bool GetInputStatus(byte lineNo, byte DevNo, byte port)
         {
-            throw new NotImplementedException();
+            if (APS_Param.CardType == (Int32)APS_Define.DEVICE_NAME_AMP_20408C)
+            {
+                if (port < 0 || port >= APS_Param.MAX_DI_NUM)
+                    return false;
+                if (DevNo < 0 || DevNo >= 5)
+                    return false;
+                if (lineNo < 0 || lineNo >= 5)
+                    return false;
+            }
+
+            return APS_Param.Input_Status[lineNo, DevNo, port];
         }
 
         public override string GetName()
         {
-            if (APS_Param.card_name == (Int32)APS_Define.DEVICE_NAME_AMP_20408C)
+            if (APS_Param.CardType == (Int32)APS_Define.DEVICE_NAME_AMP_20408C)
                 return "AMP_204C";
 
             return "None";
@@ -49,7 +61,15 @@ namespace InstrumentTest.IO_Card.Base
             Int32 StartAxisID = 0;
             Int32 TotalAxisNum = 0;
 
-            ret = APS168.APS_initial(ref boardID_InBits, mode);
+            try
+            {
+                ret = APS168.APS_initial(ref boardID_InBits, mode);
+            }
+            catch
+            {
+                ret = -1;
+            }
+            
             
             if (ret != 0)
                 return false;
@@ -61,21 +81,22 @@ namespace InstrumentTest.IO_Card.Base
                 if (temp != 1)
                     continue;
 
-                ret = APS168.APS_get_card_name(i, ref APS_Param.card_name);
+                ret = APS168.APS_get_card_name(i, ref APS_Param.CardType);
 
-                if (APS_Param.card_name == (Int32)APS_Define.DEVICE_NAME_PCI_825458 ||
-                    APS_Param.card_name == (Int32)APS_Define.DEVICE_NAME_AMP_20408C)
+                if (APS_Param.CardType == (Int32)APS_Define.DEVICE_NAME_PCI_825458 ||
+                    APS_Param.CardType == (Int32)APS_Define.DEVICE_NAME_AMP_20408C)
                 {
                     ret = APS168.APS_get_first_axisId(i, ref StartAxisID, ref TotalAxisNum);
 
                     APS_Param.MAX_DI_NUM = 24;
-                    APS_Param.InputStatus = new bool[5, 5, APS_Param.MAX_DI_NUM];
+                    APS_Param.MAX_DO_NUM = 24;
+                    APS_Param.Input_Status = new bool[5, 5, APS_Param.MAX_DI_NUM];
 
                     break;
                 }
             }
 
-            return false;
+            return true;
         }
 
         public override void UpdateInput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0)
@@ -84,15 +105,54 @@ namespace InstrumentTest.IO_Card.Base
 
             APS168.APS_read_d_input(lineNo, 0 , ref digital_input_value);
 
+            //digital_input_value = digital_input_value >> 8; //??芭比主程式
+
             for (int i = 0; i < APS_Param.MAX_DI_NUM; i++)
             {
                 int check = ((digital_input_value >> i) & 1);
 
                 if (check == 1)
-                    APS_Param.InputStatus[lineNo, devNo, i] = true;
+                    APS_Param.Input_Status[lineNo, devNo, i] = true;
                 else
-                    APS_Param.InputStatus[lineNo, devNo, i] = false;
+                    APS_Param.Input_Status[lineNo, devNo, i] = false;
             }
         }
+
+        public override bool SetOutputStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
+        {
+            Int32 digital_output_value = 0;
+
+            Int32[] do_ch = new Int32[APS_Param.MAX_DO_NUM];
+
+            //****** Read digital output channels *****************************
+            APS168.APS_read_d_output(cardNo, 0 , ref digital_output_value);
+
+            for (int i = 0; i < APS_Param.MAX_DO_NUM; i++)
+                do_ch[i] = ((digital_output_value >> i) & 1);
+
+            //************ Write digital output channels examples *************
+            int LineNumber = port;  //??芭比主程式+8
+
+            if (truefalse)
+                digital_output_value |= (1 << LineNumber);
+            else
+                digital_output_value &= ~(1 << LineNumber);
+
+            APS168.APS_write_d_output(cardNo
+                , 0                     // I32 DO_Group
+                , digital_output_value  // I32 DO_Data
+            );
+            //*******************************************************************
+
+            return true;
+        }
+        #endregion
+
+        #region Motion Function
+        public override bool SetMotionConfig()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

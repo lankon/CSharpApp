@@ -126,10 +126,18 @@ namespace InstrumentTest.IO_Card.Base
             Initial_Success = true;
             return true;
         }
+        
+        public override string GetName()
+        {
+            if (Initial_Success)
+            return "MN200";
+            else
+                return "None";
+        }
         public override void UpdateInput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0)
         {
             UInt16 wData = 0;
-            byte m_CurDevType = MN200_Param.DevNoType[lineNo,devNo];
+            byte m_CurDevType = MN200_Param.DevNoType[lineNo, devNo];
 
             if (m_CurDevType == PISO_MN200.Param.DEV_INFO_IO_32IN_DEV)
             {
@@ -145,16 +153,36 @@ namespace InstrumentTest.IO_Card.Base
 
                 for (byte status = 16; status < 32; status++)
                 {
-                    MN200_Param.Input_Status[lineNo, devNo, status] = (wData & (1 << (status-16))) != 0;
+                    MN200_Param.Input_Status[lineNo, devNo, status] = (wData & (1 << (status - 16))) != 0;
                 }
             }
         }
-        public override string GetName()
+        public override bool SetOutputStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
         {
-            if (Initial_Success)
-            return "MN200";
+            ushort uData = 0;
+            short res = 0;
+            byte word_no = 0;
+
+            if (port < 16)
+                word_no = 0;
             else
-                return "None";
+            {
+                word_no = 1;
+                port -= 16;
+            }
+                
+                
+            //取得目前DO狀態
+            PISO_MN200.Functions.mn_get_do_word(lineNo, devNo, word_no, ref uData);
+
+            if (truefalse)
+                uData |= (ushort)(1 << port);    // 設為 1
+            else
+                uData &= (ushort)~(1 << port);    // 設為 0
+
+            res =  PISO_MN200.Functions.mn_set_do_word(lineNo, devNo, word_no, uData);
+
+            return true;
         }
         #endregion
 
@@ -170,6 +198,13 @@ namespace InstrumentTest.IO_Card.Base
         public override bool GetInputStatus(byte lineNo, byte devNo, byte port)
         {
             return MN200_Param.Input_Status[lineNo, devNo, port];
+        }
+
+        
+
+        public override bool SetMotionConfig()
+        {
+            throw new NotImplementedException();
         }
 
 

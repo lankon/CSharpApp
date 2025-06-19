@@ -127,7 +127,7 @@ namespace InstrumentTest.IO_Card.Base
             Initial_Success = true;
             return true;
         }
-        public override void UpdateInput(byte lineNo = 0, byte devNo = 0, byte port = 0)
+        public override void UpdateInput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0)
         {
             UInt16 wData = 0;
             byte m_CurDevType = MN200_Param.DevNoType[lineNo,devNo];

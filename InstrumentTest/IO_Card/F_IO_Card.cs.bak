@@ -67,10 +67,7 @@ namespace InstrumentTest.IO_Card
         public F_IO_Card()
         {
             InitializeComponent();
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
             
         }
@@ -131,7 +128,7 @@ namespace InstrumentTest.IO_Card
             DIOL.Update_IO_List(DGV_IO, IOList);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Btn_Open_Click(object sender, EventArgs e)
         {
             if(DIOL.Initial_All_IO())
             {
@@ -182,6 +179,11 @@ namespace InstrumentTest.IO_Card
                     DGV_IO.Rows[i].Cells["Title_Status"].Style.BackColor = Color.White;
                 }
             }
+        }
+
+        private void Btn_Test_Click(object sender, EventArgs e)
+        {
+            bool res = DIOL.GetInputStatus(EIOName.SafePos_Sensor);
         }
     }
 }

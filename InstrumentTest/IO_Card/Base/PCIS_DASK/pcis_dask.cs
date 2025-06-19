@@ -8,7 +8,7 @@ using CommonFunction;
 
 namespace InstrumentTest.IO_Card.Base
 {
-    class pcis_dask : Base_IO_Card
+    class Pcis_dask : Base_IO_Card
     {
         #region parameter define
         private int lineMaxCount = 5;
@@ -23,7 +23,7 @@ namespace InstrumentTest.IO_Card.Base
         }
         #endregion
 
-        public pcis_dask(ushort card_type)
+        public Pcis_dask(ushort card_type)
         {
             pCI_Parm.CardType = card_type;
 
@@ -83,6 +83,16 @@ namespace InstrumentTest.IO_Card.Base
             }
 
             return pCI_Parm.Input_Status[lineNo, DevNo, port];
+        }
+
+        public override bool SetOutputStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool SetMotionConfig()
+        {
+            throw new NotImplementedException();
         }
     }
 }

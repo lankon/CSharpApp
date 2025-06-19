@@ -22,29 +22,43 @@ namespace InstrumentTest.IO_Card
         #endregion
 
         #region private function
-        //private void Update_IO_List(DataGridView DGV, List<IOData> io_list)
-        //{
-        //    io_list.Clear();
+        private bool IOCard_GetInputStatus(int i)
+        {
+            bool input_res = false;
+            
+            if (IOList[i].Title_CardType == "MN200" && IOList[i].Title_IO == "Input")
+            {
+                if (DIOL.GetInputStatus(EIOCardType.MN200,
+                                        (byte)IOList[i].Title_LineNum,
+                                        (byte)IOList[i].Title_DevNum,
+                                        (byte)IOList[i].Title_IO_Num, i))
+                {
+                    input_res = true;
+                }
+            }
+            else if (IOList[i].Title_CardType == "PCI_9111" && IOList[i].Title_IO == "Input")
+            {
+                if (DIOL.GetInputStatus(EIOCardType.PCI_9111,
+                                        (byte)IOList[i].Title_LineNum,
+                                        (byte)IOList[i].Title_DevNum,
+                                        (byte)IOList[i].Title_IO_Num, i))
+                {
+                    input_res = true;
+                }
+            }
+            else if (IOList[i].Title_CardType == "AMP_204C" && IOList[i].Title_IO == "Input")
+            {
+                if (DIOL.GetInputStatus(EIOCardType.AMP_204C,
+                                        (byte)IOList[i].Title_LineNum,
+                                        (byte)IOList[i].Title_DevNum,
+                                        (byte)IOList[i].Title_IO_Num, i))
+                {
+                    input_res = true;
+                }
+            }
 
-        //    foreach (DataGridViewRow row in DGV.Rows)
-        //    {
-        //        if (row.IsNewRow) continue;
-
-        //        var data = new IOData()
-        //        {
-        //            Title_IO = row.Cells["Title_IO"]?.Value?.ToString(),
-        //            Title_Name = row.Cells["Title_Name"]?.Value?.ToString(),
-        //            Title_Description = row.Cells["Title_Description"]?.Value?.ToString(),
-        //            Title_CardType = row.Cells["Title_CardType"]?.Value?.ToString(),
-        //            Title_CardNum = Convert.ToInt32(row.Cells["Title_CardNum"]?.Value ?? "-1"),
-        //            Title_IO_Num = Convert.ToInt32(row.Cells["Title_IO_Num"]?.Value ?? "-1"),
-        //            Title_Status = row.Cells["Title_Status"]?.Value?.ToString(),
-        //        };
-
-        //        io_list.Add(data);
-        //    }
-        //}
-
+            return input_res;
+        }
         #endregion
 
         #region public function
@@ -66,14 +80,11 @@ namespace InstrumentTest.IO_Card
         public F_IO_Card()
         {
             InitializeComponent();
-
-
-            
         }
 
         private void Btn_Add_Click(object sender, EventArgs e)
         {
-            string[] context = new string[] { "None", "None", "None", "None", "-1", "OFF", "False", "-1", "-1", "-1" };
+            string[] context = new string[] { "None", "None", "None", "None", "-1", "OFF", "False", "0", "0", "0" };
 
             Tool.DataGrid_AddRow(DGV_IO, context);
         }
@@ -146,33 +157,14 @@ namespace InstrumentTest.IO_Card
             {
                 bool input_res = false;
 
-                if (IOList[i].Title_CardType == "MN200" && IOList[i].Title_IO == "Input")
-                {
-                    if (DIOL.GetInputStatus(EIOCardType.MN200,
-                                            (byte)IOList[i].Title_LineNum,
-                                            (byte)IOList[i].Title_DevNum, 
-                                            (byte)IOList[i].Title_IO_Num,i))
-                    {
-                        input_res = true;
-                    }
-                }
-                else if (IOList[i].Title_CardType == "PCI_9111" && IOList[i].Title_IO == "Input")
-                {
-                    if (DIOL.GetInputStatus(EIOCardType.PCI_9111,
-                                            (byte)IOList[i].Title_LineNum,
-                                            (byte)IOList[i].Title_DevNum, 
-                                            (byte)IOList[i].Title_IO_Num,i))
-                    {
-                        input_res = true;
-                    }
-                }
+                input_res = IOCard_GetInputStatus(i);
 
-                if (input_res)
+                if (input_res && DGV_IO.Rows[i].Cells["Title_IO"].Value.ToString() != "Output")
                 {
                     DGV_IO.Rows[i].Cells["Title_Status"].Value = "ON";
                     DGV_IO.Rows[i].Cells["Title_Status"].Style.BackColor = Color.SkyBlue;
                 }
-                else
+                else if(input_res == false && DGV_IO.Rows[i].Cells["Title_IO"].Value.ToString() != "Output")
                 {
                     DGV_IO.Rows[i].Cells["Title_Status"].Value = "OFF";
                     DGV_IO.Rows[i].Cells["Title_Status"].Style.BackColor = Color.White;
@@ -182,7 +174,59 @@ namespace InstrumentTest.IO_Card
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
+            if (IO_Init == false)
+                return;
+
             bool res = DIOL.GetInputStatus(EIOName.SafePos_Sensor);
+        }
+
+        private void DGV_IO_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (IO_Init == false)
+                return;
+
+            if (e.RowIndex >= 0 && 
+                DGV_IO.Columns[e.ColumnIndex].Name == "Title_Status" && 
+                DGV_IO.Rows[e.RowIndex].Cells["Title_IO"].Value.ToString() == "Output")
+            {
+                //判斷IO卡
+                EIOCardType eIOCardType = EIOCardType.None;
+
+                if (DGV_IO.Rows[e.RowIndex].Cells["Title_CardType"].Value.ToString() == "AMP_204C")
+                    eIOCardType = EIOCardType.AMP_204C;
+                else if(DGV_IO.Rows[e.RowIndex].Cells["Title_CardType"].Value.ToString() == "MN200")
+                    eIOCardType = EIOCardType.MN200;
+
+
+                // 取得目前儲存格值
+                var value = DGV_IO.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+
+                // 可以根據值做切換
+                if (value == "ON")
+                {
+                    DGV_IO.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "OFF";
+                    DGV_IO.Rows[e.RowIndex].Cells["Title_Status"].Style.BackColor = Color.White;
+
+                    DIOL.SetOutputStatus(eIOCardType,
+                                            (byte)IOList[e.RowIndex].Title_CardNum,
+                                            (byte)IOList[e.RowIndex].Title_LineNum,
+                                            (byte)IOList[e.RowIndex].Title_DevNum,
+                                            (byte)IOList[e.RowIndex].Title_IO_Num,
+                                            false);
+                }
+                else
+                {
+                    DGV_IO.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "ON";
+                    DGV_IO.Rows[e.RowIndex].Cells["Title_Status"].Style.BackColor = Color.SkyBlue;
+
+                    DIOL.SetOutputStatus(eIOCardType,
+                                            (byte)IOList[e.RowIndex].Title_CardNum,
+                                            (byte)IOList[e.RowIndex].Title_LineNum,
+                                            (byte)IOList[e.RowIndex].Title_DevNum,
+                                            (byte)IOList[e.RowIndex].Title_IO_Num,
+                                            true);
+                }
+            }
         }
     }
 }

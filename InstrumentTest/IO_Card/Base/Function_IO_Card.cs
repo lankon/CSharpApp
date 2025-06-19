@@ -15,7 +15,7 @@ namespace InstrumentTest.IO_Card.Base
         None = 0,
         PCI_9111,
         MN200,
-        
+        AMP_204C,
     }
     public enum EIOName
     {
@@ -91,28 +91,27 @@ namespace InstrumentTest.IO_Card.Base
             bool UseMN200 = false, UseP32C32 = false, UsePcisDask = false, UseAPS = false ;
             
             Base_IO_Card mN200 = new MN200();
-            Base_IO_Card pcis_dask = new pcis_dask(PCIS_DASK.Param.PCI_9111DG);
+            Base_IO_Card pcis_dask = new Pcis_dask(PCIS_DASK.Param.PCI_9111DG);
             Base_IO_Card APS = new APS();
 
-            
+            if (mN200.Open() == true)
+                IO.Add(mN200);
+            if(pcis_dask.Open() == true)
+                IO.Add(pcis_dask);
+            if(APS.Open() == true)
+                IO.Add(APS);
 
-            IO.Add(mN200);
-            IO.Add(pcis_dask);
-            IO.Add(APS);
-
-            //開啟所有IO卡
             for (int i = 0; i < IO.Count; i++)
             {
-                if (IO[i].Open() == false)
-                    continue;
-
                 if (IO[i].GetName() == "MN200")
                     UseMN200 = true;
                 if (IO[i].GetName() == "PCI_9111")
                     UsePcisDask = true;
+                if (IO[i].GetName() == "AMP_204C")
+                    UseAPS = true;
             }
 
-            if (!UseMN200 && !UseP32C32 && !UsePcisDask)    //沒有任何一張IO卡
+            if (!UseMN200 && !UseP32C32 && !UsePcisDask && !UseAPS)    //沒有任何一張IO卡
             {
                 Tool.SaveHistoryToFile("IO卡Initial失敗");
                 return false;
@@ -159,8 +158,8 @@ namespace InstrumentTest.IO_Card.Base
             byte devNo = (byte)iOData.Title_DevNum;
             byte port = (byte)iOData.Title_IO_Num;
                     
-                    for (int j = 0; j < IO.Count; j++)
-                    {
+            for (int j = 0; j < IO.Count; j++)
+            {
                 if (IO[j].GetName() != iOData.Title_CardType)
                     continue;
 
@@ -186,6 +185,40 @@ namespace InstrumentTest.IO_Card.Base
             }
 
             return false;
+        }
+        public bool SetOutputStatus(EIOCardType CardType, byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
+        {
+            for (int i = 0; i < IO.Count; i++)
+            {
+                if (IO[i].GetName() != CardType.ToString())
+                    continue;
+
+                IO[i].SetOutputStatus(cardNo, lineNo, devNo, port, truefalse);
+            }
+
+            return true;
+        }
+        public bool SetOutputStatus(EIOName name, bool truefalse)
+        {
+            ioListDict.TryGetValue(name.ToString(), out IOData iOData);
+
+            byte cardNo = (byte)iOData.Title_CardNum;
+            byte lineNo = (byte)iOData.Title_LineNum;
+            byte devNo = (byte)iOData.Title_DevNum;
+            byte port = (byte)iOData.Title_IO_Num;
+
+            for (int j = 0; j < IO.Count; j++)
+            {
+                if (IO[j].GetName() != iOData.Title_CardType)
+                    continue;
+
+                if (iOData.Title_Inverse == "True" || iOData.Title_Inverse == "true")
+                    IO[j].SetOutputStatus(cardNo, lineNo, devNo, port, !truefalse);
+                else if (iOData.Title_Inverse == "False" || iOData.Title_Inverse == "false")
+                    IO[j].SetOutputStatus(cardNo, lineNo, devNo, port, truefalse);
+            }
+
+            return true;
         }
         #endregion
     }

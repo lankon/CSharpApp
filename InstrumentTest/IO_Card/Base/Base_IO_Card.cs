@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace InstrumentTest.IO_Card.Base
 {
-    
-
     public abstract class Base_IO_Card
     {
         #region abstract
         public abstract bool Open();
+
+        //Motion Function
+        public abstract bool SetMotionConfig();
+
+        //IO Function
         public abstract string GetName();
         public abstract void UpdateInput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0);
         public abstract bool GetInputStatus(byte lineNo, byte DevNo, byte port);
+        public abstract bool SetOutputStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false);
         #endregion
 
         #region virtual
