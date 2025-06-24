@@ -361,5 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/InstrumentTest/Motion_IO_Card
-/LFSMEO
