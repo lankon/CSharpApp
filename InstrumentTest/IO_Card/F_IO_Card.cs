@@ -25,39 +25,52 @@ namespace InstrumentTest.IO_Card
         private bool IOCard_GetInputStatus(int i)
         {
             bool input_res = false;
-            
-            if (IOList[i].Title_CardType == "MN200" && IOList[i].Title_IO == "Input")
+
+            if (IOList[i].Title_IO == "Input" &&
+                Enum.TryParse<EIOCardType>(IOList[i].Title_CardType, out var cardType))
             {
-                if (DIOL.GetInputStatus(EIOCardType.MN200,
-                                        (byte)IOList[i].Title_LineNum,
-                                        (byte)IOList[i].Title_DevNum,
-                                        (byte)IOList[i].Title_IO_Num, i))
-                {
-                    input_res = true;
-                }
-            }
-            else if (IOList[i].Title_CardType == "PCI_9111" && IOList[i].Title_IO == "Input")
-            {
-                if (DIOL.GetInputStatus(EIOCardType.PCI_9111,
-                                        (byte)IOList[i].Title_LineNum,
-                                        (byte)IOList[i].Title_DevNum,
-                                        (byte)IOList[i].Title_IO_Num, i))
-                {
-                    input_res = true;
-                }
-            }
-            else if (IOList[i].Title_CardType == "AMP_204C" && IOList[i].Title_IO == "Input")
-            {
-                if (DIOL.GetInputStatus(EIOCardType.AMP_204C,
-                                        (byte)IOList[i].Title_LineNum,
-                                        (byte)IOList[i].Title_DevNum,
-                                        (byte)IOList[i].Title_IO_Num, i))
-                {
-                    input_res = true;
-                }
+                input_res = DIOL.GetInputStatus(cardType,
+                                    (byte)IOList[i].Title_LineNum,
+                                    (byte)IOList[i].Title_DevNum,
+                                    (byte)IOList[i].Title_IO_Num, i);
             }
 
             return input_res;
+        }
+        private bool IOCard_GetOutputStatus(int i)
+        {
+            bool output_res = false;
+
+            if (IOList[i].Title_IO == "Output" &&
+                Enum.TryParse<EIOCardType>(IOList[i].Title_CardType, out var cardType))
+            {
+                output_res = DIOL.GetOutputStatus(cardType,
+                                    (byte)IOList[i].Title_LineNum,
+                                    (byte)IOList[i].Title_DevNum,
+                                    (byte)IOList[i].Title_IO_Num, i);
+            }
+
+            return output_res;
+        }
+        private void UpdateOutputStatus_UI()
+        {
+            for (int i = 0; i < IOList.Count; i++)
+            {
+                bool output_res = false;
+
+                output_res = IOCard_GetOutputStatus(i);
+
+                if (output_res && DGV_IO.Rows[i].Cells["Title_IO"].Value.ToString() == "Output")
+                {
+                    DGV_IO.Rows[i].Cells["Title_Status"].Value = "ON";
+                    DGV_IO.Rows[i].Cells["Title_Status"].Style.BackColor = Color.SkyBlue;
+                }
+                else if (output_res == false && DGV_IO.Rows[i].Cells["Title_IO"].Value.ToString() == "Output")
+                {
+                    DGV_IO.Rows[i].Cells["Title_Status"].Value = "OFF";
+                    DGV_IO.Rows[i].Cells["Title_Status"].Style.BackColor = Color.White;
+                }
+            }
         }
         #endregion
 
@@ -111,7 +124,10 @@ namespace InstrumentTest.IO_Card
 
         private void Btn_Load_Click(object sender, EventArgs e)
         {
-            Tool.DataGrid_DataLoad(DGV_IO, "IO.xml");
+            if(Tool.DataGrid_DataLoad(DGV_IO, "IO.xml"))
+            {
+                Btn_Open.Enabled = true;
+            }
         }
 
         private void DGV_IO_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -145,6 +161,8 @@ namespace InstrumentTest.IO_Card
                 IO_Init = true;
 
                 DIOL.Update_IO_List(DGV_IO, IOList);
+
+                UpdateOutputStatus_UI();
             }
         }
 
@@ -177,7 +195,9 @@ namespace InstrumentTest.IO_Card
             if (IO_Init == false)
                 return;
 
-            bool res = DIOL.GetInputStatus(EIOName.SafePos_Sensor);
+            //bool res = DIOL.GetInputStatus(EIOName.SafePos_Sensor);
+
+            UpdateOutputStatus_UI();
         }
 
         private void DGV_IO_CellClick(object sender, DataGridViewCellEventArgs e)

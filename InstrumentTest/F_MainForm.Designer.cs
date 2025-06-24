@@ -47,7 +47,7 @@ namespace InstrumentTest
             this.Pnl_Function.Controls.Add(this.Btn_CloseApp);
             this.Pnl_Function.Location = new System.Drawing.Point(13, 3);
             this.Pnl_Function.Name = "Pnl_Function";
-            this.Pnl_Function.Size = new System.Drawing.Size(1021, 68);
+            this.Pnl_Function.Size = new System.Drawing.Size(1021, 74);
             this.Pnl_Function.TabIndex = 27;
             this.Pnl_Function.Paint += new System.Windows.Forms.PaintEventHandler(this.Pnl_Function_Paint);
             // 
@@ -55,7 +55,7 @@ namespace InstrumentTest
             // 
             this.Pnl_Group1.Location = new System.Drawing.Point(69, 0);
             this.Pnl_Group1.Name = "Pnl_Group1";
-            this.Pnl_Group1.Size = new System.Drawing.Size(883, 65);
+            this.Pnl_Group1.Size = new System.Drawing.Size(883, 70);
             this.Pnl_Group1.TabIndex = 30;
             this.Pnl_Group1.Visible = false;
             // 
@@ -65,7 +65,7 @@ namespace InstrumentTest
             this.Btn_Home.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Btn_Home.Location = new System.Drawing.Point(3, 5);
             this.Btn_Home.Name = "Btn_Home";
-            this.Btn_Home.Size = new System.Drawing.Size(60, 60);
+            this.Btn_Home.Size = new System.Drawing.Size(60, 65);
             this.Btn_Home.TabIndex = 29;
             this.Btn_Home.UseVisualStyleBackColor = true;
             this.Btn_Home.Click += new System.EventHandler(this.Btn_Home_Click);
@@ -76,14 +76,14 @@ namespace InstrumentTest
             this.Btn_CloseApp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Btn_CloseApp.Location = new System.Drawing.Point(958, 5);
             this.Btn_CloseApp.Name = "Btn_CloseApp";
-            this.Btn_CloseApp.Size = new System.Drawing.Size(60, 60);
+            this.Btn_CloseApp.Size = new System.Drawing.Size(60, 65);
             this.Btn_CloseApp.TabIndex = 27;
             this.Btn_CloseApp.UseVisualStyleBackColor = true;
             this.Btn_CloseApp.Click += new System.EventHandler(this.Btn_CloseApp_Click);
             // 
             // Pnl_Group
             // 
-            this.Pnl_Group.Location = new System.Drawing.Point(13, 77);
+            this.Pnl_Group.Location = new System.Drawing.Point(13, 83);
             this.Pnl_Group.Name = "Pnl_Group";
             this.Pnl_Group.Size = new System.Drawing.Size(1022, 554);
             this.Pnl_Group.TabIndex = 28;
@@ -91,8 +91,7 @@ namespace InstrumentTest
             // 
             // F_MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1046, 641);
             this.Controls.Add(this.Pnl_Group);

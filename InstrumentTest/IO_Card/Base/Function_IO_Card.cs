@@ -186,6 +186,23 @@ namespace InstrumentTest.IO_Card.Base
             
             return false;
         }
+        public bool GetOutputStatus(EIOCardType CardType, byte lineNo, byte devNo, byte port, int iList)
+        {
+            for (int i = 0; i < IO.Count; i++)
+            {
+                if (IO[i].GetName() != CardType.ToString())
+                    continue;
+
+                IO[i].GetOutputStatus(lineNo, devNo, port);
+
+                if (IO_List[iList].Title_Inverse == "True" || IO_List[iList].Title_Inverse == "true")
+                    return !IO[i].GetOutputStatus(lineNo, devNo, port);
+                else if (IO_List[iList].Title_Inverse == "False" || IO_List[iList].Title_Inverse == "false")
+                    return IO[i].GetOutputStatus(lineNo, devNo, port);
+            }
+
+            return false;
+        }
         public bool SetOutputStatus(EIOCardType CardType, byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
         {
             for (int i = 0; i < IO.Count; i++)

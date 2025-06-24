@@ -49,9 +49,6 @@ namespace InstrumentTest.IO_Card.Base
         }
 
         #region abstract
-        
-        
-        
         public override bool Open()
         {
             Byte m_NumLine = 0;
@@ -202,9 +199,10 @@ namespace InstrumentTest.IO_Card.Base
                 }
             }
         }
-
         public override bool GetOutputStatus(byte lineNo, byte DevNo, byte port)
         {
+            UpdateOutput(0, lineNo, DevNo, port);
+            
             bool res = MN200_Param.Output_Status[lineNo, DevNo, port];
 
             return res;
@@ -238,9 +236,6 @@ namespace InstrumentTest.IO_Card.Base
                 res = PISO_MN200.Functions.mn_set_do_word(lineNo, devNo, word_no, uData);
             }
 
-
-            
-
             return true;
         }
         #endregion
@@ -254,15 +249,6 @@ namespace InstrumentTest.IO_Card.Base
         {
             return MN200_Param.IO_DevNo;
         }
-        
-
-        
-
-        
-
-        
-
-
         #endregion
 
 

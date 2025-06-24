@@ -496,7 +496,7 @@ namespace CommonFunction
         }
         public static bool DataGrid_DataLoad(DataGridView dataGridView, string file_name)
         {
-            bool res = false;
+            bool res = true;
 
             string FolderPath = Application.StartupPath + @"\Setting";
 
