@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InstrumentTest.IO_Card.Base.PCIS_DASK
+namespace InstrumentTest.Motion_IO_Card.Base.PCIS_DASK
 {
     public class Param
     {

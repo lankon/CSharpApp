@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-namespace InstrumentTest.IO_Card.Base.PISO_MN200
+namespace InstrumentTest.Motion_IO_Card.Base.PISO_MN200
 {
 	public class Param
 	{

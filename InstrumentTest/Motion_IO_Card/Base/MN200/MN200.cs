@@ -7,7 +7,7 @@ using System.Threading;
 
 using CommonFunction;
 
-namespace InstrumentTest.IO_Card.Base
+namespace InstrumentTest.Motion_IO_Card.Base
 {
     class MN200:Base_IO_Card
     {

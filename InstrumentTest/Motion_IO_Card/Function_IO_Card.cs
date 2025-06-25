@@ -7,8 +7,9 @@ using System.Threading;
 
 using CommonFunction;
 using System.Windows.Forms;
+using InstrumentTest.Motion_IO_Card.Base;
 
-namespace InstrumentTest.IO_Card.Base
+namespace InstrumentTest.Motion_IO_Card
 {
     public enum EIOCardType
     {
@@ -91,7 +92,7 @@ namespace InstrumentTest.IO_Card.Base
             bool UseMN200 = false, UseP32C32 = false, UsePcisDask = false, UseAPS = false ;
             
             Base_IO_Card mN200 = new MN200();
-            Base_IO_Card pcis_dask = new Pcis_dask(PCIS_DASK.Param.PCI_9111DG);
+            Base_IO_Card pcis_dask = new Pcis_dask(Pcis_dask_param.PCI_9111DG);
             Base_IO_Card APS = new APS();
 
             if (mN200.Open() == true)

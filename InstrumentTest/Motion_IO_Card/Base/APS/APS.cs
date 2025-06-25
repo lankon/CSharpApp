@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using InstrumentTest.IO_Card.Base.APS168_W64;
-using InstrumentTest.IO_Card.Base.APS_Define_W32;
+using InstrumentTest.Motion_IO_Card.Base.APS168_W64;
+using InstrumentTest.Motion_IO_Card.Base.APS_Define_W32;
 
-namespace InstrumentTest.IO_Card.Base
+namespace InstrumentTest.Motion_IO_Card.Base
 {
     class APS : Base_IO_Card
     {

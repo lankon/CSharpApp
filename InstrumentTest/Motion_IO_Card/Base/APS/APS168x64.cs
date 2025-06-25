@@ -7,7 +7,7 @@ using System.Data;
 using System.Runtime.InteropServices;
 
 
-namespace InstrumentTest.IO_Card.Base.APS168_W64
+namespace InstrumentTest.Motion_IO_Card.Base.APS168_W64
 {
 	
 	//ADLINK Structure++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

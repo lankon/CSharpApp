@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InstrumentTest.IO_Card.Base
+namespace InstrumentTest.Motion_IO_Card.Base
 {
     public abstract class Base_IO_Card
     {

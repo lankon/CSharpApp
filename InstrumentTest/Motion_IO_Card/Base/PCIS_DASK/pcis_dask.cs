@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 using CommonFunction;
 
-namespace InstrumentTest.IO_Card.Base
+namespace InstrumentTest.Motion_IO_Card.Base
 {
+    public class Pcis_dask_param
+    {
+        //ADLink PCI Card Type
+        public const ushort PCI_9111DG = PCIS_DASK.Param.PCI_9111DG;
+
+        //Channel Count
+        public const ushort P9111_CHANNEL_DI = PCIS_DASK.Param.P9111_CHANNEL_DI;
+    }
+
     class Pcis_dask : Base_IO_Card
     {
         #region parameter define

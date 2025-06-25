@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using InstrumentTest.IO_Card;
+using InstrumentTest.Motion_IO_Card;
 
 
 

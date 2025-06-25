@@ -1,5 +1,5 @@
 ﻿
-namespace InstrumentTest.IO_Card
+namespace InstrumentTest.Motion_IO_Card
 {
     partial class F_IO_Card
     {

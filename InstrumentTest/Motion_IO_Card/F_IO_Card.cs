@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using CommonFunction;
-using InstrumentTest.IO_Card.Base;
+using InstrumentTest.Motion_IO_Card.Base;
 
-namespace InstrumentTest.IO_Card
+namespace InstrumentTest.Motion_IO_Card
 {
     public partial class F_IO_Card : Form
     {
