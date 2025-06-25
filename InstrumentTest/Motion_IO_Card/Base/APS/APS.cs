@@ -9,7 +9,7 @@ using InstrumentTest.Motion_IO_Card.Base.APS_Define_W32;
 
 namespace InstrumentTest.Motion_IO_Card.Base
 {
-    class APS : Base_IO_Card
+    class APS : Base_Motion_IO_Card
     {
         #region parameter define 
         APS_Parameter APS_Param = new APS_Parameter();
@@ -160,6 +160,11 @@ namespace InstrumentTest.Motion_IO_Card.Base
         }
 
         public override bool GetOutputStatus(byte lineNo, byte DevNo, byte port)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
         {
             throw new NotImplementedException();
         }

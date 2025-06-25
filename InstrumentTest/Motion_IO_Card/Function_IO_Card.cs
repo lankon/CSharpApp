@@ -47,7 +47,7 @@ namespace InstrumentTest.Motion_IO_Card
     public class Function_IO_Card
     {
         #region parameter define
-        private List<Base_IO_Card> IO = new List<Base_IO_Card>();
+        private List<Base_Motion_IO_Card> IO = new List<Base_Motion_IO_Card>();
         private List<IOData> IO_List = new List<IOData>();
         private Dictionary<string, IOData> ioListDict;
         #endregion
@@ -91,9 +91,9 @@ namespace InstrumentTest.Motion_IO_Card
         {
             bool UseMN200 = false, UseP32C32 = false, UsePcisDask = false, UseAPS = false ;
             
-            Base_IO_Card mN200 = new MN200();
-            Base_IO_Card pcis_dask = new Pcis_dask(Pcis_dask_param.PCI_9111DG);
-            Base_IO_Card APS = new APS();
+            Base_Motion_IO_Card mN200 = new MN200();
+            Base_Motion_IO_Card pcis_dask = new Pcis_dask(Pcis_dask_param.PCI_9111DG);
+            Base_Motion_IO_Card APS = new APS();
 
             if (mN200.Open() == true)
                 IO.Add(mN200);

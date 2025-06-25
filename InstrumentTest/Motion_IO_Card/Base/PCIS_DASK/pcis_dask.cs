@@ -17,7 +17,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
         public const ushort P9111_CHANNEL_DI = PCIS_DASK.Param.P9111_CHANNEL_DI;
     }
 
-    class Pcis_dask : Base_IO_Card
+    class Pcis_dask : Base_Motion_IO_Card
     {
         #region parameter define
         private int lineMaxCount = 5;
@@ -110,6 +110,11 @@ namespace InstrumentTest.Motion_IO_Card.Base
         }
 
         public override bool GetOutputStatus(byte lineNo, byte DevNo, byte port)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
         {
             throw new NotImplementedException();
         }

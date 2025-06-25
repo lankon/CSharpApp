@@ -9,7 +9,7 @@ using CommonFunction;
 
 namespace InstrumentTest.Motion_IO_Card.Base
 {
-    class MN200:Base_IO_Card
+    class MN200:Base_Motion_IO_Card
     {
         #region parameter define
         private Int16 nErrCode;
@@ -18,6 +18,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
         private const Byte MaxNumLine = 5;
         private const Byte MaxNumStatus = 32;
         private MN200_Parameter MN200_Param = new MN200_Parameter();
+        PISO_MN200.MOTION_DEV_IO MOTION_DEV_IO = new PISO_MN200.MOTION_DEV_IO();
         public List<byte> InputLineNo 
         {
             get { return MN200_Param.IO_LineNo; } 
@@ -40,7 +41,6 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
         public MN200()
         {
-            MN200_Param.UseLine = new bool[MaxNumLine];
             MN200_Param.DevNoType = new byte[MaxNumLine, MaxNumDevicesPerLine];
             MN200_Param.Input_Status = new bool[MaxNumLine, MaxNumDevicesPerLine, MaxNumStatus];
             MN200_Param.Output_Status = new bool[MaxNumLine, MaxNumDevicesPerLine, MaxNumStatus];
@@ -51,6 +51,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
         #region abstract
         public override bool Open()
         {
+            if (Initial_Success == true)
+                return true;
+            
             Byte m_NumLine = 0;
             Byte DefBaudRate = PISO_MN200.Param.COMMSPEED_10M;    //要開放設定(連線速度)
             Byte pNumDev = 0;
@@ -83,8 +86,6 @@ namespace InstrumentTest.Motion_IO_Card.Base
                 if ((nErrCode = PISO_MN200.Functions.mn_set_comm_speed(lineNo, DefBaudRate)) != PISO_MN200.ErrCode.SUCCESS)
                     continue;
 
-                MN200_Param.UseLine[lineNo] = true;
-
                 if ((nErrCode = PISO_MN200.Functions.mn_start_line(lineNo, ref pNumDev)) != PISO_MN200.ErrCode.SUCCESS)
                     continue;
 
@@ -97,6 +98,12 @@ namespace InstrumentTest.Motion_IO_Card.Base
                     switch (bDevType)
                     {
                         case PISO_MN200.Param.DEV_INFO_NO_DEV:
+                            {
+                                MN200_Param.DevNoType[lineNo, bDevNo] = bDevType;
+                            }
+                            break;
+
+                        case PISO_MN200.Param.DEV_INFO_MOTION_DEV:
                             {
                                 MN200_Param.DevNoType[lineNo, bDevNo] = bDevType;
                             }
@@ -136,12 +143,20 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             throw new NotImplementedException();
         }
+        public override short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            PISO_MN200.Functions.mn_get_mdio_status(lineNo, devNo, ref MOTION_DEV_IO);
+
+
+
+            throw new NotImplementedException();
+        }
 
         //IO function
         public override string GetName()
         {
             if (Initial_Success)
-            return "MN200";
+                return "MN200";
             else
                 return "None";
         }
@@ -249,6 +264,8 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             return MN200_Param.IO_DevNo;
         }
+
+        
         #endregion
 
 

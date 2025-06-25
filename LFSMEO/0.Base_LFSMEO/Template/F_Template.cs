@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using CommonFunction;
 
-namespace LFSMEO.Base.Template
+namespace LFSMEO.Base_LFSMEO
 {
     public partial class F_Template : Form
     {

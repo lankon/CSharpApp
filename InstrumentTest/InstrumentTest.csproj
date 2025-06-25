@@ -105,12 +105,13 @@
     <Compile Include="Motion_IO_Card\Base\APS\APS.cs" />
     <Compile Include="Motion_IO_Card\Base\APS\APS168x64.cs" />
     <Compile Include="Motion_IO_Card\Base\APS\APS_Define.cs" />
-    <Compile Include="Motion_IO_Card\Base\Base_IO_Card.cs" />
+    <Compile Include="Motion_IO_Card\Base\Base_Motion_IO_Card.cs" />
     <Compile Include="Motion_IO_Card\Base\PCIS_DASK\pcis_dask.cs" />
     <Compile Include="Motion_IO_Card\Base\PCIS_DASK\PCIS_DASK_dll.cs" />
     <Compile Include="Motion_IO_Card\Function_IO_Card.cs" />
     <Compile Include="Motion_IO_Card\Base\MN200\MN200.cs" />
     <Compile Include="Motion_IO_Card\Base\MN200\PISO_MN200.cs" />
+    <Compile Include="Motion_IO_Card\Function_Motion_Card.cs" />
     <Compile Include="Motion_IO_Card\F_IO_Card.cs">
       <SubType>Form</SubType>
     </Compile>

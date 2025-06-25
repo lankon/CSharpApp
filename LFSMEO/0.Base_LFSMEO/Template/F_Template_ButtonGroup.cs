@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LFSMEO.Base.Template
+namespace LFSMEO.Base_LFSMEO
 {
     public partial class F_Template_ButtonGroup : Form
     {

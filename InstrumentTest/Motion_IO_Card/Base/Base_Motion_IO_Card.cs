@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace InstrumentTest.Motion_IO_Card.Base
 {
-    public abstract class Base_IO_Card
+    public abstract class Base_Motion_IO_Card
     {
         #region abstract
         public abstract bool Open();
 
         //Motion Function
         public abstract bool SetMotionConfig();
+        public abstract short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
 
         //IO Function
         public abstract string GetName();

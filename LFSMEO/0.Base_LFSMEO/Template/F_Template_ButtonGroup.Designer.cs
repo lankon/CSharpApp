@@ -1,5 +1,5 @@
 ﻿
-namespace LFSMEO.Base.Template
+namespace LFSMEO.Base_LFSMEO
 {
     partial class F_Template_ButtonGroup
     {
@@ -77,8 +77,7 @@ namespace LFSMEO.Base.Template
             // 
             // F_Template_ButtonGroup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1386, 174);
             this.Controls.Add(this.panel2);

@@ -50,9 +50,6 @@ namespace LFSMEO
 
 
             InitialStartForm();
-
-
-
             //CreateApp(which_app);
         }
         private void CreateDynamicElement()

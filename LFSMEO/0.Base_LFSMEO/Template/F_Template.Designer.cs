@@ -1,5 +1,5 @@
 ﻿
-namespace LFSMEO.Base.Template
+namespace LFSMEO.Base_LFSMEO
 {
     partial class F_Template
     {
