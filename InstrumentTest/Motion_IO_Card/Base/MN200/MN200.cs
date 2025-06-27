@@ -62,23 +62,16 @@ namespace InstrumentTest.Motion_IO_Card.Base
             try
             {
                 if ((nErrCode = PISO_MN200.Functions.mn_open_all(ref m_NumLine)) != PISO_MN200.ErrCode.SUCCESS)
-                {
-                    Tool.SaveHistoryToFile("MN200開卡失敗");
                     return false;
-                }
             }
             catch
             {
-                Tool.SaveHistoryToFile("無MN200 dll");
                 return false;
             }
             
 
             if(m_NumLine == 0)
-            {
-                Tool.SaveHistoryToFile("無MN200相關設備");
                 return false;
-            }
 
             for (byte lineNo = 0; lineNo < m_NumLine; lineNo++) // Loop through each line
             {
@@ -129,13 +122,17 @@ namespace InstrumentTest.Motion_IO_Card.Base
             }
 
             if(IO_DevNum == 0)
-            {
-                Tool.SaveHistoryToFile("無MN200 IO卡");
                 return false;
-            }
 
             Initial_Success = true;
             return true;
+        }
+        public override string GetName()
+        {
+            if (Initial_Success)
+                return "MN200";
+            else
+                return "None";
         }
 
         //Motion function
@@ -151,15 +148,8 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
             throw new NotImplementedException();
         }
-
+        
         //IO function
-        public override string GetName()
-        {
-            if (Initial_Success)
-                return "MN200";
-            else
-                return "None";
-        }
         public override void UpdateInput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0)
         {
             UInt16 wData = 0;
