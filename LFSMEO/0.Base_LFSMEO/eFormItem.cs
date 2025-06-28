@@ -8,6 +8,6 @@ namespace LFSMEO.Base_LFSMEO
 {
     enum eFormItem
     {
-
+        Cmbx_DebugShowFormName,
     }
 }

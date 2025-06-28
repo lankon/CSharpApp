@@ -28,7 +28,6 @@ namespace LFSMEO.UI
         }
         void ShowHint()
         {
-
         }
         #endregion
 

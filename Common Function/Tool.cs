@@ -590,6 +590,43 @@ namespace CommonFunction
                 }
             }
         }
+
+        /// <summary>
+        /// 顯示Form Name,Debug的時後使用,其他用途請勿使用,會持續占用記憶體
+        /// </summary>
+        /// <param name="form"></param>
+        public static void ShowFormName(Form form, int pos = 0)
+        {
+            // 建立 Panel
+            Panel namePanel = new Panel();
+            namePanel.Name = "FormNamePanel";
+            namePanel.BackColor = Color.FromArgb(0, 0, 0, 128); // 半透明黑底
+            namePanel.Size = new Size(350, 30);
+
+            if(pos == 0)
+                namePanel.Location = new Point(0, 0); // 左上
+            else if(pos == 1)
+                namePanel.Location = new Point(form.Width - 350, 0); // 右上
+
+            namePanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            namePanel.BringToFront(); // 確保在最上層
+
+            // 建立 Label
+            Label nameLabel = new Label();
+            nameLabel.Text = form.Name; // 或 form.Text 看你想顯示什麼
+            nameLabel.ForeColor = Color.Red;
+            nameLabel.AutoSize = false;
+            nameLabel.Dock = DockStyle.Fill;
+            nameLabel.TextAlign = ContentAlignment.MiddleCenter;
+            nameLabel.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            // 加入 Label 到 Panel
+            namePanel.Controls.Add(nameLabel);
+
+            // 加入 Panel 到 Form
+            form.Controls.Add(namePanel);
+            namePanel.BringToFront(); // 再次確保最上層
+        }
     }
     
 }

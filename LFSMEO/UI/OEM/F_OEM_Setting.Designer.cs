@@ -29,8 +29,11 @@ namespace LFSMEO.UI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_OEM_Setting));
             this.Btn_IO_Form = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.Btn_Home = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Btn_IO_Form
@@ -53,11 +56,33 @@ namespace LFSMEO.UI
             this.label1.Text = "IO";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Btn_Home
+            // 
+            this.Btn_Home.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Home.BackgroundImage")));
+            this.Btn_Home.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Home.Location = new System.Drawing.Point(155, 12);
+            this.Btn_Home.Name = "Btn_Home";
+            this.Btn_Home.Size = new System.Drawing.Size(60, 60);
+            this.Btn_Home.TabIndex = 35;
+            this.Btn_Home.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Location = new System.Drawing.Point(133, 75);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 23);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "Equipment";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // F_OEM_Setting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1326, 661);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.Btn_Home);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Btn_IO_Form);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -71,5 +96,7 @@ namespace LFSMEO.UI
 
         private System.Windows.Forms.Button Btn_IO_Form;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Btn_Home;
+        private System.Windows.Forms.Label label2;
     }
 }

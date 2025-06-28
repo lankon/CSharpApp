@@ -48,7 +48,6 @@ namespace LFSMEO
             ApplicationSetting.ReadAllRecipe<eFormItem>();
             ApplicationSetting.UpdataRecipeToForm<eFormItem>(this);
 
-
             InitialStartForm();
             //CreateApp(which_app);
         }
@@ -93,6 +92,10 @@ namespace LFSMEO
             //F_SartForm_ButtonGroup f_SartForm_ButtonGroup = new F_SartForm_ButtonGroup();
             Tool.SetForm(Scope.UpButtonPanel, f_SartForm_ButtonGroup);
             f_SartForm_ButtonGroup.Show();
+        }
+        private void ShowStartForm()
+        {
+
         }
         protected override CreateParams CreateParams    //防止UI元件更新時畫面閃爍
         {

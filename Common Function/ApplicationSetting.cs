@@ -215,7 +215,6 @@ namespace CommonFunction
                 }
             }
         }
-        
         public static void UpdataRecipeToForm<T>(Form form, string save_path = "default") where T:Enum
         {
             Configuration config = null;

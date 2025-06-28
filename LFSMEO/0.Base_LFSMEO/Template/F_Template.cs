@@ -24,6 +24,8 @@ namespace LFSMEO.Base_LFSMEO
             ApplicationSetting.UpdataRecipeToForm<eFormItem>(this);
 
             ShowHint();
+
+
         }
         void ShowHint()
         {
@@ -38,6 +40,8 @@ namespace LFSMEO.Base_LFSMEO
         public F_Template()
         {
             InitializeComponent();
+
+            InitialApplication();
         }
     }
 }

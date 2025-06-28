@@ -63,7 +63,6 @@ namespace InstrumentTest.Motion_IO_Card
         }
         #endregion
 
-
         #region public function
         public bool Initial_All_Motion()
         {
