@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using CommonFunction;
-using LFSMEO.Base_LFSMEO;
 
-namespace LFSMEO.UI
+namespace LFSMEO.Base_LFSMEO
 {
-    public partial class F_StartForm : Form
+    public partial class F_Equipment_Setting : Form
     {
         #region parameter define
         #endregion
@@ -25,25 +24,24 @@ namespace LFSMEO.UI
             ApplicationSetting.UpdataRecipeToForm<eFormItem>(this);
 
             ShowHint();
+
+
         }
         void ShowHint()
         {
+
         }
         #endregion
 
         #region public function
+        
         #endregion
 
-        public F_StartForm()
+        public F_Equipment_Setting()
         {
             InitializeComponent();
 
             InitialApplication();
-        }
-
-        private void Btn_Start_Click(object sender, EventArgs e)
-        {
-            GC.Collect();
         }
     }
 }

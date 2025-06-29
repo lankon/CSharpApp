@@ -12,6 +12,86 @@ namespace CommonFunction
     public static class ApplicationSetting
     {
         private static string[] ApplicationInfo = new string[2000]; //程式參數,不隨使用者更改
+
+        public static void SaveAllRecipe(Form form, string save_path = "default")
+        {
+            Configuration config = null;
+
+            if (save_path == "default")
+            {
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            }
+            else
+            {
+                string customConfigPath = save_path;
+
+                // 設定自訂的配置檔路徑
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap
+                {
+                    ExeConfigFilename = customConfigPath
+                };
+
+                config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            }
+
+            TraverseControlsSave(form, config);
+
+            // 儲存更改
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+        /// <summary>
+        /// 讀取應用程式參數檔
+        /// </summary>
+        /// <typeparam name="T">元件名稱</typeparam>
+        /// <param name="read_path">檔名讀取路徑</param>
+        /// <param name="function">參數讀取方式</param>
+        public static void ReadAllRecipe<T>(string read_path = "default", string function = "flash") where T : Enum
+        {
+            ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap
+            {
+                ExeConfigFilename = read_path
+            };
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            foreach (var value in Enum.GetValues(typeof(T)))
+            {
+                string eName = Enum.GetName(typeof(T), value);
+
+                if (read_path == "default") //預設存放檔名-> {專案名稱}.exe.config
+                {
+                    if (function == "flash") //快閃記憶體讀取
+                    {
+
+                        var appSettings = ConfigurationManager.AppSettings;
+                        ApplicationInfo[(int)value] = appSettings[eName] ?? "Not Found";
+                    }
+                    else if (function == "ReRead") //重新讀取{專案名稱}.exe.config檔案內參數
+                    {
+                        var setting = config.AppSettings.Settings[eName]?.Value;
+                        if (string.IsNullOrEmpty(setting))
+                        {
+                            //未設定，找不到參數
+                            ApplicationInfo[(int)value] = "Not Found";
+                        }
+                        else
+                        {
+                            ApplicationInfo[(int)value] = setting;
+                        }
+                    }
+                }
+                else
+                {
+                    Configuration customConfig = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
+                    KeyValueConfigurationCollection appSettings = customConfig.AppSettings.Settings;
+                    ApplicationInfo[(int)value] = appSettings[eName]?.Value;
+                }
+            }
+        }
+
+
+        
         private static void TraverseControlsSave(Control parent, Configuration config1)
         {
             foreach (Control control in parent.Controls)
@@ -137,82 +217,6 @@ namespace CommonFunction
             else
             {
                 return -1.0;
-            }
-        }
-        public static void SaveAllRecipe(Form form, string save_path = "default")
-        {
-            Configuration config = null;
-
-            if (save_path == "default")
-            {
-                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            }
-            else
-            {
-                string customConfigPath = save_path;
-
-                // 設定自訂的配置檔路徑
-                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap
-                {
-                    ExeConfigFilename = customConfigPath
-                };
-
-                config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-            }
-
-            TraverseControlsSave(form, config);
-
-            // 儲存更改
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
-        }
-        /// <summary>
-        /// 讀取應用程式參數檔
-        /// </summary>
-        /// <typeparam name="T">元件名稱</typeparam>
-        /// <param name="read_path">檔名讀取路徑</param>
-        /// <param name="function">參數讀取方式</param>
-        public static void ReadAllRecipe<T>(string read_path = "default", string function = "flash") where T : Enum
-        {
-            ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap
-            {
-                ExeConfigFilename = read_path
-            };
-
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-            foreach (var value in Enum.GetValues(typeof(T)))
-            {
-                string eName = Enum.GetName(typeof(T), value);
-
-                if (read_path == "default") //預設存放檔名-> {專案名稱}.exe.config
-                {
-                    if (function == "flash") //快閃記憶體讀取
-                    {
-
-                        var appSettings = ConfigurationManager.AppSettings;
-                        ApplicationInfo[(int)value] = appSettings[eName] ?? "Not Found";
-                    }
-                    else if (function == "ReRead") //重新讀取{專案名稱}.exe.config檔案內參數
-                    {
-                        var setting = config.AppSettings.Settings[eName]?.Value;
-                        if (string.IsNullOrEmpty(setting))
-                        {
-                            //未設定，找不到參數
-                            ApplicationInfo[(int)value] = "Not Found";
-                        }
-                        else
-                        {
-                            ApplicationInfo[(int)value] = setting;
-                        }
-                    }
-                }
-                else
-                {
-                    Configuration customConfig = ConfigurationManager.OpenMappedExeConfiguration(configFileMap, ConfigurationUserLevel.None);
-                    KeyValueConfigurationCollection appSettings = customConfig.AppSettings.Settings;
-                    ApplicationInfo[(int)value] = appSettings[eName]?.Value;
-                }
             }
         }
         public static void UpdataRecipeToForm<T>(Form form, string save_path = "default") where T:Enum

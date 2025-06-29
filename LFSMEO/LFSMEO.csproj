@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -149,6 +150,12 @@
     <Compile Include="UI\OEM\F_IO_Setting.Designer.cs">
       <DependentUpon>F_IO_Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\OEM\F_Equipment_Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OEM\F_Equipment_Setting.Designer.cs">
+      <DependentUpon>F_Equipment_Setting.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="0.Base_LFSMEO\Template\F_Template.resx">
       <DependentUpon>F_Template.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OEM\F_IO_Setting.resx">
       <DependentUpon>F_IO_Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OEM\F_Equipment_Setting.resx">
+      <DependentUpon>F_Equipment_Setting.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

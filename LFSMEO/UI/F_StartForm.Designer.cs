@@ -114,6 +114,7 @@ namespace LFSMEO.UI
             this.Btn_Start.Size = new System.Drawing.Size(75, 75);
             this.Btn_Start.TabIndex = 5;
             this.Btn_Start.UseVisualStyleBackColor = true;
+            this.Btn_Start.Click += new System.EventHandler(this.Btn_Start_Click);
             // 
             // panel3
             // 

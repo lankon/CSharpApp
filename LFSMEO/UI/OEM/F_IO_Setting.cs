@@ -47,5 +47,17 @@ namespace LFSMEO.UI
 
             Tool.DataGrid_AddRow(DGV_IO, context);
         }
+
+        private void F_IO_Setting_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!this.Visible)
+            {
+                ApplicationSetting.SaveAllRecipe(this);
+                ApplicationSetting.ReadAllRecipe<eFormItem>();
+
+                this.Close();
+                this.Dispose();
+            }
+        }
     }
 }

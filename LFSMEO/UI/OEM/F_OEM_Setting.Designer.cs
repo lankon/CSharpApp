@@ -32,7 +32,7 @@ namespace LFSMEO.UI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_OEM_Setting));
             this.Btn_IO_Form = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.Btn_Home = new System.Windows.Forms.Button();
+            this.Btn_EquipmentSetting = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -56,15 +56,16 @@ namespace LFSMEO.UI
             this.label1.Text = "IO";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Btn_Home
+            // Btn_EquipmentSetting
             // 
-            this.Btn_Home.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Home.BackgroundImage")));
-            this.Btn_Home.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Btn_Home.Location = new System.Drawing.Point(155, 12);
-            this.Btn_Home.Name = "Btn_Home";
-            this.Btn_Home.Size = new System.Drawing.Size(60, 60);
-            this.Btn_Home.TabIndex = 35;
-            this.Btn_Home.UseVisualStyleBackColor = true;
+            this.Btn_EquipmentSetting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_EquipmentSetting.BackgroundImage")));
+            this.Btn_EquipmentSetting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_EquipmentSetting.Location = new System.Drawing.Point(155, 12);
+            this.Btn_EquipmentSetting.Name = "Btn_EquipmentSetting";
+            this.Btn_EquipmentSetting.Size = new System.Drawing.Size(60, 60);
+            this.Btn_EquipmentSetting.TabIndex = 35;
+            this.Btn_EquipmentSetting.UseVisualStyleBackColor = true;
+            this.Btn_EquipmentSetting.Click += new System.EventHandler(this.Btn_EquipmentSetting_Click);
             // 
             // label2
             // 
@@ -82,12 +83,13 @@ namespace LFSMEO.UI
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1326, 661);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.Btn_Home);
+            this.Controls.Add(this.Btn_EquipmentSetting);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Btn_IO_Form);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_OEM_Setting";
-            this.Text = "F_Template";
+            this.Text = "F_OEM_Setting";
+            this.VisibleChanged += new System.EventHandler(this.F_OEM_Setting_VisibleChanged);
             this.ResumeLayout(false);
 
         }
@@ -96,7 +98,7 @@ namespace LFSMEO.UI
 
         private System.Windows.Forms.Button Btn_IO_Form;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Btn_Home;
+        private System.Windows.Forms.Button Btn_EquipmentSetting;
         private System.Windows.Forms.Label label2;
     }
 }

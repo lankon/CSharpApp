@@ -86,13 +86,31 @@ namespace LFSMEO.UI
             curPnlPart = NextPnlPart(PnlPartList, curPnlPart);
         }
 
+        F_OEM_Setting f_OEM_Setting;
+
         private void Btn_OEM_Setting_Click(object sender, EventArgs e)
         {
             Tool.HideElementOnPanel(Scope.MainPanel);
-            
-            F_OEM_Setting f_OEM_Setting = new F_OEM_Setting();
+
+            f_OEM_Setting = new F_OEM_Setting();
             Tool.SetForm(Scope.MainPanel, f_OEM_Setting);
             f_OEM_Setting.Show();
+
+
+            //Tool.HideElementOnPanel(Scope.MainPanel);
+
+            //F_OEM_Setting f_OEM_Setting = new F_OEM_Setting();
+            //Tool.SetForm(Scope.MainPanel, f_OEM_Setting);
+            //f_OEM_Setting.Show();
+        }
+
+        private void Btn_ParameterSetting_Click(object sender, EventArgs e)
+        {
+            Tool.HideElementOnPanel(Scope.MainPanel);
+
+            F_IO_Setting f_IO_Setting = new F_IO_Setting();
+            Tool.SetForm(Scope.MainPanel, f_IO_Setting);
+            f_IO_Setting.Show();
         }
     }
 }

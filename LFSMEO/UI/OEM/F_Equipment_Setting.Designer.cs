@@ -1,7 +1,7 @@
 ﻿
 namespace LFSMEO.Base_LFSMEO
 {
-    partial class F_Template
+    partial class F_Equipment_Setting
     {
         /// <summary>
         /// Required designer variable.
@@ -31,15 +31,14 @@ namespace LFSMEO.Base_LFSMEO
         {
             this.SuspendLayout();
             // 
-            // F_Template
+            // F_Equipment_Setting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1326, 661);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "F_Template";
-            this.Text = "F_Template";
-            this.VisibleChanged += new System.EventHandler(this.F_Template_VisibleChanged);
+            this.Name = "F_Equipment_Setting";
+            this.Text = "F_Equipment_Setting";
             this.ResumeLayout(false);
 
         }

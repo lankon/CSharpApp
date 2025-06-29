@@ -571,6 +571,19 @@ namespace CommonFunction
             pnl.Controls.Add(form);
         }
 
+        public static void CloseFormOnPanel(Panel pnl)
+        {
+            foreach (Control control in pnl.Controls)
+            {
+                if (control is Form && control.Visible == true)
+                {
+                    ((Form)control).Close();
+                    ((Form)control).Dispose();
+                    break;
+                }
+            }
+        }
+
         public static void HideElementOnPanel(Panel pnl)
         {
             foreach (Control control in pnl.Controls)
@@ -626,6 +639,24 @@ namespace CommonFunction
             // 加入 Panel 到 Form
             form.Controls.Add(namePanel);
             namePanel.BringToFront(); // 再次確保最上層
+        }
+
+        public static void ReleaseButtonImages(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is Button btn)
+                {
+                    btn.Image?.Dispose();
+                    btn.Image = null;
+
+                    btn.BackgroundImage?.Dispose();
+                    btn.BackgroundImage = null;
+                }
+
+                if (ctrl.HasChildren)
+                    ReleaseButtonImages(ctrl);
+            }
         }
     }
     
