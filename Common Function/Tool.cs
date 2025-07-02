@@ -277,6 +277,20 @@ namespace CommonFunction
             }
         }
 
+        public static float ConvertBytesToFloat(byte[] bytes, bool isLittleEndian)
+        {
+            if (bytes.Length != 4)
+                throw new ArgumentException("必須是 4 個位元組");
+
+            if (BitConverter.IsLittleEndian != isLittleEndian)
+            {
+                Array.Reverse(bytes); // 若系統端序不同，則轉換
+            }
+
+            float[] result = new float[1];
+            Buffer.BlockCopy(bytes, 0, result, 0, 4);
+            return result[0];
+        }
         #endregion
 
         public static void CallExecute(string path, string input_command = "Non")

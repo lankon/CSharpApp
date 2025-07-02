@@ -74,7 +74,7 @@ namespace InstrumentTest.Motion_IO_Card
             Use_MN200 = OpenMotionCard(mN200, "MN200");
             Use_APS = OpenMotionCard(APS, "APS");
 
-            if (!Use_MN200 && !Use_APS)    //沒有任何一張IO卡
+            if (!Use_MN200 && !Use_APS)    //沒有任何一張Motion卡
             {
                 Tool.SaveHistoryToFile("Motion卡Initial失敗");
                 return false;

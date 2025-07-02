@@ -21,31 +21,22 @@ namespace InstrumentTest.Motion_IO_Card
         {
             while (true)
             {
-                ////Thread持續讀取Status訊號
-                //for (int k = 0; k < IO.Count; k++)
-                //{
-                //    if (IO[k].GetName() == "MN200")
-                //    {
-                //        List<byte> LineNo = IO[k].GetLineNo();
-                //        List<byte> DevNo = IO[k].GetDevNo();
+                //Thread持續讀取Input訊號
+                for (int k = 0; k < DML.Count; k++)
+                {
+                    if (DML[k].GetName() == "MN200")
+                    {
+                        List<byte> LineNo = DML[k].Get_Motion_LineNo();
+                        List<byte> DevNo = DML[k].Get_Motion_DevNo();
 
-                //        for (byte i = 0; i < LineNo.Count; i++)
-                //        {
-                //            IO[k].UpdateInput(lineNo: LineNo[i], devNo: DevNo[i]);
-                //        }
-                //    }
-                //    else if (IO[k].GetName() == "PCI_9111")
-                //    {
-                //        for (byte i = 0; i < 15; i++)
-                //            IO[k].UpdateInput(port: i);
-                //    }
-                //    else if (IO[k].GetName() == "AMP_204C")
-                //    {
-                //        IO[k].UpdateInput();
-                //    }
-                //}
+                        for (byte i = 0; i < LineNo.Count; i++)
+                        {
+                            DML[k].UpdateMotionStatus(lineNo: LineNo[i], devNo: DevNo[i]);
+                        }
+                    }
+                }
 
-                Thread.Sleep(100);
+                Thread.Sleep(200);
             }
         }
         private bool OpenMotionCard(Base_Motion_IO_Card motion, string name)

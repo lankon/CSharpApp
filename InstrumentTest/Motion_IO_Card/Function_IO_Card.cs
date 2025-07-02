@@ -62,8 +62,8 @@ namespace InstrumentTest.Motion_IO_Card
                 {
                     if(IO[k].GetName() == "MN200")
                     {
-                        List<byte> LineNo = IO[k].GetLineNo();
-                        List<byte> DevNo = IO[k].GetDevNo();
+                        List<byte> LineNo = IO[k].Get_IO_LineNo();
+                        List<byte> DevNo = IO[k].Get_IO_DevNo();
 
                         for (byte i = 0; i < LineNo.Count; i++)
                         {

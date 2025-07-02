@@ -9,6 +9,23 @@ using CommonFunction;
 
 namespace InstrumentTest.Motion_IO_Card.Base
 {
+    enum MN200_Motion_IO
+    {
+        SVON,
+        RESET_ALM,
+        RDY,
+        ALM,
+        PEL,
+        MEL,
+        ORG,
+        SDLTC,
+        SDIN,
+        INP,
+        EMG,
+        EZ,
+        ERC,
+    }
+    
     class MN200:Base_Motion_IO_Card
     {
         #region parameter define
@@ -36,6 +53,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
             public bool[,,] Output_Status;  //紀錄[LineNo,DevNo,Port]對應的Output訊號
             public List<byte> IO_LineNo;    //紀錄IO Type Line No.
             public List<byte> IO_DevNo;     //紀錄IO Type Device No.
+            public bool[,,] Motion_Status;  //紀錄[LineNo,DevNo,State]對應的Motion訊號
+            public List<byte> Motion_LineNo;//紀錄Motion Type Line No.
+            public List<byte> Motion_DevNo; //紀錄Motion Type Device No.
         }
         #endregion
 
@@ -46,6 +66,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
             MN200_Param.Output_Status = new bool[MaxNumLine, MaxNumDevicesPerLine, MaxNumStatus];
             MN200_Param.IO_DevNo = new List<byte>();
             MN200_Param.IO_LineNo = new List<byte>();
+            MN200_Param.Motion_Status = new bool[MaxNumLine, MaxNumDevicesPerLine, 16];
+            MN200_Param.Motion_DevNo = new List<byte>();
+            MN200_Param.Motion_LineNo = new List<byte>();
         }
 
         #region abstract
@@ -58,6 +81,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
             Byte DefBaudRate = PISO_MN200.Param.COMMSPEED_10M;    //要開放設定(連線速度)
             Byte pNumDev = 0;
             int IO_DevNum = 0;
+            int Motion_DevNum = 0;
 
             try
             {
@@ -99,6 +123,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
                         case PISO_MN200.Param.DEV_INFO_MOTION_DEV:
                             {
                                 MN200_Param.DevNoType[lineNo, bDevNo] = bDevType;
+                                MN200_Param.Motion_LineNo.Add(lineNo);
+                                MN200_Param.Motion_DevNo.Add(bDevNo);
+                                Motion_DevNum++;
                             }
                             break;
 
@@ -121,10 +148,11 @@ namespace InstrumentTest.Motion_IO_Card.Base
                 }
             }
 
-            if(IO_DevNum == 0)
+            if(IO_DevNum == 0 && Motion_DevNum == 0)
                 return false;
 
             Initial_Success = true;
+
             return true;
         }
         public override string GetName()
@@ -144,11 +172,40 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             PISO_MN200.Functions.mn_get_mdio_status(lineNo, devNo, ref MOTION_DEV_IO);
 
+            Type ioType = typeof(PISO_MN200.MOTION_DEV_IO);
 
+            foreach (MN200_Motion_IO io in Enum.GetValues(typeof(MN200_Motion_IO)))
+            {
+                var prop = ioType.GetField(io.ToString());
+                if (prop != null)
+                {
+                    object value = prop.GetValue(MOTION_DEV_IO);  // 從 struct 中取值
+                    bool isOn = (Convert.ToInt32(value) == PISO_MN200.Param.TURN_ON);
 
-            throw new NotImplementedException();
+                    MN200_Param.Motion_Status[lineNo, devNo, (int)io] = isOn;
+                }
+            }
+
+            return 0;
         }
-        
+        public override bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false)
+        {
+            try
+            {
+                if (flag)
+                    PISO_MN200.Functions.mn_servo_on(lineNo, devNo, PISO_MN200.Param.TURN_ON);
+                else
+                    PISO_MN200.Functions.mn_servo_on(lineNo, devNo, PISO_MN200.Param.TURN_OFF);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
         //IO function
         public override void UpdateInput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0)
         {
@@ -246,11 +303,22 @@ namespace InstrumentTest.Motion_IO_Card.Base
         #endregion
 
         #region virtual
-        public override List<byte> GetLineNo()
+        // Motion Function
+        public override List<byte> Get_Motion_LineNo()
+        {
+            return MN200_Param.Motion_LineNo;
+        }
+        public override List<byte> Get_Motion_DevNo()
+        {
+            return MN200_Param.Motion_DevNo;
+        }
+
+        // IO Function
+        public override List<byte> Get_IO_LineNo()
         {
             return MN200_Param.IO_LineNo;
         }
-        public override List<byte> GetDevNo()
+        public override List<byte> Get_IO_DevNo()
         {
             return MN200_Param.IO_DevNo;
         }

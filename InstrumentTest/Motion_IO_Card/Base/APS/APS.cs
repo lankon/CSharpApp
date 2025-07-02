@@ -168,6 +168,11 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             throw new NotImplementedException();
         }
+
+        public override bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

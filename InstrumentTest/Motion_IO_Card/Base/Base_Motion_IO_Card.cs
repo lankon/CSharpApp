@@ -14,6 +14,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
         //Motion Function
         public abstract bool SetMotionConfig();
         public abstract short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
+        public abstract bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false);
 
         //IO Function
         public abstract string GetName();
@@ -25,12 +26,25 @@ namespace InstrumentTest.Motion_IO_Card.Base
         #endregion
 
         #region virtual
-        public virtual List<byte> GetLineNo()
+        // Motion Function
+        public virtual List<byte> Get_Motion_LineNo()
         {
             List<byte> temp = new List<byte>();
             return temp;
         }
-        public virtual List<byte> GetDevNo()
+        public virtual List<byte> Get_Motion_DevNo()
+        {
+            List<byte> temp = new List<byte>();
+            return temp;
+        }
+
+        // IO Function
+        public virtual List<byte> Get_IO_LineNo()
+        {
+            List<byte> temp = new List<byte>();
+            return temp;
+        }
+        public virtual List<byte> Get_IO_DevNo()
         {
             List<byte> temp = new List<byte>();
             return temp;
