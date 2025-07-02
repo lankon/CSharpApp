@@ -146,13 +146,6 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
             return true;
         }
-        #endregion
-
-        #region Motion Function
-        public override bool SetMotionConfig()
-        {
-            throw new NotImplementedException();
-        }
 
         public override void UpdateOutput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0)
         {
@@ -163,6 +156,15 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region Motion Function
+        public override bool SetMotionConfig()
+        {
+            throw new NotImplementedException();
+        }
+
+        
 
         public override short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
         {
