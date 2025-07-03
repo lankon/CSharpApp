@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 using CommonFunction;
 using InstrumentTest.Motion_IO_Card.Base;
@@ -128,6 +129,10 @@ namespace InstrumentTest.Motion_IO_Card
             {
                 Btn_Open.Enabled = true;
             }
+            else
+            {
+                Tool.SaveHistoryToFile("IO表讀取失敗");
+            }
         }
 
         private void DGV_IO_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -192,12 +197,35 @@ namespace InstrumentTest.Motion_IO_Card
 
         private void Btn_Test_Click(object sender, EventArgs e)
         {
-            if (IO_Init == false)
-                return;
+            //if (IO_Init == false)
+            //    return;
 
-            //bool res = DIOL.GetInputStatus(EIOName.SafePos_Sensor);
 
-            UpdateOutputStatus_UI();
+            //UpdateOutputStatus_UI();
+
+            Function_Motion_Card DML = new Function_Motion_Card();
+
+            Function_Motion_Card.MOTION_INFO MF = new Function_Motion_Card.MOTION_INFO();
+
+            MF.NAME = "AMP_204C";
+            MF.LINE_NO = 0;
+            MF.DEV_NO = 0;
+            MF.AXIS_NO = 0;
+
+            DML.Test();
+
+            DML.SetAxis(MF);
+            DML.CheckDML2Axis();
+
+            Thread.Sleep(500);
+
+
+            DML.Get_Motion_Complete(0);
+
+            //Task.Run(async () =>
+            //{
+            //    await DML.GoHome(0);
+            //});
         }
 
         private void DGV_IO_CellClick(object sender, DataGridViewCellEventArgs e)

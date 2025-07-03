@@ -13,14 +13,25 @@ namespace InstrumentTest.Motion_IO_Card.Base
     {
         #region parameter define 
         APS_Parameter APS_Param = new APS_Parameter();
-        
+        private bool Initial_Success = false;
+
         struct APS_Parameter
         {
             public Int32 CardType;
             public Int32 MAX_DI_NUM;
             public Int32 MAX_DO_NUM;
             public bool[,,] Input_Status;   //紀錄[LineNo,DevNo,Port]對應的Input訊號
-            public int PRA_EL_LOGIC;
+            public bool[,,] Motion_Status;  //紀錄[LineNo,DevNo,State]對應的Motion訊號
+        }
+        enum APS_Motion_IO
+        {
+            ALM = (int)APS_Define.MIO_ALM,
+            PEL = (int)APS_Define.MIO_PEL,
+            MEL = (int)APS_Define.MIO_MEL,
+            ORG = (int)APS_Define.MIO_ORG,
+            SVON = (int)APS_Define.MIO_SVON,
+            INP = (int)APS_Define.MIO_INP,
+            RDY = (int)APS_Define.MIO_RDY,
         }
         #endregion
 
@@ -47,6 +58,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
         public override string GetName()
         {
+            if (!Initial_Success)
+                return "None";
+
             if (APS_Param.CardType == (Int32)APS_Define.DEVICE_NAME_AMP_20408C)
                 return "AMP_204C";
 
@@ -55,6 +69,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
         public override bool Open()
         {
+            if (Initial_Success == true)
+                return true;
+
             Int32 boardID_InBits = 0;
             Int32 mode = 0;
             Int32 ret = 0;
@@ -65,7 +82,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
             {
                 ret = APS168.APS_initial(ref boardID_InBits, mode);
             }
-            catch
+            catch(Exception ex)
             {
                 ret = -1;
             }
@@ -91,10 +108,13 @@ namespace InstrumentTest.Motion_IO_Card.Base
                     APS_Param.MAX_DI_NUM = 24;
                     APS_Param.MAX_DO_NUM = 24;
                     APS_Param.Input_Status = new bool[5, 5, APS_Param.MAX_DI_NUM];
+                    APS_Param.Motion_Status = new bool[5, 5, APS_Param.MAX_DI_NUM];
 
                     break;
                 }
             }
+
+            Initial_Success = true;
 
             return true;
         }
@@ -164,16 +184,83 @@ namespace InstrumentTest.Motion_IO_Card.Base
             throw new NotImplementedException();
         }
 
-        
-
         public override short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
         {
-            throw new NotImplementedException();
+            Int32 st = APS168.APS_motion_io_status(devNo);
+
+            int index = (int)MOTION_IO.ALM;
+
+            foreach(APS_Motion_IO signal in Enum.GetValues(typeof(APS_Motion_IO)))
+            {
+                int bitIndex = (int)signal;
+                bool isOn = ((st >> bitIndex & 1) == 1) ? true : false;
+
+                APS_Param.Motion_Status[lineNo, devNo, index] = isOn;
+
+                index++;
+            }
+
+            return 0;
+        }
+
+        public override bool GetMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, int state = 0)
+        {
+            bool res = APS_Param.Motion_Status[lineNo, devNo, state];
+
+            return res;
         }
 
         public override bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false)
         {
-            throw new NotImplementedException();
+            if (Initial_Success == false)
+                return false;
+            
+            int res = APS168.APS_set_servo_on(devNo, flag?1:0);
+
+            if (res == 0)
+                return true;
+            else
+                return false;
+        }
+
+        public override bool GoHome(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            if (Initial_Success == false)
+                return false;
+
+            byte axis_id = devNo;
+
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_MODE, 8);       //Set home mode         
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_DIR, 1);        //Set home direction
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_CURVE, 0);      // Set acceleration pattern (T-curve)
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_ACC, 1000000);  // Set homing acceleration rate
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_VM, 20000);     // Set homing maximum velocity.
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_VO, 50000);     // Set homing
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_EZA, 0);        // Set homing
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_SHIFT, 0);      // Set homing
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_POS, 0);        // Set homing
+
+            
+
+            int res = APS168.APS_home_move(axis_id);
+
+            if (res == 0)
+                return true;
+            else
+                return false;
+        }
+
+        public override double GetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            if (Initial_Success == false)
+                return -1;
+
+            int axis = devNo;
+            double pos = -1;
+            
+            APS168.APS_get_position_f(axis, ref pos);
+
+            return pos;
         }
         #endregion
     }

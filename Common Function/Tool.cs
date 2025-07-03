@@ -516,6 +516,9 @@ namespace CommonFunction
 
             string file_path = FolderPath + @"\" + file_name;
 
+            if (!File.Exists(file_path))
+                return false;
+
             DataSet ds = new DataSet();
 
             ds.ReadXml(file_path);

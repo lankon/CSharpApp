@@ -9,23 +9,6 @@ using CommonFunction;
 
 namespace InstrumentTest.Motion_IO_Card.Base
 {
-    enum MN200_Motion_IO
-    {
-        SVON,
-        RESET_ALM,
-        RDY,
-        ALM,
-        PEL,
-        MEL,
-        ORG,
-        SDLTC,
-        SDIN,
-        INP,
-        EMG,
-        EZ,
-        ERC,
-    }
-    
     class MN200:Base_Motion_IO_Card
     {
         #region parameter define
@@ -57,6 +40,22 @@ namespace InstrumentTest.Motion_IO_Card.Base
             public List<byte> Motion_LineNo;//紀錄Motion Type Line No.
             public List<byte> Motion_DevNo; //紀錄Motion Type Device No.
         }
+        enum MN200_Motion_IO
+        {
+            ALM,
+            PEL,
+            MEL,
+            ORG,
+            SVON,
+            INP,
+            RDY,
+            RESET_ALM,
+            SDLTC,
+            SDIN,
+            EMG,
+            EZ,
+            ERC,
+        }
         #endregion
 
         public MN200()
@@ -86,13 +85,15 @@ namespace InstrumentTest.Motion_IO_Card.Base
             try
             {
                 if ((nErrCode = PISO_MN200.Functions.mn_open_all(ref m_NumLine)) != PISO_MN200.ErrCode.SUCCESS)
+                {
+                    PISO_MN200.Functions.mn_close_all();
                     return false;
+                }
             }
             catch
             {
                 return false;
             }
-            
 
             if(m_NumLine == 0)
                 return false;
@@ -188,6 +189,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
             return 0;
         }
+        
         public override bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false)
         {
             try
@@ -323,7 +325,22 @@ namespace InstrumentTest.Motion_IO_Card.Base
             return MN200_Param.IO_DevNo;
         }
 
-        
+        public override bool GoHome(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool GetMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, int state = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+
         #endregion
 
 

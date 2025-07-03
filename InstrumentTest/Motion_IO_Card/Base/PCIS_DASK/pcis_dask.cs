@@ -123,5 +123,20 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             throw new NotImplementedException();
         }
+
+        public override bool GoHome(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double GetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool GetMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, int state = 0)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

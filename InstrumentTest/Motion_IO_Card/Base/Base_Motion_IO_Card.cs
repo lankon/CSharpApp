@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace InstrumentTest.Motion_IO_Card.Base
 {
+    enum MOTION_IO
+    {
+        ALM,
+        PEL,
+        MEL,
+        ORG,
+        SVON,
+        INP,
+        RDY,
+    }
+
     public abstract class Base_Motion_IO_Card
     {
         #region abstract
@@ -14,7 +25,10 @@ namespace InstrumentTest.Motion_IO_Card.Base
         //Motion Function
         public abstract bool SetMotionConfig();
         public abstract short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
+        public abstract bool GetMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, int state = 0);
         public abstract bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false);
+        public abstract bool GoHome(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
+        public abstract double GetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
 
         //IO Function
         public abstract string GetName();
