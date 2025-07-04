@@ -340,6 +340,26 @@ namespace InstrumentTest.Motion_IO_Card.Base
             throw new NotImplementedException();
         }
 
+        public override bool GetMotionComplete(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int SetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, double pos = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int AbsoluteSMove(int axis, double position, double velocity_max, double velocity_start, double Tacc, double Sacc, double Tdec, double Sdec)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int RelativeSMove(int axis, double position, double velocity_max, double velocity_start, double Tacc, double Sacc, double Tdec, double Sdec)
+        {
+            throw new NotImplementedException();
+        }
+
 
         #endregion
 

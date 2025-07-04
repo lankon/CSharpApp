@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using InstrumentTest.Motion_IO_Card;
+using CommonFunction;
 
 
 
@@ -22,6 +23,7 @@ namespace InstrumentTest
         F_TemperatureController f_TemperatureController = new F_TemperatureController();
         F_Communication f_Communication = new F_Communication();
         F_IO_Card f_IO_Card = new F_IO_Card();
+        F_Motion_Card f_Motion_Card = new F_Motion_Card();
         #endregion
 
         #region private function
@@ -117,6 +119,14 @@ namespace InstrumentTest
 
             f_IO_Card.SetF_IO_Card(GlobalVariable.MyStaticPanel,f_IO_Card);
             f_IO_Card.Show();
+        }
+
+        private void Btn_Motion_Card_Click(object sender, EventArgs e)
+        {
+            HideElementOnPanel(GlobalVariable.MyStaticPanel);
+
+            Tool.SetForm(GlobalVariable.MyStaticPanel, f_Motion_Card);
+            f_Motion_Card.Show();
         }
     }
 }

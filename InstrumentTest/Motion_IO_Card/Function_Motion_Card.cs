@@ -17,6 +17,7 @@ namespace InstrumentTest.Motion_IO_Card
         #region parameter define
         private List<Base_Motion_IO_Card> DML = new List<Base_Motion_IO_Card>();
         private List<MOTION_INFO> DML_INFO = new List<MOTION_INFO>();
+        private HOME_INFO[] GO_HOME_PARAM; 
         private int[] DML2Axis;
         private bool[] DML_Home_Complete;
 
@@ -26,6 +27,16 @@ namespace InstrumentTest.Motion_IO_Card
             public int LINE_NO; //軸卡線程
             public int DEV_NO;  //軸卡軸編號
             public int AXIS_NO; //UI定義軸編號
+
+            public double ORIGIN_POS;   //原點設定位置
+        }
+        public struct HOME_INFO
+        {
+            public int MODE;            //歸Home模式
+            public int DIRECTION;       //方向
+            public int ACC;             //加速度
+            public int MAX_VELOCITY;    //最大速度
+
         }
         #endregion
 
@@ -52,11 +63,6 @@ namespace InstrumentTest.Motion_IO_Card
                 Thread.Sleep(200);
             }
         }
-
-        private void CheckHomeComplete()
-        {
-
-        }
         #endregion
 
         #region private function
@@ -73,9 +79,66 @@ namespace InstrumentTest.Motion_IO_Card
                 return false;
             }
         }
+        private bool AchieveLimit(int axis)
+        {
+            byte line = (byte)DML_INFO[axis].LINE_NO;
+            byte dev_no = (byte)DML_INFO[axis].DEV_NO;
+
+            DML[DML2Axis[axis]].UpdateMotionStatus(lineNo: line, devNo: dev_no);
+
+            bool PEL = DML[DML2Axis[axis]].GetMotionStatus(lineNo: line, devNo: dev_no, state: (int)MOTION_IO.PEL);
+            bool MEL = DML[DML2Axis[axis]].GetMotionStatus(lineNo: line, devNo: dev_no, state: (int)MOTION_IO.MEL);
+
+            return PEL || MEL;
+        }
+        private bool SetOrigin(int axis, double pos)
+        {
+            byte line = (byte)DML_INFO[axis].LINE_NO;
+            byte dev_no = (byte)DML_INFO[axis].DEV_NO;
+
+            int res = DML[DML2Axis[axis]].SetPosition(lineNo: line, devNo: dev_no, pos: pos);
+
+            if (res == 0)
+                return true;
+            else
+                return false;
+        }
+        private async Task<bool> WaitForMotionCompleteAsync(int axis, int timeoutMs = 60000 * 5)
+        {
+            int elapsed = 0;
+            const int interval = 20;
+
+            while (elapsed < timeoutMs)
+            {
+                if (Get_Motion_Complete(axis))
+                    return true;
+
+                await Task.Delay(interval);
+                elapsed += interval;
+            }
+
+            return false;
+        }
+        private async Task<bool> WaitAchieveLimitAsync(int axis, int timeoutMs = 60000 * 5)
+        {
+            int elapsed = 0;
+            const int interval = 20;
+
+            while (elapsed < timeoutMs)
+            {
+                if (AchieveLimit(axis))
+                    return true;
+
+                await Task.Delay(interval);
+                elapsed += interval;
+            }
+
+            return false;
+        }
         #endregion
 
         #region public function
+        // Initial Function
         public bool Initial_All_Motion()
         {
             bool Use_MN200, Use_APS;
@@ -104,10 +167,11 @@ namespace InstrumentTest.Motion_IO_Card
         {
             DML_INFO.Clear();
         }
-        public void CheckDML2Axis()
+        public void BindingAxis()
         {
             DML2Axis = new int[DML_INFO.Count];
             DML_Home_Complete = new bool[DML_INFO.Count];
+            GO_HOME_PARAM = new HOME_INFO[DML_INFO.Count];
 
             Dictionary<string, int> nameToIndex = new Dictionary<string, int>();
 
@@ -124,75 +188,99 @@ namespace InstrumentTest.Motion_IO_Card
                 }
             }
         }
-        public async Task<bool> GoHome(int axis)
+
+
+        // Set Parameter & Status Function
+        public bool SetServo(int axis, bool on_off)
+        {
+            byte line = (byte)DML_INFO[axis].LINE_NO;
+            byte dev_no = (byte)DML_INFO[axis].DEV_NO;
+
+            bool res = DML[DML2Axis[axis]].Servo_ONOff(lineNo: line, devNo: dev_no, flag: on_off);
+
+            return res;
+        }
+        public int SetSpeedConfig()
+        {
+
+
+
+            return 0;
+        }
+        public int SetHomeConfig(int axis, HOME_INFO info)
         {
             
             
+            return 0;
+        }
+
+
+        // Position Function
+        public double GetPosition(int axis)
+        {
+            byte line = (byte)DML_INFO[axis].LINE_NO;
+            byte dev_no = (byte)DML_INFO[axis].DEV_NO;
+
+            double res = DML[DML2Axis[axis]].GetPosition(lineNo: line, devNo: dev_no);
+
+            return res;
+        }
+
+
+        // Home Function
+        public async Task<bool> GoHome(int axis)
+        {
             byte line = (byte)DML_INFO[axis].LINE_NO;
             byte dev_no = (byte)DML_INFO[axis].DEV_NO;
 
             DML_Home_Complete[axis] = false;
             DML[DML2Axis[axis]].GoHome(lineNo:line, devNo:dev_no);
 
-            bool ok = await WaitForMotionCompleteAsync(axis);
+            bool ok = await WaitAchieveLimitAsync(axis);
 
             if(!ok)
             {
                 Tool.SaveHistoryToFile($"軸 = {axis} 初始化未完成");
             }
 
+            //設定原點位置
+            SetOrigin(axis, DML_INFO[axis].ORIGIN_POS);
+
             //到達原點後位移
-            
 
             return true;
-            
         }
         public bool Get_Home_Complete(int axis)
         {
-            return false;
+            return DML_Home_Complete[axis];
         }
+
+
+        // Move Function
         public bool Get_Motion_Complete(int axis)
         {
             byte line = (byte)DML_INFO[axis].LINE_NO;
             byte dev_no = (byte)DML_INFO[axis].DEV_NO;
 
-            DML[DML2Axis[axis]].UpdateMotionStatus(lineNo: line, devNo: dev_no);
-
-            bool res = DML[DML2Axis[axis]].GetMotionStatus(lineNo: line, devNo: dev_no, state: (int)MOTION_IO.INP);
+            bool res = DML[DML2Axis[axis]].GetMotionComplete(lineNo: line, devNo: dev_no);
 
             return res;
         }
-        
-        public void Test()
+        public bool PTP_Move(int axis , double pos, string mode = "Abs")
         {
-            Initial_All_Motion();
+            //byte line = (byte)DML_INFO[axis].LINE_NO;
+            //byte dev_no = (byte)DML_INFO[axis].DEV_NO;
 
-            Thread.Sleep(500);
+            //if(mode == "Abs")
+            //    DML[DML2Axis[axis]].AbsoluteSMove
 
-            DML[1].Servo_ONOff(flag: true);
+            //bool res = DML[DML2Axis[axis]].AbsoluteSMove();
+
+
+
+
+            return true;
         }
         #endregion
-
-
-        #region Test
-        public async Task<bool> WaitForMotionCompleteAsync(int axis, int timeoutMs = 60000*5)
-        {
-            int elapsed = 0;
-            const int interval = 20;
-
-            while (elapsed < timeoutMs)
-            {
-                if (Get_Motion_Complete(axis))
-                    return true;
-
-                await Task.Delay(interval);
-                elapsed += interval;
-            }
-
-            return false;
-        }
-
-        #endregion
-
     }
 }

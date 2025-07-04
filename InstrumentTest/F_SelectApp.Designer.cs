@@ -37,6 +37,7 @@ namespace InstrumentTest
             this.Btn_Communication = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.Btn_IO_Card = new System.Windows.Forms.Button();
+            this.Btn_Motion_Card = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label3
@@ -112,12 +113,23 @@ namespace InstrumentTest
             this.Btn_IO_Card.UseVisualStyleBackColor = true;
             this.Btn_IO_Card.Click += new System.EventHandler(this.Btn_IO_Card_Click);
             // 
+            // Btn_Motion_Card
+            // 
+            this.Btn_Motion_Card.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Btn_Motion_Card.Location = new System.Drawing.Point(458, 13);
+            this.Btn_Motion_Card.Name = "Btn_Motion_Card";
+            this.Btn_Motion_Card.Size = new System.Drawing.Size(60, 65);
+            this.Btn_Motion_Card.TabIndex = 17;
+            this.Btn_Motion_Card.UseVisualStyleBackColor = true;
+            this.Btn_Motion_Card.Click += new System.EventHandler(this.Btn_Motion_Card_Click);
+            // 
             // F_SelectApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.ClientSize = new System.Drawing.Size(1022, 600);
+            this.Controls.Add(this.Btn_Motion_Card);
             this.Controls.Add(this.Btn_IO_Card);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Btn_Communication);
@@ -141,5 +153,6 @@ namespace InstrumentTest
         private System.Windows.Forms.Button Btn_Communication;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Btn_IO_Card;
+        private System.Windows.Forms.Button Btn_Motion_Card;
     }
 }

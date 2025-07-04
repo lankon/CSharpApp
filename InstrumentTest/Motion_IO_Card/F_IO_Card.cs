@@ -200,32 +200,7 @@ namespace InstrumentTest.Motion_IO_Card
             //if (IO_Init == false)
             //    return;
 
-
             //UpdateOutputStatus_UI();
-
-            Function_Motion_Card DML = new Function_Motion_Card();
-
-            Function_Motion_Card.MOTION_INFO MF = new Function_Motion_Card.MOTION_INFO();
-
-            MF.NAME = "AMP_204C";
-            MF.LINE_NO = 0;
-            MF.DEV_NO = 0;
-            MF.AXIS_NO = 0;
-
-            DML.Test();
-
-            DML.SetAxis(MF);
-            DML.CheckDML2Axis();
-
-            Thread.Sleep(500);
-
-
-            DML.Get_Motion_Complete(0);
-
-            //Task.Run(async () =>
-            //{
-            //    await DML.GoHome(0);
-            //});
         }
 
         private void DGV_IO_CellClick(object sender, DataGridViewCellEventArgs e)

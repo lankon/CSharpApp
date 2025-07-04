@@ -132,6 +132,12 @@
     </Compile>
     <Compile Include="LoadCell\LoadCell.cs" />
     <Compile Include="Motion_IO_Card\Base\PISODIO.cs" />
+    <Compile Include="Motion_IO_Card\F_Motion_Card.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Motion_IO_Card\F_Motion_Card.Designer.cs">
+      <DependentUpon>F_Motion_Card.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemperatureController\Base\BaseTemperatureController.cs" />
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoadCell\F_LoadCell.resx">
       <DependentUpon>F_LoadCell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Motion_IO_Card\F_Motion_Card.resx">
+      <DependentUpon>F_Motion_Card.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TemperatureController\F_Show_PV_TPT8000.resx">
       <DependentUpon>F_Show_PV_TPT8000.cs</DependentUpon>

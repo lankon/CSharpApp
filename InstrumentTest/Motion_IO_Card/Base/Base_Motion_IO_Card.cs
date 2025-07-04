@@ -26,9 +26,16 @@ namespace InstrumentTest.Motion_IO_Card.Base
         public abstract bool SetMotionConfig();
         public abstract short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
         public abstract bool GetMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, int state = 0);
+        public abstract bool GetMotionComplete(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
         public abstract bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false);
         public abstract bool GoHome(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
         public abstract double GetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
+        public abstract int SetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, double pos = 0);
+        public abstract int AbsoluteSMove(int axis, double position, double velocity_max, double velocity_start,
+                                          double Tacc, double Sacc, double Tdec, double Sdec);
+        public abstract int RelativeSMove(int axis, double position, double velocity_max, double velocity_start,
+                                          double Tacc, double Sacc, double Tdec, double Sdec);
+
 
         //IO Function
         public abstract string GetName();

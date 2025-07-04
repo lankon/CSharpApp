@@ -210,6 +210,38 @@ namespace InstrumentTest.Motion_IO_Card.Base
             return res;
         }
 
+        public override bool GetMotionComplete(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
+        {
+            Int32 axis_id = devNo;
+            Int32 msts = 0;
+
+            msts = APS168.APS_motion_status(axis_id);   // Get motion status
+            msts = (msts >> (int)APS_Define.NSTP) & 1;  // Get motion done bit
+
+            // Get stop code.
+            //APS168.APS_get_stop_code(Axis_ID, ref Stop_Code);
+
+            if (msts == 1)
+            {
+                // Check move success or not
+                msts = APS168.APS_motion_status(axis_id);       // Get motion status
+                msts = (msts >> (int)APS_Define.MTS_ASTP) & 1;  // Get abnormal stop bit
+
+                if (msts == 1)
+                { // Error handling ...
+
+                    //APS168.APS_get_stop_code(axis_id, ref m_stop_code);
+                    return false; //error
+                }
+                else
+                {   // Motion success.
+                    return true;
+                }
+            }
+
+            return false; //Now are in motion
+        }
+
         public override bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false)
         {
             if (Initial_Success == false)
@@ -240,8 +272,6 @@ namespace InstrumentTest.Motion_IO_Card.Base
             APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_SHIFT, 0);      // Set homing
             APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_POS, 0);        // Set homing
 
-            
-
             int res = APS168.APS_home_move(axis_id);
 
             if (res == 0)
@@ -261,6 +291,68 @@ namespace InstrumentTest.Motion_IO_Card.Base
             APS168.APS_get_position_f(axis, ref pos);
 
             return pos;
+        }
+
+        public override int SetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, double pos = 0)
+        {
+            if (Initial_Success == false)
+                return -1;
+
+            int axis = devNo;
+            int res1, res2;
+
+            res1 = APS168.APS_set_position_f(axis, pos);
+            res2 = APS168.APS_set_command_f(axis, pos);
+
+            if (res1 != 0 || res2 != 0)
+                return -1;
+            else
+                return 0;
+        }
+
+        public override int AbsoluteSMove(int axis, double position, double velocity_max, double velocity_start, double Tacc, double Sacc, double Tdec, double Sdec)
+        {
+            if (Initial_Success == false)
+                return -1;
+
+            Int32 ret = -1;
+            ASYNCALL p = new ASYNCALL();
+
+            ret = APS168.APS_ptp_all(axis,
+                                 (Int32)APS_Define.OPT_ABSOLUTE,
+                                 position,
+                                 velocity_start,
+                                 velocity_max,
+                                 0,
+                                 Tacc,
+                                 Tdec,
+                                 Sacc,
+                                 ref p);
+
+
+            return ret;
+        }
+
+        public override int RelativeSMove(int axis, double position, double velocity_max, double velocity_start, double Tacc, double Sacc, double Tdec, double Sdec)
+        {
+            if (Initial_Success == false)
+                return -1;
+
+            Int32 ret = -1;
+            ASYNCALL p = new ASYNCALL();
+
+            ret = APS168.APS_ptp_all(axis,
+                     (Int32)APS_Define.OPT_RELATIVE,
+                     position,
+                     velocity_start,
+                     velocity_max,
+                     0,
+                     Tacc,
+                     Tdec,
+                     Sacc,
+                     ref p);
+
+            return ret;
         }
         #endregion
     }
