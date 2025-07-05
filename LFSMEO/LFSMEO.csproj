@@ -102,20 +102,20 @@
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\PCIS_DASK\PCIS_DASK_dll.cs">
       <Link>0.Base_Instrument\Motion_IO_Card\PCIS_DASK\PCIS_DASK_dll.cs</Link>
     </Compile>
-    <Compile Include="0.Base_LFSMEO\Template\F_Template_ButtonGroup.cs">
+    <Compile Include="Base_LFSMEO\Template\F_Template_ButtonGroup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="0.Base_LFSMEO\Template\F_Template_ButtonGroup.Designer.cs">
+    <Compile Include="Base_LFSMEO\Template\F_Template_ButtonGroup.Designer.cs">
       <DependentUpon>F_Template_ButtonGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="0.Base_LFSMEO\eFormItem.cs" />
-    <Compile Include="0.Base_LFSMEO\Template\F_Template.cs">
+    <Compile Include="Base_LFSMEO\eFormItem.cs" />
+    <Compile Include="Base_LFSMEO\Template\F_Template.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="0.Base_LFSMEO\Template\F_Template.Designer.cs">
+    <Compile Include="Base_LFSMEO\Template\F_Template.Designer.cs">
       <DependentUpon>F_Template.cs</DependentUpon>
     </Compile>
-    <Compile Include="0.Base_LFSMEO\Scope.cs" />
+    <Compile Include="Base_LFSMEO\Scope.cs" />
     <Compile Include="F_MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,10 +156,10 @@
     <Compile Include="UI\OEM\F_Equipment_Setting.Designer.cs">
       <DependentUpon>F_Equipment_Setting.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="0.Base_LFSMEO\Template\F_Template.resx">
+    <EmbeddedResource Include="Base_LFSMEO\Template\F_Template.resx">
       <DependentUpon>F_Template.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="0.Base_LFSMEO\Template\F_Template_ButtonGroup.resx">
+    <EmbeddedResource Include="Base_LFSMEO\Template\F_Template_ButtonGroup.resx">
       <DependentUpon>F_Template_ButtonGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F_MainForm.resx">
@@ -204,10 +204,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="0.Base_LFSMEO\Machine\" />
+    <Folder Include="Base_LFSMEO\Machine\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="0.Base_Instrument\Motion_IO_Card\gitkeep.txt" />
+    <Content Include="Base\gitkeep.txt" />
+    <Content Include="Base_Instrument\Motion_IO_Card\gitkeep.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
