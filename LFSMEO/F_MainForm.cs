@@ -123,7 +123,7 @@ namespace LFSMEO
             // 根據用戶的選擇返回布爾值
             if (dialogResult == DialogResult.Yes)
             {
-                ApplicationSetting.SaveAllRecipe(this);
+                ApplicationSetting.SaveAllRecipe<eFormItem>(this);
 
                 Application.Exit();
                 Tool.SaveHistoryToFile("關閉應用程式"); 

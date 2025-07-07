@@ -18,14 +18,12 @@ namespace LFSMEO.Base_LFSMEO
         #endregion
 
         #region private function
-        void InitialApplication()
+        void InitialForm()
         {
-            ApplicationSetting.ReadAllRecipe<eFormItem>();
-            ApplicationSetting.UpdataRecipeToForm<eFormItem>(this);
+            ApplicationSetting.ReadAllRecipe<eOEMSetting>();
+            ApplicationSetting.UpdataRecipeToForm<eOEMSetting>(this);
 
             ShowHint();
-
-
         }
         void ShowHint()
         {
@@ -41,7 +39,21 @@ namespace LFSMEO.Base_LFSMEO
         {
             InitializeComponent();
 
-            InitialApplication();
+            InitialForm();
+        }
+
+        private void F_Equipment_Setting_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!this.Visible)
+            {
+                //儲存參數
+                ApplicationSetting.SaveAllRecipe<eOEMSetting>(this);
+
+                //釋放記憶體資源
+                Tool.ReleaseButtonImages(this);
+                this.Close();
+                this.Dispose();
+            }
         }
     }
 }

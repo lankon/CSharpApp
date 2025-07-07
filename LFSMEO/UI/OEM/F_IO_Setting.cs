@@ -52,7 +52,7 @@ namespace LFSMEO.UI
         {
             if (!this.Visible)
             {
-                ApplicationSetting.SaveAllRecipe(this);
+                ApplicationSetting.SaveAllRecipe<eFormItem>(this);
                 ApplicationSetting.ReadAllRecipe<eFormItem>();
 
                 this.Close();

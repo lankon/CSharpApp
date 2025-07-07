@@ -33,8 +33,8 @@ namespace LFSMEO.UI
 
             SetHint();
 
-            if(ApplicationSetting.Get_Int_Recipe((int)eFormItem.Cmbx_DebugShowFormName) == 1)
-                Tool.ShowFormName(this);
+            //if(ApplicationSetting.Get_Int_Recipe((int)eFormItem.Cmbx_DebugShowFormName) == 1)
+            //    Tool.ShowFormName(this);
 
             PnlPartList.Add(Pnl_Part1);
             PnlPartList.Add(Pnl_Part2);

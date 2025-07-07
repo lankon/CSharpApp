@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LFSMEO.Base_Instrument.Motion_IO_Card
+namespace LFSMEO.Base_LFSMEO
 {
-    class gitkeep
+    enum eOEMSetting
     {
+        Cmbx_MachineType,
     }
 }

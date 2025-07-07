@@ -46,6 +46,9 @@ namespace LFSMEO.Base_LFSMEO
         {
             if (!this.Visible)
             {
+                //儲存參數
+                ApplicationSetting.SaveAllRecipe<eFormItem>(this);
+
                 //釋放記憶體資源
                 Tool.ReleaseButtonImages(this);
                 this.Close();

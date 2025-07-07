@@ -72,36 +72,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Common Function\ApplicationSetting.cs">
-      <Link>0.Base\ApplicationSetting.cs</Link>
-    </Compile>
     <Compile Include="..\Common Function\Tool.cs">
-      <Link>0.Base\Tool.cs</Link>
+      <Link>Base\Tool.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\APS\APS.cs">
-      <Link>0.Base_Instrument\Motion_IO_Card\APS\APS.cs</Link>
+      <Link>Base_Instrument\Motion_IO_Card\APS\APS.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\APS\APS168x64.cs">
-      <Link>0.Base_Instrument\Motion_IO_Card\APS\APS168x64.cs</Link>
+      <Link>Base_Instrument\Motion_IO_Card\APS\APS168x64.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\APS\APS_Define.cs">
-      <Link>0.Base_Instrument\Motion_IO_Card\APS\APS_Define.cs</Link>
+      <Link>Base_Instrument\Motion_IO_Card\APS\APS_Define.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\Base_Motion_IO_Card.cs">
-      <Link>0.Base_Instrument\Motion_IO_Card\Base_Motion_IO_Card.cs</Link>
+      <Link>Base_Instrument\Motion_IO_Card\Base_Motion_IO_Card.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\MN200\MN200.cs">
-      <Link>0.Base_Instrument\Motion_IO_Card\MN200\MN200.cs</Link>
+      <Link>Base_Instrument\Motion_IO_Card\MN200\MN200.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\MN200\PISO_MN200.cs">
-      <Link>0.Base_Instrument\Motion_IO_Card\MN200\PISO_MN200.cs</Link>
+      <Link>Base_Instrument\Motion_IO_Card\MN200\PISO_MN200.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\PCIS_DASK\pcis_dask.cs">
-      <Link>0.Base_Instrument\Motion_IO_Card\PCIS_DASK\pcis_dask.cs</Link>
+      <Link>Base_Instrument\Motion_IO_Card\PCIS_DASK\pcis_dask.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\PCIS_DASK\PCIS_DASK_dll.cs">
-      <Link>0.Base_Instrument\Motion_IO_Card\PCIS_DASK\PCIS_DASK_dll.cs</Link>
+      <Link>Base_Instrument\Motion_IO_Card\PCIS_DASK\PCIS_DASK_dll.cs</Link>
     </Compile>
+    <Compile Include="Base\ApplicationSetting.cs" />
+    <Compile Include="Base_LFSMEO\eOEMSetting.cs" />
     <Compile Include="Base_LFSMEO\Template\F_Template_ButtonGroup.cs">
       <SubType>Form</SubType>
     </Compile>
