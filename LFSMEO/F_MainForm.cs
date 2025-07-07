@@ -45,8 +45,8 @@ namespace LFSMEO
 
             CreateFolder();
 
-            ApplicationSetting.ReadAllRecipe<eFormItem>();
-            ApplicationSetting.UpdataRecipeToForm<eFormItem>(this);
+            ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
+            ApplicationSetting.UpdataRecipeToForm<eDefaultSetting>(this);
 
             InitialStartForm();
             //CreateApp(which_app);
@@ -93,9 +93,9 @@ namespace LFSMEO
             Tool.SetForm(Scope.UpButtonPanel, f_SartForm_ButtonGroup);
             f_SartForm_ButtonGroup.Show();
         }
-        private void ShowStartForm()
+        private void SaveApplicationRecipe()
         {
-
+            ApplicationSetting.SaveAllRecipe<eOEMSetting>();
         }
         protected override CreateParams CreateParams    //防止UI元件更新時畫面閃爍
         {
@@ -123,7 +123,7 @@ namespace LFSMEO
             // 根據用戶的選擇返回布爾值
             if (dialogResult == DialogResult.Yes)
             {
-                ApplicationSetting.SaveAllRecipe<eFormItem>(this);
+                SaveApplicationRecipe();
 
                 Application.Exit();
                 Tool.SaveHistoryToFile("關閉應用程式"); 

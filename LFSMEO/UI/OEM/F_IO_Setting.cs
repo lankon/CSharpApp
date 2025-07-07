@@ -19,12 +19,15 @@ namespace LFSMEO.UI
         #endregion
 
         #region private function
-        void InitialApplication()
+        void InitialForm()
         {
-            ApplicationSetting.ReadAllRecipe<eFormItem>();
-            ApplicationSetting.UpdataRecipeToForm<eFormItem>(this);
+            ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
+            ApplicationSetting.UpdataRecipeToForm<eDefaultSetting>(this);
 
             ShowHint();
+
+            if (ApplicationSetting.Get_Int_Recipe<eOEMSetting>((int)eOEMSetting.Cmbx_ShowFormName) == 1)
+                Tool.ShowFormName(this);
         }
         void ShowHint()
         {
@@ -39,6 +42,8 @@ namespace LFSMEO.UI
         public F_IO_Setting()
         {
             InitializeComponent();
+
+            InitialForm();
         }
 
         private void Btn_Add_Click(object sender, EventArgs e)
@@ -52,8 +57,8 @@ namespace LFSMEO.UI
         {
             if (!this.Visible)
             {
-                ApplicationSetting.SaveAllRecipe<eFormItem>(this);
-                ApplicationSetting.ReadAllRecipe<eFormItem>();
+                ApplicationSetting.SaveRecipeFromForm<eDefaultSetting>(this);
+                ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
 
                 this.Close();
                 this.Dispose();

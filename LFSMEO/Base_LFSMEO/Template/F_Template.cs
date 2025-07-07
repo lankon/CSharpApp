@@ -12,20 +12,28 @@ using CommonFunction;
 
 namespace LFSMEO.Base_LFSMEO
 {
+    /// <summary>
+    /// Form模板使用方式
+    /// </summary>
+    /// -> 修改F_Template名稱(.cs , .Designer.cs , class , function)
+    /// -> 確認Recipe的Enum定義
     public partial class F_Template : Form
     {
         #region parameter define
         #endregion
 
         #region private function
-        void InitialForm()
+        private void InitialForm()
         {
-            ApplicationSetting.ReadAllRecipe<eFormItem>();
-            ApplicationSetting.UpdataRecipeToForm<eFormItem>(this);
+            ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
+            ApplicationSetting.UpdataRecipeToForm<eDefaultSetting>(this);
 
             ShowHint();
+
+            if(ApplicationSetting.Get_Bool_Recipe<eDefaultSetting>((int)eDefaultSetting.None) == true)
+                Tool.ShowFormName(this);    //可開選項設定是否顯示
         }
-        void ShowHint()
+        private void ShowHint()
         {
 
         }
@@ -47,7 +55,9 @@ namespace LFSMEO.Base_LFSMEO
             if (!this.Visible)
             {
                 //儲存參數
-                ApplicationSetting.SaveAllRecipe<eFormItem>(this);
+                ApplicationSetting.SaveRecipeFromForm<eDefaultSetting>(this);
+                //重新讀取變數值
+                ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
 
                 //釋放記憶體資源
                 Tool.ReleaseButtonImages(this);

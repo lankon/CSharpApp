@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LFSMEO.Base_LFSMEO
 {
-    enum eFormItem
+    enum eDefaultSetting
     {
-        Cmbx_DebugShowFormName,
+        None,
     }
 }

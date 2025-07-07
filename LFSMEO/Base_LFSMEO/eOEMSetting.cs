@@ -9,5 +9,6 @@ namespace LFSMEO.Base_LFSMEO
     enum eOEMSetting
     {
         Cmbx_MachineType,
+        Cmbx_ShowFormName,
     }
 }

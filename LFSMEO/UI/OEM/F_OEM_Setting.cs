@@ -21,8 +21,8 @@ namespace LFSMEO.UI
         #region private function
         void InitialApplication()
         {
-            ApplicationSetting.ReadAllRecipe<eFormItem>();
-            ApplicationSetting.UpdataRecipeToForm<eFormItem>(this);
+            ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
+            ApplicationSetting.UpdataRecipeToForm<eDefaultSetting>(this);
 
             ShowHint();
         }
@@ -62,8 +62,8 @@ namespace LFSMEO.UI
         {
             if (!this.Visible)
             {
-                ApplicationSetting.SaveAllRecipe<eFormItem>(this);
-                ApplicationSetting.ReadAllRecipe<eFormItem>();
+                ApplicationSetting.SaveRecipeFromForm<eDefaultSetting>(this);
+                ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
 
                 Tool.ReleaseButtonImages(this);
 

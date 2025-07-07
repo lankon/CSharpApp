@@ -14,13 +14,13 @@ namespace CommonFunction
 
         #region public function
         // Read & Save Function
-        public static void SaveAllRecipe<T>(Form form) where T : Enum
+        public static void SaveAllRecipe<T>() where T : Enum
         {
             string enumName = typeof(T).Name;
 
-            Configuration config = null;
+            Configuration config;
 
-            if (enumName == "eDefault")
+            if (enumName == "eDefaultSetting")
             {
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             }
@@ -28,7 +28,6 @@ namespace CommonFunction
             {
                 string customConfigPath = enumName + ".exe.Config";
 
-                // 設定自訂的配置檔路徑
                 ExeConfigurationFileMap configMap = new ExeConfigurationFileMap
                 {
                     ExeConfigFilename = customConfigPath
@@ -37,9 +36,24 @@ namespace CommonFunction
                 config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
             }
 
-            TraverseControlsSave(form, config);
+            // 取得 Enum 所有名稱（例如 T 為 eRecipe，Names 為 ["Item1", "Item2", ...]）
+            string[] names = Enum.GetNames(typeof(T));
 
-            // 儲存更改
+            if (_storage.TryGetValue(typeof(T), out string[] values))
+            {
+                for (int i = 0; i < names.Length && i < values.Length; i++)
+                {
+                    string key = names[i];
+                    string value = values[i];
+
+                    // 如果已存在就先移除
+                    if (config.AppSettings.Settings[key] != null)
+                        config.AppSettings.Settings.Remove(key);
+
+                    config.AppSettings.Settings.Add(key, value);
+                }
+            }
+
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
@@ -60,7 +74,7 @@ namespace CommonFunction
             {
                 string eName = Enum.GetName(typeof(T), value);
 
-                if (enumName == "eDefault") //預設存放檔名-> {專案名稱}.exe.config
+                if (enumName == "eDefaultSetting") //預設存放檔名-> {專案名稱}.exe.config
                 {
                     if (function == "flash") //快閃記憶體讀取
                     {
@@ -92,6 +106,35 @@ namespace CommonFunction
                 }
             }
         }
+        public static void SaveRecipeFromForm<T>(Form form) where T:Enum
+        {
+            string enumName = typeof(T).Name;
+
+            Configuration config = null;
+
+            if (enumName == "eDefaultSetting")
+            {
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            }
+            else
+            {
+                string customConfigPath = enumName + ".exe.Config";
+
+                // 設定自訂的配置檔路徑
+                ExeConfigurationFileMap configMap = new ExeConfigurationFileMap
+                {
+                    ExeConfigFilename = customConfigPath
+                };
+
+                config = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+            }
+
+            TraverseControlsSave(form, config);
+
+            // 儲存更改
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
         
         // Set Function
         public static void UpdataRecipeToForm<T>(Form form) where T : Enum
@@ -100,7 +143,7 @@ namespace CommonFunction
 
             Configuration config = null;
 
-            if (enumName == "eDefault")
+            if (enumName == "eDefaultSetting")
             {
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             }
@@ -234,7 +277,14 @@ namespace CommonFunction
 
                             if (int.TryParse(GetInfoArray<T>()[(int)value], out Index))
                             {
-                                comboBox.SelectedIndex = Index;
+                                try
+                                {
+                                    comboBox.SelectedIndex = Index;
+                                }
+                                catch
+                                {
+                                    comboBox.SelectedIndex = 0;
+                                }
                             }
                             else
                             {

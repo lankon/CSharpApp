@@ -24,6 +24,9 @@ namespace LFSMEO.Base_LFSMEO
             ApplicationSetting.UpdataRecipeToForm<eOEMSetting>(this);
 
             ShowHint();
+
+            if (ApplicationSetting.Get_Int_Recipe<eOEMSetting>((int)eOEMSetting.Cmbx_ShowFormName) == 1)
+                Tool.ShowFormName(this);
         }
         void ShowHint()
         {
@@ -47,7 +50,9 @@ namespace LFSMEO.Base_LFSMEO
             if (!this.Visible)
             {
                 //儲存參數
-                ApplicationSetting.SaveAllRecipe<eOEMSetting>(this);
+                ApplicationSetting.SaveRecipeFromForm<eOEMSetting>(this);
+                //重新讀取變數值
+                ApplicationSetting.ReadAllRecipe<eOEMSetting>();
 
                 //釋放記憶體資源
                 Tool.ReleaseButtonImages(this);
