@@ -17,6 +17,7 @@ namespace InstrumentTest.Motion_IO_Card
         PCI_9111,
         MN200,
         AMP_204C,
+        P32C32,
     }
     public enum EIOName
     {
@@ -75,7 +76,7 @@ namespace InstrumentTest.Motion_IO_Card
                         for (byte i = 0; i < 15; i++)
                             IO[k].UpdateInput(port: i);
                     }
-                    else if (IO[k].GetName() == "AMP_204C")
+                    else if (IO[k].GetName() == "AMP_204C" || IO[k].GetName() == "P32C32")
                     {
                         IO[k].UpdateInput();
                     }
@@ -94,6 +95,7 @@ namespace InstrumentTest.Motion_IO_Card
             Base_Motion_IO_Card mN200 = new MN200();
             Base_Motion_IO_Card pcis_dask = new Pcis_dask(Pcis_dask_param.PCI_9111DG);
             Base_Motion_IO_Card APS = new APS();
+            Base_Motion_IO_Card P32C32 = new P32C32();
 
             if (mN200.Open() == true)
                 IO.Add(mN200);
@@ -101,6 +103,8 @@ namespace InstrumentTest.Motion_IO_Card
                 IO.Add(pcis_dask);
             if(APS.Open() == true)
                 IO.Add(APS);
+            if (P32C32.Open() == true)
+                IO.Add(P32C32);
 
             for (int i = 0; i < IO.Count; i++)
             {
@@ -110,6 +114,8 @@ namespace InstrumentTest.Motion_IO_Card
                     UsePcisDask = true;
                 if (IO[i].GetName() == "AMP_204C")
                     UseAPS = true;
+                if (IO[i].GetName() == "P32C32")
+                    UseP32C32 = true;
             }
 
             if (!UseMN200 && !UseP32C32 && !UsePcisDask && !UseAPS)    //沒有任何一張IO卡

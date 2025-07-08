@@ -106,6 +106,8 @@
     <Compile Include="Motion_IO_Card\Base\APS\APS168x64.cs" />
     <Compile Include="Motion_IO_Card\Base\APS\APS_Define.cs" />
     <Compile Include="Motion_IO_Card\Base\Base_Motion_IO_Card.cs" />
+    <Compile Include="Motion_IO_Card\Base\P32C32\P32C32.cs" />
+    <Compile Include="Motion_IO_Card\Base\P32C32\PISO_P32C32.cs" />
     <Compile Include="Motion_IO_Card\Base\PCIS_DASK\pcis_dask.cs" />
     <Compile Include="Motion_IO_Card\Base\PCIS_DASK\PCIS_DASK_dll.cs" />
     <Compile Include="Motion_IO_Card\Function_IO_Card.cs" />
