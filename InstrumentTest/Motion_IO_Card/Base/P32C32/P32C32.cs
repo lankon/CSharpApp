@@ -65,6 +65,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
         // IO Function
         public override void UpdateInput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0)
         {
+            if (Initial_Success == false)
+                return;
+            
             try
             {
                 int res = PISO_P32C32.Functions.Ixud_ReadDI(lineNo, devNo, out uint value);
@@ -89,7 +92,27 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             return P32C32_Param.Input_Status[lineNo, devNo, port];
         }
+        public override bool SetOutputStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
+        {
+            if (Initial_Success == false)
+                return false;
 
+            try
+            {
+                if (truefalse)
+                    PISO_P32C32.Functions.Ixud_WriteDOBit(lineNo, devNo, port, 1);
+                else
+                    PISO_P32C32.Functions.Ixud_WriteDOBit(lineNo, devNo, port, 0);
+
+                return true;
+            }
+            catch
+            {
+
+            }
+
+            return false;
+        }
 
         #endregion
 
@@ -137,11 +160,6 @@ namespace InstrumentTest.Motion_IO_Card.Base
         }
 
         public override bool SetMotionConfig()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool SetOutputStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
         {
             throw new NotImplementedException();
         }

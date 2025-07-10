@@ -133,7 +133,6 @@
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadCell\LoadCell.cs" />
-    <Compile Include="Motion_IO_Card\Base\PISODIO.cs" />
     <Compile Include="Motion_IO_Card\F_Motion_Card.cs">
       <SubType>Form</SubType>
     </Compile>
