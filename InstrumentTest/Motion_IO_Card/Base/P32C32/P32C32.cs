@@ -15,10 +15,14 @@ namespace InstrumentTest.Motion_IO_Card.Base
         private const Byte MaxNumDevicesPerLine = 5;
         private const Byte MaxNumLine = 5;
         private const Byte MaxNumStatus = 8;
-        P32C32_Parameter P32C32_Param = new P32C32_Parameter();
+        UniDAQ_Parameter UniDAQ_Param = new UniDAQ_Parameter();
+        PISO_P32C32.IXUD_CARD_INFO CardInfo = new IXUD_CARD_INFO();
+        PISO_P32C32.IXUD_DEVICE_INFO DevInfo = new IXUD_DEVICE_INFO();
 
-        struct P32C32_Parameter
+        struct UniDAQ_Parameter
         {
+            public string Model_Name;
+            public List<byte> IO_DevNo;      //紀錄IO Type Device No.
             public bool[,,] Input_Status;   //紀錄[LineNo,DevNo,Port]對應的Input訊號
             public bool[,,] Output_Status;  //紀錄[LineNo,DevNo,Port]對應的Output訊號
         }
@@ -26,7 +30,8 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
         public P32C32()
         {
-            P32C32_Param.Input_Status = new bool[MaxNumLine, MaxNumDevicesPerLine, MaxNumStatus];
+            UniDAQ_Param.Input_Status = new bool[MaxNumLine, MaxNumDevicesPerLine, MaxNumStatus];
+            UniDAQ_Param.IO_DevNo = new List<byte>();
         }
 
 
@@ -41,6 +46,20 @@ namespace InstrumentTest.Motion_IO_Card.Base
                     return false;
                 else
                 {
+                    StringBuilder sb = new StringBuilder(20);
+                    PISO_P32C32.Functions.Ixud_GetCardInfo(0, ref DevInfo, ref CardInfo, sb);
+                    UniDAQ_Param.Model_Name = sb.ToString().Trim();
+                    
+                    if(UniDAQ_Param.Model_Name == "PISO-P32C32")
+                    {
+                        byte port_num = (byte)CardInfo.wDIPorts;
+
+                        for(byte i =0; i< port_num; i++)
+                        {
+                            UniDAQ_Param.IO_DevNo.Add(i);
+                        }
+                    }
+
                     Initial_Success = true;
                     return true;
                 }
@@ -52,10 +71,14 @@ namespace InstrumentTest.Motion_IO_Card.Base
         }
         public override string GetName()
         {
-            if (Initial_Success)
-                return "P32C32";
-            else
+            if (!Initial_Success)
                 return "None";
+
+            if (UniDAQ_Param.Model_Name == "PISO-P32C32")
+                return "P32C32";
+
+
+            return "None";
         }
 
         // Motion Function
@@ -67,7 +90,10 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             if (Initial_Success == false)
                 return;
-            
+
+            if (lineNo >= MaxNumLine || devNo >= MaxNumDevicesPerLine || port >= MaxNumStatus)
+                return;
+
             try
             {
                 int res = PISO_P32C32.Functions.Ixud_ReadDI(lineNo, devNo, out uint value);
@@ -77,9 +103,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
                     int bit = ((int)value >> i) & 1;
                     
                     if(bit == 1)
-                        P32C32_Param.Input_Status[lineNo, devNo, i] = true;
+                        UniDAQ_Param.Input_Status[lineNo, devNo, i] = true;
                     else
-                        P32C32_Param.Input_Status[lineNo, devNo, i] = false;
+                        UniDAQ_Param.Input_Status[lineNo, devNo, i] = false;
                 }
 
             }
@@ -90,7 +116,23 @@ namespace InstrumentTest.Motion_IO_Card.Base
         }
         public override bool GetInputStatus(byte lineNo, byte devNo, byte port)
         {
-            return P32C32_Param.Input_Status[lineNo, devNo, port];
+            if(UniDAQ_Param.Model_Name == "PISO-P32C32")
+            {
+                int dev = port / 8;
+                int num = port % 8;
+
+                if (lineNo >= MaxNumLine || dev >= MaxNumDevicesPerLine || num >= MaxNumStatus)
+                    return false;
+
+                return UniDAQ_Param.Input_Status[lineNo, dev, num];
+            }
+            else
+            {
+                if (lineNo >= MaxNumLine || devNo >= MaxNumDevicesPerLine || port >= MaxNumStatus)
+                    return false;
+
+                return UniDAQ_Param.Input_Status[lineNo, devNo, port];
+            }
         }
         public override bool SetOutputStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0, bool truefalse = false)
         {
@@ -116,6 +158,15 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
         #endregion
 
+        #region virtual
+        
+        // IO Function
+        public override List<byte> Get_IO_DevNo()
+        {
+            return UniDAQ_Param.IO_DevNo;
+        }
+        #endregion
+
 
         public override int AbsoluteSMove(int axis, double position, double velocity_max, double velocity_start, double Tacc, double Sacc, double Tdec, double Sdec)
         {
@@ -134,7 +185,9 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
         public override bool GetOutputStatus(byte lineNo, byte DevNo, byte port)
         {
-            throw new NotImplementedException();
+            return false;
+            
+            //throw new NotImplementedException();
         }
 
         public override double GetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)

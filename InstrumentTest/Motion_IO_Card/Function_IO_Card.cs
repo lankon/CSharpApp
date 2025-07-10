@@ -76,9 +76,18 @@ namespace InstrumentTest.Motion_IO_Card
                         for (byte i = 0; i < 15; i++)
                             IO[k].UpdateInput(port: i);
                     }
-                    else if (IO[k].GetName() == "AMP_204C" || IO[k].GetName() == "P32C32")
+                    else if (IO[k].GetName() == "AMP_204C")
                     {
                         IO[k].UpdateInput();
+                    }
+                    else if (IO[k].GetName() == "P32C32")
+                    {
+                        List<byte> DevNo = IO[k].Get_IO_DevNo();
+
+                        for (byte i = 0; i < DevNo.Count; i++)
+                        {
+                            IO[k].UpdateInput(devNo: DevNo[i]);
+                        }
                     }
                 }
 

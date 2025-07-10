@@ -111,6 +111,8 @@ namespace InstrumentTest.Motion_IO_Card
         private void Btn_Remove_Click(object sender, EventArgs e)
         {
             Tool.DataGrid_DeleteRow(DGV_IO);
+
+            DIOL.Update_IO_List(DGV_IO, IOList);
         }
 
         private void Btn_RowUp_Click(object sender, EventArgs e)
@@ -217,8 +219,10 @@ namespace InstrumentTest.Motion_IO_Card
 
                 if (DGV_IO.Rows[e.RowIndex].Cells["Title_CardType"].Value.ToString() == "AMP_204C")
                     eIOCardType = EIOCardType.AMP_204C;
-                else if(DGV_IO.Rows[e.RowIndex].Cells["Title_CardType"].Value.ToString() == "MN200")
+                else if (DGV_IO.Rows[e.RowIndex].Cells["Title_CardType"].Value.ToString() == "MN200")
                     eIOCardType = EIOCardType.MN200;
+                else if (DGV_IO.Rows[e.RowIndex].Cells["Title_CardType"].Value.ToString() == "P32C32")
+                    eIOCardType = EIOCardType.P32C32;
 
 
                 // 取得目前儲存格值
