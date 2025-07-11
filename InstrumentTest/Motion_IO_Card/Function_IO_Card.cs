@@ -209,8 +209,6 @@ namespace InstrumentTest.Motion_IO_Card
                 if (IO[i].GetName() != CardType.ToString())
                     continue;
 
-                IO[i].GetOutputStatus(lineNo, devNo, port);
-
                 if (IO_List[iList].Title_Inverse == "True" || IO_List[iList].Title_Inverse == "true")
                     return !IO[i].GetOutputStatus(lineNo, devNo, port);
                 else if (IO_List[iList].Title_Inverse == "False" || IO_List[iList].Title_Inverse == "false")

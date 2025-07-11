@@ -84,5 +84,7 @@ namespace InstrumentTest.Motion_IO_Card.Base.PISO_P32C32
         [DllImport("UniDAQ.dll", EntryPoint = "Ixud_GetCardInfo", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int Ixud_GetCardInfo(ushort board_no, ref IXUD_DEVICE_INFO dev_info, ref IXUD_CARD_INFO card_info, StringBuilder szModelName);
 
+        [DllImport("UniDAQ.dll", EntryPoint = "Ixud_SoftwareReadbackDO", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int Ixud_SoftwareReadbackDO(ushort board_no, ushort port, out uint status);
     }
 }

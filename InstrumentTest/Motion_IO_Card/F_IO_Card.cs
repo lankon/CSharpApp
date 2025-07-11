@@ -110,9 +110,13 @@ namespace InstrumentTest.Motion_IO_Card
 
         private void Btn_Remove_Click(object sender, EventArgs e)
         {
+            Timer_IO.Enabled = false;
+            
             Tool.DataGrid_DeleteRow(DGV_IO);
 
             DIOL.Update_IO_List(DGV_IO, IOList);
+
+            Timer_IO.Enabled = true;
         }
 
         private void Btn_RowUp_Click(object sender, EventArgs e)

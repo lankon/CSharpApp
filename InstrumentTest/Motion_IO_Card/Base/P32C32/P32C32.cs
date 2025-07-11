@@ -139,14 +139,25 @@ namespace InstrumentTest.Motion_IO_Card.Base
             if (Initial_Success == false)
                 return false;
 
+            int res = 0;
+
             try
             {
-                if (truefalse)
-                    PISO_P32C32.Functions.Ixud_WriteDOBit(lineNo, devNo, port, 1);
-                else
-                    PISO_P32C32.Functions.Ixud_WriteDOBit(lineNo, devNo, port, 0);
+                if (UniDAQ_Param.Model_Name == "PISO-P32C32")
+                {
+                    devNo = (byte)(port / 8);
+                    port = (byte)(port % 8);
+                }
 
-                return true;
+                if (truefalse)
+                    res = PISO_P32C32.Functions.Ixud_WriteDOBit(lineNo, devNo, port, 1);
+                else
+                    res = PISO_P32C32.Functions.Ixud_WriteDOBit(lineNo, devNo, port, 0);
+
+                if (res != 0)
+                    return false;
+                else
+                    return true;
             }
             catch
             {
@@ -155,11 +166,34 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
             return false;
         }
+        public override bool GetOutputStatus(byte lineNo, byte DevNo, byte port)
+        {
+            if (Initial_Success == false)
+                return false;
 
+            if (lineNo >= MaxNumLine || DevNo >= MaxNumDevicesPerLine || port >= MaxNumStatus)
+                return false;
+
+            if (UniDAQ_Param.Model_Name == "PISO-P32C32")
+            {
+                DevNo = (byte)(port / 8);
+                port = (byte)(port % 8);
+            }
+
+            PISO_P32C32.Functions.Ixud_SoftwareReadbackDO(lineNo, DevNo, out uint value);
+
+            int bit = ((int)value >> port) & 1;
+
+            if (bit == 1)
+                return true;
+            else
+                return false;
+
+        }
         #endregion
 
         #region virtual
-        
+
         // IO Function
         public override List<byte> Get_IO_DevNo()
         {
@@ -183,12 +217,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
             throw new NotImplementedException();
         }
 
-        public override bool GetOutputStatus(byte lineNo, byte DevNo, byte port)
-        {
-            return false;
-            
-            //throw new NotImplementedException();
-        }
+        
 
         public override double GetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
         {
