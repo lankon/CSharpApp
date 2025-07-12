@@ -71,5 +71,14 @@ namespace LFSMEO.UI
                 this.Dispose();
             }
         }
+
+        private void Btn_MotionSetting_Click(object sender, EventArgs e)
+        {
+            Tool.HideElementOnPanel(Scope.MainPanel);
+
+            F_Motion_Setting f_Motion_Setting = new F_Motion_Setting();
+            Tool.SetForm(Scope.MainPanel, f_Motion_Setting);
+            f_Motion_Setting.Show();
+        }
     }
 }

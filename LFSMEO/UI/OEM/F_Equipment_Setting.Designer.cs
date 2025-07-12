@@ -1,5 +1,5 @@
 ﻿
-namespace LFSMEO.Base_LFSMEO
+namespace LFSMEO.UI
 {
     partial class F_Equipment_Setting
     {
