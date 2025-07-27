@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-using CommonFunction;
 
 using LFSMEO.Base_LFSMEO;
 using LFSMEO.UI;
+using ToolFunction.Base;
 
 namespace LFSMEO
 {
@@ -126,7 +126,7 @@ namespace LFSMEO
                 SaveApplicationRecipe();
 
                 Application.Exit();
-                Tool.SaveHistoryToFile("關閉應用程式"); 
+                Tool.SaveLogToFile("關閉應用程式"); 
             }
             else
             {

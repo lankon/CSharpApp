@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 
-using CommonFunction;
+using ToolFunction.Base;
 using InstrumentTest.Motion_IO_Card.Base;
 
 namespace LFSMEO.Logic
@@ -114,7 +114,8 @@ namespace LFSMEO.Logic
 
             if (!UseMN200 && !UseP32C32 && !UsePcisDask && !UseAPS)    //沒有任何一張IO卡
             {
-                Tool.SaveHistoryToFile("IO卡Initial失敗");
+                Tool.SaveLogToFile("IO卡Initial失敗");
+                
                 return false;
             }
 

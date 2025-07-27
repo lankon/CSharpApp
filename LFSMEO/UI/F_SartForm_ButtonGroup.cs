@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CommonFunction;
 using LFSMEO.Base_LFSMEO;
+using ToolFunction.Base;
 
 namespace LFSMEO.UI
 {
@@ -39,7 +39,7 @@ namespace LFSMEO.UI
             PnlPartList.Add(Pnl_Part1);
             PnlPartList.Add(Pnl_Part2);
         }
-        private void SetPnlPartPos(Panel pnl)   //應該可以移到CommonFunction
+        private void SetPnlPartPos(Panel pnl)   //應該可以移到ToolFunction
         {
             pnl.Location = new Point(0, 0);
             pnl.BringToFront();

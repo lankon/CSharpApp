@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using CommonFunction;
-
 namespace InstrumentTest.Motion_IO_Card.Base
 {
     public class Pcis_dask_param
@@ -62,7 +60,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
             }
             catch(Exception ex)
             {
-                Tool.SaveHistoryToFile($"PCI_DASK = ({pCI_Parm.CardType}) 初始化失敗");
+                //Tool.SaveHistoryToFile($"PCI_DASK = ({pCI_Parm.CardType}) 初始化失敗");
                 res = false;
             }
 

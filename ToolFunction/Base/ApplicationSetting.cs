@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 
-namespace CommonFunction
+namespace ToolFunction.Base
 {
     public static class ApplicationSetting
     {

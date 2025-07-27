@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 
 using InstrumentTest.Motion_IO_Card.Base;
-using CommonFunction;
+using ToolFunction.Base;
 
 namespace InstrumentTest.Motion_IO_Card
 {
@@ -57,7 +57,7 @@ namespace InstrumentTest.Motion_IO_Card
             }
             else
             {
-                Tool.SaveHistoryToFile($"{name}開卡失敗");
+                Tool.SaveLogToFile($"{name}開卡失敗");
                 return false;
             }
         }
@@ -76,7 +76,7 @@ namespace InstrumentTest.Motion_IO_Card
 
             if (!Use_MN200 && !Use_APS)    //沒有任何一張Motion卡
             {
-                Tool.SaveHistoryToFile("Motion卡Initial失敗");
+                Tool.SaveLogToFile("Motion卡Initial失敗");
                 return false;
             }
 

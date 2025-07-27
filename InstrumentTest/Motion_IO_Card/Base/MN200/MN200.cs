@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-using CommonFunction;
-
 namespace InstrumentTest.Motion_IO_Card.Base
 {
     class MN200:Base_Motion_IO_Card

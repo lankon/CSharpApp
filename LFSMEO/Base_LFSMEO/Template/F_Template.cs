@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CommonFunction;
+using ToolFunction.Base;
 
 namespace LFSMEO.Base_LFSMEO
 {
