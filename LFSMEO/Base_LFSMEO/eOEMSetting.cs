@@ -11,6 +11,12 @@ namespace LFSMEO.Base_LFSMEO
         Cmbx_MachineType,
         Cmbx_ShowFormName,
 
+        Cmbx_AxisType,
+        TxtBx_AxisStation,
+        Cmbx_AxisLimitLogic,
+        Cmbx_AxisLimitStopMode,
+
+
 
     }
 }

@@ -11,14 +11,14 @@ using InstrumentTest.Motion_IO_Card.Base;
 using ToolFunction.Base;
 using System.IO;
 
-namespace InstrumentTest.Motion_IO_Card
+namespace LFSMEO.Logic
 {
     class Axis_Para
     {
 
     }
     
-    class Function_Motion_Card
+    public class Function_Motion_Card
     {
         #region parameter define
         private List<Base_Motion_IO_Card> DML = new List<Base_Motion_IO_Card>();

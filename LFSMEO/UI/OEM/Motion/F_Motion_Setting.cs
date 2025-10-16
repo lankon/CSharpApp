@@ -18,18 +18,19 @@ namespace LFSMEO.UI
         #region parameter define
         F_AxisButton f_AxisButton = new F_AxisButton();
         F_AxisSetting f_AxisSetting = new F_AxisSetting();
+        Med_MotionSetting Mediator = new Med_MotionSetting();
         #endregion
 
         #region private function
         private void InitialForm()
         {
-            ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
-            ApplicationSetting.UpdataRecipeToForm<eDefaultSetting>(this);
+            ApplicationSetting.ReadAllRecipe<eOEMSetting>();
+            ApplicationSetting.UpdataRecipeToForm<eOEMSetting>(this);
 
             ShowHint();
 
-            if(ApplicationSetting.Get_Bool_Recipe<eDefaultSetting>((int)eDefaultSetting.None) == true)
-                Tool.ShowFormName(this);    //可開選項設定是否顯示
+            if (ApplicationSetting.Get_Bool_Recipe<eOEMSetting>((int)eOEMSetting.Cmbx_ShowFormName) == true)
+                Tool.ShowFormName(this, 1);    //可開選項設定是否顯示
 
             f_AxisButton = new F_AxisButton();
             Tool.SetForm(Pnl_AxisButton, f_AxisButton);
@@ -38,6 +39,9 @@ namespace LFSMEO.UI
             f_AxisSetting = new F_AxisSetting();
             Tool.SetForm(Pnl_AxisSetting, f_AxisSetting);
             f_AxisSetting.Show();
+
+            Mediator.SetForm(f_AxisButton);
+            Mediator.SetForm(f_AxisSetting);
 
         }
         private void ShowHint()

@@ -58,6 +58,7 @@ namespace LFSMEO.UI
             this.label1 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Btn_AllSetting = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -80,6 +81,7 @@ namespace LFSMEO.UI
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.tabPage1.Controls.Add(this.Btn_AllSetting);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
@@ -366,11 +368,21 @@ namespace LFSMEO.UI
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Speed";
             // 
+            // Btn_AllSetting
+            // 
+            this.Btn_AllSetting.Location = new System.Drawing.Point(1024, 479);
+            this.Btn_AllSetting.Name = "Btn_AllSetting";
+            this.Btn_AllSetting.Size = new System.Drawing.Size(144, 39);
+            this.Btn_AllSetting.TabIndex = 2;
+            this.Btn_AllSetting.Text = "All Setting";
+            this.Btn_AllSetting.UseVisualStyleBackColor = true;
+            this.Btn_AllSetting.Click += new System.EventHandler(this.Btn_AllSetting_Click);
+            // 
             // F_AxisSetting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.ClientSize = new System.Drawing.Size(1404, 649);
+            this.ClientSize = new System.Drawing.Size(1386, 649);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_AxisSetting";
@@ -416,5 +428,6 @@ namespace LFSMEO.UI
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button Btn_AllSetting;
     }
 }

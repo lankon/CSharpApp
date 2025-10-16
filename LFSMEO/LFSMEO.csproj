@@ -202,6 +202,7 @@
     <Compile Include="UI\OEM\Motion\F_AxisSetting.Designer.cs">
       <DependentUpon>F_AxisSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\OEM\Motion\Med_MotionSetting.cs" />
     <EmbeddedResource Include="Base_LFSMEO\Template\F_Template.resx">
       <DependentUpon>F_Template.cs</DependentUpon>
     </EmbeddedResource>

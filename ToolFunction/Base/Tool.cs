@@ -381,6 +381,27 @@ namespace ToolFunction.Base
         }
     }
 
+    /// <summary>
+    /// Type Conversion
+    /// </summary>
+    public static partial class Tool
+    {
+        public static int StringToInt(string str)
+        {
+            int result;
+
+            if (Int32.TryParse(str, out result))
+            {
+                return result;
+            }
+            else
+            {
+                SaveLogToFile("型別轉換錯誤");
+                return -999;
+            }
+        }
+    }
+
     public static partial class Tool
     {
         #region 寫檔

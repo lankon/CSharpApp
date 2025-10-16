@@ -13,10 +13,10 @@ using ToolFunction.Base;
 
 namespace LFSMEO.UI
 {
-    public partial class F_AxisButton: Form
+    public partial class F_AxisButton: Form, IF_MotionSetting
     {
         #region parameter define
-        F_AxisSetting f_AxisSetting;
+        Med_MotionSetting MotionMediator;
         List<Panel> PnlPartList = new List<Panel>();
         private int curPnlPart = 0;
         private int CurBtnNum = 0;
@@ -33,8 +33,8 @@ namespace LFSMEO.UI
 
             SetHint();
 
-            //if(ApplicationSetting.Get_Int_Recipe((int)eDefaultSetting.Cmbx_DebugShowFormName) == 1)
-            //    Tool.ShowFormName(this);
+            if (ApplicationSetting.Get_Int_Recipe<eOEMSetting>((int)eOEMSetting.Cmbx_ShowFormName) == 1)
+                Tool.ShowFormName(this);
 
             PnlPartList.Add(Pnl_Part1);
             PnlPartList.Add(Pnl_Part2);
@@ -73,11 +73,9 @@ namespace LFSMEO.UI
         {
             return CurBtnNum;
         }
-        public void InputForm(Form form)
+        public void SetMediator(Med_MotionSetting med)
         {
-
-            if (form.Name == "F_AxisSetting")
-                f_AxisSetting = (F_AxisSetting)form;
+            MotionMediator = med;
         }
         #endregion
 
@@ -93,7 +91,9 @@ namespace LFSMEO.UI
         {
             Button btn = sender as Button;
 
-            CurBtnNum = (int)btn.Tag;
+            CurBtnNum = Tool.StringToInt((string)btn.Tag);
+            
+            MotionMediator.UpdateParameter();
         }
 
         private void Btn_PreviousPnlPart1_Click(object sender, EventArgs e)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using LFSMEO.UI;
+using LFSMEO.Logic;
 
 namespace LFSMEO.Base_LFSMEO
 {
@@ -13,6 +14,8 @@ namespace LFSMEO.Base_LFSMEO
     {
         public static Panel MainPanel;      //F_MainForm:Pnl_Group
         public static Panel UpButtonPanel;    //F_MainForm:Pnl_Group1
+
+        public static Function_Motion_Card DML = new Function_Motion_Card();
     }
 
     //***************** Static Form *************

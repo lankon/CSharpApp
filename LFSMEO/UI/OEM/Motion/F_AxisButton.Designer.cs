@@ -225,7 +225,7 @@ namespace LFSMEO.UI
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.ClientSize = new System.Drawing.Size(1404, 465);
+            this.ClientSize = new System.Drawing.Size(1386, 465);
             this.Controls.Add(this.Pnl_Part2);
             this.Controls.Add(this.Pnl_Part1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
