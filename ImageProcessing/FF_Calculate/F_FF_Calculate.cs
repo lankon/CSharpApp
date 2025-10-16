@@ -146,31 +146,220 @@ namespace ImageProcessing.FF_Calculate
 
         private void button1_Click(object sender, EventArgs e)
         {
-            NF_Algorithm NF_Cal = new NF_Algorithm();
-            Mat image = new Mat();
+            //NF_Algorithm NF_Cal = new NF_Algorithm();
+            //Mat image = new Mat();
 
-            string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
-            image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
-            NF_Cal.Threshold_Ratio = 0.35;
-
-
-            //Teach AutoFocus
-            NF_Cal.Detect_Position(image);
-
-            //擷取左下角AOI_Size影像
-            int AOI_Size = (int)(5 * NF_Cal.Emitter_Diameter[0]);
-            int Capture_X = (int)(NF_Cal.Emitter_PosX[0] - 0.5 * AOI_Size);
-            int Capture_Y = (int)(NF_Cal.Emitter_PosY[0] - 0.5 * AOI_Size);
-            Rect roi = new Rect(Capture_X, Capture_Y, AOI_Size, AOI_Size);
-            Mat Capture_Image = new Mat(image, roi).Clone();
+            //string path = ApplicationSetting.Get_String_Recipe((int)FormItem.TxtBx_TeachPath);
+            //image = new Mat(path, ImreadModes.AnyDepth | ImreadModes.Grayscale);
+            //NF_Cal.Threshold_Ratio = 0.35;
 
 
+            ////Teach AutoFocus
+            //NF_Cal.Detect_Position(image);
+
+            ////擷取左下角AOI_Size影像
+            //int AOI_Size = (int)(5 * NF_Cal.Emitter_Diameter[0]);
+            //int Capture_X = (int)(NF_Cal.Emitter_PosX[0] - 0.5 * AOI_Size);
+            //int Capture_Y = (int)(NF_Cal.Emitter_PosY[0] - 0.5 * AOI_Size);
+            //Rect roi = new Rect(Capture_X, Capture_Y, AOI_Size, AOI_Size);
+            //Mat Capture_Image = new Mat(image, roi).Clone();
 
 
-            image.Dispose();
-            Capture_Image.Dispose();
 
+
+            //image.Dispose();
+            //Capture_Image.Dispose();
+            TestImage_1();
         }
+
+        private void TestImage_1()  //ChatGpt
+        {
+            // 讀取影像
+            Mat img = Cv2.ImRead(@"C:\Users\leo_li\Desktop\BDSA\WG正面軸環光光源不同大小\正面WG_環光滿.png");
+
+            // 轉灰階
+            Mat gray = new Mat();
+            Cv2.CvtColor(img, gray, ColorConversionCodes.BGR2GRAY);
+
+            // 高斯模糊
+            Mat blur = new Mat();
+            Cv2.GaussianBlur(gray, blur, new OpenCvSharp.Size(5, 5), 0);
+
+            // Canny 邊緣偵測
+            Mat edges = new Mat();
+            Cv2.Canny(gray, edges, 20, 50);
+
+            // 找輪廓
+            Cv2.FindContours(edges, out OpenCvSharp.Point[][] contours, out HierarchyIndex[] hierarchy,
+                             RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+
+            // 過濾小輪廓，只留下大面積的
+            var largeContours = new List<OpenCvSharp.Point[]>();
+            foreach (var contour in contours)
+            {
+                double area = Cv2.ContourArea(contour);
+                if (area > 100)
+                    largeContours.Add(contour);
+            }
+
+            // 畫出大輪廓
+            Mat result = img.Clone();
+            Cv2.DrawContours(result, largeContours, -1, new Scalar(0, 255, 0), 2);
+
+            Cv2.ImWrite(@"D:\GPT.png", result);
+
+            // 顯示結果
+            //Cv2.ImShow("Chip Boundary", result);
+            //Cv2.WaitKey(0);
+            //Cv2.DestroyAllWindows();
+        }
+
+        private void TestImage()    //Gemini
+        {
+            // 替換成您影像的實際路徑
+            string imagePath = @"C:\Users\leo_li\Desktop\BDSA\WG正面軸環光光源不同大小\正面WG_右環光滿.png";
+            string outputImagePath = @"D:\aa.png";
+            try
+            {
+                // 1. 讀取影像
+                // ImreadModes.Color 表示以彩色模式讀取，如果您的處理不依賴顏色，
+                // 建議使用 ImreadModes.Grayscale
+                Mat src = Cv2.ImRead(imagePath, ImreadModes.Grayscale);
+
+                if (src.Empty())
+                {
+                    Console.WriteLine($"無法讀取影像：{imagePath}");
+                    return;
+                }
+
+                // 1.1. 轉換為灰度圖
+                Mat gray = new Mat();
+                // 從 BGR（彩色）轉換到 GRAY（灰度）
+                //Cv2.CvtColor(src, gray, ColorConversionCodes.BGR2GRAY);
+
+                // 1.2. 應用閾值（二值化）
+                Mat binary = new Mat();
+                // 這裡使用 Otsu's Method (大津法) 自動計算最佳閾值，
+                // 通常用於前景背景差異明顯的影像。
+                double otsuThreshold = Cv2.Threshold(
+                    src,                   // 輸入：灰度影像
+                    binary,                 // 輸出：二值化影像
+                    0,                      // 閾值（因為使用 Otsu，這裡設為 0 即可）
+                    255,                    // 最大值
+                    ThresholdTypes.Binary | ThresholdTypes.Otsu // 類型：二值化 + 大津法
+                );
+
+
+                // 4. 儲存影像（關鍵步驟：Cv2.ImWrite）
+                bool success = Cv2.ImWrite(@"D:\二值化.png", binary);
+
+
+                // 2. 定義核心（Kernel / Structuring Element）
+                // 核心的大小和形狀決定了侵蝕和膨脹的程度。
+                // 這裡使用 5x5 的矩形核心。
+                Mat kernel = Cv2.GetStructuringElement(
+                    MorphShapes.Rect, // 形狀：矩形 (Rect)
+                    new OpenCvSharp.Size(2, 2)    // 大小：5x5
+                );
+
+                // 3. 執行開運算 (侵蝕後膨脹)
+                Mat dst = new Mat();
+                // 使用 MorphologyEx 函式執行開運算（MorphTypes.OPEN）
+                Cv2.MorphologyEx(
+                    binary,            // 輸入影像
+                    dst,            // 輸出影像
+                    MorphTypes.Open, // 運算類型：開運算 (Open)
+                    kernel,         // 核心
+                    new OpenCvSharp.Point(-1, -1), // 錨點 (通常設為 -1, -1)
+                    1               // 迭代次數 (Iterations)
+                );
+
+
+                Cv2.ImWrite(@"D:\開運算.png", dst);
+
+                // ===================================
+                // 階段二：尋找輪廓 (Find Contours)
+                // ===================================
+
+                // 宣告儲存輪廓的列表
+                OpenCvSharp.Point[][] contours;
+                HierarchyIndex[] hierarchy;
+
+                // 尋找輪廓
+                // RetrieveMode.External 只找最外層輪廓
+                // ContourMethod.ChainApproxSimple 壓縮輪廓點，減少儲存空間
+                Cv2.FindContours(
+                    dst,      // 輸入：經過處理的二值化影像
+                    out contours,
+                    out hierarchy,
+                    RetrievalModes.External,
+                    ContourApproximationModes.ApproxSimple
+                );
+
+                Console.WriteLine($"找到輪廓數量: {contours.Length}");
+
+
+                // ===================================
+                // 階段三：計算並繪製最小外接旋轉矩形
+                // ===================================
+
+                // 2.3. 準備繪圖畫布 (將單通道的 processed 影像轉為三通道 BGR)
+                Mat drawing = new Mat();
+
+                // 假設您的形態學運算結果是 processed
+                // (如果您使用單獨變數 dst 儲存，請替換 processed 為 dst)
+                Cv2.CvtColor(
+                    src,                           // 輸入：形態學運算後的單通道（黑白）影像
+                    drawing,                             // 輸出：三通道（彩色）影像
+                    ColorConversionCodes.GRAY2BGR        // 轉換類型：灰度轉 BGR（彩色）
+                );
+
+
+                // 迭代每一個找到的輪廓
+                for (int i = 0; i < contours.Length; i++)
+                {
+                    // 1. 忽略太小的輪廓 (可選，防止處理噪點)
+                    double area = Cv2.ContourArea(contours[i]);
+                    if (area < 1000000) continue;
+
+                    // 2. 計算最小外接旋轉矩形 (RotatedRect)
+                    RotatedRect minRect = Cv2.MinAreaRect(contours[i]);
+
+                    // 3. 獲取矩形的四個頂點
+                    Point2f[] rectPoints = minRect.Points();
+
+                    // 4. 在繪圖影像上繪製這四條線
+                    // 顏色使用綠色 (0, 255, 0)，粗細為 2
+                    Scalar color = new Scalar(0, 255, 0);
+
+                    for (int j = 0; j < 4; j++)
+                    {
+                        Cv2.Line(
+                            drawing,                            // 繪圖影像
+                            (OpenCvSharp.Point)rectPoints[j],               // 起點
+                            (OpenCvSharp.Point)rectPoints[(j + 1) % 4],     // 終點 (循環到第 0 點)
+                            color,                              // 顏色
+                            2                                   // 線條粗細
+                        );
+                    }
+                }
+
+
+                // 4. 儲存影像（關鍵步驟：Cv2.ImWrite）
+                Cv2.ImWrite(outputImagePath, drawing);
+
+                // 釋放記憶體
+                src.Dispose();
+                dst.Dispose();
+                kernel.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"發生錯誤: {ex.Message}");
+            }
+        }
+    
+
         private void UpdateTask(string msg)
         {
 

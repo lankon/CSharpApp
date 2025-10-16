@@ -184,11 +184,23 @@
     <Compile Include="UI\OEM\F_Equipment_Setting.Designer.cs">
       <DependentUpon>F_Equipment_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\F_Motion_Setting.cs">
+    <Compile Include="UI\OEM\Motion\F_AxisButton.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OEM\F_Motion_Setting.Designer.cs">
+    <Compile Include="UI\OEM\Motion\F_AxisButton.Designer.cs">
+      <DependentUpon>F_AxisButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OEM\Motion\F_Motion_Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OEM\Motion\F_Motion_Setting.Designer.cs">
       <DependentUpon>F_Motion_Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\OEM\Motion\F_AxisSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OEM\Motion\F_AxisSetting.Designer.cs">
+      <DependentUpon>F_AxisSetting.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Base_LFSMEO\Template\F_Template.resx">
       <DependentUpon>F_Template.cs</DependentUpon>
@@ -223,8 +235,14 @@
     <EmbeddedResource Include="UI\OEM\F_Equipment_Setting.resx">
       <DependentUpon>F_Equipment_Setting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OEM\F_Motion_Setting.resx">
+    <EmbeddedResource Include="UI\OEM\Motion\F_AxisButton.resx">
+      <DependentUpon>F_AxisButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OEM\Motion\F_Motion_Setting.resx">
       <DependentUpon>F_Motion_Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OEM\Motion\F_AxisSetting.resx">
+      <DependentUpon>F_AxisSetting.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

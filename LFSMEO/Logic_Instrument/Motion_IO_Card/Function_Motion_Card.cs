@@ -4,16 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Linq;
+using System.Xml.Linq;
 
 using InstrumentTest.Motion_IO_Card.Base;
 using ToolFunction.Base;
+using System.IO;
 
 namespace InstrumentTest.Motion_IO_Card
 {
+    class Axis_Para
+    {
+
+    }
+    
     class Function_Motion_Card
     {
         #region parameter define
         private List<Base_Motion_IO_Card> DML = new List<Base_Motion_IO_Card>();
+        private string[] AxisName = new string[100];
+        enum AxisNum
+        {
+            Axis0,
+            Axis1,
+            Axis2,
+            Axis3,
+        }
         #endregion
 
         #region private function
@@ -61,6 +77,7 @@ namespace InstrumentTest.Motion_IO_Card
                 return false;
             }
         }
+        
         #endregion
 
         #region public function
@@ -83,6 +100,44 @@ namespace InstrumentTest.Motion_IO_Card
             Task task = Task.Run(() => Process());
 
             return true;
+        }
+        //[Read&Save Axis Information]
+        public void SaveAxis(string filePath, string axisName, Dictionary<string, string> parameters)
+        {
+            XDocument doc;
+
+            if (File.Exists(filePath))
+                doc = XDocument.Load(filePath);
+            else
+                doc = new XDocument(new XElement("MachineConfig"));
+
+            XElement root = doc.Element("MachineConfig");
+
+            // 找出 Axis 節點
+            var existingAxis = root.Elements("Axis")
+                                   .FirstOrDefault(x => (string)x.Attribute("name") == axisName);
+
+            if (existingAxis != null)
+            {
+                // 清空舊的參數
+                existingAxis.RemoveNodes();
+            }
+            else
+            {
+                existingAxis = new XElement("Axis", new XAttribute("name", axisName));
+                root.Add(existingAxis);
+            }
+
+            // 新增參數
+            foreach (var kvp in parameters)
+            {
+                existingAxis.Add(new XElement("Parameter",
+                    new XAttribute("key", kvp.Key),
+                    new XAttribute("value", kvp.Value)
+                ));
+            }
+
+            doc.Save(filePath);
         }
         #endregion
     }

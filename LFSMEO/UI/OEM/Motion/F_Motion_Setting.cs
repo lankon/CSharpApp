@@ -16,6 +16,8 @@ namespace LFSMEO.UI
     public partial class F_Motion_Setting : Form
     {
         #region parameter define
+        F_AxisButton f_AxisButton = new F_AxisButton();
+        F_AxisSetting f_AxisSetting = new F_AxisSetting();
         #endregion
 
         #region private function
@@ -28,6 +30,15 @@ namespace LFSMEO.UI
 
             if(ApplicationSetting.Get_Bool_Recipe<eDefaultSetting>((int)eDefaultSetting.None) == true)
                 Tool.ShowFormName(this);    //可開選項設定是否顯示
+
+            f_AxisButton = new F_AxisButton();
+            Tool.SetForm(Pnl_AxisButton, f_AxisButton);
+            f_AxisButton.Show();
+
+            f_AxisSetting = new F_AxisSetting();
+            Tool.SetForm(Pnl_AxisSetting, f_AxisSetting);
+            f_AxisSetting.Show();
+
         }
         private void ShowHint()
         {
