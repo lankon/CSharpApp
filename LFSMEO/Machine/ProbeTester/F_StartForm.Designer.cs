@@ -1,5 +1,5 @@
 ﻿
-namespace LFSMEO.UI
+namespace LFSMEO.Machine.UI
 {
     partial class F_StartForm
     {

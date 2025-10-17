@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using LFSMEO.Base_LFSMEO;
-using ToolFunction.Base;
 
-namespace LFSMEO.UI
+using ToolFunction.Base;
+using LFSMEO.Base_LFSMEO;
+using LFSMEO.Machine;
+
+namespace LFSMEO.Machine.UI
 {
-    public partial class F_StartForm : Form
+    public partial class F_StartForm : Form, IF_StartForm
     {
         #region parameter define
         #endregion
@@ -22,7 +24,7 @@ namespace LFSMEO.UI
         void InitialForm()
         {
             ReadAllEnumRecipe();
-            ApplicationSetting.UpdataRecipeToForm<eDefaultSetting>(this);
+            ApplicationSetting.UpdataRecipeToForm<eOEMSetting>(this);
 
             ShowHint();
 
@@ -31,7 +33,7 @@ namespace LFSMEO.UI
         }
         private void ReadAllEnumRecipe()
         {
-            ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
+            ApplicationSetting.ReadAllRecipe<eOEMSetting>();
             ApplicationSetting.ReadAllRecipe<eOEMSetting>();
         }
         void ShowHint()

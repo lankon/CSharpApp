@@ -18,7 +18,7 @@ namespace LFSMEO.UI
     public partial class F_AxisSetting : Form, IF_MotionSetting
     {
         #region parameter define
-        Med_MotionSetting MotionMediator;
+        F_MotionSettingManage f_MotionSettingManage;
         #endregion
 
         #region private function
@@ -36,9 +36,9 @@ namespace LFSMEO.UI
         #endregion
 
         #region public function
-        public void SetMediator(Med_MotionSetting med)
+        public void SetMediator(F_MotionSettingManage med)
         {
-            MotionMediator = med;
+            f_MotionSettingManage = med;
         }
         public void UpdateParmeter()
         {
@@ -64,7 +64,7 @@ namespace LFSMEO.UI
 
         private void Btn_AllSetting_Click(object sender, EventArgs e)
         {
-            //Scope.DML.SaveAxis();
+            f_MotionSettingManage.SaveAxisParameter();
         }
     }
 }

@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using LFSMEO.Base_LFSMEO;
 using ToolFunction.Base;
+using LFSMEO.Base_LFSMEO;
+using LFSMEO.Machine;
+using LFSMEO.UI;
 
-namespace LFSMEO.UI
+namespace LFSMEO.Machine.UI
 {
-    public partial class F_SartForm_ButtonGroup : Form
+    public partial class F_SartForm_ButtonGroup : Form, IF_StartForm_ButtonGroup
     {
         #region parameter define
         List<Panel> PnlPartList = new List<Panel>();

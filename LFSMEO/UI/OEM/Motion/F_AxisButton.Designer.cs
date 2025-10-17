@@ -34,11 +34,8 @@ namespace LFSMEO.UI
             this.Btn_NextPnlPart1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Pnl_Part1 = new System.Windows.Forms.Panel();
-            this.Labl_PostionAxis = new System.Windows.Forms.Label();
-            this.button12 = new System.Windows.Forms.Button();
+            this.Labl_PostionAxis0 = new System.Windows.Forms.Label();
             this.Btn_Axis0 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.Btn_Axis2 = new System.Windows.Forms.Button();
             this.Pnl_Part2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -74,44 +71,30 @@ namespace LFSMEO.UI
             // 
             // Pnl_Part1
             // 
-            this.Pnl_Part1.Controls.Add(this.Labl_PostionAxis);
-            this.Pnl_Part1.Controls.Add(this.button12);
+            this.Pnl_Part1.Controls.Add(this.Labl_PostionAxis0);
             this.Pnl_Part1.Controls.Add(this.Btn_NextPnlPart1);
             this.Pnl_Part1.Controls.Add(this.Btn_PreviousPnlPart1);
             this.Pnl_Part1.Controls.Add(this.Btn_Axis0);
-            this.Pnl_Part1.Controls.Add(this.button3);
-            this.Pnl_Part1.Controls.Add(this.Btn_Axis2);
             this.Pnl_Part1.Location = new System.Drawing.Point(12, 85);
             this.Pnl_Part1.Name = "Pnl_Part1";
             this.Pnl_Part1.Size = new System.Drawing.Size(1318, 88);
             this.Pnl_Part1.TabIndex = 35;
             // 
-            // Labl_PostionAxis
+            // Labl_PostionAxis0
             // 
-            this.Labl_PostionAxis.AutoSize = true;
-            this.Labl_PostionAxis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.Labl_PostionAxis.Location = new System.Drawing.Point(41, 64);
-            this.Labl_PostionAxis.Name = "Labl_PostionAxis";
-            this.Labl_PostionAxis.Size = new System.Drawing.Size(44, 12);
-            this.Labl_PostionAxis.TabIndex = 4;
-            this.Labl_PostionAxis.Text = "000.000";
-            this.Labl_PostionAxis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button12
-            // 
-            this.button12.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button12.Location = new System.Drawing.Point(277, 3);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(78, 82);
-            this.button12.TabIndex = 4;
-            this.button12.Tag = "3";
-            this.button12.Text = "A";
-            this.button12.UseVisualStyleBackColor = true;
+            this.Labl_PostionAxis0.AutoSize = true;
+            this.Labl_PostionAxis0.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.Labl_PostionAxis0.Location = new System.Drawing.Point(41, 64);
+            this.Labl_PostionAxis0.Name = "Labl_PostionAxis0";
+            this.Labl_PostionAxis0.Size = new System.Drawing.Size(44, 12);
+            this.Labl_PostionAxis0.TabIndex = 4;
+            this.Labl_PostionAxis0.Text = "000.000";
+            this.Labl_PostionAxis0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Btn_Axis0
             // 
-            this.Btn_Axis0.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Axis0.Location = new System.Drawing.Point(25, 3);
+            this.Btn_Axis0.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_Axis0.Location = new System.Drawing.Point(32, 3);
             this.Btn_Axis0.Name = "Btn_Axis0";
             this.Btn_Axis0.Size = new System.Drawing.Size(78, 82);
             this.Btn_Axis0.TabIndex = 3;
@@ -119,28 +102,6 @@ namespace LFSMEO.UI
             this.Btn_Axis0.Text = "X";
             this.Btn_Axis0.UseVisualStyleBackColor = true;
             this.Btn_Axis0.Click += new System.EventHandler(this.Btn_Axis0_Click);
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(193, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(78, 82);
-            this.button3.TabIndex = 2;
-            this.button3.Tag = "2";
-            this.button3.Text = "Z";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // Btn_Axis2
-            // 
-            this.Btn_Axis2.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Axis2.Location = new System.Drawing.Point(109, 3);
-            this.Btn_Axis2.Name = "Btn_Axis2";
-            this.Btn_Axis2.Size = new System.Drawing.Size(78, 82);
-            this.Btn_Axis2.TabIndex = 1;
-            this.Btn_Axis2.Tag = "1";
-            this.Btn_Axis2.Text = "Y";
-            this.Btn_Axis2.UseVisualStyleBackColor = true;
             // 
             // Pnl_Part2
             // 
@@ -150,7 +111,7 @@ namespace LFSMEO.UI
             this.Pnl_Part2.Controls.Add(this.Btn_PreviousPnlPart2);
             this.Pnl_Part2.Controls.Add(this.button6);
             this.Pnl_Part2.Controls.Add(this.button7);
-            this.Pnl_Part2.Location = new System.Drawing.Point(12, 201);
+            this.Pnl_Part2.Location = new System.Drawing.Point(146, 203);
             this.Pnl_Part2.Name = "Pnl_Part2";
             this.Pnl_Part2.Size = new System.Drawing.Size(1318, 88);
             this.Pnl_Part2.TabIndex = 36;
@@ -244,11 +205,8 @@ namespace LFSMEO.UI
         private System.Windows.Forms.Button Btn_NextPnlPart1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel Pnl_Part1;
-        private System.Windows.Forms.Label Labl_PostionAxis;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Label Labl_PostionAxis0;
         private System.Windows.Forms.Button Btn_Axis0;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button Btn_Axis2;
         private System.Windows.Forms.Panel Pnl_Part2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;

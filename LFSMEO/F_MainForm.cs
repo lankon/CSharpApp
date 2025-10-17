@@ -8,19 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-
+using ToolFunction.Base;
 using LFSMEO.Base_LFSMEO;
 using LFSMEO.UI;
-using ToolFunction.Base;
+using System.Threading;
 
 namespace LFSMEO
 {
     public partial class F_MainForm : Form
     {
         #region parameter define
-        F_StartForm f_StartForm = new F_StartForm();
-        F_SartForm_ButtonGroup f_SartForm_ButtonGroup = new F_SartForm_ButtonGroup();
+        F_MainFormManage F_MainFormManage = new F_MainFormManage();
         #endregion
 
         #region private function
@@ -45,11 +43,11 @@ namespace LFSMEO
 
             CreateFolder();
 
-            ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
-            ApplicationSetting.UpdataRecipeToForm<eDefaultSetting>(this);
+            ApplicationSetting.ReadAllRecipe<eOEMSetting>();
+            ApplicationSetting.UpdataRecipeToForm<eOEMSetting>(this);
 
-            InitialStartForm();
-            //CreateApp(which_app);
+            F_MainFormManage.InitialMachine();
+            F_MainFormManage.CreateStartForm();
         }
         private void CreateDynamicElement()
         {
@@ -59,6 +57,7 @@ namespace LFSMEO
             Scope.MainPanel.Location = new System.Drawing.Point(0, 0);
             Scope.MainPanel.Size = new System.Drawing.Size(1326, 661);
             Scope.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            Scope.MainPanel.Visible = true;
             this.Pnl_Group.Controls.Add(Scope.MainPanel);
 
             //
@@ -77,25 +76,12 @@ namespace LFSMEO
             Tool.CreateFolder(Application.StartupPath + @"\History");
             Tool.CreateFolder(Application.StartupPath + @"\Picture");
             Tool.CreateFolder(Application.StartupPath + @"\Result");
+            Tool.CreateFolder(Application.StartupPath + @"\Setting");
         }
         private void SetHint()
         {
             toolTip1.SetToolTip(Btn_CloseApp, "Close");
             toolTip1.SetToolTip(Btn_Home, "Home");
-        }
-        private void InitialStartForm()
-        {
-            //F_StartForm f_StartForm = new F_StartForm();
-            Tool.SetForm(Scope.MainPanel, f_StartForm);
-            f_StartForm.Show();
-
-            //F_SartForm_ButtonGroup f_SartForm_ButtonGroup = new F_SartForm_ButtonGroup();
-            Tool.SetForm(Scope.UpButtonPanel, f_SartForm_ButtonGroup);
-            f_SartForm_ButtonGroup.Show();
-        }
-        private void SaveApplicationRecipe()
-        {
-            ApplicationSetting.SaveAllRecipe<eOEMSetting>();
         }
         protected override CreateParams CreateParams    //防止UI元件更新時畫面閃爍
         {
@@ -113,6 +99,11 @@ namespace LFSMEO
             InitializeComponent();
 
             InitialApplication();
+
+            this.Shown += (s, e) =>
+            {
+                F_MainFormManage.ShowStartForm();
+            };
         }
 
         private void Btn_CloseApp_Click(object sender, EventArgs e)
@@ -123,7 +114,7 @@ namespace LFSMEO
             // 根據用戶的選擇返回布爾值
             if (dialogResult == DialogResult.Yes)
             {
-                SaveApplicationRecipe();
+                F_MainFormManage.SaveRecipeWhenCloseApp();
 
                 Application.Exit();
                 Tool.SaveLogToFile("關閉應用程式"); 
@@ -136,9 +127,7 @@ namespace LFSMEO
 
         private void Btn_Home_Click(object sender, EventArgs e)
         {
-            Tool.HideElementOnPanel(Scope.MainPanel);
-
-            InitialStartForm();
+            F_MainFormManage.ShowStartForm();
         }
     }
 }

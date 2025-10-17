@@ -33,10 +33,11 @@ namespace LFSMEO.UI
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Btn_AllSetting = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Cmbx_AxisUse = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.Cmbx_AxisType = new System.Windows.Forms.ComboBox();
@@ -58,7 +59,6 @@ namespace LFSMEO.UI
             this.label1 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.Btn_AllSetting = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -91,6 +91,16 @@ namespace LFSMEO.UI
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Parameter";
             // 
+            // Btn_AllSetting
+            // 
+            this.Btn_AllSetting.Location = new System.Drawing.Point(1024, 479);
+            this.Btn_AllSetting.Name = "Btn_AllSetting";
+            this.Btn_AllSetting.Size = new System.Drawing.Size(144, 39);
+            this.Btn_AllSetting.TabIndex = 2;
+            this.Btn_AllSetting.Text = "All Setting";
+            this.Btn_AllSetting.UseVisualStyleBackColor = true;
+            this.Btn_AllSetting.Click += new System.EventHandler(this.Btn_AllSetting_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
@@ -110,7 +120,7 @@ namespace LFSMEO.UI
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.59783F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.40217F));
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.comboBox1, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.Cmbx_AxisUse, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.label10, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label9, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.Cmbx_AxisType, 1, 0);
@@ -142,16 +152,16 @@ namespace LFSMEO.UI
             this.label11.Text = "Limit Logic";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // comboBox1
+            // Cmbx_AxisUse
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.Cmbx_AxisUse.FormattingEnabled = true;
+            this.Cmbx_AxisUse.Items.AddRange(new object[] {
             "NO USE",
             "USE"});
-            this.comboBox1.Location = new System.Drawing.Point(226, 82);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(136, 28);
-            this.comboBox1.TabIndex = 5;
+            this.Cmbx_AxisUse.Location = new System.Drawing.Point(226, 82);
+            this.Cmbx_AxisUse.Name = "Cmbx_AxisUse";
+            this.Cmbx_AxisUse.Size = new System.Drawing.Size(136, 28);
+            this.Cmbx_AxisUse.TabIndex = 5;
             // 
             // label10
             // 
@@ -368,16 +378,6 @@ namespace LFSMEO.UI
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Speed";
             // 
-            // Btn_AllSetting
-            // 
-            this.Btn_AllSetting.Location = new System.Drawing.Point(1024, 479);
-            this.Btn_AllSetting.Name = "Btn_AllSetting";
-            this.Btn_AllSetting.Size = new System.Drawing.Size(144, 39);
-            this.Btn_AllSetting.TabIndex = 2;
-            this.Btn_AllSetting.Text = "All Setting";
-            this.Btn_AllSetting.UseVisualStyleBackColor = true;
-            this.Btn_AllSetting.Click += new System.EventHandler(this.Btn_AllSetting_Click);
-            // 
             // F_AxisSetting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -406,7 +406,7 @@ namespace LFSMEO.UI
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox Cmbx_AxisUse;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox Cmbx_AxisType;

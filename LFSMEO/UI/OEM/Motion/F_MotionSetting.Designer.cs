@@ -1,7 +1,7 @@
 ﻿
 namespace LFSMEO.UI
 {
-    partial class F_Motion_Setting
+    partial class F_MotionSetting
     {
         /// <summary>
         /// Required designer variable.
@@ -189,7 +189,7 @@ namespace LFSMEO.UI
             this.Pnl_AxisSetting.Size = new System.Drawing.Size(1184, 559);
             this.Pnl_AxisSetting.TabIndex = 4;
             // 
-            // F_Motion_Setting
+            // F_MotionSetting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
@@ -198,8 +198,8 @@ namespace LFSMEO.UI
             this.Controls.Add(this.Pnl_AxisButton);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "F_Motion_Setting";
-            this.Text = "F_Motion_Setting";
+            this.Name = "F_MotionSetting";
+            this.Text = "F_MotionSetting";
             this.VisibleChanged += new System.EventHandler(this.F_Template_VisibleChanged);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);

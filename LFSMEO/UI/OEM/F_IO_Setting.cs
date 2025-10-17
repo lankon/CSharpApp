@@ -21,8 +21,8 @@ namespace LFSMEO.UI
         #region private function
         void InitialForm()
         {
-            ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
-            ApplicationSetting.UpdataRecipeToForm<eDefaultSetting>(this);
+            ApplicationSetting.ReadAllRecipe<eOEMSetting>();
+            ApplicationSetting.UpdataRecipeToForm<eOEMSetting>(this);
 
             ShowHint();
 
@@ -57,8 +57,8 @@ namespace LFSMEO.UI
         {
             if (!this.Visible)
             {
-                ApplicationSetting.SaveRecipeFromForm<eDefaultSetting>(this);
-                ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
+                ApplicationSetting.SaveRecipeFromForm<eOEMSetting>(this);
+                ApplicationSetting.ReadAllRecipe<eOEMSetting>();
 
                 this.Close();
                 this.Dispose();

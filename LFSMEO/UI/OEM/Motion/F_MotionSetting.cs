@@ -13,12 +13,12 @@ using ToolFunction.Base;
 
 namespace LFSMEO.UI
 {    
-    public partial class F_Motion_Setting : Form
+    public partial class F_MotionSetting : Form
     {
         #region parameter define
         F_AxisButton f_AxisButton = new F_AxisButton();
         F_AxisSetting f_AxisSetting = new F_AxisSetting();
-        Med_MotionSetting Mediator = new Med_MotionSetting();
+        F_MotionSettingManage Mediator = new F_MotionSettingManage();
         #endregion
 
         #region private function
@@ -54,7 +54,7 @@ namespace LFSMEO.UI
         
         #endregion
 
-        public F_Motion_Setting()
+        public F_MotionSetting()
         {
             InitializeComponent();
 
@@ -66,9 +66,9 @@ namespace LFSMEO.UI
             if (!this.Visible)
             {
                 //儲存參數
-                ApplicationSetting.SaveRecipeFromForm<eDefaultSetting>(this);
+                ApplicationSetting.SaveRecipeFromForm<eOEMSetting>(this);
                 //重新讀取變數值
-                ApplicationSetting.ReadAllRecipe<eDefaultSetting>();
+                ApplicationSetting.ReadAllRecipe<eOEMSetting>();
 
                 //釋放記憶體資源
                 Tool.ReleaseButtonImages(this);

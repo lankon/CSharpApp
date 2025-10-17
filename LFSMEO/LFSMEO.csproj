@@ -130,6 +130,7 @@
       <Link>Base_Instrument\Motion_IO_Card\PCIS_DASK\PCIS_DASK_dll.cs</Link>
     </Compile>
     <Compile Include="Base_LFSMEO\eDefaultSetting.cs" />
+    <Compile Include="Base_LFSMEO\eMachineType.cs" />
     <Compile Include="Base_LFSMEO\eOEMSetting.cs" />
     <Compile Include="Base_LFSMEO\Template\F_Template_ButtonGroup.cs">
       <SubType>Form</SubType>
@@ -144,26 +145,29 @@
       <DependentUpon>F_Template.cs</DependentUpon>
     </Compile>
     <Compile Include="Base_LFSMEO\Scope.cs" />
+    <Compile Include="F_MainFormManage.cs" />
     <Compile Include="F_MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F_MainForm.Designer.cs">
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic_Instrument\Motion_IO_Card\Function_IO_Card.cs" />
-    <Compile Include="Logic_Instrument\Motion_IO_Card\Function_Motion_Card.cs" />
+    <Compile Include="Logic\Motion_IO_Card\Function_IO_Card.cs" />
+    <Compile Include="Logic\Motion_IO_Card\Function_Motion_Card.cs" />
+    <Compile Include="Machine\IF_StartForm.cs" />
+    <Compile Include="Machine\IF_StartForm_ButtonGroup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\F_SartForm_ButtonGroup.cs">
+    <Compile Include="Machine\ProbeTester\F_SartForm_ButtonGroup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\F_SartForm_ButtonGroup.Designer.cs">
+    <Compile Include="Machine\ProbeTester\F_SartForm_ButtonGroup.Designer.cs">
       <DependentUpon>F_SartForm_ButtonGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\F_StartForm.cs">
+    <Compile Include="Machine\ProbeTester\F_StartForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\F_StartForm.Designer.cs">
+    <Compile Include="Machine\ProbeTester\F_StartForm.Designer.cs">
       <DependentUpon>F_StartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\OEM\F_OEM_Setting.cs">
@@ -190,11 +194,11 @@
     <Compile Include="UI\OEM\Motion\F_AxisButton.Designer.cs">
       <DependentUpon>F_AxisButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_Motion_Setting.cs">
+    <Compile Include="UI\OEM\Motion\F_MotionSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_Motion_Setting.Designer.cs">
-      <DependentUpon>F_Motion_Setting.cs</DependentUpon>
+    <Compile Include="UI\OEM\Motion\F_MotionSetting.Designer.cs">
+      <DependentUpon>F_MotionSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\OEM\Motion\F_AxisSetting.cs">
       <SubType>Form</SubType>
@@ -202,7 +206,7 @@
     <Compile Include="UI\OEM\Motion\F_AxisSetting.Designer.cs">
       <DependentUpon>F_AxisSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\Motion\Med_MotionSetting.cs" />
+    <Compile Include="UI\OEM\Motion\F_MotionSettingManage.cs" />
     <EmbeddedResource Include="Base_LFSMEO\Template\F_Template.resx">
       <DependentUpon>F_Template.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,10 +225,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\F_SartForm_ButtonGroup.resx">
+    <EmbeddedResource Include="Machine\ProbeTester\F_SartForm_ButtonGroup.resx">
       <DependentUpon>F_SartForm_ButtonGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\F_StartForm.resx">
+    <EmbeddedResource Include="Machine\ProbeTester\F_StartForm.resx">
       <DependentUpon>F_StartForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OEM\F_OEM_Setting.resx">
@@ -239,8 +243,8 @@
     <EmbeddedResource Include="UI\OEM\Motion\F_AxisButton.resx">
       <DependentUpon>F_AxisButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OEM\Motion\F_Motion_Setting.resx">
-      <DependentUpon>F_Motion_Setting.cs</DependentUpon>
+    <EmbeddedResource Include="UI\OEM\Motion\F_MotionSetting.resx">
+      <DependentUpon>F_MotionSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OEM\Motion\F_AxisSetting.resx">
       <DependentUpon>F_AxisSetting.cs</DependentUpon>
@@ -259,12 +263,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Base_LFSMEO\Machine\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Base\gitkeep.txt" />
-    <Content Include="Base_Instrument\Motion_IO_Card\gitkeep.txt" />
+    <Content Include="Base_Device\Motion_IO_Card\gitkeep.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ToolFunction\ToolFunction.csproj">
