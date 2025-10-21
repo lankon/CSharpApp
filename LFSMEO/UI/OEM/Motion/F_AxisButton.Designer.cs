@@ -84,7 +84,7 @@ namespace LFSMEO.UI
             // 
             this.Labl_PostionAxis0.AutoSize = true;
             this.Labl_PostionAxis0.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.Labl_PostionAxis0.Location = new System.Drawing.Point(41, 64);
+            this.Labl_PostionAxis0.Location = new System.Drawing.Point(47, 64);
             this.Labl_PostionAxis0.Name = "Labl_PostionAxis0";
             this.Labl_PostionAxis0.Size = new System.Drawing.Size(44, 12);
             this.Labl_PostionAxis0.TabIndex = 4;
@@ -191,7 +191,7 @@ namespace LFSMEO.UI
             this.Controls.Add(this.Pnl_Part1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_AxisButton";
-            this.Text = "F_SartForm_ButtonGroup";
+            this.Text = "F_StartForm_ButtonGroup";
             this.Pnl_Part1.ResumeLayout(false);
             this.Pnl_Part1.PerformLayout();
             this.Pnl_Part2.ResumeLayout(false);

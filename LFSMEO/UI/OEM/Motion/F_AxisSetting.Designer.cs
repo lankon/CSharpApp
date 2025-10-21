@@ -386,7 +386,7 @@ namespace LFSMEO.UI
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_AxisSetting";
-            this.Text = "F_SartForm_ButtonGroup";
+            this.Text = "F_StartForm_ButtonGroup";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

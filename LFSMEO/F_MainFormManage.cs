@@ -35,7 +35,7 @@ namespace LFSMEO
         {
             if(Scope.MachineType == EMachineType.VPT_3IN1)
             {
-                f_StartForm_ButtonGroup = new F_SartForm_ButtonGroup();
+                f_StartForm_ButtonGroup = new F_StartForm_ButtonGroup();
                 f_StartForm = new F_StartForm();
             }
         }
@@ -46,9 +46,9 @@ namespace LFSMEO
 
             if (Scope.MachineType == EMachineType.NONE)
             {
-                F_Equipment_Setting f_SartForm_ButtonGroup = new F_Equipment_Setting();
-                Tool.SetForm(Scope.MainPanel, f_SartForm_ButtonGroup);
-                f_SartForm_ButtonGroup.Show();
+                F_Equipment_Setting F_StartForm_ButtonGroup = new F_Equipment_Setting();
+                Tool.SetForm(Scope.MainPanel, F_StartForm_ButtonGroup);
+                F_StartForm_ButtonGroup.Show();
                 return;
             }
 

@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LFSMEO.Base_LFSMEO;
+using System;
 using System.Windows.Forms;
-
-using LFSMEO.Base_LFSMEO;
-using LFSMEO.Logic;
 using ToolFunction.Base;
 
 
@@ -64,6 +55,8 @@ namespace LFSMEO.UI
 
         private void Btn_AllSetting_Click(object sender, EventArgs e)
         {
+            
+            
             f_MotionSettingManage.SaveAxisParameter();
         }
     }

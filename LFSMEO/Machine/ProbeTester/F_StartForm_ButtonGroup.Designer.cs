@@ -1,7 +1,7 @@
 ﻿
 namespace LFSMEO.Machine.UI
 {
-    partial class F_SartForm_ButtonGroup
+    partial class F_StartForm_ButtonGroup
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace LFSMEO.Machine.UI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_SartForm_ButtonGroup));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_StartForm_ButtonGroup));
             this.Pnl_Part1 = new System.Windows.Forms.Panel();
             this.Btn_LogIn = new System.Windows.Forms.Button();
             this.Btn_OEM_Setting = new System.Windows.Forms.Button();
@@ -142,7 +142,7 @@ namespace LFSMEO.Machine.UI
             this.Btn_NextPnlPart2.UseVisualStyleBackColor = true;
             this.Btn_NextPnlPart2.Click += new System.EventHandler(this.Btn_NextPnlPart_Click);
             // 
-            // F_SartForm_ButtonGroup
+            // F_StartForm_ButtonGroup
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
@@ -150,8 +150,8 @@ namespace LFSMEO.Machine.UI
             this.Controls.Add(this.Pnl_Part2);
             this.Controls.Add(this.Pnl_Part1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "F_SartForm_ButtonGroup";
-            this.Text = "F_SartForm_ButtonGroup";
+            this.Name = "F_StartForm_ButtonGroup";
+            this.Text = "F_StartForm_ButtonGroup";
             this.Pnl_Part1.ResumeLayout(false);
             this.Pnl_Part2.ResumeLayout(false);
             this.ResumeLayout(false);

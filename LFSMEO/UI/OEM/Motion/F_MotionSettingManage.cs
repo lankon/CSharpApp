@@ -38,6 +38,9 @@ namespace LFSMEO.UI
 
         public void SaveAxisParameter()
         {
+            ApplicationSetting.SaveRecipeFromForm<eOEMSetting>(f_AxisSetting);
+            ApplicationSetting.ReadAllRecipe<eOEMSetting>();
+
             int num = f_AxisButton.GetCurrentBtnNum();
             string set;
 

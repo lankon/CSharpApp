@@ -15,7 +15,7 @@ using LFSMEO.UI;
 
 namespace LFSMEO.Machine.UI
 {
-    public partial class F_SartForm_ButtonGroup : Form, IF_StartForm_ButtonGroup
+    public partial class F_StartForm_ButtonGroup : Form, IF_StartForm_ButtonGroup
     {
         #region parameter define
         List<Panel> PnlPartList = new List<Panel>();
@@ -71,7 +71,7 @@ namespace LFSMEO.Machine.UI
 
         #endregion
 
-        public F_SartForm_ButtonGroup()
+        public F_StartForm_ButtonGroup()
         {
             InitializeComponent();
 

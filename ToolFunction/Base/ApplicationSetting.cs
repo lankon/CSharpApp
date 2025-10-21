@@ -26,6 +26,8 @@ namespace ToolFunction.Base
             }
             else
             {
+                //Application.StartupPath
+
                 string customConfigPath = enumName + ".exe.Config";
 
                 ExeConfigurationFileMap configMap = new ExeConfigurationFileMap
@@ -118,6 +120,8 @@ namespace ToolFunction.Base
             }
             else
             {
+                //Application.StartupPath
+
                 string customConfigPath = enumName + ".exe.Config";
 
                 // 設定自訂的配置檔路徑
@@ -149,6 +153,8 @@ namespace ToolFunction.Base
             }
             else
             {
+                //Application.StartupPath
+
                 string customConfigPath = enumName + ".exe.Config";
 
                 // 設定自訂的配置檔路徑
