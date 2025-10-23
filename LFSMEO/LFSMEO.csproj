@@ -106,28 +106,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\APS\APS.cs">
-      <Link>Base_Instrument\Motion_IO_Card\APS\APS.cs</Link>
+      <Link>Base_Device\Motion_IO_Card\APS\APS.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\APS\APS168x64.cs">
-      <Link>Base_Instrument\Motion_IO_Card\APS\APS168x64.cs</Link>
+      <Link>Base_Device\Motion_IO_Card\APS\APS168x64.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\APS\APS_Define.cs">
-      <Link>Base_Instrument\Motion_IO_Card\APS\APS_Define.cs</Link>
+      <Link>Base_Device\Motion_IO_Card\APS\APS_Define.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\Base_Motion_IO_Card.cs">
-      <Link>Base_Instrument\Motion_IO_Card\Base_Motion_IO_Card.cs</Link>
+      <Link>Base_Device\Motion_IO_Card\Base_Motion_IO_Card.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\MN200\MN200.cs">
-      <Link>Base_Instrument\Motion_IO_Card\MN200\MN200.cs</Link>
+      <Link>Base_Device\Motion_IO_Card\MN200\MN200.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\MN200\PISO_MN200.cs">
-      <Link>Base_Instrument\Motion_IO_Card\MN200\PISO_MN200.cs</Link>
+      <Link>Base_Device\Motion_IO_Card\MN200\PISO_MN200.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\PCIS_DASK\pcis_dask.cs">
-      <Link>Base_Instrument\Motion_IO_Card\PCIS_DASK\pcis_dask.cs</Link>
+      <Link>Base_Device\Motion_IO_Card\PCIS_DASK\pcis_dask.cs</Link>
     </Compile>
     <Compile Include="..\InstrumentTest\Motion_IO_Card\Base\PCIS_DASK\PCIS_DASK_dll.cs">
-      <Link>Base_Instrument\Motion_IO_Card\PCIS_DASK\PCIS_DASK_dll.cs</Link>
+      <Link>Base_Device\Motion_IO_Card\PCIS_DASK\PCIS_DASK_dll.cs</Link>
     </Compile>
     <Compile Include="Base_LFSMEO\eDefaultSetting.cs" />
     <Compile Include="Base_LFSMEO\eMachineType.cs" />
@@ -268,6 +268,9 @@
   <ItemGroup>
     <Content Include="Base\gitkeep.txt" />
     <Content Include="Base_Device\gitkeep.txt" />
+    <Content Include="Base_Device\Motion_IO_Card\APS\gitkeep.txt" />
+    <Content Include="Base_Device\Motion_IO_Card\MN200\gitkeep.txt" />
+    <Content Include="Base_Device\Motion_IO_Card\PCIS_DASK\gitkeep.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ToolFunction\ToolFunction.csproj">
