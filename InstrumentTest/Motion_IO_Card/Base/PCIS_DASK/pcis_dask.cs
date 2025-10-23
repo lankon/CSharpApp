@@ -156,5 +156,10 @@ namespace InstrumentTest.Motion_IO_Card.Base
         {
             throw new NotImplementedException();
         }
+
+        public override bool SetGoHomeParam(HOME_PARAM hOME_PARAM)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

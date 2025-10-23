@@ -17,6 +17,10 @@ namespace LFSMEO.Base_LFSMEO
         Cmbx_AxisLimitStopMode,
         Cmbx_AxisUse,
 
+        TxtBx_AxisName,
+
+
+
 
 
     }

@@ -14,6 +14,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
         #region parameter define 
         APS_Parameter APS_Param = new APS_Parameter();
         private bool Initial_Success = false;
+        private HOME_PARAM HomeParam = new HOME_PARAM();
 
         struct APS_Parameter
         {
@@ -255,6 +256,13 @@ namespace InstrumentTest.Motion_IO_Card.Base
                 return false;
         }
 
+        public override bool SetGoHomeParam(HOME_PARAM hOME_PARAM)
+        {
+            HomeParam = hOME_PARAM;
+
+            return true;
+        }
+
         public override bool GoHome(byte cardNo = 0, byte lineNo = 0, byte devNo = 0)
         {
             if (Initial_Success == false)
@@ -262,8 +270,8 @@ namespace InstrumentTest.Motion_IO_Card.Base
 
             byte axis_id = devNo;
 
-            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_MODE, 8);       //Set home mode         
-            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_DIR, 1);        //Set home direction
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_MODE, HomeParam.MODE);              //Set home mode         
+            APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_DIR, HomeParam.DIRECTION);          //Set home direction
             APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_CURVE, 0);      // Set acceleration pattern (T-curve)
             APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_ACC, 1000000);  // Set homing acceleration rate
             APS168.APS_set_axis_param(axis_id, (int)APS_Define.PRA_HOME_VM, 20000);     // Set homing maximum velocity.

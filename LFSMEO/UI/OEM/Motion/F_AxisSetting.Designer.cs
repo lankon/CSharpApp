@@ -57,7 +57,7 @@ namespace LFSMEO.UI
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.TxtBx_AxisName = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -265,7 +265,7 @@ namespace LFSMEO.UI
             this.tableLayoutPanel3.Controls.Add(this.comboBox3, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.label16, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textBox3, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.TxtBx_AxisName, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 25);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -361,12 +361,12 @@ namespace LFSMEO.UI
             this.label1.Text = "Axis Name";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBox3
+            // TxtBx_AxisName
             // 
-            this.textBox3.Location = new System.Drawing.Point(195, 6);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(190, 29);
-            this.textBox3.TabIndex = 11;
+            this.TxtBx_AxisName.Location = new System.Drawing.Point(195, 6);
+            this.TxtBx_AxisName.Name = "TxtBx_AxisName";
+            this.TxtBx_AxisName.Size = new System.Drawing.Size(190, 29);
+            this.TxtBx_AxisName.TabIndex = 11;
             // 
             // tabPage2
             // 
@@ -427,7 +427,7 @@ namespace LFSMEO.UI
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox TxtBx_AxisName;
         private System.Windows.Forms.Button Btn_AllSetting;
     }
 }

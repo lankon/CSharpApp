@@ -153,6 +153,7 @@
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Motion_IO_Card\Function_IO_Card.cs" />
+    <Compile Include="Logic\Motion_IO_Card\Function_Motion_Card---.cs" />
     <Compile Include="Logic\Motion_IO_Card\Function_Motion_Card.cs" />
     <Compile Include="Machine\IF_StartForm.cs" />
     <Compile Include="Machine\IF_StartForm_ButtonGroup.cs" />

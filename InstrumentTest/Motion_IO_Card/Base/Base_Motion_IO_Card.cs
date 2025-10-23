@@ -17,17 +17,29 @@ namespace InstrumentTest.Motion_IO_Card.Base
         RDY,
     }
 
+    
+
     public abstract class Base_Motion_IO_Card
     {
         #region abstract
         public abstract bool Open();
 
-        //Motion Function
+        //[Motion Define]
+        public struct HOME_PARAM
+        {
+            public int MODE;            //歸Home模式
+            public int DIRECTION;       //方向
+            public int ACC;             //加速度
+            public int MAX_VELOCITY;    //最大速度
+        }
+
+        //[Motion Function]
         public abstract bool SetMotionConfig();
         public abstract short UpdateMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
         public abstract bool GetMotionStatus(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, int state = 0);
         public abstract bool GetMotionComplete(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
         public abstract bool Servo_ONOff(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, bool flag = false);
+        public abstract bool SetGoHomeParam(HOME_PARAM hOME_PARAM);
         public abstract bool GoHome(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
         public abstract double GetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0);
         public abstract int SetPosition(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, double pos = 0);
@@ -37,7 +49,7 @@ namespace InstrumentTest.Motion_IO_Card.Base
                                           double Tacc, double Sacc, double Tdec, double Sdec);
 
 
-        //IO Function
+        //[IO Function]
         public abstract string GetName();
         public abstract void UpdateInput(byte cardNo = 0, byte lineNo = 0, byte devNo = 0, byte port = 0);
         public abstract bool GetInputStatus(byte lineNo, byte DevNo, byte port);
