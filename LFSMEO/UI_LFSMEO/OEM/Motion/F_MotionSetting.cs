@@ -18,7 +18,7 @@ namespace LFSMEO.UI
         #region parameter define
         F_AxisButton f_AxisButton = new F_AxisButton();
         F_AxisSetting f_AxisSetting = new F_AxisSetting();
-        F_MotionSettingManage Mediator = new F_MotionSettingManage();
+        F_MotionSettingManage f_MotionSettingManage = new F_MotionSettingManage();
         #endregion
 
         #region private function
@@ -40,8 +40,8 @@ namespace LFSMEO.UI
             Tool.SetForm(Pnl_AxisSetting, f_AxisSetting);
             f_AxisSetting.Show();
 
-            Mediator.SetForm(f_AxisButton);
-            Mediator.SetForm(f_AxisSetting);
+            f_MotionSettingManage.SetForm(f_AxisButton);
+            f_MotionSettingManage.SetForm(f_AxisSetting);
 
         }
         private void ShowHint()
@@ -58,13 +58,18 @@ namespace LFSMEO.UI
         {
             InitializeComponent();
 
-            InitialForm();
+            this.Shown += (s, e) =>
+            {
+                InitialForm();
+            };
         }
 
-        private void F_Template_VisibleChanged(object sender, EventArgs e)
+        private void F_MotionSetting_VisibleChanged(object sender, EventArgs e)
         {
             if (!this.Visible)
             {
+                f_MotionSettingManage.SaveAxisParameter();
+
                 //儲存參數
                 ApplicationSetting.SaveRecipeFromForm<eOEMSetting>(this);
                 //重新讀取變數值

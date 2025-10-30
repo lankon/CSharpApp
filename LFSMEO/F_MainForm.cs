@@ -47,7 +47,10 @@ namespace LFSMEO
             ApplicationSetting.UpdataRecipeToForm<eOEMSetting>(this);
 
             F_MainFormManage.InitialMachine();
+            F_MainFormManage.InitialMotionCard();
             F_MainFormManage.CreateStartForm();
+
+            
         }
         private void CreateDynamicElement()
         {

@@ -152,9 +152,9 @@
     <Compile Include="F_MainForm.Designer.cs">
       <DependentUpon>F_MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Motion_IO_Card\Function_IO_Card.cs" />
-    <Compile Include="Logic\Motion_IO_Card\Function_Motion_Card---.cs" />
-    <Compile Include="Logic\Motion_IO_Card\Function_Motion_Card.cs" />
+    <Compile Include="Logic_LFSMEO\Motion_IO_Card\Function_IO_Card.cs" />
+    <Compile Include="Logic_LFSMEO\Motion_IO_Card\Function_Motion_Card---.cs" />
+    <Compile Include="Logic_LFSMEO\Motion_IO_Card\Function_Motion_Card.cs" />
     <Compile Include="Machine\IF_StartForm.cs" />
     <Compile Include="Machine\IF_StartForm_ButtonGroup.cs" />
     <Compile Include="Program.cs" />
@@ -171,43 +171,43 @@
     <Compile Include="Machine\ProbeTester\F_StartForm.Designer.cs">
       <DependentUpon>F_StartForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\F_OEM_Setting.cs">
+    <Compile Include="UI_LFSMEO\OEM\F_OEM_Setting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OEM\F_OEM_Setting.Designer.cs">
+    <Compile Include="UI_LFSMEO\OEM\F_OEM_Setting.Designer.cs">
       <DependentUpon>F_OEM_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\F_IO_Setting.cs">
+    <Compile Include="UI_LFSMEO\OEM\F_IO_Setting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OEM\F_IO_Setting.Designer.cs">
+    <Compile Include="UI_LFSMEO\OEM\F_IO_Setting.Designer.cs">
       <DependentUpon>F_IO_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\F_Equipment_Setting.cs">
+    <Compile Include="UI_LFSMEO\OEM\F_Equipment_Setting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OEM\F_Equipment_Setting.Designer.cs">
+    <Compile Include="UI_LFSMEO\OEM\F_Equipment_Setting.Designer.cs">
       <DependentUpon>F_Equipment_Setting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_AxisButton.cs">
+    <Compile Include="UI_LFSMEO\OEM\Motion\F_AxisButton.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_AxisButton.Designer.cs">
+    <Compile Include="UI_LFSMEO\OEM\Motion\F_AxisButton.Designer.cs">
       <DependentUpon>F_AxisButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_MotionSetting.cs">
+    <Compile Include="UI_LFSMEO\OEM\Motion\F_MotionSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_MotionSetting.Designer.cs">
+    <Compile Include="UI_LFSMEO\OEM\Motion\F_MotionSetting.Designer.cs">
       <DependentUpon>F_MotionSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_AxisSetting.cs">
+    <Compile Include="UI_LFSMEO\OEM\Motion\F_AxisSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_AxisSetting.Designer.cs">
+    <Compile Include="UI_LFSMEO\OEM\Motion\F_AxisSetting.Designer.cs">
       <DependentUpon>F_AxisSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OEM\Motion\F_MotionSettingManage.cs" />
+    <Compile Include="UI_LFSMEO\OEM\Motion\F_MotionSettingManage.cs" />
     <EmbeddedResource Include="Base_LFSMEO\Template\F_Template.resx">
       <DependentUpon>F_Template.cs</DependentUpon>
     </EmbeddedResource>
@@ -232,22 +232,22 @@
     <EmbeddedResource Include="Machine\ProbeTester\F_StartForm.resx">
       <DependentUpon>F_StartForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OEM\F_OEM_Setting.resx">
+    <EmbeddedResource Include="UI_LFSMEO\OEM\F_OEM_Setting.resx">
       <DependentUpon>F_OEM_Setting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OEM\F_IO_Setting.resx">
+    <EmbeddedResource Include="UI_LFSMEO\OEM\F_IO_Setting.resx">
       <DependentUpon>F_IO_Setting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OEM\F_Equipment_Setting.resx">
+    <EmbeddedResource Include="UI_LFSMEO\OEM\F_Equipment_Setting.resx">
       <DependentUpon>F_Equipment_Setting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OEM\Motion\F_AxisButton.resx">
+    <EmbeddedResource Include="UI_LFSMEO\OEM\Motion\F_AxisButton.resx">
       <DependentUpon>F_AxisButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OEM\Motion\F_MotionSetting.resx">
+    <EmbeddedResource Include="UI_LFSMEO\OEM\Motion\F_MotionSetting.resx">
       <DependentUpon>F_MotionSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\OEM\Motion\F_AxisSetting.resx">
+    <EmbeddedResource Include="UI_LFSMEO\OEM\Motion\F_AxisSetting.resx">
       <DependentUpon>F_AxisSetting.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

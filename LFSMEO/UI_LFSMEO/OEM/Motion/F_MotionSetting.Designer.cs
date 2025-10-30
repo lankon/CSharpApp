@@ -200,7 +200,7 @@ namespace LFSMEO.UI
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_MotionSetting";
             this.Text = "F_MotionSetting";
-            this.VisibleChanged += new System.EventHandler(this.F_Template_VisibleChanged);
+            this.VisibleChanged += new System.EventHandler(this.F_MotionSetting_VisibleChanged);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

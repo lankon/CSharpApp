@@ -89,7 +89,6 @@ namespace LFSMEO.UI
 
                 Pnl_Part1.Controls.Add(AxisButton[i]);
             }
-            
         }
         #endregion
 
@@ -107,18 +106,17 @@ namespace LFSMEO.UI
         public F_AxisButton()
         {
             InitializeComponent();
-
-
             InitialForm();
         }
 
         private void Btn_Axis0_Click(object sender, EventArgs e)
         {
+            f_MotionSettingManage.SaveAxisParameter();
+            
             Button btn = sender as Button;
-
             CurBtnNum = Tool.StringToInt((string)btn.Tag);
 
-            //f_MotionSettingManage.UpdateParameter();
+            f_MotionSettingManage.UpdateAxisInfo2Form(CurBtnNum);
         }
 
         private void Btn_PreviousPnlPart1_Click(object sender, EventArgs e)

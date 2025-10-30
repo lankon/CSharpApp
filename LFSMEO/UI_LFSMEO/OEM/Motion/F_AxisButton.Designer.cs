@@ -35,7 +35,6 @@ namespace LFSMEO.UI
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Pnl_Part1 = new System.Windows.Forms.Panel();
             this.Labl_PostionAxis0 = new System.Windows.Forms.Label();
-            this.Btn_Axis0 = new System.Windows.Forms.Button();
             this.Pnl_Part2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -43,6 +42,7 @@ namespace LFSMEO.UI
             this.Btn_PreviousPnlPart2 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.Btn_Axis0 = new System.Windows.Forms.Button();
             this.Pnl_Part1.SuspendLayout();
             this.Pnl_Part2.SuspendLayout();
             this.SuspendLayout();
@@ -90,18 +90,6 @@ namespace LFSMEO.UI
             this.Labl_PostionAxis0.TabIndex = 4;
             this.Labl_PostionAxis0.Text = "000.000";
             this.Labl_PostionAxis0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Btn_Axis0
-            // 
-            this.Btn_Axis0.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Axis0.Location = new System.Drawing.Point(32, 3);
-            this.Btn_Axis0.Name = "Btn_Axis0";
-            this.Btn_Axis0.Size = new System.Drawing.Size(78, 82);
-            this.Btn_Axis0.TabIndex = 3;
-            this.Btn_Axis0.Tag = "0";
-            this.Btn_Axis0.Text = "X";
-            this.Btn_Axis0.UseVisualStyleBackColor = true;
-            this.Btn_Axis0.Click += new System.EventHandler(this.Btn_Axis0_Click);
             // 
             // Pnl_Part2
             // 
@@ -182,6 +170,18 @@ namespace LFSMEO.UI
             this.button7.Text = "Y";
             this.button7.UseVisualStyleBackColor = true;
             // 
+            // Btn_Axis0
+            // 
+            this.Btn_Axis0.Font = new System.Drawing.Font("Times New Roman", 15.75F);
+            this.Btn_Axis0.Location = new System.Drawing.Point(32, 3);
+            this.Btn_Axis0.Name = "Btn_Axis0";
+            this.Btn_Axis0.Size = new System.Drawing.Size(78, 82);
+            this.Btn_Axis0.TabIndex = 35;
+            this.Btn_Axis0.Tag = "0";
+            this.Btn_Axis0.Text = "X";
+            this.Btn_Axis0.UseVisualStyleBackColor = true;
+            this.Btn_Axis0.Click += new System.EventHandler(this.Btn_Axis0_Click);
+            // 
             // F_AxisButton
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -206,7 +206,6 @@ namespace LFSMEO.UI
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Panel Pnl_Part1;
         private System.Windows.Forms.Label Labl_PostionAxis0;
-        private System.Windows.Forms.Button Btn_Axis0;
         private System.Windows.Forms.Panel Pnl_Part2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
@@ -214,5 +213,6 @@ namespace LFSMEO.UI
         private System.Windows.Forms.Button Btn_PreviousPnlPart2;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button Btn_Axis0;
     }
 }

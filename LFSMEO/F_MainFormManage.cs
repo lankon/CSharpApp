@@ -31,6 +31,20 @@ namespace LFSMEO
                 Scope.MachineType = EMachineType.NONE;
         }
 
+        public void InitialMotionCard()
+        {
+            Tool.SaveLogToFile("Initial Motion Card");
+            Scope.DML.Initial_All_Motion();
+            Tool.SaveLogToFile("Load Motion Config");
+            Scope.DML.LoadAxisConfig();
+            Scope.DML.BindingAxis();
+        }
+
+        public void InitialIOCard()
+        {
+
+        }
+
         public void CreateStartForm()
         {
             if(Scope.MachineType == EMachineType.VPT_3IN1)

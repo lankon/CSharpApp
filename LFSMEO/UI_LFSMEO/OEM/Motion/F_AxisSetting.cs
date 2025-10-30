@@ -1,8 +1,11 @@
 ﻿using LFSMEO.Base_LFSMEO;
 using System;
 using System.Windows.Forms;
-using ToolFunction.Base;
 
+
+using InstrumentTest.Motion_IO_Card.Base;
+using ToolFunction.Base;
+using System.Threading.Tasks;
 
 namespace LFSMEO.UI
 {
@@ -48,16 +51,20 @@ namespace LFSMEO.UI
             InitialForm();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Btn_Homing_Click(object sender, EventArgs e)
         {
+            f_MotionSettingManage.SaveAxisParameter();
+            Scope.DML.LoadAxisConfig();
 
+            Task.Run(async () =>
+            {
+                await Scope.DML.GoHome(f_MotionSettingManage.GetAxisBtnNum());
+            });
         }
 
-        private void Btn_AllSetting_Click(object sender, EventArgs e)
+        private void F_AxisSetting_VisibleChanged(object sender, EventArgs e)
         {
             
-            
-            f_MotionSettingManage.SaveAxisParameter();
         }
     }
 }
